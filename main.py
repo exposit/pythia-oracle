@@ -599,26 +599,18 @@ class MainScreen(Screen):
         if len(self.textInput.text) > 0:
             new_text = "" + self.textInput.text + ""
             updateThreadDisplay(self, new_text, "Current")
-            self.textInput.text = ""
-            # now depending on variables, notify the main center display
-            updateCenterDisplay(self, "Thread Added: " + new_text, 'italic')
+            updateCenterDisplay(self, "Thread added: " + new_text, 'italic')
             quicksave(self, config.curr_game_dir)
-
-    def releaseNewActor(self, *args):
-        self.newActorButton.background_color = neutral
-        new_text = getNPC()
-        updateCenterDisplay(self, new_text)
-        self.textInput.text = new_text
-        quicksave(self, config.curr_game_dir)
-
-    def releaseAddActor(self, *args):
-        self.addActorButton.background_color = neutral
-        new_text = self.textInput.text
-
-        updateActorDisplay(self, new_text, 'Current')
         self.textInput.text = ""
 
-        quicksave(self, config.curr_game_dir)
+    def releaseAddActor(self, *args):
+        if len(self.textInput.text) > 0:
+            self.addActorButton.background_color = neutral
+            new_text = self.textInput.text
+            updateActorDisplay(self, new_text, 'Current')
+            updateCenterDisplay(self, "Actor added: " + new_text, 'italic')
+            quicksave(self, config.curr_game_dir)
+        self.textInput.text = ""
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # center status bar
