@@ -1,1 +1,1 @@
-["Actor A, a tall fellow", "Actor B, a short guy"]
+[]

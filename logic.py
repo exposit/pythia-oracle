@@ -492,29 +492,29 @@ def storeBookmarkLabel(label):
     del l
 
 def updateCleanMarkdown():
-    try:
-        with open(config.curr_game_dir + "human_readable_log.md", "w") as log_file:
-            result = "\n"
-            for item in config.textArray:
-                ti = config.textArray.index(item).rstrip()
-                if config.textStatusArray[ti] != "ephemeral":
-                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
-                        item = item.replace('\n', '*\n*')
-                        result = result + "\n*" + item + "*"
-                    elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
-                        item = item.replace('\n', '**\n**')
-                        result = result + "\n**" + item + "**"
-                    elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
-                        item = item.replace('\n', '_**\n**_')
-                        result = result + "\n**_" + item + "_**"
-                    elif config.textStatusArray[ti] == "no_format":
-                        result = result + "\n" + item
-                    else:
-                        item = item.replace('\n', '`\n`')
-                        result = result = "\n`" + item + "`"
-            log_file.write(result)
-    except:
-        pass
+#try:
+    with open(config.curr_game_dir + "human_readable_log.md", "w") as log_file:
+        result = "\n"
+        for item in config.textArray:
+            ti = config.textArray.index(item).rstrip()
+            if config.textStatusArray[ti] != "ephemeral":
+                if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
+                    item = item.replace('\n', '*\n*')
+                    result = result + "\n*" + item + "*"
+                elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
+                    item = item.replace('\n', '**\n**')
+                    result = result + "\n**" + item + "**"
+                elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
+                    item = item.replace('\n', '_**\n**_')
+                    result = result + "\n**_" + item + "_**"
+                elif config.textStatusArray[ti] == "no_format":
+                    result = result + "\n" + item
+                else:
+                    item = item.replace('\n', '`\n`')
+                    result = result = "\n`" + item + "`"
+        log_file.write(result)
+#except:
+#    pass
 
 def updateCleanHTML():
     try:
@@ -653,54 +653,58 @@ def getRandomTrack(key="Active"):
 # weighted choosers
 def chooseWeighted(value, text, form):
     result_string = ""
-    result = "Please enter a comma-separated list on one line."
+    result = "Please enter a comma-separated list in one line that has at least as many options as needed."
     try:
         if value == 1:
             # 2d4
             index = 2
             chart = {}
             result_string = ""
-            result = self.textInput.text.split(", ")
+            result = text.split(", ")
             for i in result:
                 chart[index] = i
                 index = index + 1
             roll = random.randint(1,4) + random.randint(1,4)
             result = chart[roll]
-            for key,value in chart.item():
-                result_string = result_string + key + ": " + value + " "
+            for key,value in chart.items():
+                result_string = result_string + "[" + str(key) + "] " + value + " "
         elif value == 2:
             # 3d6
             index = 3
             chart = {}
             result_string = ""
-            result = self.textInput.text.split(", ")
+            result = text.split(", ")
             for i in result:
                 chart[index] = i
                 index = index + 1
-
             roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
             result = chart[roll]
-            for key,value in chart.item():
-                result_string = result_string + key + ": " + value + " "
+            for key,value in chart.items():
+                result_string = result_string + str(key) + ": " + value + " "
         elif value == 3:
             # 3:2:1
             roll = random.randint(1,6)
-            chart = self.textInput.text.split(", ")
+            chart = text.split(", ")
             result_string = "3: " + chart[0] + " 2: " + chart[1] + " 1: " + chart[2]
             if roll <= 3:
                 result = chart[0]
-            elif roll <= 4:
-                result = chart[1]
+                roll = 3
             elif roll <= 5:
+                result = chart[1]
+                roll = 2
+            elif roll == 6:
                 result = chart[2]
+                roll = 1
         else:
-            result = self.textInput.text.split(", ")
-            result = random.choice(self.textInput.text.split(", "))
+            for element in text.split(", "):
+                result_string = result_string + element + ", "
+            result = random.choice(text.split(", "))
+            roll = "Choice"
 
-        return result_string, result, form
+        return str(result_string), str(result), str(form), str(roll)
 
     except:
-        return result_string, result, "ephemeral"
+        return str(result_string), str(result), str("ephemeral"), str("0")
 
 # simple action/subject lists to help answer complex questions, off the top of my head, could be a lot longer/more
 def complex_action():

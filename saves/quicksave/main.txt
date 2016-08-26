@@ -1,1 +1,1 @@
-["The adventure begins...", "Content and configuration saved.", "Actor added: Actor A, a tall fellow", "Actor added: Actor B, a short guy", "Thread added: Thread A", "Thread added: Thread B"]
+["The adventure begins..."]

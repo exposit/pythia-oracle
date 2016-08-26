@@ -259,7 +259,7 @@ class MainScreen(Screen):
         # dice presets
         self.dicePresetsBox = GridLayout(cols=4)
 
-        self.button = Button(text="d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button = Button(text="1d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
@@ -269,22 +269,22 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize'])
+        self.button = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize']*.80)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize'])
+        self.button = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize']*.80)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="d4", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button = Button(text="1d4", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button = Button(text="1d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
@@ -561,7 +561,7 @@ class MainScreen(Screen):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
-        updateCenterDisplay(self, fu(0), 'oracle')
+        updateCenterDisplay(self, oracle_module[0].fu(0), 'oracle')
         self.textInput.text = ""
         quicksave(self, config.curr_game_dir)
 
@@ -695,10 +695,15 @@ class MainScreen(Screen):
     def chooseFromList(self, *args):
         args[0].background_color = neutral
         value = args[0].value
-        result_string, result, form = chooseWeighted(value, self.textInput.text, "result")
-        if len(result) > 0:
-            updateCenterDisplay(self, "[Options] " + result_string, 'query')
-        updateCenterDisplay(self, "[Result] " + result, form)
+        pick = args[0].text.split('\n')
+        pick = pick[1]
+        if len(self.textInput.text) > 0:
+            result_string, result, form, roll = chooseWeighted(value, self.textInput.text, "result")
+            if len(result_string) > 0:
+                updateCenterDisplay(self, "[" + pick + " Options] " + result_string, 'query')
+                updateCenterDisplay(self, "[" + roll + "] " + result, form)
+            else:
+                updateCenterDisplay(self, "Please enter a comma-separated list in one line that has at least as many options as needed.", 'ephemeral')
         self.textInput.text = ""
 
     def showHelp(self, *args):

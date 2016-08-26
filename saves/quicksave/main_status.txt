@@ -1,1 +1,1 @@
-["italic", "ephemeral", "italic", "italic", "italic", "italic"]
+["italic"]
