@@ -650,6 +650,58 @@ def getRandomTrack(key="Active"):
 
     return result
 
+# weighted choosers
+def chooseWeighted(value, text, form):
+    result_string = ""
+    result = "Please enter a comma-separated list on one line."
+    try:
+        if value == 1:
+            # 2d4
+            index = 2
+            chart = {}
+            result_string = ""
+            result = self.textInput.text.split(", ")
+            for i in result:
+                chart[index] = i
+                index = index + 1
+            roll = random.randint(1,4) + random.randint(1,4)
+            result = chart[roll]
+            for key,value in chart.item():
+                result_string = result_string + key + ": " + value + " "
+        elif value == 2:
+            # 3d6
+            index = 3
+            chart = {}
+            result_string = ""
+            result = self.textInput.text.split(", ")
+            for i in result:
+                chart[index] = i
+                index = index + 1
+
+            roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
+            result = chart[roll]
+            for key,value in chart.item():
+                result_string = result_string + key + ": " + value + " "
+        elif value == 3:
+            # 3:2:1
+            roll = random.randint(1,6)
+            chart = self.textInput.text.split(", ")
+            result_string = "3: " + chart[0] + " 2: " + chart[1] + " 1: " + chart[2]
+            if roll <= 3:
+                result = chart[0]
+            elif roll <= 4:
+                result = chart[1]
+            elif roll <= 5:
+                result = chart[2]
+        else:
+            result = self.textInput.text.split(", ")
+            result = random.choice(self.textInput.text.split(", "))
+
+        return result_string, result, form
+
+    except:
+        return result_string, result, "ephemeral"
+
 # simple action/subject lists to help answer complex questions, off the top of my head, could be a lot longer/more
 def complex_action():
     chart = [

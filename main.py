@@ -695,48 +695,11 @@ class MainScreen(Screen):
     def chooseFromList(self, *args):
         args[0].background_color = neutral
         value = args[0].value
-        try:
-            if value == 1:
-                # 2d4
-                index = 2
-                chart = {}
-                result = self.textInput.text.split(", ")
-                for i in result:
-                    chart[index] = i
-                    index = index + 1
-                roll = random.randint(1,4) + random.randint(1,4)
-                result = chart[roll]
-            elif value == 2:
-                # 3d6
-                index = 3
-                chart = {}
-                result = self.textInput.text.split(", ")
-                for i in result:
-                    chart[index] = i
-                    index = index + 1
-
-                roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
-                result = chart[roll]
-            elif value == 3:
-                # 3:2:1
-                roll = random.randint(1,6)
-                chart = self.textInput.text.split(", ")
-                if roll <= 3:
-                    result = chart[0]
-                elif roll <= 4:
-                    result = chart[1]
-                elif roll <= 5:
-                    result = chart[2]
-            else:
-                result = self.textInput.text.split(", ")
-                result = random.choice(self.textInput.text.split(", "))
-
-            updateCenterDisplay(self, "[Options] " + self.textInput.text, 'query')
-            updateCenterDisplay(self, "[Result] " + result)
-            self.textInput.text = ""
-
-        except:
-            updateCenterDisplay(self, "Please enter a comma-separated list on one line.", 'ephemeral')
+        result_string, result, form = chooseWeighted(value, self.textInput.text, "result")
+        if len(result) > 0:
+            updateCenterDisplay(self, "[Options] " + result_string, 'query')
+        updateCenterDisplay(self, "[Result] " + result, form)
+        self.textInput.text = ""
 
     def showHelp(self, *args):
         self.helpPopup.open()
