@@ -1,0 +1,75 @@
+# sample user defined panel
+# -*- coding: utf-8 -*-
+#
+#
+# just add your own widgets to initPanel, add logic and put this in the userdata folder.
+# you can have multiple files, just give each one a different name
+#
+# check out logic.py for the expected formatting keywords
+#
+
+import imports
+from imports import *
+import config
+
+# add your widgets in here; see the gui for examples
+def initPanel(self):
+
+    sampleAItem = AccordionItem(title='Sample', background_selected='invisible.png', min_space=30)
+
+    sampleMainBox = BoxLayout(orientation='vertical')
+
+    sampleMainBox.add_widget(Label(text="Label", size_hint=(1,1)))
+
+    # this button piggybacks on an existing function, in this case, rolling dice
+    button = Button(text="1d1000", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=testFunction)
+    sampleMainBox.add_widget(button)
+
+    # this button does its own thing and but updates the center display as normal
+    button = Button(text="Choice", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=testFunctionTwo)
+    sampleMainBox.add_widget(button)
+
+    # this button just prints hello
+    button = Button(text="Hello", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=testFunctionThree)
+    sampleMainBox.add_widget(button)
+
+    sampleAItem.add_widget(sampleMainBox)
+
+    return sampleAItem
+
+def testFunction(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    updateCenterDisplay(self, rollDice(args[0].text), 'bold_italic')
+    quicksave(self, config.curr_game_dir)
+
+def testFunctionTwo(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    chart = ["eenie", "meenie", "miney", "moe", "tiger"]
+    # uncomment this to echo back the text in the text input
+    #if len(self.textInput.text) > 0:
+    #    updateCenterDisplay(self, self.textInput.text, 'bold_italic')
+
+    updateCenterDisplay(self, random.choice(chart), 'oracle')
+
+    # uncomment this to run the save routine
+    #quicksave(self, config.curr_game_dir)
+
+    # uncomment this to clear the main text input
+    #self.textInput.text = ""
+
+def testFunctionThree(*args):
+    args[0].background_color = neutral
+    for arg in args:
+        print arg
+    print("hello")
