@@ -9,11 +9,11 @@ Pythia is a framework to run solo adventures. It uses python and kivy and will p
 
 The basic procedure I use is pick a system, make a character, fire this program up, and start asking questions. Type in a question like "Am I in a room?" and hit the "???" button. If the answer is yes, type in a room description. If no, maybe the hero is in a cave. Or a spaceship. Or in a forest. Ask again to find out!
 
-... or don't. You can play however you want to! Pythia just seeks to facilitate that play. You can also use it to generate random content for a multi-player campaign. 
+... or don't. You can play however you want to! Pythia just seeks to facilitate that play. You can also use it to generate random content for a multi-player campaign.
 
 ##### How do I install this?
 
-First, install python 2.7 (if you don't already have it). If you're on a Mac, I suggest using Homebrew. Then install Kivy. Now download or clone this repository, open up a terminal, go to the directory you just made, and type "python main.py". If you get an error message, read it and do what it says to do!
+First, install python 2.7 (if you don't already have it). If you're on a Mac, I suggest using Homebrew. Then install Kivy. Now download or clone this repository, open up a terminal, go to the directory you just made, and type "python pythia.py". If you get an error message, read it and do what it says to do!
 
 ##### Wait, I want more tables!
 
