@@ -2,7 +2,7 @@
 title: Pythia Oracle
 tag_text: Pythia
 description: Pythia Oracle is a solo gaming tool and content generator for P&P games built in Python and Kivy.
-baseurl: '/pythia-oracle/'
+baseurl: 'http://exposit.github.io/pythia-oracle/'
 
 # Build settings
 markdown: kramdown

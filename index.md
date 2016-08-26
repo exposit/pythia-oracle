@@ -21,7 +21,8 @@ If you're new to solo gaming, Pythia Oracle is all you need to get started -- it
 
 ### Screenshot
 
-
+<img src="{{baseurl}}img/screenshot1.png" alt="title screen" height="100" width="250">
+<img src="{{baseurl}}img/screenshot2.png" alt="main screen" height="100" width="250">
 
 ### Things to watch out for
 
