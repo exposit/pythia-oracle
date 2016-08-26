@@ -1,7 +1,8 @@
 # Site settings
-title: Solo, a Jekyll Theme
-tag_text: Solo
-description: Solo is a Jekyll theme that supports single-page websites only, but supports them well. Yes, it’s responsive.
+title: Pythia Oracle
+tag_text: Pythia
+description: Pythia Oracle is a solo gaming tool and content generator for P&P games built in Python and Kivy.
+baseurl: '/pythia-oracle/'
 
 # Build settings
 markdown: kramdown
