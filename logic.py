@@ -492,29 +492,30 @@ def storeBookmarkLabel(label):
     del l
 
 def updateCleanMarkdown():
-#try:
-    with open(config.curr_game_dir + "human_readable_log.md", "w") as log_file:
-        result = "\n"
-        for item in config.textArray:
-            ti = config.textArray.index(item).rstrip()
-            if config.textStatusArray[ti] != "ephemeral":
-                if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
-                    item = item.replace('\n', '*\n*')
-                    result = result + "\n*" + item + "*"
-                elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
-                    item = item.replace('\n', '**\n**')
-                    result = result + "\n**" + item + "**"
-                elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
-                    item = item.replace('\n', '_**\n**_')
-                    result = result + "\n**_" + item + "_**"
-                elif config.textStatusArray[ti] == "no_format":
-                    result = result + "\n" + item
-                else:
-                    item = item.replace('\n', '`\n`')
-                    result = result = "\n`" + item + "`"
-        log_file.write(result)
-#except:
-#    pass
+    try:
+        with open(config.curr_game_dir + "human_readable_log.md", "w") as log_file:
+            result = "\n"
+            for item in config.textArray:
+                ti = config.textArray.index(item)
+                item = item.rstrip()
+                if config.textStatusArray[ti] != "ephemeral":
+                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
+                        item = item.replace('\n', '*\n*')
+                        result = result + "\n*" + item + "*"
+                    elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
+                        item = item.replace('\n', '**\n**')
+                        result = result + "\n**" + item + "**"
+                    elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
+                        item = item.replace('\n', '_**\n**_')
+                        result = result + "\n**_" + item + "_**"
+                    elif config.textStatusArray[ti] == "no_format":
+                        result = result + "\n" + item
+                    else:
+                        item = item.replace('\n', '`\n`')
+                        result = result = "\n`" + item + "`"
+            log_file.write(result)
+    except:
+        pass
 
 def updateCleanHTML():
     try:
@@ -522,6 +523,7 @@ def updateCleanHTML():
         with open(config.curr_game_dir + "human_readable_log.htm", "w") as log_file:
             result = "\n<html>\n<head>\n<title>" + test + "</title>\n</head>\n<body>"
             for item in config.textArray:
+                item = item.rstrip()
                 ti = config.textArray.index(item)
                 if config.textStatusArray[ti] != "ephemeral":
                     if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":

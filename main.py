@@ -730,8 +730,10 @@ class MainScreen(Screen):
                 l[i].index = config.general['bookmarks'][i]
             del l
 
-            updateCleanMarkdown()
-            updateCleanHTML()
+            self.trackLabel.text = str(config.general['tracker'])
 
         except:
             print("Variables loaded but widgets not updated")
+
+        updateCleanMarkdown()
+        updateCleanHTML()
