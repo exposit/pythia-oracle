@@ -599,7 +599,7 @@ class MainScreen(Screen):
         if len(self.textInput.text) > 0:
             new_text = "" + self.textInput.text + ""
             updateThreadDisplay(self, new_text, "Current")
-            updateCenterDisplay(self, "Thread added: " + new_text, 'italic')
+            updateCenterDisplay(self, "[New Thread] " + new_text, 'italic')
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -608,7 +608,7 @@ class MainScreen(Screen):
             self.addActorButton.background_color = neutral
             new_text = self.textInput.text
             updateActorDisplay(self, new_text, 'Current')
-            updateCenterDisplay(self, "Actor added: " + new_text, 'italic')
+            updateCenterDisplay(self, "[New Actor] " + new_text, 'italic')
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -618,13 +618,13 @@ class MainScreen(Screen):
 
     def releaseTrackerUp(self, *args):
         args[0].background_color = neutral
-        config.general['tracker'][0] = config.general['tracker'][0] + 1
-        self.trackerALabel.text = str(config.general['tracker'][0])
+        config.general['tracker'] = config.general['tracker'] + 1
+        self.trackLabel.text = str(config.general['tracker'])
 
     def releaseTrackerDown(self, *args):
         args[0].background_color = neutral
-        config.general['tracker'][0] = config.general['tracker'][0] - 1
-        self.trackerALabel.text = str(config.general['tracker'][0])
+        config.general['tracker'] = config.general['tracker'] - 1
+        self.trackLabel.text = str(config.general['tracker'])
 
     def toggleEnterBehavior(self, spinner, text):
         config.general['enter_behavior'] = text
