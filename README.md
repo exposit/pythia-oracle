@@ -15,7 +15,7 @@ The basic procedure I use is pick a system, make a character, fire this program 
 
 Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python (or identifying if it's already installed) and through installing Kivy.
 
-[kivy installation]](https://kivy.org/docs/installation/installation.html)
+[kivy installation](https://kivy.org/docs/installation/installation.html)
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
 
@@ -25,7 +25,7 @@ Finally, open up a terminal window and navigate to the folder you just unzipped.
 
 If the app window is too big or two small, close it down and open up the 'pythia.py' file in your favorite text editor. Change the numbers in the kivy.config.Config.set lines to something that's more suitable for your resolution.
 
-`kivy.config.Config.set ( 'graphics', 'width', 1280 )`
+`kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
 `kivy.config.Config.set ( 'graphics', 'height', 725 )`
 
 If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, if you already have a game created you'll need to change the basefontsize in saves/gamename/variables.txt as well (this include the quicksave).
