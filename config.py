@@ -15,8 +15,8 @@ highlight_color = styles.curr_palette['accent1']
 alternate_color = styles.curr_palette['secondary']
 
 general = dict(
-    pretitle = ' ',
-    posttitle = ' ',
+    pretitle = '---',
+    posttitle = '---',
     enter_behavior = "PLAIN",
     edit_behavior = "READ",
     bookmarks = [-9,-9,-9,-9,-9,-9],

@@ -80,7 +80,7 @@ class TitleScreen(Screen):
         self.preTitleLabel.bind(on_press=self.changePreTitle)
         #self.preTitleLabel.bind(on_press=self.pressGenericButton)
 
-        self.currentLabel = Label(text=config.curr_game_dir.rsplit('/', 2)[1][:1].upper() + config.curr_game_dir.rsplit('/', 2)[1][1:], font_size=36, font_name='Cormorant', halign="center")
+        self.currentLabel = Label(text=config.curr_game_dir.rsplit(os.sep, 2)[1][:1].upper() + config.curr_game_dir.rsplit(os.sep, 2)[1][1:], font_size=36, font_name='Cormorant', halign="center")
 
         self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size=22, font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
         self.postTitleLabel.bind(on_press=self.changePostTitle)
@@ -242,11 +242,13 @@ class TitleScreen(Screen):
 
     def changePreTitle(self, *args):
         #args[0].background_color = ''
-        self.preTitlePopup.open()
+        #self.preTitlePopup.open()
+        pass
 
     def changePostTitle(self, *args):
         #args[0].background_color = ''
-        self.postTitlePopup.open()
+        #self.postTitlePopup.open()
+        pass
 
     def confirmPreTitle(self, *args):
         args[0].background_color = ''
