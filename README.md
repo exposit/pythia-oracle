@@ -1,3 +1,5 @@
+#### Experiencing some issues on Windows (I'm using a Mac). Will look into actual releases asap. Sorry about that.
+
 #### Pythia-Oracle
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
 
