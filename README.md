@@ -35,7 +35,7 @@ Now go to the [kivy installation page](https://kivy.org/docs/installation/instal
 
 Finally, type
 
-`pip install simplejson`.
+`pip install simplejson`
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc). Type
 
