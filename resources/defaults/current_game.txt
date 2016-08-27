@@ -1,1 +1,1 @@
-./saves/quicksave/
+quicksave

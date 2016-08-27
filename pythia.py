@@ -43,24 +43,20 @@ class TitleScreen(Screen):
 
         texture = ObjectProperty()
 
-        self.texture = Image(source='resources/bg_title/' + styles.curr_palette["name"].replace (" ", "_") + '_1.png').texture
+        self.texture = Image(source='resources' + os.sep + 'bg_title' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_1.png').texture
         self.texture.wrap = 'repeat'
         self.texture.uvsize = (4, 4)
 
         with self.canvas:
             Rectangle(pos=(0,0), size=Window.size, texture=self.texture)
 
-        #self.subtexture = Image(source='resources/bg_main/' + styles.curr_palette["name"].replace (" ", "_") + '_3.png').texture
-        #self.subtexture.wrap = 'repeat'
-        #self.subtexture.uvsize = (4, 4)
-
         self.mainAnchor = AnchorLayout(anchor_x='center', anchor_y='center')
 
         # first thing, open styles
         try:
-            with open("./resources/defaults/current_game.txt", "r") as config_file:
-                config.curr_game_dir = config_file.read()
-                config.curr_game_dir = config.curr_game_dir.strip()
+            with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "r") as config_file:
+                gamename = config_file.read()
+                config.curr_game_dir = "." + os.sep + "saves" + os.sep + gamename.strip() + os.sep
         except:
             pass
 
@@ -80,7 +76,7 @@ class TitleScreen(Screen):
         self.preTitleLabel.bind(on_press=self.changePreTitle)
         #self.preTitleLabel.bind(on_press=self.pressGenericButton)
 
-        self.currentLabel = Label(text=config.curr_game_dir.rsplit(os.sep, 2)[1][:1].upper() + config.curr_game_dir.rsplit(os.sep, 2)[1][1:], font_size=36, font_name='Cormorant', halign="center")
+        self.currentLabel = Label(text=config.curr_game_dir.split(os.sep)[-2].capitalize(), font_size=36, font_name='Cormorant', halign="center")
 
         self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size=22, font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
         self.postTitleLabel.bind(on_press=self.changePostTitle)
@@ -128,7 +124,7 @@ class TitleScreen(Screen):
 
         self.paletteBox = BoxLayout(orientation='horizontal')
         self.paletteBox.add_widget(self.paletteSpinner)
-        self.paletteSample = Image(source="./resources/bg_sample/" + str(styles.curr_palette['name']).replace (" ", "_") + ".png", allow_stretch=True, keep_ratio=False, size_hint=(.5,1))
+        self.paletteSample = Image(source="." + os.sep + "resources" + os.sep + "bg_sample" + os.sep + str(styles.curr_palette['name']).replace (" ", "_") + ".png", allow_stretch=True, keep_ratio=False, size_hint=(.5,1))
         self.paletteBox.add_widget(self.paletteSample)
 
         self.mainBox.add_widget(self.paletteBox)
@@ -137,12 +133,12 @@ class TitleScreen(Screen):
 
         self.add_widget(self.mainAnchor)
 
-        saves = glob.glob("./saves/*/")
+        saves = glob.glob("." + os.sep + "saves" + os.sep + "*" + os.sep)
 
         self.savesBox = BoxLayout(orientation="vertical")
         for savefolder in saves:
             timestamp = " (%s)" % time.ctime(os.path.getmtime(savefolder + "main.txt"))
-            title = savefolder.split(os.sep)[2]
+            title = savefolder.split(os.sep)[-2]
             if title == "quicksave":
                 gamename = title + " " + timestamp
             else:
@@ -222,7 +218,8 @@ class TitleScreen(Screen):
             config.curr_game_dir = config.curr_game_dir.strip()
             try:
                 with open("./resources/defaults/current_game.txt", "w") as config_file:
-                    config_file.write(config.curr_game_dir)
+                    gamename = config.curr_game_dir.split(os.sep)[-2]
+                    config_file.write(gamename)
             except:
                 pass
         else:
@@ -231,11 +228,11 @@ class TitleScreen(Screen):
 
     def changePalette(self, *args):
         args[0].background_color = accent1
-        self.paletteSample.source = "./resources/bg_sample/" + str(args[1]).replace (" ", "_") + ".png"
+        self.paletteSample.source = "." + os.sep + "resources" + os.sep + "bg_sample" + os.sep + str(args[1]).replace (" ", "_") + ".png"
         for item in styles.palette:
             if styles.palette[item]['name'] == args[1]:
                 try:
-                    with open("./resources/defaults/current_palette.txt", "w") as config_file:
+                    with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_palette.txt", "w") as config_file:
                         config_file.write(item)
                 except:
                     pass
@@ -284,7 +281,7 @@ class TitleScreen(Screen):
             self.newGamePopup.dismiss()
 
         try:
-            newpath = './saves/' + folder_name + "/"
+            newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
             if not os.path.exists(newpath):
                 os.makedirs(newpath)
             else:
