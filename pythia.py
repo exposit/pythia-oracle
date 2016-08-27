@@ -142,8 +142,7 @@ class TitleScreen(Screen):
         self.savesBox = BoxLayout(orientation="vertical")
         for savefolder in saves:
             timestamp = " (%s)" % time.ctime(os.path.getmtime(savefolder + "main.txt"))
-            title = savefolder.split("/saves/")[1]
-            title = title.split("/")[0]
+            title = savefolder.split(os.sep)[2]
             if title == "quicksave":
                 gamename = title + " " + timestamp
             else:
