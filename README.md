@@ -21,7 +21,9 @@ If you can't find python but you're sure it's installed, be sure to check your p
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
 
-Finally, open up a terminal window and navigate to the folder you just unzipped. Type in 'python pythia.py' (you may need to use 'kivy pythia.py' instead depending on how you installed kivy). You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
+Finally, open up a terminal window and navigate to the folder you just unzipped. Type in 'python pythia.py' (you may need to use 'kivy pythia.py' instead depending on how you installed kivy). You will need to install any dependences you don't have; 'pip install simplejson', for example.
+
+You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
 
 ##### Customization/Setup
 
