@@ -86,7 +86,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 2
 
-        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.text)
+        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
