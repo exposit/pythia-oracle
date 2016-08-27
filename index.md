@@ -18,7 +18,7 @@ If you're new to solo gaming, Pythia Oracle is likely all you need to get starte
 * four different view/play modes
 * did I mention it's extensible?
 
-### Screenshot
+### Screenshots
 
 <a href="{{site.baseurl}}img/screenshot1.png"><img src="{{site.baseurl}}img/screenshot1.png" alt="title screen" height="100" width="200"></a>
 <a href="{{site.baseurl}}img/screenshot2.png"><img src="{{site.baseurl}}img/screenshot2.png" alt="main screen" height="100" width="200"></a>
