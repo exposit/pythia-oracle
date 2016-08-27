@@ -17,6 +17,8 @@ Install Kivy, following the [installation instructions](https://kivy.org/docs/in
 
 [kivy installation](https://kivy.org/docs/installation/installation.html)
 
+If you can't find python but you're sure it's installed, be sure to check your paths and environment variables!
+
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
 
 Finally, open up a terminal window and navigate to the folder you just unzipped. Type in 'python pythia.py' (you may need to use 'kivy pythia.py' instead depending on how you installed kivy). You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
