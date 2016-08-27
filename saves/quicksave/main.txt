@@ -1,1 +1,0 @@
-["The adventure begins...", "fu", "fu", "fu", "fu", "[FU0: 3 ] No.", "[FU0: 1 ] No, and...", "[FU0: 6 ] Yes, and...", "[FU0: 1 ] No, and..."]

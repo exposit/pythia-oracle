@@ -1,1 +1,0 @@
-["italic", "oracle", "oracle", "oracle", "oracle", "oracle", "oracle", "oracle", "oracle"]
