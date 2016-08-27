@@ -27,11 +27,11 @@ You should see a bunch of messages scroll by, largely complaining that the layou
 
 **Windows/more detailed:**
 
-Go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version. I've got 32 bit installed on my Windows machine. While installing, use the defaults settings if you can; when it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually.
+Go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version. I've got 32 bit installed on my Windows machine. While installing, use the default settings if you can; HOWEVER, when it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
 
-Open up a terminal (command prompt) and type "python --version". If you get a not found response, try rebooting and check the version again.
+Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again.
 
-Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy paste the given lines as directed, waiting in between each.
+Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary.
 
 Finally, type
 
