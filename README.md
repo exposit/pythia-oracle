@@ -13,7 +13,28 @@ The basic procedure I use is pick a system, make a character, fire this program 
 
 ##### How do I install this?
 
-First, install python 2.7 (if you don't already have it). If you're on a Mac, I suggest using Homebrew. Then install Kivy. Now download or clone this repository, open up a terminal, go to the directory you just made, and type "python pythia.py". If you get an error message, read it and do what it says to do!
+Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python (or identifying if it's already installed) and through installing Kivy.
+
+[kivy installation]](https://kivy.org/docs/installation/installation.html)
+
+Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
+
+Finally, open up a terminal window and navigate to the folder you just unzipped. Type in 'python pythia.py' (you may need to use 'kivy pythia.py' instead depending on how you installed kivy). You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
+
+##### Customization/Setup
+
+If the app window is too big or two small, close it down and open up the 'pythia.py' file in your favorite text editor. Change the numbers in the kivy.config.Config.set lines to something that's more suitable for your resolution.
+
+`kivy.config.Config.set ( 'graphics', 'width', 1280 )`
+`kivy.config.Config.set ( 'graphics', 'height', 725 )`
+
+If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, if you already have a game created you'll need to change the basefontsize in saves/gamename/variables.txt as well (this include the quicksave).
+
+To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the same folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure.
+
+I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons expect! To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
+
+Note: the system expects a quicksave folder to be present and weird things might happen if you decide not to keep one.
 
 ##### Wait, I want more tables!
 
