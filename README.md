@@ -58,7 +58,7 @@ You can also open up the 'pythia.py' file in your favorite text editor, then unc
 
 Change the numbers (1280, 725) as you'd prefer.
 
-If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in saves/<game name>/variables.txt as well.
+If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in saves/\<game name\>/variables.txt as well.
 
 To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the same folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure.
 
