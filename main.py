@@ -105,7 +105,7 @@ class MainScreen(Screen):
             # default value shown
             text='PLAIN',
             # available values
-            values=['PLAIN', 'CITE', 'BOLD', "COLOR1", "COLOR2"],
+            values=['PLAIN', 'CITE', 'BOLD', "COLOR1", "COLOR2", "NONE"],
             background_normal='',
             background_color=accent1,
             background_down='',
@@ -522,20 +522,36 @@ class MainScreen(Screen):
                 new_text = self.textInput.text
                 if config.general['enter_behavior'] == "CITE":
                     updateCenterDisplay(self, new_text, "italic")
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
                 elif config.general['enter_behavior'] == "BOLD":
                     updateCenterDisplay(self, new_text, "bold")
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
                 elif config.general['enter_behavior'] == "EMCITE":
                     updateCenterDisplay(self, new_text, "bold_italic")
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
                 elif config.general['enter_behavior'] == "COLOR1":
                     updateCenterDisplay(self, new_text, "color1")
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
                 elif config.general['enter_behavior'] == "COLOR2":
                     updateCenterDisplay(self, new_text, "color2")
-                else:
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
+                elif config.general['enter_behavior'] == "PLAIN":
                     updateCenterDisplay(self, new_text, "no_format")
-
-            quicksave(self, config.curr_game_dir)
-            self.textInput.text = ""
-            return True
+                    quicksave(self, config.curr_game_dir)
+                    self.textInput.text = ""
+                    return True
+                else:
+                    pass
 
     def pressGenericButton(self, *args):
         args[0].background_color = accent2
