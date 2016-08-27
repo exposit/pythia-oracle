@@ -15,19 +15,17 @@ The basic procedure I use is pick a system, make a character, fire this program 
 
 ##### How do I install this?
 
-Basically:
+**Basically:**
 
 Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python (or identifying if it's already installed) and through installing Kivy.
 
-If you can't find python but you're sure it's installed, be sure to check your paths and environment variables!
+Pip install simplejson, then run pythia with
 
-Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
-
-Finally, open up a terminal window and navigate to the folder you just unzipped. Type in 'python pythia.py' (you may need to use 'kivy pythia.py' instead depending on how you installed kivy). You will need to install any dependences you don't have; 'pip install simplejson', for example.
+`python pythia.py --size 1280x725`
 
 You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
 
-Windows/more detailed:
+**Windows/more detailed:**
 
 Go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version. I've got 32 bit installed on my Windows machine. While installing, use the defaults settings if you can; when it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually.
 
@@ -35,22 +33,30 @@ Open up a terminal (command prompt) and type "python --version". If you get a no
 
 Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy paste the given lines as directed, waiting in between each.
 
-Finally, type `pip install simplejson`.
+Finally, type
 
-Now, download this repository and save it somewhere you can find it. Unzip and open a terminal in that folder or navigate to it. Type 'python pythia.py' and you should be good to go!
+`pip install simplejson`.
+
+Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc). Type
+
+`python pythia.py --size 1280x725`
+
+You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently.
 
 ##### Customization/Setup
 
-If the app window is too big or two small, close it down and open up the 'pythia.py' file in your favorite text editor. Change the numbers in the kivy.config.Config.set lines to something that's more suitable for your resolution.
+If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
+
+`python pythia.py --size 1280x725`
+
+You can also open up the 'pythia.py' file in your favorite text editor, then uncomment these lines:
 
 `kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
 `kivy.config.Config.set ( 'graphics', 'height', 725 )`
 
-You can, instead, comment these lines out (preface each line with a #) and then when running the game, append the size you want to the end of the command, like so:
+Change the numbers (1280, 725) as you'd prefer.
 
-`python pythia.py --size 1280x725`
-
-If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, if you already have a game created you'll need to change the basefontsize in saves/gamename/variables.txt as well (this include the quicksave).
+If it is just the font that is too small, open up config.py and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in saves/<game name>/variables.txt as well.
 
 To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the same folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure.
 

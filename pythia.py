@@ -20,8 +20,8 @@ kivy.require('1.8.0')
 
 # override config values, I'm sure there's a tidier way to do this
 kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-kivy.config.Config.set ( 'graphics', 'width', 1280 )
-kivy.config.Config.set ( 'graphics', 'height', 725 )
+#kivy.config.Config.set ( 'graphics', 'width', 1280 )
+#kivy.config.Config.set ( 'graphics', 'height', 725 )
 kivy.config.Config.set ( 'graphics', 'resizable', 0)
 
 # uncomment the next line and comment out the previous four if you want fullscreen
