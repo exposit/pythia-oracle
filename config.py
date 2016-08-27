@@ -22,6 +22,8 @@ general = dict(
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
     basefontsize = 16,
+    oracle = "fu",
+    oracle_func = "fu",
 )
 
 actorArray = []

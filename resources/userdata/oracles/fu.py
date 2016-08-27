@@ -122,7 +122,7 @@ def howMuch(*args):
 # http://creativecommons.org/licenses/by/3.0/
 # This function is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative
 # Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).
-def fu(count, modifier="none"):
+def fu(count=0, modifier="none"):
     rolls = []
     odds = []
     evens = []

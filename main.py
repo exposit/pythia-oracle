@@ -577,7 +577,19 @@ class MainScreen(Screen):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
-        updateCenterDisplay(self, oracle_module[0].fu(0), 'oracle')
+
+        index = 99
+        for i in range(len(oracle_module)):
+            if oracle_module[i].__name__ == config.general['oracle']:
+                index = i
+
+        if index < 99:
+            methodToCall = getattr( oracle_module[index], config.general['oracle_func'] )
+            answer = methodToCall()
+        else:
+            answer = "No oracle found."
+
+        updateCenterDisplay(self, answer, 'oracle')
         self.textInput.text = ""
         quicksave(self, config.curr_game_dir)
 
