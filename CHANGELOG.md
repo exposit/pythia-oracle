@@ -16,6 +16,6 @@ Version 0.2.0
 * improved actor charts, including personality, motive, and appearance generators
 * lots of minor bug fixes
 
-Version 0.0.1
+Version 0.1.0
 
 * initial release
