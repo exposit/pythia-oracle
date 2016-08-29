@@ -105,14 +105,14 @@ def initPanel(self):
 
     actorsReactionBox = BoxLayout(orientation='horizontal')
 
-    button = Button(text="Pos", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button = Button(text="Positive", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.value = "positive"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=reactionRoll)
     actorsReactionBox.add_widget(button)
 
-    button = Button(text="Neg", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button = Button(text="Negative", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.value = "negative"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
