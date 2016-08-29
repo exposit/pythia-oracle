@@ -9,6 +9,12 @@ import imports
 from imports import *
 import config
 
+def exclude():
+    return False
+
+def onEnter(self):
+    #print("update my own widgets")
+    pass
 
 def initPanel(self):
 

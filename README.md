@@ -1,6 +1,6 @@
 ### Windows issues should be fixed; if anyone's on Windows and having path errors, either update to the newest pythia.py script or try reversing the slashes in "resources/defaults/current_game.txt".
 
-### Pythia-Oracle
+### Pythia-Oracle 0.2.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
 
 #### What is it?

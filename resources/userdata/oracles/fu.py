@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 # FU Oracle Panel
-# -*- coding: utf-8 -*-
 #
 #
 ##-------------------------------------------------------------------------------------------------------------------------------------------
@@ -9,14 +9,19 @@ import imports
 from imports import *
 import config
 
+def exclude():
+    return False
+
+def onEnter(self):
+    pass
 
 def initPanel(self):
 
-        fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected='invisible.png', min_space=30)
+        self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected='invisible.png', min_space=30)
 
-        fuMainBox = BoxLayout(orientation='vertical')
+        self.fuMainBox = BoxLayout(orientation='vertical')
 
-        fuMainBox.add_widget(Label(text='FU Oracle', size_hint=(1,.12)))
+        self.fuMainBox.add_widget(Label(text='FU Oracle', size_hint=(1,.12)))
 
         button = Button(text="0", size_hint=(1,.12), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.modifier = "none"
@@ -24,10 +29,10 @@ def initPanel(self):
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=fuRoll)
-        fuMainBox.add_widget(button)
-        fuSubBox = GridLayout(cols=5)
+        self.fuMainBox.add_widget(button)
+        self.fuSubBox = GridLayout(cols=5)
 
-        fuSubBox.add_widget(Label(text="Pos", size_hint=(1,.12)))
+        self.fuSubBox.add_widget(Label(text="Pos", size_hint=(1,.12)))
         for i in range(1,5):
             button = Button(text="+" + str(i), size_hint=(1,.12), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
             button.modifier = "positive"
@@ -35,9 +40,9 @@ def initPanel(self):
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
-            fuSubBox.add_widget(button)
+            self.fuSubBox.add_widget(button)
 
-        fuSubBox.add_widget(Label(text="Neg", size_hint=(1,.12)))
+        self.fuSubBox.add_widget(Label(text="Neg", size_hint=(1,.12)))
         for i in range(1,5):
             button = Button(text="-" + str(i), size_hint=(1,.12), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
             button.modifier = "negative"
@@ -45,45 +50,45 @@ def initPanel(self):
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
-            fuSubBox.add_widget(button)
+            self.fuSubBox.add_widget(button)
 
-        fuMainBox.add_widget(fuSubBox)
+        self.fuMainBox.add_widget(self.fuSubBox)
 
-        fuMainBox.add_widget(Label(text="---", halign="center", size_hint=(1,.12)))
+        self.fuMainBox.add_widget(Label(text="---", halign="center", size_hint=(1,.12)))
 
-        fuMainBox.add_widget(Label(text='Drama Rolls', size_hint=(1,.12)))
+        self.fuMainBox.add_widget(Label(text='Drama Rolls', size_hint=(1,.12)))
         button = Button(text="How Much...?", size_hint=(1,.25), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "howMuchWeighted"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=howMuch)
-        fuMainBox.add_widget(button)
+        self.fuMainBox.add_widget(button)
 
-        fuMainBox.add_widget(Label(text="How's It Going?", size_hint=(1,.12)))
-        fuDramaBox = GridLayout(cols=2)
+        self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint=(1,.12)))
+        self.fuDramaBox = GridLayout(cols=2)
         dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
-        fuDramaBox.add_widget(Label(text="Good/Bad"))
-        fuDramaBox.add_widget(Label(text="Yes/No"))
+        self.fuDramaBox.add_widget(Label(text="Good/Bad"))
+        self.fuDramaBox.add_widget(Label(text="Yes/No"))
         for i in dramaRollList:
             button = Button(text=i, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=dramaChartRoll)
             button.subtype="Good/Bad"
             button.self = self
-            fuDramaBox.add_widget(button)
+            self.fuDramaBox.add_widget(button)
 
             button = Button(text=i, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=dramaChartRoll)
             button.subtype="Yes/No"
             button.self = self
-            fuDramaBox.add_widget(button)
+            self.fuDramaBox.add_widget(button)
 
-        fuMainBox.add_widget(fuDramaBox)
+        self.fuMainBox.add_widget(self.fuDramaBox)
 
-        fuAItem.add_widget(fuMainBox)
+        self.fuAItem.add_widget(self.fuMainBox)
 
-        return fuAItem
+        return self.fuAItem
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # FU Button Functions

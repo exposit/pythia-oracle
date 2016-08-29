@@ -332,19 +332,25 @@ def focusChangeText(self, value):
 # save/load functions
 #-------------------------------------------------------------------------------------------------------------------------------------------
 def saveconfig(self, gamedir):
-    tempDict = {}
-    tempDict['general'] = config.general
+    try:
+        tempDict = {}
+        tempDict['general'] = config.general
+        tempDict['user'] = config.user
 
-    f = open(gamedir + 'variables.txt', 'w')
-    simplejson.dump(tempDict, f)
-    f.close()
+        f = open(gamedir + 'config.txt', 'w')
+        simplejson.dump(tempDict, f)
+        f.close()
+    except:
+        print("Saving configuration file failed.")
 
 def loadconfig(self, gamedir):
     try:
-        f = open(gamedir + 'variables.txt', 'r')
+        f = open(gamedir + 'config.txt', 'r')
         tempDict = simplejson.load(f)
         for i in tempDict['general']:
             config.general[i] = tempDict['general'][i]
+        for i in tempDict['user']:
+            config.user[i] = tempDict['user'][i]
     except:
         saveconfig(self, gamedir)
 

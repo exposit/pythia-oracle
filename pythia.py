@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle
+Pythia-Oracle 0.2.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit
@@ -52,7 +52,7 @@ class TitleScreen(Screen):
 
         self.mainAnchor = AnchorLayout(anchor_x='center', anchor_y='center')
 
-        # first thing, open styles
+        # first thing, try to open styles
         try:
             with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "r") as config_file:
                 gamename = config_file.read()
@@ -61,7 +61,7 @@ class TitleScreen(Screen):
             pass
 
         try:
-            with open(config.curr_game_dir + "variables.txt", "r") as config_file:
+            with open(config.curr_game_dir + "config.txt", "r") as config_file:
                 tempDict = simplejson.load(config_file)
                 for i in tempDict['general']:
                     config.general[i] = tempDict['general'][i]
@@ -143,7 +143,7 @@ class TitleScreen(Screen):
                 gamename = title + " " + timestamp
             else:
                 try:
-                    with open(savefolder + "variables.txt", "r") as config_file:
+                    with open(savefolder + "config.txt", "r") as config_file:
                         tempDict = simplejson.load(config_file)
                         pre = tempDict['general']['pretitle'].replace('\n', ' ')
                         post = tempDict['general']['posttitle'].replace('\n', ' ')
@@ -224,7 +224,7 @@ class TitleScreen(Screen):
                 pass
         else:
             self.newGamePopup.open()
-            self.newGameStatus.text = "No game loaded or quicksave found. Make new "
+            self.newGameStatus.text = "No game loaded or quicksave found. Make one!"
 
     def changePalette(self, *args):
         args[0].background_color = accent1
@@ -294,7 +294,7 @@ class TitleScreen(Screen):
             f = file(newpath + "threads_status.txt", "w")
             f = file(newpath + "actors.txt", "w")
             f = file(newpath + "actors_status.txt", "w")
-            f = file(newpath + "variables.txt", "w")
+            f = file(newpath + "config.txt", "w")
             f = file(newpath + "tracks.txt", "w")
             f = file(newpath + "pcs.txt", "w")
 

@@ -1,0 +1,1 @@
+{"user": {"temp": 0}, "general": {"oracle_func": "fu", "enter_behavior": "PLAIN", "tracker": 0, "edit_behavior": "READ", "basefontsize": 16, "oracle": "fu", "bookmarks": [-9, -9, -9, -9, -9, -9], "posttitle": "---", "pretitle": "---"}}

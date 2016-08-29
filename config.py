@@ -6,8 +6,9 @@
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
 import styles
+import os
 
-curr_game_dir = "./saves/quicksave/"
+curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
 
 # color stuff
 transitory_color = styles.curr_palette['accent2']
@@ -24,6 +25,10 @@ general = dict(
     basefontsize = 16,
     oracle = "fu",
     oracle_func = "fu",
+)
+
+user = dict(
+    temp = 0,
 )
 
 actorArray = []

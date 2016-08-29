@@ -67,7 +67,9 @@ try:
     for panel in userpanels:
         filename = panel.split('/')[-1]
         pyfile = filename.split('.')[0]
-        gen_module.append(imp.load_source( pyfile, panel))
+        potential = imp.load_source( pyfile, panel)
+        if potential.exclude() == False:
+            gen_module.append(potential)
 except:
     pass
 
@@ -78,7 +80,9 @@ try:
     for panel in userpanels:
         filename = panel.split('/')[-1]
         pyfile = filename.split('.')[0]
-        oracle_module.append(imp.load_source( pyfile, panel))
+        potential = imp.load_source( pyfile, panel)
+        if potential.exclude() == False:
+            oracle_module.append(potential)
 except:
     pass
 

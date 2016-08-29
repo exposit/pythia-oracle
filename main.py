@@ -395,7 +395,7 @@ class MainScreen(Screen):
 #  actor panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.actorsAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space=30)
+        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space=30)
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
@@ -406,9 +406,9 @@ class MainScreen(Screen):
 
         self.actorMainBox.add_widget(self.actorDisplay)
 
-        self.actorsAItem.add_widget(self.actorMainBox)
+        self.actorAItem.add_widget(self.actorMainBox)
 
-        self.rightAccordion.add_widget(self.actorsAItem)
+        self.rightAccordion.add_widget(self.actorAItem)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # tracks & scratchpad panel
@@ -632,8 +632,8 @@ class MainScreen(Screen):
         self.textInput.text = ""
 
     def releaseAddActor(self, *args):
+        self.addActorButton.background_color = neutral
         if len(self.textInput.text) > 0:
-            self.addActorButton.background_color = neutral
             new_text = self.textInput.text
             updateActorDisplay(self, new_text, 'Current')
             updateCenterDisplay(self, "[New Actor] " + new_text, 'italic')
@@ -759,9 +759,20 @@ class MainScreen(Screen):
             del l
 
             self.trackLabel.text = str(config.general['tracker'])
-
         except:
-            print("Variables loaded but widgets not updated")
+            pass
+
+        try:
+            #panel specific
+            for i in gen_module:
+                methodToCall = getattr( i, 'onEnter' )
+                methodToCall(self)
+
+            for i in oracle_module:
+                methodToCall = getattr( i, 'onEnter' )
+                methodToCall(self)
+        except:
+            pass
 
         updateCleanMarkdown()
         updateCleanHTML()
