@@ -70,7 +70,11 @@ Note: the system expects a quicksave folder to be present and weird things might
 
 I don't blame you. I use a ton more myself but I don't think it'd be cool to use other authors' content without asking. So I've started asking!
 
-Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted table on the fly, or you can add in whatever tables you like in the code. I've included a sample as a guide. If the tables are created by you or you have permission from the original author and you want to share them, drop me a line and I'll add a link to them here (or put them in the repo).
+Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted table on the fly, or you can add in whatever tables you like in the code. I've included a sample as a guide.
+
+If the tables are created by you or you have permission from the original author and you want to share them, drop me a line and I'll add a link to them here (or store them in the [panel repo](https://github.com/exposit/pythia-oracle-panels)).
+
+If you have releasable content you want pythiafied or questions please let me know as an issue on the panels repo.
 
 Happy Solo Gaming!
 
