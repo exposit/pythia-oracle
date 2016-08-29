@@ -70,7 +70,7 @@ Note: the system expects a quicksave folder to be present and weird things might
 
 I don't blame you. I use a ton more myself but I don't think it'd be cool to use other authors' content without asking. So I've started asking. Feel free to ask your favorite authors about their licensing/permission as well!
 
-Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted table on the fly, or you can add in whatever tables you like in the code. I've included a sample as a guide.
+Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted table on the fly, or you can add in whatever tables you like in the code. I've included a sample panel in userdata/oracles as a guide.
 
 If you have created content you'd like included (or you have permission from the original author), drop me a line and I'll add them as panels as I can. Or I'd be happy to link to/add any panels you make, as long as I can follow the code. I've made a separate repository for non-core panels here:
 
