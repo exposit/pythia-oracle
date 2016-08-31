@@ -6,7 +6,7 @@
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
 # General Python
-import os.path
+import os
 import time
 import random
 import math
@@ -62,7 +62,7 @@ from logic import *
 
 # extra panels -- generators
 try:
-    userpanels = glob.glob("./resources/userdata/generators/*.py")
+    userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "generators" + os.sep + "*.py")
     gen_module = []
     for panel in userpanels:
         filename = panel.split('/')[-1]
@@ -75,7 +75,7 @@ except:
 
 # extra panels -- oracles
 try:
-    userpanels = glob.glob("./resources/userdata/oracles/*.py")
+    userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "oracles" + os.sep + "*.py")
     oracle_module = []
     for panel in userpanels:
         filename = panel.split('/')[-1]

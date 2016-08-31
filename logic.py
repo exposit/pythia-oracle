@@ -70,7 +70,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 1
 
-        label = ClickLabel(text=text, size_hint_y=None, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+        label = ClickLabel(text=text, size_hint_y=None, font_size=config.basefont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -86,7 +86,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 2
 
-        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -114,7 +114,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
             self.centerDisplayGrid.cols = 1
 
-            label = ClickLabel(text=text, size_hint_y=None, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+            label = ClickLabel(text=text, size_hint_y=None, font_size=config.basefont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
             label.text_size = (self.centerDisplayGrid.width, None)
             label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
             label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -197,12 +197,12 @@ def updateThreadDisplay(self, text, status):
     config.threadArray.append(text)
     config.threadStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, multiline=False, height="30px", font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, multiline=False, height="30dp", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
     self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, height="30px", font_size=config.general['basefontsize'], font_name='Fantasque-Sans')
+    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, height="30dp", font_size=config.basefont, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -254,7 +254,7 @@ def updateActorDisplay(self, text, status):
     config.actorArray.append(text)
     config.actorStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
     label.text_size = (self.actorDisplayGrid.width, None)
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -263,7 +263,7 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, font_size=config.general['basefontsize'], font_name='Fantasque-Sans',)
+    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, font_size=config.basefont, font_name='Fantasque-Sans',)
     label.bind(on_press=cycleActor)
     label.background_normal=''
     label.background_color=accent1

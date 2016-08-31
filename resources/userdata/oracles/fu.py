@@ -17,7 +17,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-        self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected='invisible.png', min_space=30)
+        self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
         self.fuMainBox = BoxLayout(orientation='vertical')
 

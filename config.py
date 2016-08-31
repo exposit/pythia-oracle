@@ -54,3 +54,8 @@ pcValueLabelArray = []
 
 activePanelsLeft = []
 activePanelsRight = []
+
+basefont = str(general['basefontsize']) + "dp"
+basefont75 = str(general['basefontsize']*.75) + "dp"
+basefont80 = str(general['basefontsize']*.80) + "dp"
+baseheight = str(general['basefontsize']+10) + "dp"

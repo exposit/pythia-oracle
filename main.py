@@ -45,7 +45,7 @@ class MainScreen(Screen):
 #  SIDE PANEL - right horizontal stack
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.leftAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space=30)
+        self.leftAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space='28dp')
         self.mainBox.add_widget(self.leftAccordion)
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------
@@ -75,13 +75,13 @@ class MainScreen(Screen):
 
         self.bookmarkBox = BoxLayout(orientation="horizontal", size_hint=(.75,1))
         for i in range(0,5):
-            btn = ToggleButton(text=str(i), group='bookmarks', font_size=config.general['basefontsize'], size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+            btn = ToggleButton(text=str(i), group='bookmarks', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
             btn.bind(on_press=self.toggledBookmark)
             btn.value = i
             btn.index = -9
             self.bookmarkBox.add_widget(btn)
 
-        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.general['basefontsize'], size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
         self.bookmarkBox.add_widget(self.clearBookmarkButton)
 
         self.statusBox.add_widget(self.bookmarkBox)
@@ -122,18 +122,18 @@ class MainScreen(Screen):
 #  Center text display
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.general['basefontsize'] ))
+        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
         self.threadDisplay = ScrollView(size_hint=(1, .18))
 
-        self.threadDisplayGrid = GridLayout(cols=2, spacing=10, size_hint_y=None, size_hint_x=1)
+        self.threadDisplayGrid = GridLayout(cols=2, spacing=10, size_hint_y=None, size_hint_x=1,  padding=(10,10))
         self.threadDisplayGrid.bind(minimum_height = self.threadDisplayGrid.setter('height'))
 
         self.threadDisplay.add_widget(self.threadDisplayGrid)
 
         self.centerBox.add_widget(self.threadDisplay)
 
-        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.general['basefontsize'] ))
+        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
         self.centerDisplay = ScrollView(size_hint=(1,.50))
 
@@ -205,22 +205,22 @@ class MainScreen(Screen):
         # box for random selectors
         self.selectorBox = GridLayout(cols=2)
 
-        self.randomTrackButton = Button(text="Random\nTrack", halign='center', font_size=config.general['basefontsize']*.75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomTrackButton = Button(text="Random\nTrack", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.randomTrackButton.bind(on_press=self.pressGenericButton)
         self.randomTrackButton.bind(on_release=self.releaseRandomTrack)
         self.selectorBox.add_widget(self.randomTrackButton)
 
-        self.randomPCButton = Button(text="Random\nPC", halign='center', font_size=config.general['basefontsize']*.75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomPCButton = Button(text="Random\nPC", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.randomPCButton.bind(on_press=self.pressGenericButton)
         self.randomPCButton.bind(on_release=self.releaseRandomPC)
         self.selectorBox.add_widget(self.randomPCButton)
 
-        self.randomActorButton = Button(text="Random\nActor", halign='center', font_size=config.general['basefontsize']*.75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomActorButton = Button(text="Random\nActor", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.randomActorButton.bind(on_press=self.pressGenericButton)
         self.randomActorButton.bind(on_release=self.releaseRandomActor)
         self.selectorBox.add_widget(self.randomActorButton)
 
-        self.randomThreadButton = Button(text="Random\nThread", halign='center', font_size=config.general['basefontsize']*.75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomThreadButton = Button(text="Random\nThread", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.randomThreadButton.bind(on_press=self.pressGenericButton)
         self.randomThreadButton.bind(on_release=self.releaseRandomThread)
         self.selectorBox.add_widget(self.randomThreadButton)
@@ -230,25 +230,25 @@ class MainScreen(Screen):
         # pick one
         self.pickOneBox = GridLayout(cols=2)
 
-        self.listButton = Button(text="Pick One\nList", halign="center", font_size=config.general['basefontsize']*.75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         self.listButton.bind(on_press=self.pressGenericButton)
         self.listButton.bind(on_release=self.chooseFromList)
         self.listButton.value = 0
         self.pickOneBox.add_widget(self.listButton)
 
-        self.listButton = Button(text="Pick One\n2d4", halign="center", font_size=config.general['basefontsize']*.75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         self.listButton.bind(on_press=self.pressGenericButton)
         self.listButton.bind(on_release=self.chooseFromList)
         self.listButton.value = 1
         self.pickOneBox.add_widget(self.listButton)
 
-        self.listButton = Button(text="Pick One\n3d6", halign="center", font_size=config.general['basefontsize']*.75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         self.listButton.bind(on_press=self.pressGenericButton)
         self.listButton.bind(on_release=self.chooseFromList)
         self.listButton.value = 2
         self.pickOneBox.add_widget(self.listButton)
 
-        self.listButton = Button(text="Pick One\n3:2:1", halign="center", font_size=config.general['basefontsize']*.75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         self.listButton.bind(on_press=self.pressGenericButton)
         self.listButton.bind(on_release=self.chooseFromList)
         self.listButton.value = 3
@@ -269,12 +269,12 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize']*.80)
+        self.button = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.general['basefontsize']*.80)
+        self.button = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
@@ -342,21 +342,21 @@ class MainScreen(Screen):
 #  SIDE PANEL - right horizontal stack for trackers
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.rightAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space=30)
+        self.rightAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space="28dp")
         self.mainBox.add_widget(self.rightAccordion)
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 #  PC panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected='resources/ui_images/invisible.png', min_space=30)
+        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected='resources/ui_images/invisible.png', min_space="28dp")
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
         self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
-        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
 
         self.pcMainBox.add_widget(self.pcTitleGrid)
@@ -367,18 +367,18 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, height="30px", size_hint_y=None, size_hint_x=.25, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-            label.text_size = (self.pcDisplayGrid.width, None)
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.25, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            #label.text_size = (self.pcDisplayGrid.width, None)
             label.value = i
-            label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.pcKeyLabelArray.append(label)
 
             self.pcDisplayGrid.add_widget(config.pcKeyLabelArray[-1])
 
-            label = TextInput(text="", multiline=False, height="30px", size_hint_y=None, size_hint_x=.75, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.75, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
             label.text_size = (self.pcDisplayGrid.width, None)
             label.value = i
-            label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.pcValueLabelArray.append(label)
 
             self.pcDisplayGrid.add_widget(config.pcValueLabelArray[-1])
@@ -395,9 +395,17 @@ class MainScreen(Screen):
 #  actor panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space=30)
+        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space="28dp")
 
         self.actorMainBox = BoxLayout(orientation='vertical')
+
+        self.actorTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+        label = Label(text="Actor", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        self.actorTitleGrid.add_widget(label)
+        label = Label(text="Status", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        self.actorTitleGrid.add_widget(label)
+
+        self.actorMainBox.add_widget(self.actorTitleGrid)
 
         self.actorDisplay = ScrollView(size_hint=(1, 1))
         self.actorDisplayGrid = GridLayout(cols=2, spacing=5, size_hint_y=None, size_hint_x=1)
@@ -414,16 +422,16 @@ class MainScreen(Screen):
 # tracks & scratchpad panel
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space=30)
+        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space="28dp")
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
-        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         self.trackTitleGrid.add_widget(label)
-        label = Label(text="On?", size_hint_x=.10, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.trackTitleGrid.add_widget(label)
 
         self.tracksMainBox.add_widget(self.trackTitleGrid)
@@ -434,16 +442,16 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, height="30px", size_hint_y=None, size_hint_x=.90, font_size=config.general['basefontsize'], font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-            label.text_size = (self.trackDisplayGrid.width, None)
-            label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            #label.text_size = (self.trackDisplayGrid.width, None)
+            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.trackLabelArray.append(label)
 
             self.trackDisplayGrid.add_widget(config.trackLabelArray[-1])
 
-            label = CheckBox(size_hint_y=None, size_hint_x=.10, height="30px", color=[1, 1, 1, 4])
-            label.background_checkbox_normal="./resources/ui_images/checkbox_off.png"
-            label.background_checkbox_down="./resources/ui_images/checkbox_on.png"
+            label = CheckBox(size_hint_y=None, size_hint_x=.10, color=[1, 1, 1, 4], height=config.baseheight)
+            label.background_checkbox_normal="." + os.sep + "resources" + os.sep + "ui_images" + os.sep + "checkbox_off.png"
+            label.background_checkbox_down="." + os.sep + "resources" + os.sep + "ui_images" + os.sep + "checkbox_on.png"
             config.trackStatusLabelArray.append(label)
 
             self.trackDisplayGrid.add_widget(config.trackStatusLabelArray[-1])
@@ -460,9 +468,9 @@ class MainScreen(Screen):
 #  holder panel for generators
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.generatorAccordionItem = AccordionItem(title='Generators', background_selected='/resources/ui_images/invisible.png', min_space=30)
+        self.generatorAccordionItem = AccordionItem(title='Generators', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
-        self.generatorStackAccordion = Accordion(orientation='vertical', size_hint=(1, 1), min_space=30)
+        self.generatorStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space="28dp")
 
         self.generatorAccordionItem.add_widget(self.generatorStackAccordion)
 
@@ -472,9 +480,9 @@ class MainScreen(Screen):
 #  holder panel for oracles
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected='/resources/ui_images/invisible.png', min_space=30)
+        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
-        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1, 1), min_space=30)
+        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space="28dp")
 
         self.oracleAccordionItem.add_widget(self.oracleStackAccordion)
 

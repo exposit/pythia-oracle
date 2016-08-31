@@ -35,6 +35,7 @@ class TitleScreen(Screen):
 
     def __init__ (self,**kwargs):
         super (TitleScreen, self).__init__(**kwargs)
+
         # super().__init__(**kwargs)
 
         Builder.load_file('style.kv')
@@ -76,13 +77,13 @@ class TitleScreen(Screen):
         self.preTitleLabel.bind(on_press=self.changePreTitle)
         #self.preTitleLabel.bind(on_press=self.pressGenericButton)
 
-        self.currentLabel = Label(text=config.curr_game_dir.split(os.sep)[-2].capitalize(), font_size=36, font_name='Cormorant', halign="center")
+        self.currentLabel = Label(text=config.curr_game_dir.split(os.sep)[-2].capitalize(), font_size="36dp", font_name='Cormorant', halign="center")
 
-        self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size=22, font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
+        self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
         self.postTitleLabel.bind(on_press=self.changePostTitle)
         #.postTitleLabel.bind(on_press=self.pressGenericButton)
 
-        self.startButton = Button(text="Start", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size=22)
+        self.startButton = Button(text="Start", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="22dp")
         self.startButton.bind(on_press=self.pressStart)
         self.startButton.bind(on_release=self.releaseStart)
 
@@ -101,16 +102,16 @@ class TitleScreen(Screen):
             background_color_down=accent2,
             size_hint=(.5, 1),
             font_name='Cormorant',
-            font_size=22,
+            font_size="22dp",
             )
 
         self.paletteSpinner.bind(text=self.changePalette)
 
-        self.loadButton = Button(text="Load", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size=18)
+        self.loadButton = Button(text="Load", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
         self.loadButton.bind(on_press=self.pressGenericButton)
         self.loadButton.bind(on_release=self.releaseLoad)
 
-        self.newButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size=18)
+        self.newButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
@@ -159,14 +160,14 @@ class TitleScreen(Screen):
 
         self.savesPopup = Popup(title='Saves',
             content=self.savesBox,
-            size_hint=(None, None), size=(800, 530),
+            size_hint=(None, None), size=("800dp", "530dp"),
             auto_dismiss=True)
 
         self.newGameBox = BoxLayout(orientation="vertical")
         self.newGameNameInput = TextInput(text="", multiline=False)
         self.newGameBox.add_widget(self.newGameNameInput)
 
-        self.newGameStatus = Label(text="Enter a new name; this will be the directory.")
+        self.newGameStatus = Label(text="Enter a new name.")
         self.newGameBox.add_widget(self.newGameStatus)
 
         btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
@@ -176,7 +177,7 @@ class TitleScreen(Screen):
 
         self.newGamePopup = Popup(title='New Game',
             content=self.newGameBox,
-            size_hint=(None, None), size=(400, 400),
+            size_hint=(None, None), size=("400dp", "400dp"),
             auto_dismiss=True)
 
         self.preTitleBox = BoxLayout(orientation="vertical")
@@ -190,7 +191,7 @@ class TitleScreen(Screen):
 
         self.preTitlePopup = Popup(title='Pre Title',
             content=self.preTitleBox,
-            size_hint=(None, None), size=(200, 150),
+            size_hint=(None, None), size=("200dp", "150dp"),
             auto_dismiss=True)
 
         self.postTitleBox = BoxLayout(orientation="vertical")
@@ -204,7 +205,7 @@ class TitleScreen(Screen):
 
         self.postTitlePopup = Popup(title='Post Title',
             content=self.postTitleBox,
-            size_hint=(None, None), size=(200, 150),
+            size_hint=(None, None), size=("200dp", "150dp"),
             auto_dismiss=True)
 
     def pressStart(self, *args):
@@ -224,7 +225,7 @@ class TitleScreen(Screen):
                 pass
         else:
             self.newGamePopup.open()
-            self.newGameStatus.text = "No game loaded or quicksave found. Make one!"
+            self.newGameStatus.text = "no game loaded"
 
     def changePalette(self, *args):
         args[0].background_color = accent1
@@ -285,7 +286,7 @@ class TitleScreen(Screen):
             if not os.path.exists(newpath):
                 os.makedirs(newpath)
             else:
-                self.newGameStatus.text = "Folder exists. Choose a new name."
+                self.newGameStatus.text = "Folder exists."
                 return
 
             f = file(newpath + "main.txt", "w")

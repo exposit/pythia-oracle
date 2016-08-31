@@ -28,7 +28,7 @@ def onEnter(self):
 # add your widgets in here; see the gui for examples
 def initPanel(self):
 
-    self.sampleAItem = AccordionItem(title='Sample', background_selected='invisible.png', min_space=30)
+    self.sampleAItem = AccordionItem(title='Sample', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
     self.sampleMainBox = BoxLayout(orientation='vertical')
 
