@@ -122,7 +122,7 @@ class MainScreen(Screen):
 #  Center text display
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
         self.threadDisplay = ScrollView(size_hint=(1, .18))
 
@@ -133,7 +133,7 @@ class MainScreen(Screen):
 
         self.centerBox.add_widget(self.threadDisplay)
 
-        self.centerBox.add_widget(Label(text="--------------------------------------------------------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
         self.centerDisplay = ScrollView(size_hint=(1,.50))
 
