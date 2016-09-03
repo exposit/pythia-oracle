@@ -1,4 +1,4 @@
-### Windows issues should be fixed; if anyone's on Windows and having path errors, either update to the newest pythia.py script or try reversing the slashes in "resources/defaults/current_game.txt".
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
 ### Pythia-Oracle 0.2.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
@@ -45,6 +45,16 @@ You have two options now. Easiest is to double-click on the 'pythia.py' file to 
 
 You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently.
 
+#### Upgrading from an older version
+
+Move your saves folder to another directory. I zip up a copy and put it in a separate archive folder just in case at this point.
+
+Double check you have a saved copy of your saves folder. Delete your existing pythia-oracle folder.
+
+Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed.
+
+If all else fails, delete the contents of the save folder and make a new game. Then copy your save game files into the new game directory, overwriting as prompted. You can also NOT overwrite the config.txt file, leaving it in the new game generated state, and just set your variable manually by opening the file up in a text editor.
+
 #### Customization/Setup
 
 If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
@@ -65,6 +75,8 @@ To shut down, click the x in the upper left of the main window or just close the
 I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons expect! To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
 Note: the system expects a quicksave folder to be present and weird things might happen if you decide not to keep one.
+
+Quite a lot of the program's data is saved in plain text format (in json); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries and the '---').
 
 #### Wait, I want more tables!
 
