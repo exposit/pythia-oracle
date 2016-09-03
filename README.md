@@ -53,7 +53,7 @@ Double check you have a saved copy of your saves folder. Delete your existing py
 
 Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed.
 
-If all else fails, delete the contents of the save folder and make a new game. Then copy your save game files into the new game directory, overwriting as prompted. You can also NOT overwrite the config.txt file, leaving it in the new game generated state, and just set your variable manually by opening the file up in a text editor.
+If all else fails, delete the contents of the save folder and make a new game. Then copy your save game files into the new game directory, overwriting as prompted. You can also skip overwriting the config.txt file, leaving it in the new game generated state, and just set your variable manually by opening the file up in a text editor or setting them as you play.
 
 #### Customization/Setup
 
