@@ -499,7 +499,7 @@ def storeBookmarkLabel(label):
 
 def updateCleanMarkdown():
     try:
-        with open(config.curr_game_dir + "human_readable_log.md", "w") as log_file:
+        with open(config.curr_game_dir + "log_clean.md", "w") as log_file:
             result = "\n"
             for item in config.textArray:
                 ti = config.textArray.index(item)
@@ -514,36 +514,149 @@ def updateCleanMarkdown():
                     elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
                         item = item.replace('\n', '_**\n**_')
                         result = result + "\n**_" + item + "_**"
-                    elif config.textStatusArray[ti] == "no_format":
-                        result = result + "\n" + item
-                    else:
+                    elif config.textStatusArray[ti] == "color1":
                         item = item.replace('\n', '`\n`')
                         result = result = "\n`" + item + "`"
+                    elif config.textStatusArray[ti] == "color2":
+                        item = item.replace('\n', '`\n`')
+                        result = result = "\n`" + item + "`"
+                    else:
+                        result = result + "\n" + item
             log_file.write(result)
     except:
         pass
 
 def updateCleanHTML():
     try:
-        test = ""
-        with open(config.curr_game_dir + "human_readable_log.htm", "w") as log_file:
-            result = "\n<html>\n<head>\n<title>" + test + "</title>\n</head>\n<body>"
+        with open(config.curr_game_dir + "log_standard.htm", "w") as log_file:
+            result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
+            style = '\n<style type="text/css">'
+            style = style + "\n.italic {\nfont-style: italic;\n}"
+            style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
+            style = style + "\n.bold {\nfont-weight: bold;\n}"
+            style = style + "\n.highlightcolor {\ncolor: #" + config.highlight_color + ";\n}"
+            style = style + "\n.alternatecolor {\ncolor: #" + config.alternate_color + ";\n}"
+            style = style + "\n</style>\n"
+            result = result + style + "</head>\n<body><!-- actual adventure starts here -->"
+            # actual adventure content starts here
             for item in config.textArray:
-                item = item.rstrip()
                 ti = config.textArray.index(item)
                 if config.textStatusArray[ti] != "ephemeral":
                     if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
-                        result = result + "\n<p><i>" + item + "</i></p>"
+                        result = result + '\n<div class="mechanic"><div class="italic">' + item + "</div></div>"
                     elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
-                        result = result + "\n<p><b>" + item + "</b></p>"
+                        result = result + '\n<div class="mechanic"><div class="bold">' + item + "</div></div>"
                     elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
-                        result = result + "\n<p><b><i>" + item + "</i></b></p>"
-                    elif config.textStatusArray[ti] == "no_format":
-                        result = result + "\n<p>" + item + "</p>"
+                        result = result + '\n<div class="mechanic"><div class="italicbold">' + item + "</div></div>"
+                    elif config.textStatusArray[ti] == "color1":
+                        result = result = '\n<div class="mechanic"><div class="highlightcolor">' + item + "</div></div>"
+                    elif config.textStatusArray[ti] == "color2":
+                        result = result = '\n<div class="mechanic"><div class="alternatecolor">' + item + "</div></div>"
                     else:
-                        result = result = "\n<p text=\"rgb(0,0,255)\">" + item + "</p>"
-            result = result +  "</body>\n</html>"
+                        result = result + '\n<div class="normal">' + item + "</div></div>"
+
+            result = result +  "\n</body>\n</html>"
             log_file.write(result)
+    except:
+        pass
+
+def updateCollapseHTML():
+
+    try:
+        tempStatusArray = []
+        tempArray = []
+
+        for i in range(len(config.textStatusArray)):
+            if config.textStatusArray[i] != "ephemeral":
+                if config.textStatusArray[i] == "italic" or config.textStatusArray[i] == "result":
+                    result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
+                elif config.textStatusArray[i] == "bold" or config.textStatusArray[i] == "query":
+                    result = '\n<p class="bold">' + config.textArray[i] + "</p>\n"
+                elif config.textStatusArray[i] == "bold_italic" or config.textStatusArray[i] == "oracle":
+                    result = '\n<p class="italicbold">' + config.textArray[i] + "</p>\n"
+                elif config.textStatusArray[i] == "color1":
+                    result = '\n<p class="highlightcolor">' + config.textArray[i] + "</p>\n"
+                elif config.textStatusArray[i] == "color2":
+                    result = '\n<p class="alternatecolor">' + config.textArray[i] + "</p>\n"
+                else:
+                    result = '\n<p class="normal">' + config.textArray[i] + "</p>\n"
+                tempArray.append(result)
+                tempStatusArray.append(config.textStatusArray[i])
+
+        with open(config.curr_game_dir + "log_ind_collapsible.htm", "w") as log_file:
+            count = 0
+            bracket = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
+            script = '<script>'
+            script = script + '\nfunction toggle2(showHideDiv, switchTextDiv) {'
+            script = script + '\n	 var ele = document.getElementById(showHideDiv);'
+            script = script + '\n	 var text = document.getElementById(switchTextDiv);'
+            script = script + '\n	 if(ele.style.display == "block") {'
+            script = script + '\n    		ele.style.display = "none";'
+            script = script + '\n		text.innerHTML = "show";'
+            script = script + '\n  	}'
+            script = script + '\n	 else {'
+            script = script + '\n		ele.style.display = "block";'
+            script = script + '\n		text.innerHTML = "hide";'
+            script = script + '\n	}'
+            script = script + '\n}'
+            script = script + '\nfunction toggle3(contentDiv, controlDiv) {'
+            script = script + '\n        if (contentDiv.constructor == Array) {'
+            script = script + '\n                for(i=0; i < contentDiv.length; i++) {'
+            script = script + '\n                     toggle2(contentDiv[i], controlDiv[i]);'
+            script = script + '\n                }'
+            script = script + '\n        }'
+            script = script + '\n        else {'
+            script = script + '\n               toggle2(contentDiv, controlDiv);'
+            script = script + '\n        }'
+            script = script + '\n}'
+            script = script + '</script>'
+            style = '\n<style type="text/css">'
+            style = style + "\n.italic {\nfont-style: italic;\n}"
+            style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
+            style = style + "\n.bold {\nfont-weight: bold;\n}"
+            style = style + "\n.highlightcolor {\ncolor: #" + config.highlight_color + ";\n}"
+            style = style + "\n.alternatecolor {\ncolor: #" + config.alternate_color + ";\n}"
+            style = style + "\n</style>\n"
+            bracket = bracket + "</head>\n<body><!-- actual adventure starts here -->"
+
+            content_string = ""
+            header_string = ""
+            result = ""
+            chunk = False
+            if tempStatusArray[0] != 'no_format':
+                count = count + 1
+                result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >collapse</a>'
+                result = result + "\n<div id='myContent" + str(count) + "'>"
+                content_string = content_string + "'myContent" + str(count) + "',"
+                header_string = header_string + "'myHeader" + str(count) + "',"
+                chunk = True
+
+            for ti in range(len(tempStatusArray)-1):
+                if tempStatusArray[ti] != "no_format" and chunk == False:
+                    count = count + 1
+                    result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >collapse</a>'
+                    result = result + "\n<div id='myContent" + str(count) + "'>"
+                    result = result + tempArray[ti]
+                    content_string = content_string + "'myContent" + str(count) + "',"
+                    header_string = header_string + "'myHeader" + str(count) + "',"
+                    chunk = True
+                elif tempStatusArray[ti] != "no_format" and chunk == True:
+                    result = result + "\n" + tempArray[ti]
+                elif tempStatusArray[ti] == "no_format" and chunk == True:
+                     result = result + "</div>\n" + tempArray[ti]
+                     chunk = False
+                else:
+                    result = result + "\n" + tempArray[ti]
+                    chunk = False
+                    pass
+
+            final = bracket + script + style
+
+            final = final + '<input type="button" value="Toggle All" onClick="toggle3([' + content_string + '], [' + header_string + ']);">'
+
+            final = final + result
+            final = final +  "\n</body>\n</html>"
+            log_file.write(final)
     except:
         pass
 

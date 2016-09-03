@@ -77,7 +77,7 @@ class TitleScreen(Screen):
         self.preTitleLabel.bind(on_press=self.changePreTitle)
         #self.preTitleLabel.bind(on_press=self.pressGenericButton)
 
-        self.currentLabel = Label(text=config.curr_game_dir.split(os.sep)[-2].capitalize(), font_size="36dp", font_name='Cormorant', halign="center")
+        self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='Cormorant', halign="center")
 
         self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
         self.postTitleLabel.bind(on_press=self.changePostTitle)
@@ -218,7 +218,7 @@ class TitleScreen(Screen):
             # now update so the last opened game will be opened again next time
             config.curr_game_dir = config.curr_game_dir.strip()
             try:
-                with open("./resources/defaults/current_game.txt", "w") as config_file:
+                with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "w") as config_file:
                     gamename = config.curr_game_dir.split(os.sep)[-2]
                     config_file.write(gamename)
             except:

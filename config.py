@@ -9,6 +9,7 @@ import styles
 import os
 
 curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
+curr_title = "replace me"
 
 # color stuff
 transitory_color = styles.curr_palette['accent2']

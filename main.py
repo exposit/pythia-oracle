@@ -784,3 +784,4 @@ class MainScreen(Screen):
 
         updateCleanMarkdown()
         updateCleanHTML()
+        updateCollapseHTML()

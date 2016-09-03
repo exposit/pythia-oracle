@@ -1,0 +1,50 @@
+
+<html>
+<head>
+<title>replace me</title>
+</head>
+<body><!-- actual adventure starts here --><script>
+function toggle2(showHideDiv, switchTextDiv) {
+	 var ele = document.getElementById(showHideDiv);
+	 var text = document.getElementById(switchTextDiv);
+	 if(ele.style.display == "block") {
+    		ele.style.display = "none";
+		text.innerHTML = "show";
+  	}
+	 else {
+		ele.style.display = "block";
+		text.innerHTML = "hide";
+	}
+}
+function toggle3(contentDiv, controlDiv) {
+        if (contentDiv.constructor == Array) {
+                for(i=0; i < contentDiv.length; i++) {
+                     toggle2(contentDiv[i], controlDiv[i]);
+                }
+        }
+        else {
+               toggle2(contentDiv, controlDiv);
+        }
+}</script>
+<style type="text/css">
+.italic {
+font-style: italic;
+}
+.italicbold {
+font-style: italic;font-weight: bold;
+}
+.bold {
+font-weight: bold;
+}
+.highlightcolor {
+color: #424144;
+}
+.alternatecolor {
+color: #ededed;
+}
+</style>
+<input type="button" value="Toggle All" onClick="toggle3(['myContent1',], ['myHeader1',]);">
+<a id="myHeader1" href="javascript:toggle2('myContent1','myHeader1');" >collapse</a>
+<div id='myContent1'>
+</body>
+</html>
