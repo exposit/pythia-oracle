@@ -315,31 +315,39 @@ class TitleScreen(Screen):
 
 class OracleApp(App):
 
-        def build(self):
+    def build(self):
 
-            self.title = 'Pythia-Oracle'
+        self.title = 'Pythia-Oracle'
 
-            #Window.clearcolor = (1, 1, 1, 1)
+        #Window.clearcolor = (1, 1, 1, 1)
 
-            # define colors used in style.kv here; is there a way to change this without restart?
-            self.accent1_r = accent1[0]
-            self.accent1_g = accent1[1]
-            self.accent1_b = accent1[2]
+        # define colors used in style.kv here; is there a way to change this without restart?
+        self.accent1_r = accent1[0]
+        self.accent1_g = accent1[1]
+        self.accent1_b = accent1[2]
 
-            self.basefontsize = config.general['basefontsize']
+        self.basefontsize = config.general['basefontsize']
 
-            self.textcolor = styles.textcolor
+        self.textcolor = styles.textcolor
 
-            screenmanager = ScreenManager()
-            screenmanager.transition = SlideTransition(duration=1,clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
-            titlescn = TitleScreen(name='titlescn')
-            mainscn = MainScreen(name='mainscn')
-            screenmanager.add_widget(titlescn)
-            screenmanager.add_widget(mainscn)
+        screenmanager = ScreenManager()
+        screenmanager.transition = SlideTransition(duration=1,clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
+        titlescn = TitleScreen(name='titlescn')
+        mainscn = MainScreen(name='mainscn')
+        screenmanager.add_widget(titlescn)
+        screenmanager.add_widget(mainscn)
 
-            #return Builder.load_string(kv)
+        #return Builder.load_string(kv)
 
-            return screenmanager
+        return screenmanager
+
+    def on_start(self):
+        #print("APP STARTING")
+        pass
+
+    def on_stop(self):
+        #print("APP STOPPING")
+        quicksave(self, config.curr_game_dir)
 
 if __name__ == '__main__':
     OracleApp().run()

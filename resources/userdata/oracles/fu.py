@@ -151,20 +151,20 @@ def fu(count=0, modifier="none"):
         if len(odds) > 0:
             roll_result = min(odds)
             if odds.count(roll_result) > 1:
-                ands = " ...and, " + str(odds.count(roll_result) - 1) + "x!"
+                ands = " ...and " + str(odds.count(roll_result) - 1) + "x extra 'ands'!"
         else:
             roll_result = min(evens)
             if evens.count(roll_result) > 1:
-                ands = " ...and " + str(evens.count(roll_result) - 1) + "x!"
+                ands = " ...and " + str(evens.count(roll_result) - 1) + "x extra 'ands'!"
     else:
         if len(evens) > 0:
             roll_result = max(evens)
             if evens.count(roll_result) > 1:
-                ands = " ...and, " + str(evens.count(roll_result) - 1) + "x!"
+                ands = " ...and " + str(evens.count(roll_result) - 1) + "x extra 'ands'!"
         else:
             roll_result = max(odds)
             if odds.count(roll_result) > 1:
-                ands = " ...and, " + str(odds.count(roll_result) - 1) + "x!"
+                ands = " ...and " + str(odds.count(roll_result) - 1) + "x extra 'ands'!"
     chart = {
         6 : "Yes, and...",
         4 : "Yes.",
