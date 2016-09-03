@@ -8,6 +8,7 @@ As always, save backup copies of your text files as frequently as possible!
 
 Version 0.2.0
 
+* added a better html output with collapsing panels
 * better support for user panels
 * improved "on enter" behavior so user panels can self-update
 * new config.user variable dictionary for saving variables from user panels
