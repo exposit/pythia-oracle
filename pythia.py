@@ -63,7 +63,7 @@ class TitleScreen(Screen):
 
         try:
             with open(config.curr_game_dir + "config.txt", "r") as config_file:
-                tempDict = simplejson.load(config_file)
+                tempDict = json.load(config_file)
                 for i in tempDict['general']:
                     config.general[i] = tempDict['general'][i]
         except:
@@ -145,7 +145,7 @@ class TitleScreen(Screen):
             else:
                 try:
                     with open(savefolder + "config.txt", "r") as config_file:
-                        tempDict = simplejson.load(config_file)
+                        tempDict = json.load(config_file)
                         pre = tempDict['general']['pretitle'].replace('\n', ' ')
                         post = tempDict['general']['posttitle'].replace('\n', ' ')
                 except:

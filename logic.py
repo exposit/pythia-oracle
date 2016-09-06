@@ -338,7 +338,7 @@ def saveconfig(self, gamedir):
         tempDict['user'] = config.user
 
         f = open(gamedir + 'config.txt', 'w')
-        simplejson.dump(tempDict, f)
+        json.dump(tempDict, f)
         f.close()
     except:
         print("Saving configuration file failed.")
@@ -346,7 +346,7 @@ def saveconfig(self, gamedir):
 def loadconfig(self, gamedir):
     try:
         f = open(gamedir + 'config.txt', 'r')
-        tempDict = simplejson.load(f)
+        tempDict = json.load(f)
         for i in tempDict['general']:
             config.general[i] = tempDict['general'][i]
         for i in tempDict['user']:
@@ -357,41 +357,41 @@ def loadconfig(self, gamedir):
 def quicksave(self, gamedir):
 
     f = open(gamedir + 'main.txt', 'w')
-    simplejson.dump(config.textArray, f)
+    json.dump(config.textArray, f)
     f.close()
 
     f = open(gamedir + 'main_status.txt', 'w')
-    simplejson.dump(config.textStatusArray, f)
+    json.dump(config.textStatusArray, f)
     f.close()
 
     f = open(gamedir + 'threads.txt', 'w')
-    simplejson.dump(config.threadArray, f)
+    json.dump(config.threadArray, f)
     f.close()
 
     f = open(gamedir + 'threads_status.txt', 'w')
-    simplejson.dump(config.threadStatusArray, f)
+    json.dump(config.threadStatusArray, f)
     f.close()
 
     f = open(gamedir + 'actors.txt', 'w')
-    simplejson.dump(config.actorArray, f)
+    json.dump(config.actorArray, f)
     f.close()
 
     f = open(gamedir + 'actors_status.txt', 'w')
-    simplejson.dump(config.actorStatusArray, f)
+    json.dump(config.actorStatusArray, f)
     f.close()
 
     f = open(gamedir + 'tracks.txt', 'w')
     tempArray = []
     for i in range(len(config.trackLabelArray)):
         tempArray.append([config.trackLabelArray[i].text, config.trackStatusLabelArray[i].active])
-    simplejson.dump(tempArray, f)
+    json.dump(tempArray, f)
     f.close
 
     f = open(gamedir + 'pcs.txt', 'w')
     tempArray = []
     for i in range(len(config.pcKeyLabelArray)):
         tempArray.append([config.pcKeyLabelArray[i].text, config.pcValueLabelArray[i].text])
-    simplejson.dump(tempArray, f)
+    json.dump(tempArray, f)
     f.close
 
     saveconfig(self, gamedir)
@@ -404,8 +404,8 @@ def quickload(self, gamedir):
     f = open(gamedir + 'main.txt', 'r')
     x = open(gamedir + 'main_status.txt', 'r')
     try:
-        tempArray = simplejson.load(f)
-        tempStatusArray = simplejson.load(x)
+        tempArray = json.load(f)
+        tempStatusArray = json.load(x)
         for i in tempArray:
             curr_index = tempArray.index(i)
             updateCenterDisplay(self, i, tempStatusArray[curr_index])
@@ -422,10 +422,10 @@ def quickload(self, gamedir):
         tempTable = []
         tempStatusTable = []
 
-        for i in simplejson.load(f):
+        for i in json.load(f):
             tempTable.append(i)
 
-        for z in simplejson.load(x):
+        for z in json.load(x):
             tempStatusTable.append(z)
 
         for m in range(len(tempTable)):
@@ -443,10 +443,10 @@ def quickload(self, gamedir):
         tempTable = []
         tempStatusTable = []
 
-        for i in simplejson.load(f):
+        for i in json.load(f):
             tempTable.append(i)
 
-        for z in simplejson.load(x):
+        for z in json.load(x):
             tempStatusTable.append(z)
 
         for m in range(len(tempTable)):
@@ -460,7 +460,7 @@ def quickload(self, gamedir):
     f = open(gamedir + 'tracks.txt', 'r')
     try:
         tempTable = []
-        for i in simplejson.load(f):
+        for i in json.load(f):
             tempTable.append(i)
             #print(i)
 
@@ -475,7 +475,7 @@ def quickload(self, gamedir):
     try:
         f = open(gamedir + 'pcs.txt', 'r')
         tempTable = []
-        for i in simplejson.load(f):
+        for i in json.load(f):
             tempTable.append(i)
 
         for x in range(len(tempTable)):
@@ -827,23 +827,13 @@ def chooseWeighted(value, text, form):
     except:
         return str(result_string), str(result), str("ephemeral"), str("0")
 
-# simple action/subject lists to help answer complex questions, off the top of my head, could be a lot longer/more
+# simple action/subject lists to help answer complex questions
 def complex_action():
-    chart = [
-        "accumulate", "align", "divert", "divide", "construct", "synthesize", "command", "facilitate", "penalize",
-        "run", "convince", "motivate", "share", "enable", "assist", "unify", "acquire", "involve", "determine", "locate",
-        "examine", "track", "lose", "discover", "alter", "question", "negotiate", "renegotiate", "exchange", "accelerate", "execute",
-        "anticipate", "commit", "trap", "unveil", "emphasize", "simplify", "transition", "overcome", "improvise", "clarify",
-        "obscure", "eviscerate", "experience", "teach", "substitute", "tighten", "loosen", "strengthen", "weaken", "withdraw",
-        "advance", "nurture", "squelch", "adjust", "justify", "murder", "love", "mesmerize", "revenge", "mend", "control", 'enrage',
-        'educate', 'adopt', 'reject', 'consider', 'disregard'
-    ]
+    chart = ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anticipate', 'assist', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'determine', 'discover', 'disregard', 'divert', 'divide', 'educate', 'emphasize', 'enable', 'enrage', 'enter', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'guess', 'impassion', 'improvise', 'inflate', 'interest', 'involve', 'justify', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw']
+
     return random.choice(chart)
 
 def complex_subject():
-    chart = [
-        "friend", "enemy", "ally", "lover", "home", "monster", "location", "work", "boss", "emotions", "physical", "reserves", "task", "future",
-        "past", "vengeance", "possessions", "music", "art", "sex", "survival", "necessities", "luxuries", "weapons", "armor", "fatigue", "honor",
-        "integrity", "violence", "compassion", "sun", "moon", "value", 'neighbor', 'kin', 'fury', 'emotions', "quarry", "focus", "addiction", "obsession"
-    ]
+    chart = ['addiction', 'ally', 'armor', 'art', 'boss', 'change', 'class', 'common', 'compassion', 'death', 'disaster', 'earth', 'elements', 'emotions', 'emotions', 'enemy', 'fatigue', 'focus', 'friend', 'friendship', 'fury', 'future', 'hatred', 'home', 'hope', 'honor', 'instinct', 'integrity', 'key', 'kin', 'location', 'love', 'luxuries', 'monster', 'moon', 'music', 'necessities', 'neighbor', 'obsession', 'past', 'passion', 'path', 'physical', 'possessions', 'power', 'quarry', 'reserves', 'sex', 'stalemate', 'star', 'status quo', 'sun', 'survival', 'task', 'value', 'vengeance', 'violence', 'wealth', 'weapons', 'work']
+
     return random.choice(chart)

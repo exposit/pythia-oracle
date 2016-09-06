@@ -6,9 +6,19 @@ If your save game breaks, read the error message; you'll usually be able to inse
 
 As always, save backup copies of your text files as frequently as possible!
 
+Version 0.3.0
+
+* improved autosave on exit
+* clarified fu oracle results
+* improved enter key toggle to support more behavior options, including none
+* lots of bug fixes
+* added more words to complex answer pool
+* tweaked some result pools to be more sfw
+* removed simplejson dependency in favor of python's built-in json
+* added a better html output with collapsing sections
+
 Version 0.2.0
 
-* added a better html output with collapsing panels
 * better support for user panels
 * improved "on enter" behavior so user panels can self-update
 * new config.user variable dictionary for saving variables from user panels

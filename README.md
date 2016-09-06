@@ -33,10 +33,6 @@ Open up a terminal (command prompt) and type "python --version". If you get a "n
 
 Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary.
 
-Finally, type
-
-`pip install simplejson`
-
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
 
 You have two options now. Easiest is to double-click on the 'pythia.py' file to launch the program. However, it is really best viewed in widescreen; to get this, navigate to the folder containing "pythia.py" and type
