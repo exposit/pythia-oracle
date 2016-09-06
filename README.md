@@ -1,6 +1,6 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
-### Pythia-Oracle 0.2.0
+### Pythia-Oracle 0.3.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
 
 #### What is it?
@@ -19,7 +19,7 @@ The basic procedure I use is pick a system, make a character, fire this program 
 
 Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python (or identifying if it's already installed) and through installing Kivy.
 
-Pip install simplejson, then run pythia with
+Run pythia with
 
 `python pythia.py --size 1280x725`
 
