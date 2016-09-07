@@ -516,10 +516,10 @@ def updateCleanMarkdown():
                         result = result + "\n**_" + item + "_**"
                     elif config.textStatusArray[ti] == "color1":
                         item = item.replace('\n', '`\n`')
-                        result = result = "\n`" + item + "`"
+                        result = result + "\n`" + item + "`"
                     elif config.textStatusArray[ti] == "color2":
                         item = item.replace('\n', '`\n`')
-                        result = result = "\n`" + item + "`"
+                        result = result + "\n`" + item + "`"
                     else:
                         result = result + "\n" + item
             log_file.write(result)
@@ -549,9 +549,9 @@ def updateCleanHTML():
                     elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
                         result = result + '\n<div class="mechanic"><div class="italicbold">' + item + "</div></div>"
                     elif config.textStatusArray[ti] == "color1":
-                        result = result = '\n<div class="mechanic"><div class="highlightcolor">' + item + "</div></div>"
+                        result = result + '\n<div class="mechanic"><div class="highlightcolor">' + item + "</div></div>"
                     elif config.textStatusArray[ti] == "color2":
-                        result = result = '\n<div class="mechanic"><div class="alternatecolor">' + item + "</div></div>"
+                        result = result + '\n<div class="mechanic"><div class="alternatecolor">' + item + "</div></div>"
                     else:
                         result = result + '\n<div class="normal">' + item + "</div></div>"
 
@@ -625,7 +625,7 @@ def updateCollapseHTML():
             chunk = False
             if tempStatusArray[0] != 'no_format':
                 count = count + 1
-                result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >collapse</a>'
+                result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >hide</a>'
                 result = result + "\n<div id='myContent" + str(count) + "'>"
                 content_string = content_string + "'myContent" + str(count) + "',"
                 header_string = header_string + "'myHeader" + str(count) + "',"
