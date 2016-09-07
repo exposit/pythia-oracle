@@ -6,6 +6,11 @@ If your save game breaks, read the error message; you'll usually be able to inse
 
 As always, save backup copies of your text files as frequently as possible!
 
+Next Version
+
+* added jump button to top so you can quickly go top to bottom in the center window
+* added buttons to each side panel to quickly copy text into main window
+
 Version 0.3.0
 
 * improved autosave on exit
