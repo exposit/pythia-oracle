@@ -4,7 +4,7 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 If your save game breaks, read the error message; you'll usually be able to insert a missing variable into the config file (or rename a file if needed) manually. You can also make a fresh game and try copying your files into it.
 
-As always, save backup copies of your text files as frequently as possible!
+As always, save backup copies of your text files as frequently as possible! MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Next Version
 
