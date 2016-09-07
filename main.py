@@ -122,7 +122,12 @@ class MainScreen(Screen):
 #  Center text display
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+
+        self.button = Button(text="copy to main window", size_hint=(1,.03), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.copyThreadsToMain)
+        self.centerBox.add_widget(self.button)
 
         self.threadDisplay = ScrollView(size_hint=(1, .18))
 
@@ -133,7 +138,12 @@ class MainScreen(Screen):
 
         self.centerBox.add_widget(self.threadDisplay)
 
-        self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+
+        self.button = Button(text="top", size_hint=(1,.03), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.jumpToTop)
+        self.centerBox.add_widget(self.button)
 
         self.centerDisplay = ScrollView(size_hint=(1,.50))
 
@@ -353,6 +363,11 @@ class MainScreen(Screen):
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
+        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.copyPCsToMain)
+        self.pcMainBox.add_widget(self.button)
+
         self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
         label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
@@ -399,6 +414,11 @@ class MainScreen(Screen):
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
+        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.copyActorToMain)
+        self.actorMainBox.add_widget(self.button)
+
         self.actorTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
         label = Label(text="Actor", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.actorTitleGrid.add_widget(label)
@@ -425,6 +445,11 @@ class MainScreen(Screen):
         self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space="28dp")
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
+
+        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.copyTracksToMain)
+        self.tracksMainBox.add_widget(self.button)
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
@@ -578,6 +603,46 @@ class MainScreen(Screen):
         updateCenterDisplay(self, result)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
+# PC, threads, tracks, & actor panel copy functions
+#-------------------------------------------------------------------------------------------------------------------------------------------
+
+    def copyTracksToMain(self, *args):
+        args[0].background_color = neutral
+        result = ""
+        for i in range(len(config.trackLabelArray)):
+            if len(config.trackLabelArray[i].text) > 0:
+                result = result + "\n" + config.trackLabelArray[i].text
+                if config.trackStatusLabelArray[i].active:
+                    result = result + " [X]"
+        result = "[Tracked] " + result
+        updateCenterDisplay(self, result, "color2")
+
+    def copyActorToMain(self, *args):
+        args[0].background_color = neutral
+        result = ""
+        for i in range(len(config.actorArray)):
+            result = result + "\n" + config.actorArray[i] + " [" + config.actorStatusArray[i] + "]"
+        result = "[Actors] " + result
+        updateCenterDisplay(self, result, "color2")
+
+    def copyPCsToMain(self, *args):
+        args[0].background_color = neutral
+        result = ""
+        for i in range(len(config.pcKeyLabelArray)):
+            if len(config.pcKeyLabelArray[i].text) > 0:
+                result = result + "\n" + config.pcKeyLabelArray[i].text + ": " + config.pcValueLabelArray[i].text
+        result = "[PC] " + result
+        updateCenterDisplay(self, result, "color2")
+
+    def copyThreadsToMain(self, *args):
+        args[0].background_color = neutral
+        result = ""
+        for i in range(len(config.threadArray)):
+            result = result + "\n" + config.threadArray[i] + " [" + config.threadStatusArray[i] + "]"
+        result = "[Threads] " + result
+        updateCenterDisplay(self, result, "color2")
+
+#-------------------------------------------------------------------------------------------------------------------------------------------
 # submit text input buttons
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -679,6 +744,15 @@ class MainScreen(Screen):
             if button.index >= 0:
                 self.centerDisplay.scroll_to(config.textLabelArray[button.index])
                 button.state = 'normal'
+
+    def jumpToTop(self, button):
+        button.background_color = neutral
+        if button.text == "top":
+            button.text = "bottom"
+            self.centerDisplay.scroll_to(config.textLabelArray[0])
+        else:
+            button.text = "top"
+            self.centerDisplay.scroll_to(config.textLabelArray[-1])
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # center footer bar
