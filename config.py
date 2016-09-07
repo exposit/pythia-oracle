@@ -59,4 +59,7 @@ activePanelsRight = []
 basefont = str(general['basefontsize']) + "dp"
 basefont75 = str(general['basefontsize']*.75) + "dp"
 basefont80 = str(general['basefontsize']*.80) + "dp"
+basefont90 = str(general['basefontsize']*.90) + "dp"
 baseheight = str(general['basefontsize']+10) + "dp"
+octupleheight = str(general['basefontsize']*8+10) + "dp"
+aiheight = baseheight

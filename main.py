@@ -352,14 +352,14 @@ class MainScreen(Screen):
 #  SIDE PANEL - right horizontal stack for trackers
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.rightAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space="28dp")
+        self.rightAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space = config.aiheight)
         self.mainBox.add_widget(self.rightAccordion)
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 #  PC panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected='resources/ui_images/invisible.png', min_space="28dp")
+        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected='resources/ui_images/invisible.png', min_space = config.aiheight)
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
@@ -369,9 +369,9 @@ class MainScreen(Screen):
         self.pcMainBox.add_widget(self.button)
 
         self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
-        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
 
         self.pcMainBox.add_widget(self.pcTitleGrid)
@@ -410,7 +410,7 @@ class MainScreen(Screen):
 #  actor panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space="28dp")
+        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space = config.aiheight)
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
@@ -419,16 +419,17 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.copyActorToMain)
         self.actorMainBox.add_widget(self.button)
 
-        self.actorTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        label = Label(text="Actor", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-        self.actorTitleGrid.add_widget(label)
-        label = Label(text="Status", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-        self.actorTitleGrid.add_widget(label)
+        #self.actorTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+        #label = Label(text="Actor", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        #self.actorTitleGrid.add_widget(label)
+        #label = Label(text="Status", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        #self.actorTitleGrid.add_widget(label)
 
-        self.actorMainBox.add_widget(self.actorTitleGrid)
+        #self.actorMainBox.add_widget(self.actorTitleGrid)
 
+        self.actorMainBox.add_widget(Label(text="Actors", halign="center", size_hint=(1,.05), font_size=config.basefont90))
         self.actorDisplay = ScrollView(size_hint=(1, 1))
-        self.actorDisplayGrid = GridLayout(cols=2, spacing=5, size_hint_y=None, size_hint_x=1)
+        self.actorDisplayGrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
         self.actorDisplayGrid.bind(minimum_height = self.actorDisplayGrid.setter('height'))
         self.actorDisplay.add_widget(self.actorDisplayGrid)
 
@@ -442,7 +443,7 @@ class MainScreen(Screen):
 # tracks & scratchpad panel
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space="28dp")
+        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space = config.aiheight)
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
 
@@ -453,10 +454,10 @@ class MainScreen(Screen):
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
-        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         self.trackTitleGrid.add_widget(label)
-        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
         self.trackTitleGrid.add_widget(label)
 
         self.tracksMainBox.add_widget(self.trackTitleGrid)
@@ -493,9 +494,9 @@ class MainScreen(Screen):
 #  holder panel for generators
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.generatorAccordionItem = AccordionItem(title='Generators', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
+        self.generatorAccordionItem = AccordionItem(title='Generators', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
 
-        self.generatorStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space="28dp")
+        self.generatorStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
         self.generatorAccordionItem.add_widget(self.generatorStackAccordion)
 
@@ -505,9 +506,9 @@ class MainScreen(Screen):
 #  holder panel for oracles
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
+        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
 
-        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space="28dp")
+        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
         self.oracleAccordionItem.add_widget(self.oracleStackAccordion)
 

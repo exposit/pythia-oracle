@@ -45,7 +45,6 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
     if status == "ephemeral":
         text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
-        # ideally this would not actually be added to the textArray, or at least not shown on load, but for now I'm leaving it as just a color change
     elif status == "query":
         text = "[b]" + text + "[/b]"
     elif status == "result":
@@ -137,7 +136,6 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.foreground_color=(1,1,1,1)
         config.textLabelArray.append(label)
 
-        #label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, height="30px", font_size=config.general['basefontsize'], font_name='Fantasque-Sans')
         label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=10, font_name='Fantasque-Sans')
         label.background_normal=''
         label.background_color=accent1
@@ -197,12 +195,12 @@ def updateThreadDisplay(self, text, status):
     config.threadArray.append(text)
     config.threadStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, multiline=False, height="30dp", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=.90, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
     self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, height="30dp", font_size=config.basefont, font_name='Fantasque-Sans')
+    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -254,7 +252,10 @@ def updateActorDisplay(self, text, status):
     config.actorArray.append(text)
     config.actorStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.75, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = Label(text=' ', size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
+    self.actorDisplayGrid.add_widget(label)
+
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=1, height=config.octupleheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
     label.text_size = (self.actorDisplayGrid.width, None)
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -263,7 +264,7 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.25, font_size=config.basefont, font_name='Fantasque-Sans',)
+    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
     label.bind(on_press=cycleActor)
     label.background_normal=''
     label.background_color=accent1
@@ -273,6 +274,9 @@ def updateActorDisplay(self, text, status):
     config.actorStatusLabelArray.append(label)
 
     self.actorDisplayGrid.add_widget(config.actorStatusLabelArray[-1])
+
+    label = Label(text=' ', size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
+    self.actorDisplayGrid.add_widget(label)
 
 def cycleActor(self, *args):
     if self.text == "Current":
