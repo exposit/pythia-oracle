@@ -10,11 +10,11 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.4.0
 
-* cleaned up bookmarks so they should work properly in all modes*
+* cleaned up bookmarks so they should work better in all modes
 * basic backup system that saves the entire save folder on program load with timestamp
 * improved saving to log files for sharing, should happen on loading a game and on every save now
 * added a "clean edit" mode for editing just narrative text ('no_format' tag) and cleaned up other modes
-* tweaked actor generators for broader results that should be more interpretive
+* tweaked actor generators for broader results that should be more interpretive & more options
 * added 'unknown' status tag for actors your hero hasn't met yet
 * set actor panel and thread panels to hide 'don't show' status items on Save button press (they're not erased, just not visible until you restart the game or edit the status tag manually)
 * added jump button to top of main log window so you can quickly go top to bottom and back
