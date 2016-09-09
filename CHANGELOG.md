@@ -2,10 +2,6 @@
 
 Please note that this is very rough and just to give you an idea of what's been changed or improved. API breaking and save game breaking stuff may happen fairly frequently until we get up to 1.0!
 
-If your save game breaks, read the error message; you'll usually be able to insert a missing variable into the config file (or rename a file if needed) manually. You can also make a fresh game and try copying your files into it.
-
-As always, save backup copies of your text files as frequently as possible! And ALWAYS before testing a new version -- then test any new features before restoring your old version and proceeding.
-
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.4.0
@@ -14,9 +10,9 @@ Version 0.4.0
 * basic backup system that saves the entire save folder on program load with timestamp
 * improved saving to log files for sharing, should happen on loading a game and on every save now
 * added a "clean edit" mode for editing just narrative text ('no_format' tag) and cleaned up other modes
-* tweaked actor generators for broader results that should be more interpretive & more options
+* tweaked actor generators for broader results that should be more interpretive & offer more options
 * added 'unknown' status tag for actors your hero hasn't met yet
-* set actor panel and thread panels to hide 'don't show' status items on Save button press (they're not erased, just not visible until you restart the game or edit the status tag manually)
+* set actor panel and thread panels to hide 'don't show' status tagged items on Save button press (they're not erased, just not visible until you restart the game or edit the status tag manually)
 * added jump button to top of main log window so you can quickly go top to bottom and back
 * added buttons to each side tracking panel to copy text from panels into main window quickly
 
