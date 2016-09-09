@@ -109,11 +109,11 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
     elif edit_mode == "CLEAN":
-        # clean mode, for reading just text; don't show rolls
+        # clean mode for reading just text; don't show mechanics or formatting tags
+
+        self.centerDisplayGrid.cols = 1
 
         if status == "no_format":
-
-            self.centerDisplayGrid.cols = 1
 
             label = ClickLabel(text=text, size_hint_y=None, font_size=config.basefont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
             label.text_size = (self.centerDisplayGrid.width, None)
@@ -128,15 +128,15 @@ def updateCenterDisplay(self, text, status='result', reset=False):
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
     elif edit_mode == "CEDIT":
-        # edit, but just text, no mechanics
+        # editing mode for just text, no mechanics or formatting tags
 
         self.centerDisplayGrid.cols = 1
 
         if status == "no_format":
 
             label = TextInput(text=base_text, size_hint_y=None)
-            label.height = ((len(label._lines)/4) + 1) * label.line_height
             label.text_size = (self.centerDisplayGrid.width, None)
+            label.height = ((len(label._lines)/4) + 1) * label.line_height
             label.bind(focus=focusChangeText)
             label.background_color=(0,0,0,.5)
             label.foreground_color=(1,1,1,1)
@@ -152,6 +152,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         label = TextInput(text=base_text, size_hint_y=None, size_hint_x=.85)
         label.text_size = (self.centerDisplayGrid.width, None)
+        label.height = ((len(label._lines)/4) + 1) * label.line_height
         label.bind(focus=focusChangeText)
         label.background_color=(0,0,0,.5)
         label.foreground_color=(1,1,1,1)
@@ -356,7 +357,6 @@ def focusChangeText(self, value):
     if value:
         pass
     else:
-        print(self.index)
         config.textArray[self.index] = self.text
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -744,7 +744,6 @@ def getRandomActor(key="All"):
     for i in range(len(config.actorLabelArray)):
         textarray.append(config.actorLabelArray[i].text + ", " + config.actorStatusLabelArray[i].text)
 
-    print(list(textarray))
     if key == "All" and len(textarray) > 0:
         result = "[Random actor, key: " + key + "] " + random.choice(textarray)
     else:

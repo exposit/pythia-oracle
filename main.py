@@ -757,13 +757,14 @@ class MainScreen(Screen):
             self.clearBookmarkButton.state = 'normal'
         else:
             if button.index >= 0:
-                # first, figure out the correct index, then jump to it
+
                 try:
                     for item in config.textLabelArray:
                         if config.textArray[button.index] in item.text:
-                            self.centerDisplay.scroll_to(config.textLabelArray[button.index])
+                            self.centerDisplay.scroll_to(item)
                 except:
-                    updateCenterDisplay(self, "That bookmark is not available in this mode.", 'ephemeral')
+                    pass
+                    #updateCenterDisplay(self, "That bookmark is not available in this mode.", 'ephemeral')
 
                 button.state = 'normal'
 
