@@ -88,9 +88,9 @@ class MainScreen(Screen):
 
         self.editSpinner = Spinner(
             # default value shown
-            text='EDIT',
+            text=config.general['edit_behavior'],
             # available values
-            values=['EDIT', 'PLAY', 'READ', 'CLEAN'],
+            values=['PLAY', 'READ', 'CLEAN', 'CEDIT', 'EDIT'],
             background_normal='',
             background_color=accent1,
             background_down='',
@@ -359,7 +359,7 @@ class MainScreen(Screen):
 #  PC panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected='resources/ui_images/invisible.png', min_space = config.aiheight)
+        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
@@ -382,7 +382,16 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.25, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            if i <= 14:
+                ml = False
+                ht = config.tallheight
+                fs = config.basefont90
+            else:
+                ml = True
+                ht = config.tripleheight
+                fs = config.basefont90
+
+            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=.25, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
             #label.text_size = (self.pcDisplayGrid.width, None)
             label.value = i
             #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -390,7 +399,7 @@ class MainScreen(Screen):
 
             self.pcDisplayGrid.add_widget(config.pcKeyLabelArray[-1])
 
-            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.75, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=.75, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
             label.text_size = (self.pcDisplayGrid.width, None)
             label.value = i
             #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -410,7 +419,7 @@ class MainScreen(Screen):
 #  actor panel
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected='resources/ui_images/invisible.png', min_space = config.aiheight)
+        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
@@ -443,7 +452,7 @@ class MainScreen(Screen):
 # tracks & scratchpad panel
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected='/resources/ui_images/invisible.png', min_space = config.aiheight)
+        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
 
@@ -468,7 +477,7 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.baseheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
             #label.text_size = (self.trackDisplayGrid.width, None)
             #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.trackLabelArray.append(label)
@@ -595,6 +604,8 @@ class MainScreen(Screen):
         quicksave(self, config.curr_game_dir)
         saveconfig(self, config.curr_game_dir)
         updateCenterDisplay(self, "Content and configuration saved.", 'ephemeral')
+        clearActor(self, *args)
+        clearThread(self, *args)
 
     # generic function calls
     def miscChartRoll(self, *args):
@@ -669,7 +680,8 @@ class MainScreen(Screen):
 
     def releaseComplex(self, *args):
         args[0].background_color = neutral
-        updateCenterDisplay(self, self.textInput.text, 'query')
+        if len(self.textInput.text) > 0:
+            updateCenterDisplay(self, self.textInput.text, 'query')
         updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
@@ -826,9 +838,8 @@ class MainScreen(Screen):
 
     def on_enter(self):
 
-        quickload(self, config.curr_game_dir)
-
         loadconfig(self, config.curr_game_dir)
+        quickload(self, config.curr_game_dir)
 
         # now update variable widgets
         try:

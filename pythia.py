@@ -321,6 +321,9 @@ class OracleApp(App):
 
         #Window.clearcolor = (1, 1, 1, 1)
 
+        # back up save folder
+        makeBackup()
+
         # define colors used in style.kv here; is there a way to change this without restart?
         self.accent1_r = accent1[0]
         self.accent1_g = accent1[1]

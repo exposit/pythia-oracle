@@ -65,7 +65,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         pass
 
     if edit_mode == "READ":
-        # this is the standard mode used for reading and playing
+        # this mode is for reading the entire log, mechanics and all
 
         self.centerDisplayGrid.cols = 1
 
@@ -81,7 +81,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
     elif edit_mode == "PLAY":
-        # this mode is used if you're prone to forgetting to change format type
+        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
 
         self.centerDisplayGrid.cols = 2
 
@@ -107,7 +107,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
     elif edit_mode == "CLEAN":
-        # clean mode, don't show rolls
+        # clean mode, for reading just text; don't show rolls
 
         if status == "no_format":
 
@@ -124,8 +124,26 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
+    elif edit_mode == "CEDIT":
+        # edit, but just text, no mechanics
+
+        self.centerDisplayGrid.cols = 1
+
+        if status == "no_format":
+
+            label = TextInput(text=base_text, size_hint_y=None)
+            label.height = ((len(label._lines)/4) + 1) * label.line_height
+            label.text_size = (self.centerDisplayGrid.width, None)
+            label.bind(focus=focusChangeText)
+            label.background_color=(0,0,0,.5)
+            label.foreground_color=(1,1,1,1)
+            label.index = config.textArray.index(base_text)
+            config.textLabelArray.append(label)
+
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+
     else:
-        # editing mode, which means everything is a text input & needs a status label
+        # full editing mode, text, mechanics, formatting
 
         self.centerDisplayGrid.cols = 2
 
@@ -134,6 +152,8 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.bind(focus=focusChangeText)
         label.background_color=(0,0,0,.5)
         label.foreground_color=(1,1,1,1)
+        #label.index = len(config.textLabelArray)
+        label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
         label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=10, font_name='Fantasque-Sans')
@@ -229,9 +249,9 @@ def cycleThread(self, *args):
         self.text = "Abandoned"
         config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Abandoned"
     elif self.text == "Abandoned":
-        self.text = "Hide"
-        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Hide"
-    elif self.text == "Hide":
+        self.text = "Don't Show"
+        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Don't Show"
+    elif self.text == "Don't Show":
         self.text = "Current"
         config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Current"
     else:
@@ -243,7 +263,7 @@ def cycleThread(self, *args):
 # call this on a new thread added; plenty of time to change our minds
 def clearThread(self, *args):
     for i in range(len(config.threadStatusArray)):
-        if config.threadStatusArray[i] == "Hide":
+        if config.threadStatusArray[i] == "Don't Show":
             self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
             self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
 
@@ -295,8 +315,11 @@ def cycleActor(self, *args):
         self.text = "Remote"
         config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Remote"
     elif self.text == "Remote":
-        self.text = "Hide"
-        config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Hide"
+        self.text = "Unknown"
+        config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Unknown"
+    elif self.text == "Unknown":
+        self.text = "Don't Show"
+        config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Don't Show"
     else:
         self.text = "Current"
         config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Current"
@@ -310,7 +333,7 @@ def showActor(self, *args):
 
 def clearActor(self, *args):
     for i in range(len(config.actorStatusArray)):
-        if config.actorStatusArray[i] == "Hide":
+        if config.actorStatusArray[i] == "Don't Show":
             self.actorDisplayGrid.remove_widget(config.actorLabelArray[i])
             self.actorDisplayGrid.remove_widget(config.actorStatusLabelArray[i])
 
@@ -330,7 +353,8 @@ def focusChangeText(self, value):
     if value:
         pass
     else:
-        config.textArray[config.textLabelArray.index(self)] = self.text
+        print(self.index)
+        config.textArray[self.index] = self.text
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # save/load functions
@@ -398,31 +422,31 @@ def quicksave(self, gamedir):
     json.dump(tempArray, f)
     f.close
 
-    saveconfig(self, gamedir)
+    updateCleanMarkdown()
+    updateCleanHTML()
+    updateCollapseHTML()
 
-    clearThread(self)
-    clearActor(self)
+    saveconfig(self, gamedir)
 
 def quickload(self, gamedir):
 
-    f = open(gamedir + 'main.txt', 'r')
-    x = open(gamedir + 'main_status.txt', 'r')
     try:
+        f = open(gamedir + 'main.txt', 'r')
+        x = open(gamedir + 'main_status.txt', 'r')
         tempArray = json.load(f)
         tempStatusArray = json.load(x)
         for i in tempArray:
             curr_index = tempArray.index(i)
             updateCenterDisplay(self, i, tempStatusArray[curr_index])
         self.centerDisplay.scroll_to(config.textLabelArray[-1])
+        f.close()
+        x.close()
     except:
         updateCenterDisplay(self, "The adventure begins...", 'italic')
-    f.close()
-    x.close()
 
-    f = open(gamedir + 'threads.txt', 'r')
-    x = open(gamedir + 'threads_status.txt', 'r')
     try:
-
+        f = open(gamedir + 'threads.txt', 'r')
+        x = open(gamedir + 'threads_status.txt', 'r')
         tempTable = []
         tempStatusTable = []
 
@@ -434,16 +458,14 @@ def quickload(self, gamedir):
 
         for m in range(len(tempTable)):
             updateThreadDisplay(self, tempTable[m], tempStatusTable[m])
-
+        f.close()
+        x.close()
     except:
         pass
-    f.close()
-    x.close()
 
-    f = open(gamedir + 'actors.txt', 'r')
-    x = open(gamedir + 'actors_status.txt', 'r')
     try:
-
+        f = open(gamedir + 'actors.txt', 'r')
+        x = open(gamedir + 'actors_status.txt', 'r')
         tempTable = []
         tempStatusTable = []
 
@@ -455,26 +477,23 @@ def quickload(self, gamedir):
 
         for m in range(len(tempTable)):
             updateActorDisplay(self, tempTable[m], tempStatusTable[m])
-
+        f.close()
+        x.close()
     except:
         pass
-    f.close()
-    x.close()
 
-    f = open(gamedir + 'tracks.txt', 'r')
     try:
+        f = open(gamedir + 'tracks.txt', 'r')
         tempTable = []
         for i in json.load(f):
             tempTable.append(i)
-            #print(i)
 
         for x in range(len(tempTable)):
             config.trackLabelArray[x].text = tempTable[x][0]
             config.trackStatusLabelArray[x].active = tempTable[x][1]
+        f.close()
     except:
         pass
-    f.close()
-
 
     try:
         f = open(gamedir + 'pcs.txt', 'r')
@@ -488,6 +507,16 @@ def quickload(self, gamedir):
         f.close()
     except:
         pass
+
+def makeBackup():
+    saveFiles = '.' + os.sep + 'saves' + os.sep
+    timestamp =  'save_{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
+    backupZip = zipfile.ZipFile('.' + os.sep + 'backups' + os.sep + timestamp + '.zip', 'w')
+    for dirname, subdirs, files in os.walk(saveFiles):
+        backupZip.write(dirname)
+        for filename in files:
+            backupZip.write(os.path.join(dirname, filename))
+    backupZip.close()
 
 def storeBookmarkLabel(label):
     for i in range(len(config.textLabelArray)):

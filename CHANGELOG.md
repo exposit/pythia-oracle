@@ -4,12 +4,21 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 If your save game breaks, read the error message; you'll usually be able to insert a missing variable into the config file (or rename a file if needed) manually. You can also make a fresh game and try copying your files into it.
 
-As always, save backup copies of your text files as frequently as possible! MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
+As always, save backup copies of your text files as frequently as possible! And ALWAYS before testing a new version -- then test any new features before restoring your old version and proceeding.
 
-Next Version
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-* added jump button to top so you can quickly go top to bottom in the center window
-* added buttons to each side panel to quickly copy text into main window
+Version 0.4.0
+
+* cleaned up bookmarks so they should work properly in all modes*
+* basic backup system that saves the entire save folder on program load with timestamp
+* improved saving to log files for sharing, should happen on loading a game and on every save now
+* added a "clean edit" mode for editing just narrative text ('no_format' tag) and cleaned up other modes
+* tweaked actor generators for broader results that should be more interpretive
+* added 'unknown' status tag for actors your hero hasn't met yet
+* set actor panel and thread panels to hide 'don't show' status items on Save button press (they're not erased, just not visible until you restart the game or edit the status tag manually)
+* added jump button to top of main log window so you can quickly go top to bottom and back
+* added buttons to each side tracking panel to copy text from panels into main window quickly
 
 Version 0.3.0
 

@@ -1,4 +1,4 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Heck, do it every time you load the program up, it's worth it!!!
 
 ### Pythia-Oracle 0.3.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
@@ -53,6 +53,8 @@ If all else fails, delete the contents of the save folder and make a new game. T
 
 #### Customization/Setup
 
+Always save backup copies of your text files before trying a new version or making any changes! And check your saved work occasionally by hitting save and opening up one of the log files to make sure things are saving as you expected them to.
+
 If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
 
 `python pythia.py --size 1280x725`
@@ -70,9 +72,11 @@ To shut down, click the x in the upper left of the main window or just close the
 
 I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons expect! To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
-Note: the system expects a quicksave folder to be present and weird things might happen if you decide not to keep one.
+Note: the system expects a quicksave folder to be present and it's a good idea to have one.
 
 Quite a lot of the program's data is saved in plain text format (in json); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries and the '---').
+
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip'.
 
 #### Wait, I want more tables!
 
