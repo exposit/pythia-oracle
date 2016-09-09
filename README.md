@@ -43,9 +43,9 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 #### Upgrading from an older version
 
-Move your saves folder to another directory completely outside the pythia directory structure. I also zip up a copy and put it in a third location just in case at this point.
+Move your saves folder and your backups folder to another directory completely outside the pythia directory structure. I also zip up a copy and put it in a third location just in case at this point.
 
-Double check that you have a saved copy of your saves folder somewhere else. Delete your existing pythia-oracle folder.
+Double check that you have a saved copy of your saves folder and backups folder somewhere else. Delete your existing pythia-oracle folder.
 
 Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see.
 
