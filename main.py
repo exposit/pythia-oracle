@@ -75,7 +75,7 @@ class MainScreen(Screen):
 
         self.bookmarkBox = BoxLayout(orientation="horizontal", size_hint=(.75,1))
         for i in range(0,5):
-            btn = ToggleButton(text=str(i), group='bookmarks', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+            btn = ToggleButton(text="-", group='bookmarks', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
             btn.bind(on_press=self.toggledBookmark)
             btn.value = i
             btn.index = -9
@@ -83,6 +83,7 @@ class MainScreen(Screen):
 
         self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
         self.bookmarkBox.add_widget(self.clearBookmarkButton)
+        self.clearBookmarkButton.bind(on_press=self.pressGenericButton)
 
         self.statusBox.add_widget(self.bookmarkBox)
 
@@ -752,10 +753,18 @@ class MainScreen(Screen):
             button.index = -9
             button.state = 'normal'
             config.general['bookmarks'][button.value] = -9
+            button.text = '-'
             self.clearBookmarkButton.state = 'normal'
         else:
             if button.index >= 0:
-                self.centerDisplay.scroll_to(config.textLabelArray[button.index])
+                # first, figure out the correct index, then jump to it
+                try:
+                    for item in config.textLabelArray:
+                        if config.textArray[button.index] in item.text:
+                            self.centerDisplay.scroll_to(config.textLabelArray[button.index])
+                except:
+                    updateCenterDisplay(self, "That bookmark is not available in this mode.", 'ephemeral')
+
                 button.state = 'normal'
 
     def jumpToTop(self, button):
@@ -849,7 +858,11 @@ class MainScreen(Screen):
 
             l = ToggleButtonBehavior.get_widgets('bookmarks')
             for i in range(len(l)):
-                l[i].index = config.general['bookmarks'][i]
+                if config.general['bookmarks'][i] >= 0:
+                    l[i].index = config.general['bookmarks'][i]
+                    l[i].text = str(config.general['bookmarks'][i])
+                else:
+                    l[i].text = '-'
             del l
 
             self.trackLabel.text = str(config.general['tracker'])

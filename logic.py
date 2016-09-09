@@ -76,6 +76,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.bind(on_release=storeBookmarkLabel)
         label.foreground_color=(1,1,1,1)
         label.markup = True
+        label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
         self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
@@ -92,6 +93,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.bind(on_release=storeBookmarkLabel)
         label.foreground_color=(1,1,1,1)
         label.markup = True
+        label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
         label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=10, font_name='Fantasque-Sans')
@@ -120,6 +122,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
             label.bind(on_release=storeBookmarkLabel)
             label.foreground_color=(1,1,1,1)
             label.markup = True
+            label.index = config.textArray.index(base_text)
             config.textLabelArray.append(label)
 
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
@@ -519,14 +522,19 @@ def makeBackup():
     backupZip.close()
 
 def storeBookmarkLabel(label):
-    for i in range(len(config.textLabelArray)):
-        if label.text == config.textLabelArray[i].text:
-            index = i
+    try:
+        index = label.index
+    except:
+        index = -9
+    #for i in range(len(config.textArray)):
+    #    if label.text == config.textArray[i]:
+    #        index = i
     l = ToggleButtonBehavior.get_widgets('bookmarks')
     for button in l:
         if button.state == "down":
             button.index = index
             button.state = 'normal'
+            button.text = str(index)
             config.general['bookmarks'][button.value] = index
     del l
 

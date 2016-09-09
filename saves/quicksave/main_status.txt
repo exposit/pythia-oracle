@@ -1,1 +1,1 @@
-["italic"]
+["italic", "no_format", "no_format", "no_format", "no_format", "result", "result", "result", "result", "result", "result", "result", "result", "result", "no_format", "ephemeral", "ephemeral", "ephemeral", "ephemeral", "ephemeral", "ephemeral", "ephemeral"]
