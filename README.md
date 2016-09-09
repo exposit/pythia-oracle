@@ -1,4 +1,4 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Heck, do it every time you load the program up, it's worth it!!!
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
 ### Pythia-Oracle 0.4.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
@@ -17,7 +17,7 @@ The basic procedure I use is pick a system, make a character, fire this program 
 
 **Basically:**
 
-Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python (or identifying if it's already installed) and through installing Kivy.
+Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python 2.7 (or identifying if it's already installed) and through installing Kivy.
 
 Run pythia with
 
@@ -25,31 +25,31 @@ Run pythia with
 
 You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
 
-**Windows/more detailed:**
+**More Detailed:**
 
-Go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version. I've got 32 bit installed on my Windows machine. While installing, use the default settings if you can; HOWEVER, when it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
+Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (not 3). While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
 
-Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again.
+Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again. If necessary, set the environment path and reboot again.
 
-Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary.
+Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary. Read any errors carefully.
 
-Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder, etc).
+Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder).
 
-You have two options now. Easiest is to double-click on the 'pythia.py' file to launch the program. However, it is really best viewed in widescreen; to get this, navigate to the folder containing "pythia.py" and type
+You have two options now. Easiest (in Windows) is to double-click on the 'pythia.py' file to launch the program or (on Mac) right click 'pythia.py' and select 'open with' and 'Python Launcher 2.7.X'. However, it is really best viewed in widescreen; to get this, navigate in the terminal to the folder containing "pythia.py" and type
 
 `python pythia.py --size 1280x725`
 
-You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently.
+You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently. Also read over the customization section in this file.
 
 #### Upgrading from an older version
 
-Move your saves folder to another directory. I zip up a copy and put it in a separate archive folder just in case at this point.
+Move your saves folder to another directory completely outside the pythia directory structure. I also zip up a copy and put it in a third location just in case at this point.
 
-Double check you have a saved copy of your saves folder. Delete your existing pythia-oracle folder.
+Double check that you have a saved copy of your saves folder somewhere else. Delete your existing pythia-oracle folder.
 
 Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see.
 
-If all else fails, delete the contents of the save folder and make a new game. Then copy your save game files into the new game directory, overwriting as prompted. You can also skip overwriting the config.txt file, leaving it in the new game generated state, and just set your variable manually by opening the file up in a text editor or setting them as you play.
+If things still aren't working, make a new game. Then copy your game files from your backup into the new game directory, overwriting as prompted, but skipping the config.txt file. Then just set your variables for that game manually or as you play.
 
 #### Customization/Setup
 

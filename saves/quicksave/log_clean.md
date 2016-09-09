@@ -1,3 +1,1 @@
 
-
-*The adventure begins...*
