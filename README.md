@@ -74,7 +74,7 @@ I recommend playing around in the quicksave a bit until you figure out what kind
 
 Note: the system expects a quicksave folder to be present and it's a good idea to have one.
 
-Quite a lot of the program's data is saved in plain text (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
+Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip'.
 
