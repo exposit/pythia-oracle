@@ -64,30 +64,30 @@ import logic
 from logic import *
 
 # extra panels -- generators
-try:
-    userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "generators" + os.sep + "*.py")
-    gen_module = []
-    for panel in userpanels:
-        filename = panel.split('/')[-1]
-        pyfile = filename.split('.')[0]
-        potential = imp.load_source( pyfile, panel)
-        if potential.exclude() == False:
-            gen_module.append(potential)
-except:
-    pass
+#try:
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "generators" + os.sep + "*.py")
+gen_module = []
+for panel in userpanels:
+    filename = panel.split('/')[-1]
+    pyfile = filename.split('.')[0]
+    potential = imp.load_source( pyfile, panel)
+    if potential.exclude() == False:
+        gen_module.append(potential)
+#except:
+#    pass
 
 # extra panels -- oracles
-try:
-    userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "oracles" + os.sep + "*.py")
-    oracle_module = []
-    for panel in userpanels:
-        filename = panel.split('/')[-1]
-        pyfile = filename.split('.')[0]
-        potential = imp.load_source( pyfile, panel)
-        if potential.exclude() == False:
-            oracle_module.append(potential)
-except:
-    pass
+#try:
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "oracles" + os.sep + "*.py")
+oracle_module = []
+for panel in userpanels:
+    filename = panel.split('/')[-1]
+    pyfile = filename.split('.')[0]
+    potential = imp.load_source( pyfile, panel)
+    if potential.exclude() == False:
+        oracle_module.append(potential)
+#except:
+#    pass
 
 random.seed()
 

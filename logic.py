@@ -569,7 +569,7 @@ def updateCleanMarkdown():
 
 def updateCleanHTML():
     try:
-        with open(config.curr_game_dir + "log_standard.htm", "w") as log_file:
+        with open(config.curr_game_dir + "log_standard.html", "w") as log_file:
             result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             style = '\n<style type="text/css">'
             style = style + "\n.italic {\nfont-style: italic;\n}"
@@ -624,7 +624,7 @@ def updateCollapseHTML():
                 tempArray.append(result)
                 tempStatusArray.append(config.textStatusArray[i])
 
-        with open(config.curr_game_dir + "log_ind_collapsible.htm", "w") as log_file:
+        with open(config.curr_game_dir + "log_ind_collapsible.html", "w") as log_file:
             count = 0
             bracket = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             script = '<script>'
@@ -672,7 +672,7 @@ def updateCollapseHTML():
                 header_string = header_string + "'myHeader" + str(count) + "',"
                 chunk = True
 
-            for ti in range(len(tempStatusArray)-1):
+            for ti in range(len(tempStatusArray)):
                 if tempStatusArray[ti] != "no_format" and chunk == False:
                     count = count + 1
                     result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >collapse</a>'

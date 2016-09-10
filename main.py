@@ -300,12 +300,12 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="2d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button = Button(text="3d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)
 
-        self.button = Button(text="3d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button = Button(text="1d10", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.releasePresetDice)
         self.dicePresetsBox.add_widget(self.button)

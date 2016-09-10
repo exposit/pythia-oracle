@@ -4,6 +4,13 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+Next Version
+
+* added a random event system with trigger (5% of the time) to fu oracle
+* added manual random event buttons
+* fixed bug with collapsing html log
+* removed exception catcher on user panel import to facilitate troubleshooting user panels
+
 Version 0.4.0
 
 * cleaned up bookmarks so they should work better in all modes
