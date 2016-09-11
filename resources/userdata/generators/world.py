@@ -1,5 +1,5 @@
 ##-------------------------------------------------------------------------------------------------------------------------------------------
-#  wilderness & outdoors panel
+#  world & dungeon panel
 # -*- coding: utf-8 -*-
 #
 #
@@ -18,19 +18,9 @@ def onEnter(self):
 
 def initPanel(self):
 
-        hexAItem = AccordionItem(title='Wilderness & Outdoors', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
+        hexAItem = AccordionItem(title='World', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
         hexMainBox = BoxLayout(orientation='vertical')
-
-        weatherBox = BoxLayout(orientation='horizontal', size_hint=(1,.25))
-        button = Button(text="Weighted Weather", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        button.function = "weatherWeighted"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        weatherBox.add_widget(button)
-
-        hexMainBox.add_widget(weatherBox)
 
         button = Button(text="Make Kingdom", size_hint=(1,.15), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "makeKingdom"
@@ -122,6 +112,62 @@ def initPanel(self):
         button.bind(on_release=getNextRegionDistance)
         hexMainBox.add_widget(button)
 
+        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.25)))
+
+        button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.function = "weatherWeighted"
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="More or Less Than Expected?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=moreOrLessRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="How Difficult Is it?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.function = 'howDifficultWeighted'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.function = 'whatDirection'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="What Is The Room Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.function = 'roomLike'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="What Is The Passage like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.function = 'passageLike'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.25)))
+
+        hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
+        howFarList = ['same room', 'same area', 'same region', 'anywhere']
+        for item in howFarList:
+            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+            button.self = self
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=pressHowFar)
+            hexFarBox.add_widget(button)
+
+        hexMainBox.add_widget(hexFarBox)
+
         hexAItem.add_widget(hexMainBox)
 
         return hexAItem
@@ -155,6 +201,23 @@ def miscChartRoll(*args):
     self = args[0].self
     result = eval(args[0].function)()
     updateCenterDisplay(self, result)
+
+def pressHowFar(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    result = howFarIsIt(args[0].text)
+    updateCenterDisplay(self, result)
+
+def moreOrLessRoll(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    text = "expected"
+    if len(self.textInput.text) > 0:
+        text = self.textInput.text
+
+    result = morelessWeighted(text)
+    updateCenterDisplay(self, result)
+    self.textInput.text = ""
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # --> Math based world generation
@@ -273,7 +336,6 @@ def makeKingdom(userandom=True, total_area=88700, subtype="Standard", popdensity
     return result
 
 def mathBigCityPop():
-    print("hi2")
     roll = random.randint(1,100)
     if roll < 75:
         roll = random.randint(12,100)
@@ -323,7 +385,7 @@ terrain = [
     ["5", "hills (1)", "heavy forest (2)", "light forest (3)", "plains (4)"],
     ["6", "light forest (1)", "heavy forest (2)", "hills (3)", "mountains (4)"],
     ["7", "mountains (1)", "hills (2)", "light forest (3)", "deserts (4)"],
-    ["8", "deserts (1)", "plains (2)", "hills (3)", "mountains (3)"],
+    ["8", "deserts (1)", "plains (2)", "hills (3)", "mountains (4)"],
 ]
 
 def makeRegion(seed, settledlevel="Scattered", randomnext=False):
@@ -423,7 +485,7 @@ def upcomingTerrain(seed=0):
         result = curr_terrain[4]
     elif roll <= 30:  # 20% of the terrain
         result = curr_terrain[3]
-    if roll <= 60:    # 30% of the terrain
+    elif roll <= 60:    # 30% of the terrain
         result = curr_terrain[2]
     else:             # 40% of the terrain
         result = curr_terrain[1]
@@ -443,5 +505,187 @@ def weatherWeighted():
 
     roll = random.randint(1,4) + random.randint(1,4)
 
-    result = "[Weighted Weather] " + chart[roll]
+    result = "[Weather] " + chart[roll]
+    return result
+
+def howDifficultWeighted():
+
+    rolls = [random.randint(1,4), random.randint(1,4)]
+    maxroll = max(rolls)
+    minroll = min(rolls)
+
+    diff = rolls[0] - rolls[1]
+    chart = {
+        -3 : "Trivial.",
+        -2 : "Fairly easy.",
+        -1 : "A bit easy.",
+         0 : "On par with hero's abilities.",
+         1 : "A bit difficult.",
+         2 : "Fairly difficult.",
+         3 : "Overwhelming.",
+    }
+
+    result = "[How Difficult?] " + chart[diff] + " [" + str(diff) + "]"
+    return result
+
+def morelessWeighted(text="expected"):
+
+    chart = {
+        2 : "Much less than ",
+        3 : "Less than ",
+        4 : "A bit less than ",
+        5 : "As ",
+        6 : "A bit more than ",
+        7 : "More than ",
+        8 : "Much more than ",
+    }
+
+    roll = random.randint(1,4) + random.randint(1,4)
+
+    result = "[More or Less] " + chart[roll] + text + "."
+    return result
+
+def whatDirection():
+
+    chart = {
+        1 : "North or Up",
+        2 : "Northeast",
+        3 : "East or Right",
+        4 : "Southeast",
+        5 : "South or Down",
+        6 : "Southwest",
+        7 : "West or Left",
+    }
+
+    roll = random.randint(1,7)
+
+    result = "[Direction] " + chart[roll] + ". If this direction won't work, use up or down."
+    return result
+
+def roomLike():
+
+    oppositesChart = [
+        ["rough", "smooth"],
+        ["gleaming", "dull"],
+        ["slick", "dry"],
+        ["crumbling", "intact"],
+        ["extreme", "mild"],
+        ["cared for", "disused"],
+        ["stone", "metal"],
+        ["wood", "brick"],
+        ["wood", "metal"],
+        ["stone", "brick"],
+        ["painted", "bare"],
+        ["finished", "unfinished"],
+        ["ostentatious", "spartan"],
+        ["bare", "stuffed"],
+        ["worn", "new-looking"],
+    ]
+    descChart = []
+    for pairList in oppositesChart:
+        descChart.append(random.choice(pairList))
+
+    roll = random.randint(1, 3)
+    descList = random.sample(descChart, roll)
+    desc = ', '.join(descList)
+
+    shapeChart = [
+        "round", "square", "oval", "elongated", "rectangular", "trapezoidal",
+    ]
+
+    roll = random.choice([1,1,1,2])
+    shapeList = random.sample(shapeChart, roll)
+    shape = ', '.join(shapeList)
+
+    sizeChart = [
+        "large", "small", "average", "cubby", "alcove", "cavern", "nook", "chamber", "vault", "great", "negligible", "brief", "vast", "expansive", "extensive",
+    ]
+    size = random.choice(sizeChart)
+
+    purposeChart = [
+        "sleeping", "eating", "bathing", "bodily functions", "imprisoning", "killing", "disposal", "studying", "reading", "working", "crafting", "disassembling", "assembling", "interrogating", "relaxing", "recuperating", "mending", "rending", "cooking", "exercise", "planning", "plotting", "communing", "praying", "keeping", "displaying", "storing",
+    ]
+
+    roll = random.choice([1,2])
+    purposeList = random.sample(purposeChart, roll)
+    purpose = ', '.join(purposeList)
+
+    result = "[Room] " + desc + " [Purpose] " + purpose + " [Size] " + size + " [Shape] " + shape
+    return result
+
+def passageLike():
+
+    veerChart = ["continues straight", "ends abruptly", "winds left", "winds right", "sharp bend left", "sharp bend right", "slopes up or passes stairs", "slopes down or passes stairs", "doubles back"]
+
+    veer = random.choice(veerChart)
+
+    extrasChart = {
+        2 : "nothing",
+        3 : "an intersection",
+        4 : "a side passage",
+        5 : "nothing",
+        6 : "a door or arch or gap in the wall",
+        7 : "special",
+        8 : "nothing",
+    }
+
+    roll = random.randint(1,4) + random.randint(1,4)
+    extras = extrasChart[roll]
+
+    specialChart = [
+        "obstacle blocking path", "water", "pit", "chasm or stairs", "skylight or light source", "treasure", "useful item", "stairs", "shaft"
+    ]
+    if extras == "special":
+        extras = random.choice(specialChart)
+
+    result = "[Passage] " + veer + " [Special] " + extras
+    return result
+
+def howFarIsIt(subtype='same room'):
+
+    rolls = [random.randint(1,4), random.randint(1,4)]
+    if subtype == 'same room':
+        chart = {
+            -3 : "Touch.",
+            -2 : "Arm's reach.",
+            -1 : "A few steps away.",
+             0 : "Melee range.",
+             1 : "Throwing knife range.",
+             2 : "A normal move away.",
+             3 : "Other side of the room.",
+        }
+    elif subtype == 'same area':
+        chart = {
+            -3 : "Same room.",
+            -2 : "Next room/space.",
+            -1 : "Within a handful of rooms/spaces.",
+             0 : "Just past a handful of rooms/spaces.",
+             1 : "About half the area away.",
+             2 : "More than half the area away.",
+             3 : "As far as it's possible to go and still be in this area.",
+        }
+    elif subtype == 'same region':
+        chart = {
+            -3 : "Same room.",
+            -2 : "Two weeks' travel.",
+            -1 : "Within a week's travel.",
+             0 : "Within " + random.choice(['two', 'three', 'four']) + " days of travel.",
+             1 : "Within " + random.choice(['two', 'three']) + " weeks of travel.",
+             2 : "Within " + random.choice(['two', 'three', 'four']) + " months of travel.",
+             3 : "Same area.",
+        }
+    else:
+        chart = {
+            -3 : "Impossibly close.",
+            -2 : "Same area",
+            -1 : "Same region.",
+             0 : "Close.",
+             1 : "Close.",
+             2 : "Impossibly far.",
+             3 : "Distance is irrelevant or meaningless.",
+        }
+
+    diff = rolls[0] - rolls[1]
+
+    result = "[How Far?] " + chart[diff]
     return result

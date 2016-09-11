@@ -21,32 +21,45 @@ def initPanel(self):
 
         self.fuMainBox = BoxLayout(orientation='vertical')
 
-        self.fuMainBox.add_widget(Label(text='Oracle', size_hint_y=0.25))
+        #self.fuMainBox.add_widget(Label(text='Oracle', size_hint=(1,0.10)))
 
-        button = Button(text="0", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        button.modifier = "none"
-        button.count = 0
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=fuRoll)
-        self.fuMainBox.add_widget(button)
-        self.fuSubBox = GridLayout(cols=5)
+        fuTextList = [
+            'almost certain', 'very probable', 'probable', 'likely', 'possibly', 'even odds', 'doubtful', 'somewhat unlikely', 'probably not', 'improbable', 'almost certainly not' ]
 
-        self.fuSubBox.add_widget(Label(text="Pos"))
-        for i in range(1,5):
-            button = Button(text="+" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.modifier = "positive"
-            button.count = i
+        fuOddsList = ['99%', '97%', '94%', '88%', '75%', '50%', '25%', '12%', '6%', '3%', '1%']
+
+        self.fuSubBox = GridLayout(cols=3, size_hint=(1,.6))
+
+        count = 6
+        modifier="none"
+        for i in range(len(fuTextList)):
+            count = count - 1
+            if count > 0:
+                modifier = "positive"
+            elif count == 0:
+                modifier = "none"
+            else:
+                modifier = "negative"
+
+            button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(.60,1))
+            button.count = count
+            button.modifier = modifier
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
             self.fuSubBox.add_widget(button)
 
-        self.fuSubBox.add_widget(Label(text="Neg"))
-        for i in range(1,5):
-            button = Button(text="-" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.modifier = "negative"
-            button.count = i
+            button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(.20,1))
+            button.modifier = modifier
+            button.count = count
+            button.self = self
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=fuRoll)
+            self.fuSubBox.add_widget(button)
+
+            button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(.20,1))
+            button.modifier = modifier
+            button.count = count
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
@@ -54,9 +67,7 @@ def initPanel(self):
 
         self.fuMainBox.add_widget(self.fuSubBox)
 
-        self.fuMainBox.add_widget(Label(text="---", halign="center", size_hint_y=0.25))
-
-        button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.25)
+        button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.10)
         button.function = "howMuchWeighted"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
@@ -65,10 +76,8 @@ def initPanel(self):
 
         dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
-        self.fuMainBox.add_widget(Label(text='Drama Rolls', size_hint_y=0.25))
-
-        self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.25))
-        self.fuDramaBox = GridLayout(cols=2, size_hint_y=2.5)
+        self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.10))
+        self.fuDramaBox = GridLayout(cols=2, size_hint_y=.25)
 
         self.fuDramaBox.add_widget(Label(text="Good/Bad"))
         self.fuDramaBox.add_widget(Label(text="Yes/No"))
@@ -90,8 +99,6 @@ def initPanel(self):
 
         self.fuMainBox.add_widget(self.fuDramaBox)
 
-        self.fuMainBox.add_widget(Label(text="Random Event", size_hint_y=0.25))
-
         self.randomEventTypeSpinner = Spinner(
         text='Random',
         values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
@@ -99,14 +106,14 @@ def initPanel(self):
         background_color=accent1,
         background_down='',
         background_color_down=accent2,
-        size_hint_y=0.25
+        size_hint_y=0.07
         )
         self.randomEventTypeSpinner.self = self
         self.fuMainBox.add_widget(self.randomEventTypeSpinner)
 
-        self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.25))
+        self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.10))
 
-        self.fuRandomEventBox = GridLayout(cols=2)
+        self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
 
         for i in dramaRollList:
             button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
@@ -132,7 +139,7 @@ def fuRoll(*args):
     self = args[0].self
     if len(self.textInput.text) > 0:
         updateCenterDisplay(self, self.textInput.text, 'query')
-    updateCenterDisplay(self, fu(args[0].count, args[0].modifier), 'oracle')
+    updateCenterDisplay(self, fu(args[0].count, args[0].modifier, args[0].text), 'oracle')
     self.textInput.text = ""
 
 def dramaChartRoll(*args):
@@ -171,17 +178,16 @@ def howMuch(*args):
 # http://creativecommons.org/licenses/by/3.0/
 # This function is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative
 # Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).
-def fu(count=0, modifier="none"):
+def fu(count=0, modifier="none", text="0"):
     rolls = []
     odds = []
     evens = []
+    count = abs(count)
     count = count+1
+
     roll_string = ""
     ands = ""
-    if modifier == "none":
-        mod = "0"
-    else:
-        mod = "+"
+
     for i in range(count):
         roll = random.randint(1,6)
         if roll % 2 == 0:
@@ -191,7 +197,6 @@ def fu(count=0, modifier="none"):
         roll_string = roll_string + str(roll) + " "
 
     if modifier == "negative":
-        mod = "-"
         if len(odds) > 0:
             roll_result = min(odds)
             if odds.count(roll_result) > 1:
@@ -223,7 +228,7 @@ def fu(count=0, modifier="none"):
     if rroll == 1:
         random_event = "\n... and something unexpected happens!"
 
-    return "[FU" + mod + ": " + roll_string + "] " + chart[roll_result] + ands + random_event
+    return "[" + text + ": " + roll_string + "] " + chart[roll_result] + ands + random_event
 
 # END FU
 
@@ -292,7 +297,7 @@ def randomEventRoll(text, event_type="Random"):
         chart = [
           "Natural disaster.",
           "Fire breaks out.",
-          "An actor's long term plans begin to bear fruit."
+          "An actor's long term plans begin to bear fruit.",
           "An actor's long term plans go awry.",
           "A hidden enemy is revealed.",
           "Someone dies or is very badly injured off-screen.",

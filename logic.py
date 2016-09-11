@@ -69,7 +69,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 1
 
-        label = ClickLabel(text=text, size_hint_y=None, font_size=config.basefont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+        label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -86,7 +86,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 2
 
-        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.maintextfont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -96,7 +96,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
-        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=10, font_name='Fantasque-Sans')
+        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=config.basefont75, font_name='Fantasque-Sans')
         label.background_normal=''
         label.background_color=accent1
         label.background_down=''
@@ -115,7 +115,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         if status == "no_format":
 
-            label = ClickLabel(text=text, size_hint_y=None, font_size=config.basefont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+            label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
             label.text_size = (self.centerDisplayGrid.width, None)
             label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
             label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -134,9 +134,9 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         if status == "no_format":
 
-            label = TextInput(text=base_text, size_hint_y=None)
+            label = TextInput(text=base_text, size_hint_y=None, font_size=config.maintextfont)
             label.text_size = (self.centerDisplayGrid.width, None)
-            label.height = ((len(label._lines)/4) + 1) * label.line_height
+            label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
             label.bind(focus=focusChangeText)
             label.background_color=(0,0,0,.5)
             label.foreground_color=(1,1,1,1)
@@ -150,9 +150,9 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
         self.centerDisplayGrid.cols = 2
 
-        label = TextInput(text=base_text, size_hint_y=None, size_hint_x=.85)
+        label = TextInput(text=base_text, size_hint_y=None, size_hint_x=.85, font_size=config.maintextfont)
         label.text_size = (self.centerDisplayGrid.width, None)
-        label.height = ((len(label._lines)/4) + 1) * label.line_height
+        label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
         label.bind(focus=focusChangeText)
         label.background_color=(0,0,0,.5)
         label.foreground_color=(1,1,1,1)
@@ -160,7 +160,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
-        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=10, font_name='Fantasque-Sans')
+        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=config.basefont75, font_name='Fantasque-Sans')
         label.background_normal=''
         label.background_color=accent1
         label.background_down=''
@@ -222,7 +222,7 @@ def updateThreadDisplay(self, text, status):
     label = TextInput(text=text, size_hint_y=None, size_hint_x=.90, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
-    self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
+    self.threadDisplayGrid.add_widget(config.threadLabelArray[-1], len(self.threadDisplayGrid.children))
 
     label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
     label.background_normal=''
@@ -232,7 +232,7 @@ def updateThreadDisplay(self, text, status):
     label.bind(on_press=cycleThread)
     label.markup = True
     config.threadStatusLabelArray.append(label)
-    self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1])
+    self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1], len(self.threadDisplayGrid.children))
 
 
 def cycleThread(self, *args):
@@ -756,6 +756,12 @@ def getRandomActor(key="All"):
 
 def getRandomThread(key="All"):
 
+    exclusion = False
+    if key[:1] == "!":
+        # this is a exclusion search
+        exclusion = True
+        key = key[1:]
+
     textarray = []
     result = "[Random thread, key: " + key  + "] No results found."
 
@@ -773,6 +779,12 @@ def getRandomThread(key="All"):
     return result
 
 def getRandomPC(key="Name"):
+
+    exclusion = False
+    if key[:1] == "!":
+        # this is a exclusion search
+        exclusion = True
+        key = key[1:]
 
     textarray = []
 

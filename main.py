@@ -784,7 +784,7 @@ class MainScreen(Screen):
     def releaseRandomThread(self, *args):
         args[0].background_color = neutral
         text = self.textInput.text.capitalize()
-        filterList = ["Major", "Minor", "Past", "Resolved", "Abandoned", "Hide", "Current"]
+        filterList = ["Major", "Minor", "Past", "Resolved", "Abandoned", "Don't Show", "Current"]
         if text in filterList:
             curr_index = filterList.index(text)
             updateCenterDisplay(self, getRandomThread(filterList[curr_index]))
@@ -795,7 +795,7 @@ class MainScreen(Screen):
     def releaseRandomActor(self, *args):
         args[0].background_color = neutral
         text = self.textInput.text.capitalize()
-        filterList = ["Past", "In party", "Retired", "Deceased", "Remote", "Hide", "Current"]
+        filterList = ["Past", "In party", "Retired", "Deceased", "Remote", "Don't Show", "Current"]
         if text in filterList:
             curr_index = filterList.index(text)
             updateCenterDisplay(self, getRandomActor(filterList[curr_index]))

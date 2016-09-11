@@ -56,6 +56,8 @@ pcValueLabelArray = []
 activePanelsLeft = []
 activePanelsRight = []
 
+# font sizes; feel free to edit these
+# also, going to move all of these to the general array so they can be saved and loaded on a game by game basis
 basefont = str(general['basefontsize']) + "dp"
 basefont75 = str(general['basefontsize']*.75) + "dp"
 basefont80 = str(general['basefontsize']*.80) + "dp"
@@ -64,4 +66,5 @@ baseheight = str(general['basefontsize']+10) + "dp"
 tallheight = str(general['basefontsize']+15) + "dp"
 tripleheight = str(general['basefontsize']*3+10) + "dp"
 octupleheight = str(general['basefontsize']*8+10) + "dp"
+maintextfont = str(general['basefontsize']) + "dp"
 aiheight = baseheight
