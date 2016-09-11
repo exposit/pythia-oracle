@@ -1,6 +1,6 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
-### Pythia-Oracle 0.4.0
+### Pythia-Oracle 0.5.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
 
 #### What is it?

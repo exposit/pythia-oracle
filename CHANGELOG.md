@@ -6,6 +6,13 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Next Version
 
+BIG STUFF!!!
+
+Version 0.5.0
+
+* added more font size options to base config; still need to work on font sizes
+* fixed bug with terrain generation & a few other minor bugs
+* added a whole bunch of new generators to the world panel (was wilderness panel)
 * added a random event system with trigger (5% of the time) to fu oracle
 * added manual random event buttons
 * fixed bug with collapsing html log
