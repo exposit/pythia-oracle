@@ -74,8 +74,10 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         label.bind(on_release=storeBookmarkLabel)
+        label.bind(on_ref_press=refPress)
         label.foreground_color=(1,1,1,1)
         label.markup = True
+        label.self = self
         label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
@@ -91,8 +93,10 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         label.bind(on_release=storeBookmarkLabel)
+        label.bind(on_ref_press=refPress)
         label.foreground_color=(1,1,1,1)
         label.markup = True
+        label.self = self
         label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
@@ -120,6 +124,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
             label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
             label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             label.bind(on_release=storeBookmarkLabel)
+            label.bind(on_ref_press=refPress)
             label.foreground_color=(1,1,1,1)
             label.markup = True
             label.index = config.textArray.index(base_text)
@@ -359,6 +364,71 @@ def focusChangeText(self, value):
     else:
         config.textArray[self.index] = self.text
 
+def refPress(*args):
+    self  = args[0].self
+    label = args[0]
+    subtype = args[1][:2][1:]
+    text = args[1][3:]
+    full = args[1]
+    if subtype == "d":
+        # this is a display
+        if len(config.module['descRefs']) > 0:
+            for item in config.module['descRefs']:
+                if item[0] == text:
+                    updateCenterDisplay(self, item[1], item[2])
+                    if item[3] == 'once':
+                        # remove this link from the label
+                        newtext = label.text
+                        colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+                        for color in colorList:
+                            newtext = newtext.replace(color, "")
+                        newtext = newtext.replace("[ref=" + full + "]", "")
+                        newtext = newtext.replace("[/ref]", "")
+                        newtext = newtext.replace("[/color]", "")
+                        label.text = newtext
+                    else:
+                        newtext = label.text
+                        colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+                        for color in colorList:
+                            newtext = newtext.replace(color, config.visited_link_color)
+                        label.text = newtext
+
+    elif subtype == "t":
+        # this is a toggle; flip it to the alternate
+        if len(config.module['toggleRefs']) > 0:
+            for item in config.module['toggleRefs']:
+                if item[0] == text:
+                    if label.text == item[1]:
+                        label.text = item[2]
+                    else:
+                        label.text = item[1]
+    else:
+        # this is a jump
+        if len(config.module['jumpRefs']) > 0:
+            for item in config.module['jumpRefs']:
+                print(item)
+                if item[0] == text:
+                    config.module['block'] = item[1]
+                    updateCenterDisplay(self, item[2], item[3])
+                    if item[4] == 'once':
+                        # remove this link from the label
+                        newtext = label.text
+                        colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+                        for color in colorList:
+                            newtext = newtext.replace(color, "")
+                        newtext = newtext.replace("[ref=" + full + "]", "")
+                        newtext = newtext.replace("[/ref]", "")
+                        newtext = newtext.replace("[/color]", "")
+                        label.text = newtext
+                    else:
+                        newtext = label.text
+                        colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+                        for color in colorList:
+                            newtext = newtext.replace(color, config.visited_link_color)
+                        label.text = newtext
+                    if item[5] == False:
+                        showCurrentBlock(*args)
+
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # save/load functions
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -367,6 +437,7 @@ def saveconfig(self, gamedir):
         tempDict = {}
         tempDict['general'] = config.general
         tempDict['user'] = config.user
+        tempDict['module'] = config.module
 
         f = open(gamedir + 'config.txt', 'w')
         json.dump(tempDict, f)
@@ -375,15 +446,18 @@ def saveconfig(self, gamedir):
         print("Saving configuration file failed.")
 
 def loadconfig(self, gamedir):
-    try:
+    #try:
         f = open(gamedir + 'config.txt', 'r')
         tempDict = json.load(f)
         for i in tempDict['general']:
             config.general[i] = tempDict['general'][i]
         for i in tempDict['user']:
             config.user[i] = tempDict['user'][i]
-    except:
-        saveconfig(self, gamedir)
+        for i in tempDict['module']:
+            config.module[i] = tempDict['module'][i]
+        f.close()
+    #except:
+    #    saveconfig(self, gamedir)
 
 def quicksave(self, gamedir):
 
@@ -731,6 +805,78 @@ def rollDice(text):
             results = results + "\n[" + resultstring + "  ] " + str(result)
 
     return results
+
+#-------------------------------------------------------------------------------------------------------------------------------------------
+# --> Modules
+#-------------------------------------------------------------------------------------------------------------------------------------------
+
+def showCurrentBlock(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    block = config.module['block']
+    result = ""
+    for item in config.advDict[block]['text']:
+        updateCenterDisplay(self, item[0], item[1])
+
+    self.moduleTitleLabel.text = config.advDict[block]['title']
+
+    self.moduleButtonList[1].text = config.advDict[block]['opt1']['display']
+    self.moduleButtonList[1].disabled = False
+
+    try:
+        self.moduleButtonList[2].text = config.advDict[block]['opt2']['display']
+        self.moduleButtonList[2].disabled = False
+    except:
+        self.moduleButtonList[2].text = ""
+        self.moduleButtonList[2].disabled = True
+
+    try:
+        self.moduleButtonList[3].text = config.advDict[block]['opt3']['display']
+        self.moduleButtonList[2].disabled = False
+    except:
+        self.moduleButtonList[3].text = ""
+        self.moduleButtonList[3].disabled = True
+
+def jumpToBlock(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    option = args[0].option
+    block = config.module['block']
+
+    # first, disable all jump buttons
+    self.moduleButtonList[1].text = ""
+    self.moduleButtonList[2].text = ""
+    self.moduleButtonList[3].text = ""
+    self.moduleButtonList[1].disabled = True
+    self.moduleButtonList[2].disabled = True
+    self.moduleButtonList[3].disabled = True
+
+    # exit message?
+    try:
+        msg = config.advDict[block][option]['exitmsg']
+    except:
+        msg = ""
+
+    try:
+        status = config.advDict[block][option]['exitstatus']
+    except:
+        status = "result"
+
+    if len(msg) > 0:
+        updateCenterDisplay(self, msg, status)
+
+    try:
+        pause = config.advDict[block][option]['pause']
+    except:
+        pause = False
+
+    config.module['block'] = config.advDict[block][option]['jump']
+
+    if pause == False:
+        showCurrentBlock(*args)
+        self.moduleButtonList[0].text = "RESHOW"
+    else:
+        self.moduleButtonList[0].text = "CONTINUE"
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # --> Random choosers from player defined lists

@@ -54,7 +54,7 @@ class MainScreen(Screen):
 
         self.centerBox = BoxLayout(orientation='vertical', padding=(10,10))
 
-        self.statusBox = BoxLayout(orientation='horizontal', size_hint=(1,.05), padding=(10,10))
+        self.statusBox = BoxLayout(orientation='horizontal', size_hint=(1,.07), padding=(10,10))
 
         self.trackBox = BoxLayout(orientation="horizontal", size_hint=(.25,1))
 
@@ -125,12 +125,21 @@ class MainScreen(Screen):
 
         #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
+        self.threadButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+
         self.button = Button(text="copy to main window", size_hint=(1,.03), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyThreadsToMain)
-        self.centerBox.add_widget(self.button)
+        self.threadButtonBox.add_widget(self.button)
 
-        self.threadDisplay = ScrollView(size_hint=(1, .18))
+        self.randomThreadButton = Button(text="random thread", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomThreadButton.bind(on_press=self.pressGenericButton)
+        self.randomThreadButton.bind(on_release=self.releaseRandomThread)
+        self.threadButtonBox.add_widget(self.randomThreadButton)
+
+        self.centerBox.add_widget(self.threadButtonBox)
+
+        self.threadDisplay = ScrollView(size_hint=(1,.30))
 
         self.threadDisplayGrid = GridLayout(cols=2, spacing=10, size_hint_y=None, size_hint_x=1,  padding=(10,10))
         self.threadDisplayGrid.bind(minimum_height = self.threadDisplayGrid.setter('height'))
@@ -141,12 +150,16 @@ class MainScreen(Screen):
 
         #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
 
-        self.button = Button(text="top", size_hint=(1,.03), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.titleBarBox = BoxLayout(orientation='horizontal', size_hint=(1,.05))
+
+        self.button = Button(text="top", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.jumpToTop)
-        self.centerBox.add_widget(self.button)
+        self.titleBarBox.add_widget(self.button)
 
-        self.centerDisplay = ScrollView(size_hint=(1,.50))
+        self.centerBox.add_widget(self.titleBarBox)
+
+        self.centerDisplay = ScrollView(size_hint=(1,1))
 
         self.centerDisplayGrid = GridLayout(cols=1, spacing=10, size_hint_y=None, size_hint_x=1, padding=(10,10))
         self.centerDisplayGrid.bind(minimum_height = self.centerDisplayGrid.setter('height'))
@@ -155,178 +168,127 @@ class MainScreen(Screen):
 
         self.centerBox.add_widget(self.centerDisplay)
 
-        self.textInputMainBox = BoxLayout(orientation='horizontal', size_hint=(1,.23))
+##-------------------------------------------------------------------------------------------------------------------------------------------
+#  main text input & control panel
+##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.textInput = TextInput(text='', hint_text="",size_hint=(.7,1))
+        self.controlBox = BoxLayout(orientation='horizontal', size_hint=(1,.45))
+
+        self.textInputMainBox = BoxLayout(orientation='vertical')
+
+        self.textInput = TextInput(text='', hint_text="", size_hint=(1,1))
         self.textInput.bind(on_text_validate=self.text_entered)
         self.textInputMainBox.add_widget(self.textInput)
-
-##-------------------------------------------------------------------------------------------------------------------------------------------
-#  Center text submit buttons & text input
-##-------------------------------------------------------------------------------------------------------------------------------------------
-
-        self.submitButtonsBox = BoxLayout(orientation='vertical', size_hint=(.23,1))
-
-        self.textInputMainBox.add_widget(self.submitButtonsBox)
-
-        self.questionSubmitButton = Button(text="???",size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.questionSubmitButton.bind(on_press=self.pressGenericButton)
-        self.questionSubmitButton.bind(on_release=self.releaseQuestion)
-        self.submitButtonsBox.add_widget(self.questionSubmitButton)
-
-        self.complexButton = Button(text="Complex", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.complexButton.bind(on_press=self.pressGenericButton)
-        self.complexButton.bind(on_release=self.releaseComplex)
-        self.submitButtonsBox.add_widget(self.complexButton)
-
-        self.playerSubmitButton = Button(text="Direct",size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.playerSubmitButton.bind(on_press=self.pressGenericButton)
-        self.playerSubmitButton.bind(on_release=self.releasePlayer)
-        self.submitButtonsBox.add_widget(self.playerSubmitButton)
-
-        self.dmSubmitButton = Button(text="Aside",size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.dmSubmitButton.bind(on_press=self.pressGenericButton)
-        self.dmSubmitButton.bind(on_release=self.releaseDM)
-        self.submitButtonsBox.add_widget(self.dmSubmitButton)
-
-        self.rollSubmitButton = Button(text="Roll Dice",size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.rollSubmitButton.bind(on_press=self.pressGenericButton)
-        self.rollSubmitButton.bind(on_release=self.releaseRoll)
-        self.submitButtonsBox.add_widget(self.rollSubmitButton)
-
-        self.threadSubmitButton = Button(text="Add Thread",size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.threadSubmitButton.bind(on_press=self.pressGenericButton)
-        self.threadSubmitButton.bind(on_release=self.releaseThread)
-        self.submitButtonsBox.add_widget(self.threadSubmitButton)
-
-        self.addActorButton = Button(text="Add Actor", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.addActorButton.bind(on_press=self.pressGenericButton)
-        self.addActorButton.bind(on_release=self.releaseAddActor)
-        self.submitButtonsBox.add_widget(self.addActorButton)
-
-        self.centerBox.add_widget(self.textInputMainBox)
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 #  center footer box
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
-        self.footerBox = GridLayout(cols=4, size_hint=(1,.10))
-        self.centerBox.add_widget(self.footerBox)
+        self.footerBox = GridLayout(rows=2)
 
-        # box for random selectors
-        self.selectorBox = GridLayout(cols=2)
-
-        self.randomTrackButton = Button(text="Random\nTrack", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.randomTrackButton.bind(on_press=self.pressGenericButton)
-        self.randomTrackButton.bind(on_release=self.releaseRandomTrack)
-        self.selectorBox.add_widget(self.randomTrackButton)
-
-        self.randomPCButton = Button(text="Random\nPC", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.randomPCButton.bind(on_press=self.pressGenericButton)
-        self.randomPCButton.bind(on_release=self.releaseRandomPC)
-        self.selectorBox.add_widget(self.randomPCButton)
-
-        self.randomActorButton = Button(text="Random\nActor", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.randomActorButton.bind(on_press=self.pressGenericButton)
-        self.randomActorButton.bind(on_release=self.releaseRandomActor)
-        self.selectorBox.add_widget(self.randomActorButton)
-
-        self.randomThreadButton = Button(text="Random\nThread", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.randomThreadButton.bind(on_press=self.pressGenericButton)
-        self.randomThreadButton.bind(on_release=self.releaseRandomThread)
-        self.selectorBox.add_widget(self.randomThreadButton)
-
-        self.footerBox.add_widget(self.selectorBox)
-
-        # pick one
-        self.pickOneBox = GridLayout(cols=2)
-
-        self.listButton = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        self.listButton.bind(on_press=self.pressGenericButton)
-        self.listButton.bind(on_release=self.chooseFromList)
-        self.listButton.value = 0
-        self.pickOneBox.add_widget(self.listButton)
-
-        self.listButton = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        self.listButton.bind(on_press=self.pressGenericButton)
-        self.listButton.bind(on_release=self.chooseFromList)
-        self.listButton.value = 1
-        self.pickOneBox.add_widget(self.listButton)
-
-        self.listButton = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        self.listButton.bind(on_press=self.pressGenericButton)
-        self.listButton.bind(on_release=self.chooseFromList)
-        self.listButton.value = 2
-        self.pickOneBox.add_widget(self.listButton)
-
-        self.listButton = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        self.listButton.bind(on_press=self.pressGenericButton)
-        self.listButton.bind(on_release=self.chooseFromList)
-        self.listButton.value = 3
-        self.pickOneBox.add_widget(self.listButton)
-
-        self.footerBox.add_widget(self.pickOneBox)
-
-        # dice presets
-        self.dicePresetsBox = GridLayout(cols=4)
-
-        self.button = Button(text="1d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="2d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="1d4", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="1d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="3d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.button = Button(text="1d10", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.releasePresetDice)
-        self.dicePresetsBox.add_widget(self.button)
-
-        self.footerBox.add_widget(self.dicePresetsBox)
-
-        # system buttons, ie, help and save
-        self.systemBox = BoxLayout(orientation='vertical')
-
+        # system buttons, ie, About and save
         self.saveButton = Button(text="Save", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.saveButton.bind(on_press=self.pressGenericButton)
         self.saveButton.bind(on_release=self.releaseSave)
-        self.systemBox.add_widget(self.saveButton)
 
-        self.helpButton = Button(text="Help", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.helpButton.bind(on_release=self.showHelp)
-        self.systemBox.add_widget(self.helpButton)
+        self.AboutButton = Button(text="About", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.AboutButton.bind(on_release=self.showAbout)
 
-        self.footerBox.add_widget(self.systemBox)
+        # box for adding threads & actors
+        self.threadSubmitButton = Button(text="Add\nThread", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont90)
+        self.threadSubmitButton.bind(on_press=self.pressGenericButton)
+        self.threadSubmitButton.bind(on_release=self.releaseThread)
 
-        self.helpBox = GridLayout(cols=1, padding=(10,10))
+        self.addActorButton = Button(text="Add\nActor", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont90)
+        self.addActorButton.bind(on_press=self.pressGenericButton)
+        self.addActorButton.bind(on_release=self.releaseAddActor)
+
+        # pick one
+        self.listButton1 = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton1.bind(on_press=self.pressGenericButton)
+        self.listButton1.bind(on_release=self.chooseFromList)
+        self.listButton1.value = 0
+
+        self.listButton2 = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton2.bind(on_press=self.pressGenericButton)
+        self.listButton2.bind(on_release=self.chooseFromList)
+        self.listButton2.value = 1
+
+        self.listButton3 = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton3.bind(on_press=self.pressGenericButton)
+        self.listButton3.bind(on_release=self.chooseFromList)
+        self.listButton3.value = 2
+
+        self.listButton4 = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton4.bind(on_press=self.pressGenericButton)
+        self.listButton4.bind(on_release=self.chooseFromList)
+        self.listButton4.value = 3
+
+        # dice presets
+        self.button1 = Button(text="1d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button1.bind(on_press=self.pressGenericButton)
+        self.button1.bind(on_release=self.releasePresetDice)
+
+        self.button2 = Button(text="2d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button2.bind(on_press=self.pressGenericButton)
+        self.button2.bind(on_release=self.releasePresetDice)
+
+        self.button3 = Button(text="3d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button3.bind(on_press=self.pressGenericButton)
+        self.button3.bind(on_release=self.releasePresetDice)
+
+        self.button4 = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
+        self.button4.bind(on_press=self.pressGenericButton)
+        self.button4.bind(on_release=self.releasePresetDice)
+
+        self.button5 = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
+        self.button5.bind(on_press=self.pressGenericButton)
+        self.button5.bind(on_release=self.releasePresetDice)
+
+        self.button6 = Button(text="1d4", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button6.bind(on_press=self.pressGenericButton)
+        self.button6.bind(on_release=self.releasePresetDice)
+
+        self.button7 = Button(text="1d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button7.bind(on_press=self.pressGenericButton)
+        self.button7.bind(on_release=self.releasePresetDice)
+
+        self.button8 = Button(text="2d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button8.bind(on_press=self.pressGenericButton)
+        self.button8.bind(on_release=self.releasePresetDice)
+
+        self.button9 = Button(text="3d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button9.bind(on_press=self.pressGenericButton)
+        self.button9.bind(on_release=self.releasePresetDice)
+
+        self.button0 = Button(text="1d10", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button0.bind(on_press=self.pressGenericButton)
+        self.button0.bind(on_release=self.releasePresetDice)
+
+
+        # row one
+        self.footerBox.add_widget(self.saveButton)
+        self.footerBox.add_widget(self.threadSubmitButton)
+        self.footerBox.add_widget(self.listButton1)
+        self.footerBox.add_widget(self.listButton2)
+        self.footerBox.add_widget(self.button1)
+        self.footerBox.add_widget(self.button2)
+        self.footerBox.add_widget(self.button3)
+        self.footerBox.add_widget(self.button4)
+        self.footerBox.add_widget(self.button5)
+
+        self.footerBox.add_widget(self.AboutButton)
+        self.footerBox.add_widget(self.addActorButton)
+        self.footerBox.add_widget(self.listButton3)
+        self.footerBox.add_widget(self.listButton4)
+        self.footerBox.add_widget(self.button6)
+        self.footerBox.add_widget(self.button7)
+        self.footerBox.add_widget(self.button8)
+        self.footerBox.add_widget(self.button9)
+        self.footerBox.add_widget(self.button0)
+
+        # About box popup
+        self.AboutBox = GridLayout(cols=1, padding=(10,10))
 
         text = []
         text.append("Make a new game, push buttons, enter text, push more buttons, let me know if anything crashes. Back up your save folder frequently in case of boom. Have fun!")
@@ -340,12 +302,67 @@ class MainScreen(Screen):
             label = Label(text=entry)
             label.size = label.texture_size
             label.text_size = (500,None)
-            self.helpBox.add_widget(label)
+            self.AboutBox.add_widget(label)
 
-        self.helpPopup = Popup(title='Help',
-            content=self.helpBox,
+        self.AboutPopup = Popup(title='About',
+            content=self.AboutBox,
             size_hint=(None, None), size=(550, 500),
             auto_dismiss=True)
+
+        self.textInputMainBox.add_widget(self.footerBox)
+
+        self.controlBox.add_widget(self.textInputMainBox)
+
+##-------------------------------------------------------------------------------------------------------------------------------------------
+#  Center text submit buttons
+##-------------------------------------------------------------------------------------------------------------------------------------------
+
+        self.submitButtonsBox = BoxLayout(orientation='vertical', size_hint=(.23,1))
+
+        self.questionSubmitButton = Button(text="???", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.questionSubmitButton.bind(on_press=self.pressGenericButton)
+        self.questionSubmitButton.bind(on_release=self.releaseQuestion)
+        self.submitButtonsBox.add_widget(self.questionSubmitButton)
+
+        self.complexButton = Button(text="Complex", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.complexButton.bind(on_press=self.pressGenericButton)
+        self.complexButton.bind(on_release=self.releaseComplex)
+        self.submitButtonsBox.add_widget(self.complexButton)
+
+        self.playerSubmitButton = Button(text="Direct", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.playerSubmitButton.bind(on_press=self.pressGenericButton)
+        self.playerSubmitButton.bind(on_release=self.releasePlayer)
+        self.submitButtonsBox.add_widget(self.playerSubmitButton)
+
+        self.dmSubmitButton = Button(text="Aside", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.dmSubmitButton.bind(on_press=self.pressGenericButton)
+        self.dmSubmitButton.bind(on_release=self.releaseDM)
+        self.submitButtonsBox.add_widget(self.dmSubmitButton)
+
+        self.rollSubmitButton = Button(text="Roll Dice", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.rollSubmitButton.bind(on_press=self.pressGenericButton)
+        self.rollSubmitButton.bind(on_release=self.releaseRoll)
+        self.submitButtonsBox.add_widget(self.rollSubmitButton)
+
+        # module buttons go here, if a module is loaded
+        self.moduleButtonList = []
+        button = Button(text="RESHOW", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=showCurrentBlock)
+        self.moduleButtonList.append(button)
+
+        for i in range(1,4):
+            button = Button(text="module" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            button.self = self
+            button.option = "opt" + str(i)
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=jumpToBlock)
+            self.moduleButtonList.append(button)
+
+        self.controlBox.add_widget(self.submitButtonsBox)
+
+        self.centerBox.add_widget(self.controlBox)
 
         self.mainBox.add_widget(self.centerBox)
 
@@ -364,10 +381,19 @@ class MainScreen(Screen):
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
+        self.pcButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+
         self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyPCsToMain)
-        self.pcMainBox.add_widget(self.button)
+        self.pcButtonBox.add_widget(self.button)
+
+        self.randomPCButton = Button(text="random PC", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomPCButton.bind(on_press=self.pressGenericButton)
+        self.randomPCButton.bind(on_release=self.releaseRandomPC)
+        self.pcButtonBox.add_widget(self.randomPCButton)
+
+        self.pcMainBox.add_widget(self.pcButtonBox)
 
         self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
         label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
@@ -424,18 +450,19 @@ class MainScreen(Screen):
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
+        self.actorButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+
         self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyActorToMain)
-        self.actorMainBox.add_widget(self.button)
+        self.actorButtonBox.add_widget(self.button)
 
-        #self.actorTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        #label = Label(text="Actor", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-        #self.actorTitleGrid.add_widget(label)
-        #label = Label(text="Status", halign="center", font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-        #self.actorTitleGrid.add_widget(label)
+        self.randomActorButton = Button(text="random actor", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomActorButton.bind(on_press=self.pressGenericButton)
+        self.randomActorButton.bind(on_release=self.releaseRandomActor)
+        self.actorButtonBox.add_widget(self.randomActorButton)
 
-        #self.actorMainBox.add_widget(self.actorTitleGrid)
+        self.actorMainBox.add_widget(self.actorButtonBox)
 
         self.actorMainBox.add_widget(Label(text="Actors", halign="center", size_hint=(1,.05), font_size=config.basefont90))
         self.actorDisplay = ScrollView(size_hint=(1, 1))
@@ -457,10 +484,19 @@ class MainScreen(Screen):
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
 
+        self.trackButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+
         self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyTracksToMain)
-        self.tracksMainBox.add_widget(self.button)
+        self.trackButtonBox.add_widget(self.button)
+
+        self.randomTrackButton = Button(text="random track", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomTrackButton.bind(on_press=self.pressGenericButton)
+        self.randomTrackButton.bind(on_release=self.releaseRandomTrack)
+        self.trackButtonBox.add_widget(self.randomTrackButton)
+
+        self.tracksMainBox.add_widget(self.trackButtonBox)
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
@@ -479,8 +515,6 @@ class MainScreen(Screen):
         for i in range(1,30):
 
             label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-            #label.text_size = (self.trackDisplayGrid.width, None)
-            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.trackLabelArray.append(label)
 
             self.trackDisplayGrid.add_widget(config.trackLabelArray[-1])
@@ -851,8 +885,8 @@ class MainScreen(Screen):
                 updateCenterDisplay(self, "Please enter a comma-separated list in one line that has at least as many options as needed.", 'ephemeral')
         self.textInput.text = ""
 
-    def showHelp(self, *args):
-        self.helpPopup.open()
+    def showAbout(self, *args):
+        self.AboutPopup.open()
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # heartbeat functions
@@ -893,6 +927,43 @@ class MainScreen(Screen):
                 methodToCall(self)
         except:
             pass
+
+        if config.module['active'] == True:
+            # do module stuff here
+            # load up the module adventure
+            mod = config.curr_game_dir + "advmod.py"
+            filename = mod.split('/')[-1]
+            pyfile = filename.split('.')[0]
+            advmod = imp.load_source( pyfile, mod)
+
+            with open(config.curr_game_dir + "adventure.txt", "r") as f:
+                config.advDict = json.load(f)
+
+            for button in self.moduleButtonList:
+                self.submitButtonsBox.add_widget(button)
+
+            block = config.module['block']
+
+            self.moduleButtonList[1].text = config.advDict[block]['opt1']['display']
+            self.moduleButtonList[1].disabled = False
+
+            try:
+                self.moduleButtonList[2].text = config.advDict[block]['opt2']['display']
+            except:
+                self.moduleButtonList[2].text = ""
+                self.moduleButtonList[2].disabled = True
+
+            try:
+                self.moduleButtonList[3].text = config.advDict[block]['opt3']['display']
+            except:
+                self.moduleButtonList[3].text = ""
+                self.moduleButtonList[3].disabled = True
+
+            self.moduleTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+            self.titleBarBox.add_widget(self.moduleTitleLabel)
+
+            if config.module['block'] == 'Start' and config.advDict[block]['status'] == 0:
+                showCurrentBlock(self.moduleButtonList[0])
 
         updateCleanMarkdown()
         updateCleanHTML()

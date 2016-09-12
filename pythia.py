@@ -66,6 +66,10 @@ class TitleScreen(Screen):
                 tempDict = json.load(config_file)
                 for i in tempDict['general']:
                     config.general[i] = tempDict['general'][i]
+                for i in tempDict['user']:
+                    config.user[i] = tempDict['user'][i]
+                for i in tempDict['module']:
+                    config.module[i] = tempDict['module'][i]
         except:
             pass
 
@@ -86,7 +90,6 @@ class TitleScreen(Screen):
         self.startButton = Button(text="Start", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="22dp")
         self.startButton.bind(on_press=self.pressStart)
         self.startButton.bind(on_release=self.releaseStart)
-
 
         palettes = []
 
@@ -115,6 +118,10 @@ class TitleScreen(Screen):
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
+        self.newModuleButton = Button(text="New Game With Module", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.newModuleButton.bind(on_press=self.pressGenericButton)
+        self.newModuleButton.bind(on_release=self.newGameModule)
+
         self.mainBox.add_widget(self.preTitleLabel)
         self.mainBox.add_widget(self.currentLabel)
         self.mainBox.add_widget(self.postTitleLabel)
@@ -122,6 +129,7 @@ class TitleScreen(Screen):
         self.mainBox.add_widget(self.startButton)
         self.mainBox.add_widget(self.loadButton)
         self.mainBox.add_widget(self.newButton)
+        self.mainBox.add_widget(self.newModuleButton)
 
         self.paletteBox = BoxLayout(orientation='horizontal')
         self.paletteBox.add_widget(self.paletteSpinner)
@@ -208,6 +216,46 @@ class TitleScreen(Screen):
             size_hint=(None, None), size=("200dp", "150dp"),
             auto_dismiss=True)
 
+        # make a new game with a module
+        available_modules = glob.glob("." + os.sep + "resources" + os.sep + "modules" + os.sep + "*" + os.sep)
+
+        self.modulesBox = BoxLayout(orientation="vertical")
+        for modfolder in available_modules:
+            modname = modfolder.split(os.sep)[-2]
+            btn = Button(text=modname, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            btn.module = modfolder
+            self.modulesBox.add_widget(btn)
+            btn.bind(on_release=self.choseModuleToLoad)
+            btn.bind(on_press=self.pressGenericButton)
+
+        btn = Button(text="None", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn.module = "None"
+        self.modulesBox.add_widget(btn)
+        btn.bind(on_release=self.choseModuleToLoad)
+        btn.bind(on_press=self.pressGenericButton)
+
+        self.modulesPopup = Popup(title='Modules',
+            content=self.modulesBox,
+            size_hint=(None, None), size=("800dp", "530dp"),
+            auto_dismiss=True)
+
+        self.newModGameBox = BoxLayout(orientation="vertical")
+        self.newModGameNameInput = TextInput(text="", multiline=False)
+        self.newModGameBox.add_widget(self.newModGameNameInput)
+
+        self.newModGameStatus = Label(text="Enter a new name.")
+        self.newModGameBox.add_widget(self.newModGameStatus)
+
+        btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.newModGameBox.add_widget(btn)
+        btn.bind(on_release=self.makeNewModGame)
+        btn.bind(on_press=self.pressGenericButton)
+
+        self.newModGamePopup = Popup(title='New Game with Module',
+            content=self.newModGameBox,
+            size_hint=(None, None), size=("400dp", "400dp"),
+            auto_dismiss=True)
+
     def pressStart(self, *args):
         self.startButton.background_color = accent2
     def releaseStart(self, *args):
@@ -271,6 +319,13 @@ class TitleScreen(Screen):
         self.savesPopup.dismiss()
         self.releaseStart()
 
+    def choseModuleToLoad(self, *args):
+        args[0].background_color = accent1
+        title = args[0].module
+        config.curr_module = title
+        self.modulesPopup.dismiss()
+        self.newModGamePopup.open()
+
     def newGame(self, *args):
         args[0].background_color = accent1
         self.newGamePopup.open()
@@ -310,6 +365,61 @@ class TitleScreen(Screen):
         self.newGamePopup.dismiss()
         self.releaseStart()
 
+    def newGameModule(self, *args):
+        args[0].background_color = accent1
+        self.modulesPopup.open()
+
+    def makeNewModGame(self, *args):
+
+        print("new mod game")
+
+        args[0].background_color = accent1
+        folder_name = self.newModGameNameInput.text
+        if folder_name == "":
+            self.newModGamePopup.dismiss()
+
+        try:
+            newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
+            if not os.path.exists(newpath):
+                os.makedirs(newpath)
+            else:
+                self.newModGameStatus.text = "Folder exists."
+                return
+
+            f = file(newpath + "main.txt", "w")
+            f = file(newpath + "main_status.txt", "w")
+            f = file(newpath + "threads.txt", "w")
+            f = file(newpath + "threads_status.txt", "w")
+            f = file(newpath + "actors.txt", "w")
+            f = file(newpath + "actors_status.txt", "w")
+            f = file(newpath + "tracks.txt", "w")
+            f = file(newpath + "pcs.txt", "w")
+
+            config.curr_game_dir = newpath
+
+            with open(config.curr_module + "config.txt") as f:
+                lines = f.readlines()
+                with open(newpath + "config.txt", "w") as f1:
+                    f1.writelines(lines)
+
+            with open(config.curr_module + "adventure.txt") as f:
+                lines = f.readlines()
+                with open(newpath + "adventure.txt", "w") as f1:
+                    f1.writelines(lines)
+
+            with open(config.curr_module + "advmod.py") as f:
+                lines = f.readlines()
+                with open(newpath + "advmod.py", "w") as f1:
+                    f1.writelines(lines)
+
+            loadconfig(self, config.curr_game_dir)
+
+        except:
+            print("[makeNewModGame] Couldn't make a new directory for some reason.")
+
+        self.newModGamePopup.dismiss()
+        self.releaseStart()
+
     def pressGenericButton(self, *args):
         args[0].background_color = accent2
 
@@ -321,9 +431,6 @@ class OracleApp(App):
 
         #Window.clearcolor = (1, 1, 1, 1)
 
-        # back up save folder
-        makeBackup()
-
         # define colors used in style.kv here; is there a way to change this without restart?
         self.accent1_r = accent1[0]
         self.accent1_g = accent1[1]
@@ -334,7 +441,7 @@ class OracleApp(App):
         self.textcolor = styles.textcolor
 
         screenmanager = ScreenManager()
-        screenmanager.transition = SlideTransition(duration=1,clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
+        screenmanager.transition = SlideTransition(duration=1, clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
         titlescn = TitleScreen(name='titlescn')
         mainscn = MainScreen(name='mainscn')
         screenmanager.add_widget(titlescn)
@@ -346,11 +453,13 @@ class OracleApp(App):
 
     def on_start(self):
         #print("APP STARTING")
+        #makeBackup()
         pass
 
     def on_stop(self):
         #print("APP STOPPING")
         quicksave(self, config.curr_game_dir)
+        pass
 
 if __name__ == '__main__':
     OracleApp().run()

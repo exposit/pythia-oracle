@@ -9,12 +9,16 @@ import styles
 import os
 
 curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
+curr_module = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
+
 curr_title = "replace me"
 
 # color stuff
 transitory_color = styles.curr_palette['accent2']
 highlight_color = styles.curr_palette['accent1']
 alternate_color = styles.curr_palette['secondary']
+link_color = styles.curr_palette['accent2']
+visited_link_color = styles.curr_palette['accent1']
 
 general = dict(
     pretitle = '---',
@@ -26,6 +30,12 @@ general = dict(
     basefontsize = 16,
     oracle = "fu",
     oracle_func = "fu",
+)
+
+module = dict(
+    active = False,
+    name = "",
+    block = "Start",
 )
 
 user = dict(
