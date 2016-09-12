@@ -371,51 +371,50 @@ class TitleScreen(Screen):
 
     def makeNewModGame(self, *args):
 
-        print("new mod game")
-
         args[0].background_color = accent1
         folder_name = self.newModGameNameInput.text
         if folder_name == "":
             self.newModGamePopup.dismiss()
 
-        try:
-            newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
-            if not os.path.exists(newpath):
-                os.makedirs(newpath)
-            else:
-                self.newModGameStatus.text = "Folder exists."
-                return
+        #try:
+        newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
+        if not os.path.exists(newpath):
+            os.makedirs(newpath)
+        else:
+            self.newModGameStatus.text = "Folder exists."
+            return
 
-            f = file(newpath + "main.txt", "w")
-            f = file(newpath + "main_status.txt", "w")
-            f = file(newpath + "threads.txt", "w")
-            f = file(newpath + "threads_status.txt", "w")
-            f = file(newpath + "actors.txt", "w")
-            f = file(newpath + "actors_status.txt", "w")
-            f = file(newpath + "tracks.txt", "w")
-            f = file(newpath + "pcs.txt", "w")
+        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "adventure.txt", "modlogic.py", "modpanel.py" ]
 
-            config.curr_game_dir = newpath
+        config.curr_game_dir = newpath
 
-            with open(config.curr_module + "config.txt") as f:
-                lines = f.readlines()
-                with open(newpath + "config.txt", "w") as f1:
-                    f1.writelines(lines)
+        for item in fileList:
+            f = file(newpath + item, "w")
+            try:
+                with open(config.curr_module + item) as fi:
+                    lines = fi.readlines()
+                    with open(newpath + item, "w") as fum:
+                        fum.writelines(lines)
+            except:
+                pass
 
-            with open(config.curr_module + "adventure.txt") as f:
-                lines = f.readlines()
-                with open(newpath + "adventure.txt", "w") as f1:
-                    f1.writelines(lines)
+        # now parse the config and save as a config
+        mod = config.curr_module + "modconfig.py"
+        filename = mod.split('/')[-1]
+        pyfile = filename.split('.')[0]
+        modconfig = imp.load_source( pyfile, mod)
 
-            with open(config.curr_module + "advmod.py") as f:
-                lines = f.readlines()
-                with open(newpath + "advmod.py", "w") as f1:
-                    f1.writelines(lines)
+        tempDict = {}
+        tempDict['general'] = config.general
+        tempDict['user'] = config.user
+        tempDict['module'] = modconfig.module
+        with open(newpath + 'config.txt', "w") as fum:
+            json.dump(tempDict, fum)
 
-            loadconfig(self, config.curr_game_dir)
+        loadconfig(self, config.curr_game_dir)
 
-        except:
-            print("[makeNewModGame] Couldn't make a new directory for some reason.")
+        #except:
+        #    print("[makeNewModGame] Couldn't make a new directory for some reason.")
 
         self.newModGamePopup.dismiss()
         self.releaseStart()

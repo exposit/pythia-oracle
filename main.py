@@ -929,12 +929,18 @@ class MainScreen(Screen):
             pass
 
         if config.module['active'] == True:
-            # do module stuff here
-            # load up the module adventure
-            mod = config.curr_game_dir + "advmod.py"
+
+            mod = config.curr_game_dir + "modlogic.py"
             filename = mod.split('/')[-1]
             pyfile = filename.split('.')[0]
-            advmod = imp.load_source( pyfile, mod)
+            modlogic = imp.load_source( pyfile, mod)
+
+            mod = config.curr_game_dir + "modpanel.py"
+            filename = mod.split('/')[-1]
+            pyfile = filename.split('.')[0]
+            modpanel = imp.load_source( pyfile, mod)
+
+            self.oracleStackAccordion.add_widget(modpanel.initPanel(self))
 
             with open(config.curr_game_dir + "adventure.txt", "r") as f:
                 config.advDict = json.load(f)
@@ -963,7 +969,8 @@ class MainScreen(Screen):
             self.titleBarBox.add_widget(self.moduleTitleLabel)
 
             if config.module['block'] == 'Start' and config.advDict[block]['status'] == 0:
-                showCurrentBlock(self.moduleButtonList[0])
+                config.advDict[block]['status'] == 99
+                showCurrentBlock(self, self.moduleButtonList[0])
 
         updateCleanMarkdown()
         updateCleanHTML()
