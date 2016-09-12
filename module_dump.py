@@ -2,8 +2,8 @@
 #
 # Module Creator/Helper
 #
-# To use, replace the pseudoDict contents with your adventure. Edit the module dictionary in this file,
-# then run this file with 'python module_dump.py'.
+# To use, replace the advDict contents with your adventure.  Tthen run this file with 'python
+# module_dump.py'.
 #
 # [Adventure content licensing terms]
 #
@@ -16,7 +16,7 @@ import random
 
 module_name = 'moduleA'
 
-pseudoDict = {
+advDict = {
      'Start' :
         { 'title' : "Start Room",
           'status' : 0,
@@ -89,6 +89,6 @@ pseudoDict = {
 
 def makeAdventure():
     with open("." + os.sep + "resources" + os.sep + "modules" + os.sep + module_name + os.sep + "adventure.txt", "w") as f:
-        json.dump(pseudoDict, f)
+        json.dump(advDict, f)
 
 makeAdventure()
