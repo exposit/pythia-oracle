@@ -32,7 +32,7 @@ general = dict(
     oracle_func = "fu",
 )
 
-modvar = dict(
+scenario = dict(
     active = False,
     name = "",
     block = "Start",

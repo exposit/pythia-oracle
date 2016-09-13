@@ -64,6 +64,9 @@ from styles import *
 import logic
 from logic import *
 
+import logicscen
+from logicscen import *
+
 # extra panels -- generators
 #try:
 userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "generators" + os.sep + "*.py")

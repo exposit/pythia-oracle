@@ -55,8 +55,8 @@ class TitleScreen(Screen):
 
         # first thing, try to open styles
         try:
-            with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "r") as config_file:
-                gamename = config_file.read()
+            with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "r") as curr_file:
+                gamename = curr_file.read()
                 config.curr_game_dir = "." + os.sep + "saves" + os.sep + gamename.strip() + os.sep
         except:
             pass
@@ -68,14 +68,12 @@ class TitleScreen(Screen):
                     config.general[i] = tempDict['general'][i]
                 for i in tempDict['user']:
                     config.user[i] = tempDict['user'][i]
-                for i in tempDict['adventure']:
-                    config.modvar[i] = tempDict['adventure'][i]
+                for i in tempDict['scenario']:
+                    config.scenario[i] = tempDict['scenario'][i]
         except:
             pass
 
         self.mainBox = BoxLayout(orientation='vertical', size_hint_x=.8, size_hint_y=.6, spacing=20)
-        #with self.mainBox.canvas:
-        #    Rectangle(pos=(440,400), size=(320,195), texture=self.subtexture)
 
         self.preTitleLabel = ClickLabel(text=config.general['pretitle'], font_size=22, font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
         self.preTitleLabel.bind(on_press=self.changePreTitle)
@@ -118,9 +116,9 @@ class TitleScreen(Screen):
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
-        self.newModuleButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
-        self.newModuleButton.bind(on_press=self.pressGenericButton)
-        self.newModuleButton.bind(on_release=self.newGameModule)
+        self.newScenarioButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.newScenarioButton.bind(on_press=self.pressGenericButton)
+        self.newScenarioButton.bind(on_release=self.newGameScenario)
 
         self.mainBox.add_widget(self.preTitleLabel)
         self.mainBox.add_widget(self.currentLabel)
@@ -129,7 +127,7 @@ class TitleScreen(Screen):
         self.mainBox.add_widget(self.startButton)
         self.mainBox.add_widget(self.loadButton)
         #self.mainBox.add_widget(self.newButton)
-        self.mainBox.add_widget(self.newModuleButton)
+        self.mainBox.add_widget(self.newScenarioButton)
 
         self.paletteBox = BoxLayout(orientation='horizontal')
         self.paletteBox.add_widget(self.paletteSpinner)
@@ -216,26 +214,26 @@ class TitleScreen(Screen):
             size_hint=(None, None), size=("200dp", "150dp"),
             auto_dismiss=True)
 
-        # make a new game with a module
-        available_modules = glob.glob("." + os.sep + "resources" + os.sep + "modules" + os.sep + "*" + os.sep)
+        # make a new game with a scenario
+        available_scenarios = glob.glob("." + os.sep + "resources" + os.sep + "scenarios" + os.sep + "*" + os.sep)
 
-        self.modulesBox = BoxLayout(orientation="vertical")
-        for modfolder in available_modules:
+        self.scenariosBox = BoxLayout(orientation="vertical")
+        for modfolder in available_scenarios:
             modname = modfolder.split(os.sep)[-2]
             btn = Button(text=modname, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-            btn.module = modfolder
-            self.modulesBox.add_widget(btn)
-            btn.bind(on_release=self.choseModuleToLoad)
+            btn.scenario = modfolder
+            self.scenariosBox.add_widget(btn)
+            btn.bind(on_release=self.choseScenarioToLoad)
             btn.bind(on_press=self.pressGenericButton)
 
-        btn = Button(text="No Module (Blank Template)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        btn.module = "None"
-        self.modulesBox.add_widget(btn)
-        btn.bind(on_release=self.choseNoModuleToLoad)
+        btn = Button(text="No Scenario (Blank Template)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn.scenario = "None"
+        self.scenariosBox.add_widget(btn)
+        btn.bind(on_release=self.choseNoScenarioToLoad)
         btn.bind(on_press=self.pressGenericButton)
 
-        self.modulesPopup = Popup(title='Modules',
-            content=self.modulesBox,
+        self.scenariosPopup = Popup(title='Scenarios',
+            content=self.scenariosBox,
             size_hint=(None, None), size=("800dp", "530dp"),
             auto_dismiss=False)
 
@@ -251,7 +249,7 @@ class TitleScreen(Screen):
         btn.bind(on_release=self.makeNewModGame)
         btn.bind(on_press=self.pressGenericButton)
 
-        self.newModGamePopup = Popup(title='New Game with Module',
+        self.newModGamePopup = Popup(title='New Game with Scenario',
             content=self.newModGameBox,
             size_hint=(None, None), size=("400dp", "400dp"),
             auto_dismiss=True)
@@ -319,16 +317,16 @@ class TitleScreen(Screen):
         self.savesPopup.dismiss()
         self.releaseStart()
 
-    def choseNoModuleToLoad(self, *args):
+    def choseNoScenarioToLoad(self, *args):
         args[0].background_color = accent1
-        self.modulesPopup.dismiss()
+        self.scenariosPopup.dismiss()
         self.newGamePopup.open()
 
-    def choseModuleToLoad(self, *args):
+    def choseScenarioToLoad(self, *args):
         args[0].background_color = accent1
-        title = args[0].module
-        config.curr_module = title
-        self.modulesPopup.dismiss()
+        title = args[0].scenario
+        config.curr_scenario = title
+        self.scenariosPopup.dismiss()
         self.newModGamePopup.open()
 
     def newGame(self, *args):
@@ -370,9 +368,9 @@ class TitleScreen(Screen):
         self.newGamePopup.dismiss()
         self.releaseStart()
 
-    def newGameModule(self, *args):
+    def newGameScenario(self, *args):
         args[0].background_color = accent1
-        self.modulesPopup.open()
+        self.scenariosPopup.open()
 
     def makeNewModGame(self, *args):
 
@@ -389,14 +387,14 @@ class TitleScreen(Screen):
             self.newModGameStatus.text = "Folder exists."
             return
 
-        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "adventure.txt", "modlogic.py", "modpanel.py" ]
+        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
 
         config.curr_game_dir = newpath
 
         for item in fileList:
             f = file(newpath + item, "w")
             try:
-                with open(config.curr_module + item) as fi:
+                with open(config.curr_scenario + item) as fi:
                     lines = fi.readlines()
                     with open(newpath + item, "w") as fum:
                         fum.writelines(lines)
@@ -404,7 +402,7 @@ class TitleScreen(Screen):
                 pass
 
         # now parse the config and save as a config
-        mod = config.curr_module + "modconfig.py"
+        mod = config.curr_scenario + "scenconfig.py"
         filename = mod.split('/')[-1]
         pyfile = filename.split('.')[0]
         modconfig = imp.load_source( pyfile, mod)
@@ -412,7 +410,7 @@ class TitleScreen(Screen):
         tempDict = {}
         tempDict['general'] = config.general
         tempDict['user'] = config.user
-        tempDict['module'] = modconfig.modvar
+        tempDict['scenario'] = modconfig.scenario
         with open(newpath + 'config.txt', "w") as fum:
             json.dump(tempDict, fum)
 

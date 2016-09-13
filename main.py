@@ -344,19 +344,19 @@ class MainScreen(Screen):
         self.rollSubmitButton.bind(on_release=self.releaseRoll)
         self.submitButtonsBox.add_widget(self.rollSubmitButton)
 
-        # module buttons go here, if a module is loaded
-        self.moduleButtonList = []
+        # scenario buttons go here, if a scenario is loaded
+        self.scenarioButtonList = []
         button = Button(text="continue", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.showBlock)
-        self.moduleButtonList.append(button)
+        self.scenarioButtonList.append(button)
 
         button = Button(text="show exits", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.showExits)
-        self.moduleButtonList.append(button)
+        self.scenarioButtonList.append(button)
 
         self.controlBox.add_widget(self.submitButtonsBox)
 
@@ -934,32 +934,34 @@ class MainScreen(Screen):
         except:
             pass
 
-        if config.modvar['active'] == True:
+        if config.scenario['active'] == True:
 
-            mod = config.curr_game_dir + "modlogic.py"
+            #global modlogic
+            mod = config.curr_game_dir + "scenlogic.py"
             filename = mod.split('/')[-1]
             pyfile = filename.split('.')[0]
-            modlogic = imp.load_source( pyfile, mod)
+            scenlogic = imp.load_source( pyfile, mod)
 
-            mod = config.curr_game_dir + "modpanel.py"
+            #global modpanel
+            mod = config.curr_game_dir + "scenpanel.py"
             filename = mod.split('/')[-1]
             pyfile = filename.split('.')[0]
-            modpanel = imp.load_source( pyfile, mod)
+            scenpanel = imp.load_source( pyfile, mod)
 
-            self.oracleStackAccordion.add_widget(modpanel.initPanel(self))
+            self.oracleStackAccordion.add_widget(scenpanel.initPanel(self))
 
-            with open(config.curr_game_dir + "adventure.txt", "r") as f:
+            with open(config.curr_game_dir + "scenario.txt", "r") as f:
                 config.advDict = json.load(f)
 
-            for button in self.moduleButtonList:
+            for button in self.scenarioButtonList:
                 self.submitButtonsBox.add_widget(button)
 
-            block = config.modvar['block']
+            block = config.scenario['block']
 
-            self.moduleTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
-            self.titleBarBox.add_widget(self.moduleTitleLabel)
+            self.scenarioTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+            self.titleBarBox.add_widget(self.scenarioTitleLabel)
 
-            if config.modvar['block'] == 'Start' and config.advDict[block]['shown'] == 0:
+            if config.scenario['block'] == 'Start' and config.advDict[block]['shown'] == 0:
                 config.advDict[block]['shown'] == 99
                 showCurrentBlock(self)
                 saveconfig(self, config.curr_game_dir)

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*
 #
-# sample user defined panel for a module; will be called during main load and added to the oracle stack
+# decree user defined panel for a scenario; will be called during main load and added to the oracle stack
 #
-# just add your own widgets to initPanel, add any needed logic below, and put this in the module folder,
+# just add your own widgets to initPanel, add any needed logic below, and put this in the scenario folder,
 #
 # check out logic.py for the expected formatting keywords
 #
@@ -19,61 +19,76 @@ def onEnter(self):
 
     modlogic.test()
 
-    print("Sample Oracle: updating my own widgets")
+    print("decree Oracle: updating my own widgets")
 
-    # remember to modify the unique config for your module to include any necessary variables
+    # remember to modify the unique config for your scenario to include any necessary variables
 
     pass
 
 # add your widgets in here; see the gui for examples
 def initPanel(self):
 
-    self.sampleAItem = AccordionItem(title='Module A Panel', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
+    self.decreeAItem = AccordionItem(title='Oracle\'s Decree', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
 
-    self.sampleMainBox = BoxLayout(orientation='vertical')
+    self.decreeMainBox = BoxLayout(orientation='vertical')
 
-    self.sampleMainBox.add_widget(Label(text="Label", size_hint=(1,1)))
+    self.decreeMainBox.add_widget(Label(text="About This Adventure", size_hint=(1,1)))
+
+    longtextA = "Oracle's Decree is based on a one page dungeon from http://blog.trilemma.com/, licensed under CC-BY-NC."
+    longtextA = longtextA + "\nIt's a tutorial for intended to show off some of the scenario features of Pythia. It is site-based, though event-based adventures are equally feasible!"
+
+    self.decreeMainBox.add_widget(Label(text=longtextA, size_hint=(1,1), markup=True))
+
+    self.decreeMainBox.add_widget(Label(text="Things to Remember", size_hint=(1,1)))
+
+    longtextB = "Pythia really shines when you put your own spin on things -- whenever you are presented with a scene or room, be sure to use all the tools at your disposal (oracles, generators, your own imagination) to flesh out the scene and determine what happens."
+    longtextB = "Unlike a traditional CYOA or gamebook, you will be creating lots of content in between scenes or rooms. Interpret scenario options broadly or in the context of your own content."
+    longtextB = longtextB + "\nIf a later experience doesn't reconcile well with the canon you've already created, feel free to use edit mode to change things up! Or go your own way -- it's up to you."
+
+    self.decreeMainBox.add_widget(Label(text=longtextB, size_hint=(1,1), markup=True))
+
+    self.decreeMainBox.add_widget(Label(text="Buttons", size_hint=(1,1)))
 
     button = Button(text="Hear a rumor", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=hearARumor)
-    self.sampleMainBox.add_widget(button)
+    self.decreeMainBox.add_widget(button)
 
     button = Button(text="Encounters (every 12 miles)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=overlandEncounter)
-    self.sampleMainBox.add_widget(button)
+    self.decreeMainBox.add_widget(button)
 
     # this label is changed by a persistent variable on enter
     self.tempLabel = Label(text='This will be changed on enter!', size_hint=(1,.12))
-    self.sampleMainBox.add_widget(self.tempLabel)
+    self.decreeMainBox.add_widget(self.tempLabel)
 
     # this button piggybacks on an existing function, in this case, rolling dice
     button = Button(text="1d1000", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunction)
-    self.sampleMainBox.add_widget(button)
+    self.decreeMainBox.add_widget(button)
 
     # this button does its own thing and but updates the center display as normal
     button = Button(text="Choice", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunctionTwo)
-    self.sampleMainBox.add_widget(button)
+    self.decreeMainBox.add_widget(button)
 
     # this button just prints hello
     button = Button(text="Hello", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunctionThree)
-    self.sampleMainBox.add_widget(button)
+    self.decreeMainBox.add_widget(button)
 
-    self.sampleAItem.add_widget(self.sampleMainBox)
+    self.decreeAItem.add_widget(self.decreeMainBox)
 
-    return self.sampleAItem
+    return self.decreeAItem
 
 # these functions catch events from the buttons up above and pass them to the appropriate logic functions
 
@@ -90,10 +105,10 @@ def overlandEncounter(*args):
 
     #roll = random.randint(0,9)
     roll = 1
-    result = config.modvar['overlandEncounterChart'][roll][0]
+    result = config.scenario['overlandEncounterChart'][roll][0]
 
     if roll == 2 or roll == 5 or roll == 6 or roll == 7 or roll == 10:
-        config.modvar['overlandEncounterChart'][roll][0] = "Water Shades"
+        config.scenario['overlandEncounterChart'][roll][0] = "Water Shades"
 
     if result == "Water Shades":
         result = result + " [" + str(random.randint(1,2)) + "] "
@@ -103,11 +118,11 @@ def overlandEncounter(*args):
         result = result + " [" + str(random.randint(1,6)) + "] "
 
     if result == "A field of Sand Domes":
-        config.modvar['fishattack'] = random.choice([True, False])
+        config.scenario['fishattack'] = random.choice([True, False])
 
     updateCenterDisplay(self, result, 'result')
 
-    refPress(config.textLabelArray[-1], config.modvar['overlandEncounterChart'][roll][1])
+    refPress(config.textLabelArray[-1], config.scenario['overlandEncounterChart'][roll][1])
 
 # this calls one of the main functions in logic.py instead of in this file
 def testFunction(*args):
@@ -138,6 +153,6 @@ def testFunctionThree(*args):
         print arg
     args[0].self.tempLabel.text = "hello " + tertiaryFunction() + " " + str(random.randint(1,1000))
 
-# sample logic
+# decree logic
 def tertiaryFunction():
     return "world"
