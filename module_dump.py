@@ -16,7 +16,7 @@ module_name = 'moduleA'
 advDict = {
      'Start' :
         { 'title' : "Start Room",
-          'status' : 0,
+          'shown' : 0,
           'text' : [
             ['You are in a maze of twisty passages, all alike.', 'no_format'],
             ['There\'s an ogre here.', 'no_format'],
@@ -39,15 +39,14 @@ advDict = {
               },
           'opt3' :
               {'display' : "flee",
-               'jump'  : "Flee",
+               'jump'  : "Start",
                'exitmsg'  : "You run away screaming.",
                'pause' : True,
-               'function' : 'Flee',
               },
         },
     'OgreTreasure' :
         { 'title' : "Start Room, Atop a Pile of Loot",
-          'status' : 0,
+          'shown' : 0,
           'text' : [
             ['There\'s a pile of [[desc|treasure here|dragondesc]]', 'no_format'],
             ['This is a second <<var.large>> line of text [[jump|start|opt1]] shown to the reader. blockb', 'bold_italic'],
@@ -69,7 +68,7 @@ advDict = {
         },
     'The End' :
         { 'title' : "Start Room, At an Ogre's Feet",
-          'status' : 0,
+          'shown' : 0,
           'text' : [
             ['You have perished in single combat against a <<var.large>> ogre. And this is the end. Make a new game to continue.', 'bold'],
           ],

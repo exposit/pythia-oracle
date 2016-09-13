@@ -747,7 +747,6 @@ def rollDice(text):
 
 def parseRefs(source):
 
-    #[[desc|treasure here|dragondesc]]
     start_sep='[['
     end_sep=']]'
     result=[]
@@ -807,8 +806,6 @@ def parseTextVariables(source):
         except:
             condition = ""
 
-        print(a, b, condition)
-
         try:
             condition = "config.modvar[\'" + condition + "\']"
             if eval(condition) == True:
@@ -831,7 +828,7 @@ def refPress(*args):
     full = args[1]
 
     if subtype == "d":
-        # this is a display item and will just show additional text
+
         block = config.modvar['block']
         try:
             base = config.advDict[block][text]
@@ -851,14 +848,14 @@ def refPress(*args):
             newtext = newtext.replace("[/ref]", "")
             newtext = newtext.replace("[/color]", "")
             label.text = newtext
-            # need to update the textArray too
         else:
             newtext = label.text
             colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
             for color in colorList:
                 newtext = newtext.replace(color, config.visited_link_color)
             label.text = newtext
-            # need to update the textArray too
+
+        config.textArray[label.index] = label.text
 
     elif subtype == "t":
 
@@ -872,7 +869,8 @@ def refPress(*args):
             label.text = base[2]
         else:
             label.text = base[1]
-        # and update textarray
+
+        config.textArray[label.index] = label.text
 
     elif subtype == "j":
 
@@ -909,22 +907,18 @@ def refPress(*args):
         exitmsg = parseTextVariables(exitmsg)
         updateCenterDisplay(self, exitmsg, exitformat)
 
-        if repeatable == 'once':
-            # remove this link from the label; must update array too
+        # this was a jump; clear all older links
+        for i in range(len(config.textLabelArray)):
             newtext = label.text
             colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
             for color in colorList:
                 newtext = newtext.replace(color, "")
-            newtext = newtext.replace("[ref=" + full + "]", "")
-            newtext = newtext.replace("[/ref]", "")
-            newtext = newtext.replace("[/color]", "")
-            label.text = newtext
-        else:
-            newtext = label.text
-            colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
-            for color in colorList:
-                newtext = newtext.replace(color, config.visited_link_color)
-            label.text = newtext
+                newtext = newtext.replace("[ref=" + full + "]", "")
+                newtext = newtext.replace("[/ref]", "")
+                newtext = newtext.replace("[/color]", "")
+                label.text = newtext
+
+            config.textArray[label.index] = label.text
 
         if pause == False:
             showCurrentBlock(self)
@@ -933,6 +927,18 @@ def refPress(*args):
             updateCenterDisplay(self, more, 'italic')
     else:
         # this is a function
+        for i in range(len(config.textLabelArray)):
+            newtext = label.text
+            colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+            for color in colorList:
+                newtext = newtext.replace(color, "")
+                newtext = newtext.replace("[ref=" + full + "]", "")
+                newtext = newtext.replace("[/ref]", "")
+                newtext = newtext.replace("[/color]", "")
+                label.text = newtext
+
+            config.textArray[label.index] = label.text
+
         eval(text)(self)
 
 def showCurrentBlock(self, *args):
@@ -962,11 +968,14 @@ def showCurrentExits(self, *args):
             display = parseRefs(display)
             updateCenterDisplay(self, display, item[1])
     except:
-        for item in config.advDict[block]['exitlist']:
-            display = '[[jump|' + config.advDict[block][item]['display'] + '|' + item + ']]'
-            display = parseTextVariables(display)
-            display = parseRefs(display)
-            updateCenterDisplay(self, display, config.advDict[block][item]['exitmsg'])
+        try:
+            for item in config.advDict[block]['exitlist']:
+                display = '[[jump|' + config.advDict[block][item]['display'] + '|' + item + ']]'
+                display = parseTextVariables(display)
+                display = parseRefs(display)
+                updateCenterDisplay(self, display, config.advDict[block][item]['exitmsg'])
+        except:
+            pass
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # --> Random choosers from player defined lists

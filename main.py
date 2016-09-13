@@ -349,22 +349,14 @@ class MainScreen(Screen):
         button = Button(text="continue", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=showCurrentBlock)
+        button.bind(on_release=self.showBlock)
         self.moduleButtonList.append(button)
 
         button = Button(text="show exits", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=showCurrentExits)
+        button.bind(on_release=self.showExits)
         self.moduleButtonList.append(button)
-
-#        for i in range(1,4):
-#            button = Button(text="module" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-#            button.self = self
-#            button.option = "opt" + str(i)
-#            button.bind(on_press=self.pressGenericButton)
-#            button.bind(on_release=jumpToBlock)
-#            self.moduleButtonList.append(button)
 
         self.controlBox.add_widget(self.submitButtonsBox)
 
@@ -667,6 +659,14 @@ class MainScreen(Screen):
         result = eval(args[0].function)()
         updateCenterDisplay(self, result)
 
+    def showBlock(self, *args):
+        args[0].background_color = neutral
+        showCurrentBlock(self)
+
+    def showExits(self, *args):
+        args[0].background_color = neutral
+        showCurrentExits(self)
+
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # PC, threads, tracks, & actor panel copy functions
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -959,9 +959,9 @@ class MainScreen(Screen):
             self.moduleTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
             self.titleBarBox.add_widget(self.moduleTitleLabel)
 
-            if config.modvar['block'] == 'Start' and config.advDict[block]['status'] == 0:
-                config.advDict[block]['status'] == 99
-                showCurrentBlock(self, self.moduleButtonList[0])
+            if config.modvar['block'] == 'Start' and config.advDict[block]['shown'] == 0:
+                config.advDict[block]['shown'] == 99
+                showCurrentBlock(self)
 
         updateCleanMarkdown()
         updateCleanHTML()
