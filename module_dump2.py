@@ -22,11 +22,11 @@ advDict = {
             ['Chunks of rock protrude from the sand, topped by hardy succulents.', 'no_format'],
             ['The wind raises brown, gritty plumes from steep-sided dunes.', 'no_format'],
             ['Shifting sand absorbs the energy of every step you make, never letting you hit your stride.', 'no_format'],
-            ['Hard, cracked sedimentary rock rakes up in layers.', 'no_format'],
+            ['Hard, cracked sedimentary rock flakes up in layers.', 'no_format'],
             ['The wind howls through a forest of red standstone that has been carved into undulating shapes by windblown grit.', 'no_format'],
           ],
           'exits' : [
-            ['Check for an encounter. If none, keep [[jump|exploring|opt1]].', 'italic'],
+            ['Check for an encounter. If none, keep [[func|exploring|modpanel.overlandEncounter]].', 'italic'],
           ],
           'opt1' :
               {'display' : "exploring",
