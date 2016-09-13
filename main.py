@@ -525,6 +525,18 @@ class MainScreen(Screen):
         self.leftAccordion.add_widget(self.oracleAccordionItem)
 
 ##-------------------------------------------------------------------------------------------------------------------------------------------
+#  holder panel for maps
+##-------------------------------------------------------------------------------------------------------------------------------------------
+
+        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
+
+        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
+
+        self.oracleAccordionItem.add_widget(self.oracleStackAccordion)
+
+        self.leftAccordion.add_widget(self.oracleAccordionItem)
+
+##-------------------------------------------------------------------------------------------------------------------------------------------
 #  custom generator panels
 ##-------------------------------------------------------------------------------------------------------------------------------------------
 
