@@ -68,8 +68,8 @@ class TitleScreen(Screen):
                     config.general[i] = tempDict['general'][i]
                 for i in tempDict['user']:
                     config.user[i] = tempDict['user'][i]
-                for i in tempDict['module']:
-                    config.module[i] = tempDict['module'][i]
+                for i in tempDict['adventure']:
+                    config.modvar[i] = tempDict['adventure'][i]
         except:
             pass
 
@@ -407,7 +407,7 @@ class TitleScreen(Screen):
         tempDict = {}
         tempDict['general'] = config.general
         tempDict['user'] = config.user
-        tempDict['module'] = modconfig.module
+        tempDict['module'] = modconfig.modvar
         with open(newpath + 'config.txt', "w") as fum:
             json.dump(tempDict, fum)
 

@@ -1,1 +1,0 @@
-{"user": {"temp": 0}, "module": {"button3": [], "button2": [], "button1": [], "name": "", "active": false, "block": "Start"}, "general": {"oracle_func": "fu", "module_active": true, "enter_behavior": "PLAIN", "tracker": 0, "edit_behavior": "READ", "basefontsize": 16, "oracle": "fu", "bookmarks": [-9, -9, -9, -9, -9, -9], "posttitle": "---", "pretitle": "---"}}

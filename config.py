@@ -9,7 +9,7 @@ import styles
 import os
 
 curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
-curr_module = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
+curr_adv = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
 
 curr_title = "replace me"
 
@@ -32,7 +32,7 @@ general = dict(
     oracle_func = "fu",
 )
 
-module = dict(
+modvar = dict(
     active = False,
     name = "",
     block = "Start",

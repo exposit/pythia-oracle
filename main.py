@@ -346,19 +346,25 @@ class MainScreen(Screen):
 
         # module buttons go here, if a module is loaded
         self.moduleButtonList = []
-        button = Button(text="RESHOW", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button = Button(text="continue", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=showCurrentBlock)
         self.moduleButtonList.append(button)
 
-        for i in range(1,4):
-            button = Button(text="module" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-            button.self = self
-            button.option = "opt" + str(i)
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=jumpToBlock)
-            self.moduleButtonList.append(button)
+        button = Button(text="show exits", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=showCurrentExits)
+        self.moduleButtonList.append(button)
+
+#        for i in range(1,4):
+#            button = Button(text="module" + str(i), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+#            button.self = self
+#            button.option = "opt" + str(i)
+#            button.bind(on_press=self.pressGenericButton)
+#            button.bind(on_release=jumpToBlock)
+#            self.moduleButtonList.append(button)
 
         self.controlBox.add_widget(self.submitButtonsBox)
 
@@ -928,7 +934,7 @@ class MainScreen(Screen):
         except:
             pass
 
-        if config.module['active'] == True:
+        if config.modvar['active'] == True:
 
             mod = config.curr_game_dir + "modlogic.py"
             filename = mod.split('/')[-1]
@@ -948,27 +954,12 @@ class MainScreen(Screen):
             for button in self.moduleButtonList:
                 self.submitButtonsBox.add_widget(button)
 
-            block = config.module['block']
-
-            self.moduleButtonList[1].text = config.advDict[block]['opt1']['display']
-            self.moduleButtonList[1].disabled = False
-
-            try:
-                self.moduleButtonList[2].text = config.advDict[block]['opt2']['display']
-            except:
-                self.moduleButtonList[2].text = ""
-                self.moduleButtonList[2].disabled = True
-
-            try:
-                self.moduleButtonList[3].text = config.advDict[block]['opt3']['display']
-            except:
-                self.moduleButtonList[3].text = ""
-                self.moduleButtonList[3].disabled = True
+            block = config.modvar['block']
 
             self.moduleTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
             self.titleBarBox.add_widget(self.moduleTitleLabel)
 
-            if config.module['block'] == 'Start' and config.advDict[block]['status'] == 0:
+            if config.modvar['block'] == 'Start' and config.advDict[block]['status'] == 0:
                 config.advDict[block]['status'] == 99
                 showCurrentBlock(self, self.moduleButtonList[0])
 

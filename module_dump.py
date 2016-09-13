@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*self
+# -*- coding: utf-8 -*
 #
 # Module Creator/Helper
 #
-# To use, replace the advDict contents with your adventure.  Tthen run this file with 'python
-# module_dump.py'.
-#
-# [Adventure content licensing terms]
-#
+# To use, replace the advDict contents with your adventure.  Tthen run this file with
+# 'python module_dump.py'.
 #
 
 import os
@@ -22,7 +19,10 @@ advDict = {
           'status' : 0,
           'text' : [
             ['You are in a maze of twisty passages, all alike.', 'no_format'],
-            ['There\'s an ogre here. Defeat it in single combat and choose "success". If it defeats you, go to "defeat". If you want to run away, choose option "flee".', 'italic'],
+            ['There\'s an ogre here.', 'no_format'],
+          ],
+          'exits' : [
+            ['Defeat it in single combat and choose [[jump|success|opt1]]. If it defeats you, go to [[jump|defeat|opt2]]. If you want to run away, choose option [[jump|flee|opt3]].', 'italic'],
           ],
           'opt1' :
               {'display' : "success",
@@ -34,7 +34,7 @@ advDict = {
               {'display' : "defeat",
                'jump'  : "The End",
                'exitmsg'  : "You have perished!",
-               'exitstatus' : 'bold',
+               'exitformat' : 'bold',
                'pause' : True,
               },
           'opt3' :
@@ -49,10 +49,11 @@ advDict = {
         { 'title' : "Start Room, Atop a Pile of Loot",
           'status' : 0,
           'text' : [
-            ['There\'s a pile of [ref=md_dragondesc][color=0000ff]treasure here[/ref][/color]', 'no_format'],
-            ['This is a second <<var.large>> line of text [ref=mj_dragonjump][color=0000ff]clickable jump[/ref][/color] shown to the reader. blockb', 'bold_italic'],
-            ['This is a <<var.sleeping>> <<var.large>> second3 line of text [ref=mt_dragontoggle][color=0000ff]clickable toggle[/ref][/color] shown to the reader. blockb', 'bold_italic'],
+            ['There\'s a pile of [[desc|treasure here|dragondesc]]', 'no_format'],
+            ['This is a second <<var.large>> line of text [[jump|start|opt1]] shown to the reader. blockb', 'bold_italic'],
+            ['This is a <<var.large>> second3 line of text [[toggle|clickable toggle|dragontoggle]] shown to the reader. blockb', 'bold_italic'],
           ],
+          'exitlist' : ['opt1', 'opt2'],
           'opt1' :
               {'display' : "new display",
                'jump'  : "Start",
@@ -72,6 +73,7 @@ advDict = {
           'text' : [
             ['You have perished in single combat against a <<var.large>> ogre. And this is the end. Make a new game to continue.', 'bold'],
           ],
+          'exitlist' : ['opt1', 'opt2'],
           'opt1' :
               {'display' : "start over",
                'jump'  : "Start",

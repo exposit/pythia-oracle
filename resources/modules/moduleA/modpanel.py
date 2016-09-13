@@ -1,10 +1,14 @@
-# -*- coding: utf-8 -*self
+# -*- coding: utf-8 -*
 #
 # sample user defined panel for a module; will be called during main load and added to the oracle stack
 #
 # just add your own widgets to initPanel, add any needed logic below, and put this in the module folder,
 #
 # check out logic.py for the expected formatting keywords
+#
+# Text content from the adventure "Oracle's Decree" is Copyright © 2015 Michael Prescott
+# http://creativecommons.org/licenses/by-nc/3.0/
+# Find more adventure locations at http://blog.trilemma.com
 #
 
 import imports
@@ -29,6 +33,18 @@ def initPanel(self):
     self.sampleMainBox = BoxLayout(orientation='vertical')
 
     self.sampleMainBox.add_widget(Label(text="Label", size_hint=(1,1)))
+
+    button = Button(text="Hear a rumor", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=hearARumor)
+    self.sampleMainBox.add_widget(button)
+
+    button = Button(text="Encounters (every 12 miles)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=overlandEncounter)
+    self.sampleMainBox.add_widget(button)
 
     # this label is changed by a persistent variable on enter
     self.tempLabel = Label(text='This will be changed on enter!', size_hint=(1,.12))
@@ -60,6 +76,34 @@ def initPanel(self):
     return self.sampleAItem
 
 # these functions catch events from the buttons up above and pass them to the appropriate logic functions
+
+rumorList = ['In lost Pelaago, there is an oracle who knows all secrets.', 'Beyond the sands there is a fortress, last bastion against the scaled and treacherous Heelan.', 'There is a fortress out in the desert, used as a base by strange, lizard-like bandits.', 'In the desert, always carry holy water to sprinkle on your footsteps.']
+
+def hearARumor(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    updateCenterDisplay(self, '"' + random.choice(rumorList) + '"', 'bold')
+
+def overlandEncounter(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+
+    roll = random.randint(0,9)
+    result = config.modvar['overlandEncounterChart'][roll][0]
+
+    if roll == 2 or roll == 5 or roll == 6 or roll == 7 or roll == 10:
+        config.modvar['overlandEncounterChart'][roll][0] = "Water Shades"
+
+    if result == "Water Shades":
+        result = result + " [" + str(random.randint(1,2)) + "] "
+    elif result == "Heelan Bandits":
+        result = result + " [" + str(random.randint(1,3)) + "] "
+    elif result == "Sand Sprites":
+        result = result + " [" + str(random.randint(1,6)) + "] "
+
+    result = result + "\n" + config.modvar['overlandEncounterChart'][roll][1]
+
+    updateCenterDisplay(self, result, 'result')
 
 # this calls one of the main functions in logic.py instead of in this file
 def testFunction(*args):
