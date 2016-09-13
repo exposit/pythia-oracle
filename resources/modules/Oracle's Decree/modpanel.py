@@ -88,7 +88,8 @@ def overlandEncounter(*args):
     self = args[0].self
     args[0].background_color = neutral
 
-    roll = random.randint(0,9)
+    #roll = random.randint(0,9)
+    roll = 1
     result = config.modvar['overlandEncounterChart'][roll][0]
 
     if roll == 2 or roll == 5 or roll == 6 or roll == 7 or roll == 10:
@@ -101,9 +102,12 @@ def overlandEncounter(*args):
     elif result == "Sand Sprites":
         result = result + " [" + str(random.randint(1,6)) + "] "
 
-    result = result + "\n" + config.modvar['overlandEncounterChart'][roll][1]
+    if result == "A field of Sand Domes":
+        config.modvar['fishattack'] = random.choice([True, False])
 
     updateCenterDisplay(self, result, 'result')
+
+    refPress(config.textLabelArray[-1], config.modvar['overlandEncounterChart'][roll][1])
 
 # this calls one of the main functions in logic.py instead of in this file
 def testFunction(*args):

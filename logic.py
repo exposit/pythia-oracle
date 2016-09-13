@@ -948,7 +948,6 @@ def showCurrentBlock(self, *args):
     count = 0
     for item in config.advDict[block]['text']:
         count = count + 1
-        print('item', item, count)
         display = parseTextVariables(item[0])
         display = parseRefs(display)
         updateCenterDisplay(self, display, item[1])

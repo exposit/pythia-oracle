@@ -118,7 +118,7 @@ class TitleScreen(Screen):
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
-        self.newModuleButton = Button(text="New Game With Module", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.newModuleButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
         self.newModuleButton.bind(on_press=self.pressGenericButton)
         self.newModuleButton.bind(on_release=self.newGameModule)
 
@@ -128,7 +128,7 @@ class TitleScreen(Screen):
         self.mainBox.add_widget(Label(text=""))
         self.mainBox.add_widget(self.startButton)
         self.mainBox.add_widget(self.loadButton)
-        self.mainBox.add_widget(self.newButton)
+        #self.mainBox.add_widget(self.newButton)
         self.mainBox.add_widget(self.newModuleButton)
 
         self.paletteBox = BoxLayout(orientation='horizontal')
@@ -228,16 +228,16 @@ class TitleScreen(Screen):
             btn.bind(on_release=self.choseModuleToLoad)
             btn.bind(on_press=self.pressGenericButton)
 
-        btn = Button(text="None", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn = Button(text="No Module (Blank Template)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         btn.module = "None"
         self.modulesBox.add_widget(btn)
-        btn.bind(on_release=self.choseModuleToLoad)
+        btn.bind(on_release=self.choseNoModuleToLoad)
         btn.bind(on_press=self.pressGenericButton)
 
         self.modulesPopup = Popup(title='Modules',
             content=self.modulesBox,
             size_hint=(None, None), size=("800dp", "530dp"),
-            auto_dismiss=True)
+            auto_dismiss=False)
 
         self.newModGameBox = BoxLayout(orientation="vertical")
         self.newModGameNameInput = TextInput(text="", multiline=False)
@@ -318,6 +318,11 @@ class TitleScreen(Screen):
         config.curr_game_dir = title
         self.savesPopup.dismiss()
         self.releaseStart()
+
+    def choseNoModuleToLoad(self, *args):
+        args[0].background_color = accent1
+        self.modulesPopup.dismiss()
+        self.newGamePopup.open()
 
     def choseModuleToLoad(self, *args):
         args[0].background_color = accent1
