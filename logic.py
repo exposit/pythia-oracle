@@ -939,9 +939,10 @@ def showCurrentBlock(self, *args):
 
     block = config.modvar['block']
     result = ""
-
+    count = 0
     for item in config.advDict[block]['text']:
-        print('item', item)
+        count = count + 1
+        print('item', item, count)
         display = parseTextVariables(item[0])
         display = parseRefs(display)
         updateCenterDisplay(self, display, item[1])
@@ -966,77 +967,6 @@ def showCurrentExits(self, *args):
             display = parseTextVariables(display)
             display = parseRefs(display)
             updateCenterDisplay(self, display, config.advDict[block][item]['exitmsg'])
-
-# Button references
-def OLDjumpToBlock(self, ):
-
-    for arg in args:
-        print('jump called', arg)
-
-    # only arg being passed is the button
-
-    #args[0].background_color = neutral
-    #self = args[0].self
-    #option = args[0].option
-    block = config.modvar['block']
-
-    # first, disable all jump buttons
-    #self.moduleButtonList[1].text = ""
-    #self.moduleButtonList[2].text = ""
-    #self.moduleButtonList[3].text = ""
-    #self.moduleButtonList[1].disabled = True
-    #self.moduleButtonList[2].disabled = True
-    #self.moduleButtonList[3].disabled = True
-
-    # exit message?
-    try:
-        exitmsg = config.advDict[block][option]['exitmsg']
-    except:
-        exitmsg = ""
-
-    try:
-        exitformat = config.advDict[block][option]['exitformat']
-    except:
-        exitformat = "result"
-
-    if len(exitmsg) > 0:
-        updateCenterDisplay(self, exitmsg, status)
-
-    try:
-        pause = config.advDict[block][option]['pause']
-    except:
-        pause = False
-
-    try:
-        mod = config.curr_game_dir + "modlogic.py"
-        filename = mod.split('/')[-1]
-        pyfile = filename.split('.')[0]
-        modlogic = imp.load_source( pyfile, mod)
-        methodToCall = getattr( modlogic, config.advDict[block][option]['function'] )
-        methodToCall(self)
-    except:
-        config.modvar['block'] = config.advDict[block][option]['jump']
-
-        if pause == False:
-            showCurrentBlock(self, args)
-        else:
-            pass
-
-def OLDsetButtons(self):
-
-    try:
-        self.moduleButtonList[2].text = config.advDict[block]['opt2']['display']
-        self.moduleButtonList[2].disabled = False
-    except:
-        self.moduleButtonList[2].text = ""
-        self.moduleButtonList[2].disabled = True
-
-    try:
-        self.moduleButtonList[3].text = config.advDict[block]['opt3']['display']
-        self.moduleButtonList[2].disabled = False
-    except:
-        self.moduleButtonList[3].text = ""
-        self.moduleButtonList[3].disabled = True
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # --> Random choosers from player defined lists
