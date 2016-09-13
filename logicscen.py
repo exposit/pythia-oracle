@@ -85,19 +85,33 @@ def parseTextVariables(source):
 
     return source
 
+def clearOldLinks(self, ref):
+
+    for i in range(len(config.textLabelArray)):
+        newtext = config.textLabelArray[i].text
+        colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
+        for color in colorList:
+            newtext = newtext.replace(color, "")
+            newtext = newtext.replace("[ref=" + ref + "]", "")
+            newtext = newtext.replace("[/ref]", "")
+            newtext = newtext.replace("[/color]", "")
+            config.textLabelArray[i].text = newtext
+
+        config.textArray[config.textLabelArray[i].index] = config.textLabelArray[i].text
+
 def refPress(*args):
 
     self  = args[0].self
     label = args[0]
     subtype, text = args[1].split('_')
     subtype = subtype[:1]
-    full = args[1]
+    ref = args[1]
 
     try:
         mod = config.curr_game_dir + "scenlogic.py"
         filename = mod.split('/')[-1]
         pyfile = filename.split('.')[0]
-        modlogic = imp.load_source( pyfile, mod)
+        scenlogic = imp.load_source( pyfile, mod)
     except:
         pass
 
@@ -115,6 +129,7 @@ def refPress(*args):
             pass
 
         display = parseTextVariables(base[0])
+        display = parseRefs(display)
         logic.updateCenterDisplay(self, display, base[1])
 
         if base[2] == 'repeatable':
@@ -123,17 +138,17 @@ def refPress(*args):
             for color in colorList:
                 newtext = newtext.replace(color, config.visited_link_color)
             label.text = newtext
+            config.textArray[label.index] = label.text
         else:
             newtext = label.text
             colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
             for color in colorList:
                 newtext = newtext.replace(color, "")
-            newtext = newtext.replace("[ref=" + full + "]", "")
+            newtext = newtext.replace("[ref=" + ref + "]", "")
             newtext = newtext.replace("[/ref]", "")
             newtext = newtext.replace("[/color]", "")
             label.text = newtext
-
-        config.textArray[label.index] = label.text
+            config.textArray[label.index] = label.text
 
     elif subtype == "t":
 
@@ -182,21 +197,12 @@ def refPress(*args):
 
         config.scenario['block'] = destination
 
-        exitmsg = parseTextVariables(exitmsg)
-        logic.updateCenterDisplay(self, exitmsg, exitformat)
-
         # this was a jump; clear all older links
-        for i in range(len(config.textLabelArray)):
-            newtext = label.text
-            colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
-            for color in colorList:
-                newtext = newtext.replace(color, "")
-                newtext = newtext.replace("[ref=" + full + "]", "")
-                newtext = newtext.replace("[/ref]", "")
-                newtext = newtext.replace("[/color]", "")
-                label.text = newtext
+        clearOldLinks(self, ref)
 
-            config.textArray[label.index] = label.text
+        exitmsg = parseTextVariables(exitmsg)
+        exitmsg = parseRefs(exitmsg)
+        logic.updateCenterDisplay(self, exitmsg, exitformat)
 
         if pause == False:
             showCurrentBlock(self)
@@ -204,20 +210,13 @@ def refPress(*args):
             more = "[ref=f_showCurrentBlock][color=" + config.link_color + "]continue" + "[/color][/ref]"
             logic.updateCenterDisplay(self, more, 'italic')
     else:
-        # this is a function
-        for i in range(len(config.textLabelArray)):
-            newtext = label.text
-            colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
-            for color in colorList:
-                newtext = newtext.replace(color, "")
-                newtext = newtext.replace("[ref=" + full + "]", "")
-                newtext = newtext.replace("[/ref]", "")
-                newtext = newtext.replace("[/color]", "")
-                label.text = newtext
+        # this is a function; clear all older links
+        clearOldLinks(self, ref)
 
-            config.textArray[label.index] = label.text
-
-        eval(text)(self)
+        try:
+            eval("scenlogic." + text)(self)
+        except:
+            pass
 
 def showCurrentBlock(self, *args):
 

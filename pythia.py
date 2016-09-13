@@ -70,6 +70,7 @@ class TitleScreen(Screen):
                     config.user[i] = tempDict['user'][i]
                 for i in tempDict['scenario']:
                     config.scenario[i] = tempDict['scenario'][i]
+                print("config loaded")
         except:
             pass
 

@@ -3,13 +3,14 @@
 #
 #   At a minimum, you'll want to adjust or remove the Refs
 #
-#      also note, random scenario variables are set when a scenario game is created, not 'on the fly' when
+# Random scenario variables are set when a scenario game is created, not 'on the fly' when
 # they are called. For that you need to write a function and call it in your adventure.
 #
 # Text content from the adventure "Oracle's Decree" is Copyright © 2015 Michael Prescott
 # http://creativecommons.org/licenses/by-nc/3.0/
 # Find more adventure locations at http://blog.trilemma.com
 #
+
 import random
 
 scenario = {

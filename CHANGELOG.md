@@ -4,9 +4,13 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Next Version
+Next Version 0.6.0
 
 BIG STUFF!!!
+* added in a story/scenario mode that supports user-created 'modules'
+* lots of fun scenario support, including hyperlinks, descriptive passages, random toggles
+* wrote sample scenario based on Oracle's Decree ()
+* diagram dungeon mapping panel
 
 Version 0.5.0
 

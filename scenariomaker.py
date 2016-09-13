@@ -26,7 +26,7 @@ advDict = {
             ['The wind howls through a forest of red standstone that has been carved into undulating shapes by windblown grit.', 'no_format'],
           ],
           'exits' : [
-            ['Check for an encounter. If none, keep [[func|exploring|modlogic.overlandEncounter]].', 'italic'],
+            ['Keep [[func|exploring|overlandEncounter]].', 'italic'],
           ],
           'opt1' :
               {'display' : "exploring",

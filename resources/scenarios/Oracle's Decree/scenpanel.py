@@ -17,12 +17,8 @@ import config
 
 def onEnter(self):
 
-    modlogic.test()
-
+    scenlogic.test()
     print("decree Oracle: updating my own widgets")
-
-    # remember to modify the unique config for your scenario to include any necessary variables
-
     pass
 
 # add your widgets in here; see the gui for examples
@@ -32,58 +28,52 @@ def initPanel(self):
 
     self.decreeMainBox = BoxLayout(orientation='vertical')
 
-    self.decreeMainBox.add_widget(Label(text="About This Adventure", size_hint=(1,1)))
+    self.decreeMainBox.add_widget(Label(text="About This Adventure", size_hint=(1,1), font_size=config.basefont90))
 
-    longtextA = "Oracle's Decree is based on a one page dungeon from http://blog.trilemma.com/, licensed under CC-BY-NC."
-    longtextA = longtextA + "\nIt's a tutorial for intended to show off some of the scenario features of Pythia. It is site-based, though event-based adventures are equally feasible!"
+    textList = ["Oracle's Decree is based on a one page dungeon from http://blog.trilemma.com/, licensed under CC-BY-NC.", "This is a tutorial intended to demonstrate some of the scenario features of Pythia."]
 
-    self.decreeMainBox.add_widget(Label(text=longtextA, size_hint=(1,1), markup=True))
+    for item in textList:
+        label = Label(text=item, size_hint=(1,1), markup=True, font_name="Fantasque-Sans", font_size=config.basefont80)
+        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+        label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+        self.decreeMainBox.add_widget(label)
 
-    self.decreeMainBox.add_widget(Label(text="Things to Remember", size_hint=(1,1)))
+    self.decreeMainBox.add_widget(Label(text="Things to Keep In Mind", size_hint=(1,1), font_size=config.basefont90))
 
-    longtextB = "Pythia really shines when you put your own spin on things -- whenever you are presented with a scene or room, be sure to use all the tools at your disposal (oracles, generators, your own imagination) to flesh out the scene and determine what happens."
-    longtextB = "Unlike a traditional CYOA or gamebook, you will be creating lots of content in between scenes or rooms. Interpret scenario options broadly or in the context of your own content."
-    longtextB = longtextB + "\nIf a later experience doesn't reconcile well with the canon you've already created, feel free to use edit mode to change things up! Or go your own way -- it's up to you."
+    textList = ["Unlike a traditional CYOA or gamebook, Pythia scenarios expect and encourage you to generate content within each scene or room.", "While you can play through a scenario straight, it will be more fun if you use all the tools at your disposal to flesh out each scene.", "You should interpret scenario options and exits broadly or in the context of your own content.", "If a later experience doesn't reconcile well with the canon you've already created, feel free to use edit mode to change things up! Or just go your own way -- it's up to you."]
 
-    self.decreeMainBox.add_widget(Label(text=longtextB, size_hint=(1,1), markup=True))
+    for item in textList:
+        label = Label(text=item, size_hint=(1,1), markup=True, font_name="Fantasque-Sans", font_size=config.basefont80)
+        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1] + 10))
+        label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+        self.decreeMainBox.add_widget(label)
 
-    self.decreeMainBox.add_widget(Label(text="Buttons", size_hint=(1,1)))
+    self.decreeMainBox.add_widget(Label(text="Buttons", size_hint=(1,1), font_size=config.basefont90))
 
-    button = Button(text="Hear a rumor", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Hear a rumor", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=hearARumor)
     self.decreeMainBox.add_widget(button)
 
-    button = Button(text="Encounters (every 12 miles)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    self.decreeMainBox.add_widget(Label(text="If you get stuck or go widely off course\nand want to get back to the scenario,\nuse the buttons below to pick a suitable re-entry point.", font_name="Fantasque-Sans", font_size=config.basefont80))
+
+    button = Button(text="List of Scenes", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name="Fantasque-Sans", font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=overlandEncounter)
+    #button.bind(on_release=overlandEncounter)
     self.decreeMainBox.add_widget(button)
 
-    # this label is changed by a persistent variable on enter
-    self.tempLabel = Label(text='This will be changed on enter!', size_hint=(1,.12))
-    self.decreeMainBox.add_widget(self.tempLabel)
-
-    # this button piggybacks on an existing function, in this case, rolling dice
-    button = Button(text="1d1000", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Safe Spot", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name="Fantasque-Sans", font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=testFunction)
+    #button.bind(on_release=overlandEncounter)
     self.decreeMainBox.add_widget(button)
 
-    # this button does its own thing and but updates the center display as normal
-    button = Button(text="Choice", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="List of Rooms", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=testFunctionTwo)
-    self.decreeMainBox.add_widget(button)
-
-    # this button just prints hello
-    button = Button(text="Hello", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=testFunctionThree)
+    #button.bind(on_release=overlandEncounter)
     self.decreeMainBox.add_widget(button)
 
     self.decreeAItem.add_widget(self.decreeMainBox)
@@ -123,36 +113,3 @@ def overlandEncounter(*args):
     updateCenterDisplay(self, result, 'result')
 
     refPress(config.textLabelArray[-1], config.scenario['overlandEncounterChart'][roll][1])
-
-# this calls one of the main functions in logic.py instead of in this file
-def testFunction(*args):
-    self = args[0].self
-    args[0].background_color = neutral
-    updateCenterDisplay(self, rollDice(args[0].text), 'bold_italic')
-
-# this just does stuff directly, no intermediary function
-def testFunctionTwo(*args):
-    self = args[0].self
-    args[0].background_color = neutral
-    chart = ["eenie", "meenie", "miney", "moe", "tiger"]
-    # uncomment this to echo back the text in the text input
-    #if len(self.textInput.text) > 0:
-    #    updateCenterDisplay(self, self.textInput.text, 'bold_italic')
-    updateCenterDisplay(self, random.choice(chart), 'oracle')
-
-    # uncomment this to run the save routine
-    #quicksave(self, config.curr_game_dir)
-
-    # uncomment this to clear the main text input
-    #self.textInput.text = ""
-
-# this updates a label's text
-def testFunctionThree(*args):
-    args[0].background_color = neutral
-    for arg in args:
-        print arg
-    args[0].self.tempLabel.text = "hello " + tertiaryFunction() + " " + str(random.randint(1,1000))
-
-# decree logic
-def tertiaryFunction():
-    return "world"
