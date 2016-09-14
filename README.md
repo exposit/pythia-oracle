@@ -1,17 +1,17 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! NOTE: There's an issue with Kivy that makes scrolling left or right in a scrollview fail. To move the map around on a Mac trackpad, do a two finger press and drag.
 
 ### Pythia-Oracle 0.6.0
-Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). Eventually I'll make a more detailed project page. Likely, anyway.
+Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
 
 #### What is it?
 
-Pythia is a framework to run solo adventures. It uses Python 2.7 and Kivy and will probably run on any platform they will. I wrote it with two goals in mind; first, I wanted to be able to generate content on the fly for my multi-player sandbox campaign while keeping track of that content and second, I wanted to be able to run solo characters through adventures that would surprise me. There are many great GM emulating tools out there, software and print. This is what works for me.
+Pythia is a framework to run solo adventures and generate content for sandbox campaigns. It uses Python 2.7 and Kivy and will probably run on any platform they will. I wrote it with two goals in mind; first, I wanted to be able to generate content on the fly for my group sandbox campaign while keeping track of that content and second, I wanted to be able to run solo characters through adventures that would surprise me. There are many great GM emulating tools out there, software and print. This is what works for me.
 
 #### Solo RPG Gaming! How does that even work?
 
-The basic procedure I use is pick a system, make a character, fire this program up, and start asking questions. Type in a question like "Am I in a room?" and hit the "???" button. If the answer is yes, type in a room description. If no, maybe the hero is in a cave. Or a spaceship. Or in a forest. Ask again to find out!
+The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, type in a room description. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
 
-... or don't. You can play however you want to! Pythia just seeks to facilitate that play. You can also use it to generate random content for a multi-player campaign.
+... or don't. You can play however you want to! Pythia just seeks to facilitate that play.
 
 #### How do I install this?
 
@@ -43,17 +43,17 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 #### Upgrading from an older version
 
-Move your saves folder and your backups folder to another directory completely outside the pythia directory structure. I also zip up a copy and put it in a third location just in case at this point.
+Move your saves folder and your backups folder to another directory completely outside the pythia directory structure. I would also zip up a copy and put it in a third location just in case at this point.
 
-Double check that you have a saved copy of your saves folder and backups folder somewhere else. Delete your existing pythia-oracle folder.
+Double check that you have a saved copy of your saves folder and backups folder somewhere else, then delete your existing pythia-oracle folder.
 
-Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see.
+Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see or just read the error messages.
 
-If things still aren't working, make a new game. Then copy your game files from your backup into the new game directory, overwriting as prompted, but skipping the config.txt file. Then just set your variables for that game manually or as you play.
+If there doesn't seem to be an easy fix, you can always just make a new game with the new version. Then copy (NOT MOVE) your save files from your backup into the new game directory, overwriting as prompted, but skipping the config.txt file. Then just set your variables as you play.
 
 #### Customization/Setup
 
-Always save backup copies of your text files before trying a new version or making any changes! And check your saved work occasionally by hitting save and opening up one of the log files to make sure things are saving as you expected them to.
+Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and opening up one of the log files to make sure things are saving as you expected them to.
 
 If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
 
@@ -76,7 +76,7 @@ Note: the system expects a quicksave folder to be present and it's a good idea t
 
 Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
 
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip'.
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
 
 #### Wait, I want more tables!
 
