@@ -186,6 +186,8 @@ def loadMap(spinner, value):
 
     self.mapTitle.text = value
 
+    genMiniMap(self)
+
 def saveMap(source):
 
     try:
@@ -198,19 +200,21 @@ def saveMap(source):
         self.mapTitle.text = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
     maptitle = self.mapTitle.text
+    print("Maptitle", maptitle)
 
     config.mapArray[maptitle] = []
 
     for element in config.tempMapArray:
         config.mapArray[maptitle].append(element.text)
 
+    quicksave(self, config.curr_game_dir)
+
     tempVals = []
     for i in config.mapArray:
         tempVals.append(i)
     self.mapSpinner.values = tempVals
 
-    if self.miniMapButton.text == 'Close Minimap':
-        genMiniMap(self)
+    genMiniMap(self)
 
 
 def moveMap(*args):

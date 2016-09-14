@@ -444,16 +444,16 @@ class OracleApp(App):
 
         self.textcolor = styles.textcolor
 
-        screenmanager = ScreenManager()
-        screenmanager.transition = SlideTransition(duration=1, clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
+        self.screenmanager = ScreenManager()
+        self.screenmanager.transition = SlideTransition(duration=1, clearcolor=(primary[0], primary[1], primary[2], 1), direction="left")
         titlescn = TitleScreen(name='titlescn')
         mainscn = MainScreen(name='mainscn')
-        screenmanager.add_widget(titlescn)
-        screenmanager.add_widget(mainscn)
+        self.screenmanager.add_widget(titlescn)
+        self.screenmanager.add_widget(mainscn)
 
         #return Builder.load_string(kv)
 
-        return screenmanager
+        return self.screenmanager
 
     def on_start(self):
         #print("APP STARTING")
@@ -462,7 +462,8 @@ class OracleApp(App):
 
     def on_stop(self):
         #print("APP STOPPING")
-        quicksave(self, config.curr_game_dir)
+        if self.screenmanager.current == 'mainscn':
+            quicksave(self, config.curr_game_dir)
         pass
 
 if __name__ == '__main__':
