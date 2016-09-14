@@ -127,6 +127,14 @@ def initPanel(self):
     button.bind(on_release=makeNewMap)
     self.mapMainBox.add_widget(button)
 
+    self.miniMapButton = Button(text="Show Minimap", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    self.miniMapButton.self = self
+    self.miniMapButton.bind(on_press=self.pressGenericButton)
+    self.miniMapButton.bind(on_release=toggleMiniMap)
+    self.mapMainBox.add_widget(self.miniMapButton)
+
+    self.miniMapGrid = GridLayout(cols=21)
+
     self.mapAItem.add_widget(self.mapMainBox)
 
     return self.mapAItem
@@ -137,7 +145,7 @@ def changeDir(button, *args):
     self = button.self
     newtext = button.text
 
-    dirList = ["↔","↕","←","↖","↑","↗","→","↘","↓","↙","✕"]
+    dirList = ["X","↔","↕","←","↖","↑","↗","→","↘","↓","↙"]
 
     try:
         index = dirList.index(newtext)
@@ -201,6 +209,10 @@ def saveMap(source):
         tempVals.append(i)
     self.mapSpinner.values = tempVals
 
+    if self.miniMapButton.text == 'Close Minimap':
+        genMiniMap(self)
+
+
 def moveMap(*args):
 
     args[0].background_color = neutral
@@ -227,14 +239,34 @@ def moveMap(*args):
     self.mapScroll.scroll_x = newx
     self.mapScroll.scroll_y = newy
 
-def testA(*args):
-    for arg in args:
-        print("start", arg)
+def toggleMiniMap(*args):
 
-def testB(*args):
-    for arg in args:
-        print("move", arg)
+    args[0].background_color = neutral
+    self = args[0].self
 
-def testC(*args):
-    for arg in args:
-        print("end", arg)
+    if args[0].text == 'Show Minimap':
+
+        args[0].text = 'Close Minimap'
+
+        genMiniMap(self)
+
+        self.mapMainBox.add_widget(self.miniMapGrid)
+
+    else:
+        args[0].text = 'Show Minimap'
+        self.mapMainBox.remove_widget(self.miniMapGrid)
+
+def genMiniMap(self):
+
+    self.miniMapGrid.clear_widgets()
+
+    for button in config.tempMapArray:
+        if button.text == "":
+            text = " "
+        else:
+            if button.subtype == 'arrow':
+                text = button.text
+            else:
+                text = button.text[:1]
+        label = Label(text=text, font_name='Cormorant', font_size=config.basefont90)
+        self.miniMapGrid.add_widget(label)
