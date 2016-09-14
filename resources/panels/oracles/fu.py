@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-##-------------------------------------------------------------------------------------------------------------------------------------------
-# FU Oracle Panel
+##---------------------------------------------------------------------------------------------------# FU Oracle Panel
 #
 #
-##-------------------------------------------------------------------------------------------------------------------------------------------
-
+##---------------------------------------------------------------------------------------------------
 import imports
 from imports import *
 import config
@@ -28,10 +26,15 @@ def initPanel(self):
 
         fuOddsList = ['99%', '97%', '94%', '88%', '75%', '50%', '25%', '12%', '6%', '3%', '1%']
 
-        self.fuSubBox = GridLayout(cols=3, size_hint=(1,.6))
+        self.fuSubBox = BoxLayout(orientation='horizontal', size_hint=(1,.6))
+
+        self.fuTextSubBox = BoxLayout(orientation='vertical')
+        self.fuModSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
+        self.fuOddsSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
 
         count = 6
         modifier="none"
+        oddsButtons = []
         for i in range(len(fuTextList)):
             count = count - 1
             if count > 0:
@@ -41,31 +44,42 @@ def initPanel(self):
             else:
                 modifier = "negative"
 
-            button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(.60,1))
+            button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,1))
             button.count = count
             button.modifier = modifier
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
-            self.fuSubBox.add_widget(button)
+            self.fuTextSubBox.add_widget(button)
 
-            button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(.20,1))
+            button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
             button.modifier = modifier
             button.count = count
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
-            self.fuSubBox.add_widget(button)
+            self.fuModSubBox.add_widget(button)
 
-            button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(.20,1))
+            button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
             button.modifier = modifier
             button.count = count
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=fuRoll)
-            self.fuSubBox.add_widget(button)
+            oddsButtons.append(button)
+            self.fuOddsSubBox.add_widget(button)
+
+        self.fuSubBox.add_widget(self.fuTextSubBox)
+        self.fuSubBox.add_widget(self.fuModSubBox)
+        #self.fuSubBox.add_widget(self.fuOddsSubBox)
 
         self.fuMainBox.add_widget(self.fuSubBox)
+
+        self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.10)
+        self.oddsButton.self = self
+        self.oddsButton.bind(on_press=self.pressGenericButton)
+        self.oddsButton.bind(on_release=toggleOdds)
+        self.fuMainBox.add_widget(self.oddsButton)
 
         button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.10)
         button.function = "howMuchWeighted"
@@ -130,10 +144,8 @@ def initPanel(self):
 
         return self.fuAItem
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
-# FU Button Functions
-#-------------------------------------------------------------------------------------------------------------------------------------------
-
+#---------------------------------------------------------------------------------------------------# FU Button Functions
+#---------------------------------------------------------------------------------------------------
 def fuRoll(*args):
     args[0].background_color = neutral
     self = args[0].self
@@ -170,10 +182,19 @@ def howMuch(*args):
     updateCenterDisplay(self, howMuchWeighted(), 'result')
     self.textInput.text = ""
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
-# --> FU Oracle Functions
-#-------------------------------------------------------------------------------------------------------------------------------------------
+def toggleOdds(button, *args):
+    self = button.self
+    button.background_color = neutral
 
+    if self.oddsButton.text == "show the odds":
+        self.fuSubBox.add_widget(self.fuOddsSubBox)
+        self.oddsButton.text = "don't show the odds"
+    else:
+        self.fuSubBox.remove_widget(self.fuOddsSubBox)
+        self.oddsButton.text = "show the odds"
+
+#---------------------------------------------------------------------------------------------------# --> FU Oracle Functions
+#---------------------------------------------------------------------------------------------------
 # FU
 # http://creativecommons.org/licenses/by/3.0/
 # This function is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative
