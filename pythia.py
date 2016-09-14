@@ -227,7 +227,7 @@ class TitleScreen(Screen):
             btn.bind(on_release=self.choseScenarioToLoad)
             btn.bind(on_press=self.pressGenericButton)
 
-        btn = Button(text="No Scenario (Blank Template)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn = Button(text="Blank Template (No Scenario)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         btn.scenario = "None"
         self.scenariosBox.add_widget(btn)
         btn.bind(on_release=self.choseNoScenarioToLoad)
@@ -357,6 +357,7 @@ class TitleScreen(Screen):
             f = file(newpath + "config.txt", "w")
             f = file(newpath + "tracks.txt", "w")
             f = file(newpath + "pcs.txt", "w")
+            f = file(newpath + "maps.txt", "w")
 
             config.curr_game_dir = newpath
 
@@ -388,7 +389,7 @@ class TitleScreen(Screen):
             self.newModGameStatus.text = "Folder exists."
             return
 
-        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
+        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "maps.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
 
         config.curr_game_dir = newpath
 

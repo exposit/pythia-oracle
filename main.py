@@ -177,7 +177,7 @@ class MainScreen(Screen):
         self.textInputMainBox = BoxLayout(orientation='vertical')
 
         self.textInput = TextInput(text='', hint_text="", size_hint=(1,1))
-        self.textInput.bind(on_text_validate=self.text_entered)
+        #self.textInput.bind(on_text_validate=self.text_entered)
         self.textInputMainBox.add_widget(self.textInput)
 
 ##---------------------------------------------------------------------------------------
@@ -533,6 +533,18 @@ class MainScreen(Screen):
         self.rightAccordion.add_widget(self.tracksAItem)
 
 ##---------------------------------------------------------------------------------------
+#  holder panel for maps
+##---------------------------------------------------------------------------------------
+
+        self.mapAccordionItem = AccordionItem(title='Maps', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
+
+        self.mapStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
+
+        self.mapAccordionItem.add_widget(self.mapStackAccordion)
+
+        self.leftAccordion.add_widget(self.mapAccordionItem)
+
+##---------------------------------------------------------------------------------------
 #  holder panel for generators
 ##---------------------------------------------------------------------------------------
 
@@ -556,23 +568,11 @@ class MainScreen(Screen):
 
         self.leftAccordion.add_widget(self.oracleAccordionItem)
 
-##-------------------------------------------------------------------------------------------------------------------------------------------
-#  holder panel for maps
-##-------------------------------------------------------------------------------------------------------------------------------------------
-
-        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
-
-        self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
-
-        self.oracleAccordionItem.add_widget(self.oracleStackAccordion)
-
-        self.leftAccordion.add_widget(self.oracleAccordionItem)
-
 ##---------------------------------------------------------------------------------------
 #  custom generator panels
 ##---------------------------------------------------------------------------------------
 
-        self.panelsBox = BoxLayout(orientation="vertical")
+        #self.panelsBox = BoxLayout(orientation="vertical")
         for i in gen_module:
             methodToCall = getattr( i, 'initPanel' )
             self.generatorStackAccordion.add_widget(methodToCall(self))
@@ -582,10 +582,19 @@ class MainScreen(Screen):
 #  custom oracle panels
 ##---------------------------------------------------------------------------------------
 
-        self.panelsBox = BoxLayout(orientation="vertical")
+        #self.panelsBox = BoxLayout(orientation="vertical")
         for i in oracle_module:
             methodToCall = getattr( i, 'initPanel' )
             self.oracleStackAccordion.add_widget(methodToCall(self))
+
+##---------------------------------------------------------------------------------------
+#  custom maps panels
+##---------------------------------------------------------------------------------------
+
+        #self.panelsBox = BoxLayout(orientation="vertical")
+        for i in map_module:
+            methodToCall = getattr( i, 'initPanel' )
+            self.mapStackAccordion.add_widget(methodToCall(self))
 
 #-----------------------------------------
 ### Functions

@@ -440,6 +440,10 @@ def quicksave(self, gamedir):
     json.dump(tempArray, f)
     f.close
 
+    f = open(gamedir + 'maps.txt', 'w')
+    json.dump(config.mapArray, f)
+    f.close()
+
     updateCleanMarkdown()
     updateCleanHTML()
     updateCollapseHTML()
@@ -522,6 +526,17 @@ def quickload(self, gamedir):
         for x in range(len(tempTable)):
             config.pcKeyLabelArray[x].text = tempTable[x][0]
             config.pcValueLabelArray[x].text = tempTable[x][1]
+        f.close()
+    except:
+        pass
+
+    try:
+        f = open(gamedir + 'maps.txt', 'r')
+        config.mapArray = json.load(f)
+        tempVals = []
+        for i in config.mapArray:
+            tempVals.append(i)
+        self.mapSpinner.values = tempVals
         f.close()
     except:
         pass

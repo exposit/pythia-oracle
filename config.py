@@ -30,6 +30,7 @@ general = dict(
     basefontsize = 16,
     oracle = "fu",
     oracle_func = "fu",
+    maplist = ['Blank']
 )
 
 scenario = dict(
@@ -63,8 +64,8 @@ trackStatusLabelArray = []
 pcKeyLabelArray = []
 pcValueLabelArray = []
 
-activePanelsLeft = []
-activePanelsRight = []
+tempMapArray = []
+mapArray = {}
 
 # font sizes; feel free to edit these
 # also, going to move all of these to the general array so they can be saved and loaded on a game by game basis
