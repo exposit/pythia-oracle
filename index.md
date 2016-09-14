@@ -2,24 +2,25 @@
 layout: default
 ---
 
-[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a tool to make solo RPG gaming easier. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
+[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a tool to make solo RPG gaming easier and to generate content for sandbox RPGs. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
 
-If you're new to solo gaming, Pythia Oracle is likely all you need to get started -- it has a built-in oracle for yes and no questions, a number of how much/how many/how's it going random generators, plenty of space to track any information you want to track, and a nice, clean, readable output if you want to show off your adventures on your blog.
+If you're new to solo gaming (or just want to generate some random content), Pythia Oracle is likely all you need to get started -- it has a built-in oracle for yes and no questions, a number of how much, how many, why, and how's it going random generators, plenty of space to track any information you want to track, and a nice, clean, readable output if you want to show off your adventures on your blog.
+
+It also plays well with just about any oracle or random content table; you can extend your own panels (if you know a little Python or can copy existing files) or just use the dice roller with your own pdfs.
 
 ## Features
 
-* main text is saved to multiple output formats (markdown, html, simplejson)
-* generates blog-ready play logs
-* user-extensible oracle and generator panels
-* existing oracle panel is based on FU's core dice mechanic (and/but/- structure)
-* a ton of random generators
-* built-in trackers for threads and actors, a key/value tracker & an active/inactive tracker
+* core oracle panel is based on FU's core dice mechanic (and/but/- structure)
+* dice roller using (basically) standard notation & lots of common dice preset buttons
+* a ton of one click random generators for actors and world content
 * 'pick one' quick buttons that let you weight options on the fly
-* dice roller using standard notation & dice presets
+* generates markdown, html, json and javascript/html play logs
+* user-extensible oracle, generator, and map panels
+* trackers for [Mythic-style](http://www.drivethrurpg.com/product/16173/Mythic-Role-Playing?it=1) threads and actors, a general key/value tracker & an active/inactive tracker
 * five different view/edit/play modes
-* supports user-created CYOA/Gamebook-style scenarios (very beta)
-* tutorial/sample dungeon included (very basic)
-* built-in diagram mapping (very beta)
+* map panel inspired by [Scarlet Heroes'](http://www.drivethrurpg.com/product/127180/Scarlet-Heroes) diagram dungeon method (very beta)
+* supports user-created Pythia-style CYOA/Gamebook scenarios (very beta)
+* tutorial dungeon that demonstrates features (very basic) based on part of [Oracle's Decree](http://blog.trilemma.com/2015/10/the-oracles-decree.html) (which is a much better dungeon than I've implemented, ha)
 
 ### Screenshots
 
