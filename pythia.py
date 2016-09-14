@@ -457,7 +457,7 @@ class OracleApp(App):
 
     def on_start(self):
         #print("APP STARTING")
-        #makeBackup()
+        makeBackup()
         pass
 
     def on_stop(self):
