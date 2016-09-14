@@ -24,9 +24,19 @@ def initPanel(self):
 
     self.mapMainBox = BoxLayout(orientation='vertical')
 
-    self.mapTitle = TextInput(text="", size_hint=(1,.10), font_size=config.basefont, background_color=(0,0,0,.5), foreground_color=(1,1,1,1), multiline=False)
+    self.mapTitleBox = BoxLayout(orientation='horizontal', size_hint=(1,.07))
+
+    self.mapTitle = TextInput(text="", size_hint=(.75,1), font_size=config.basefont, background_color=(0,0,0,.5), foreground_color=(1,1,1,1), multiline=False)
     self.mapTitle.self = self
-    self.mapMainBox.add_widget(self.mapTitle)
+    self.mapTitleBox.add_widget(self.mapTitle)
+
+    button = Button(text="Save", size_hint=(.25,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=saveMap)
+    self.mapTitleBox.add_widget(button)
+
+    self.mapMainBox.add_widget(self.mapTitleBox)
 
     self.mapScroll = ScrollView(size_hint=(1, 1))
 
@@ -51,7 +61,7 @@ def initPanel(self):
         else:
             if ind % 2 != 0:
                 subtype = "room"
-                button = TextInput(text="", size_hint=(None,None), size=('40dp', '40dp'), font_size=config.basefont75, background_color=(0,0,0,.5), foreground_color=(1,1,1,1))
+                button = TextInput(text="", size_hint=(None,None), size=('40dp', '40dp'), font_size=config.basefont75, background_color=(0,0,0,.5), foreground_color=(1,1,1,1), halign="center", valign="center")
                 button.self = self
                 button.subtype = "room"
                 #roomArray.append(button)
@@ -69,11 +79,7 @@ def initPanel(self):
     self.mapScroll.add_widget(self.mapGrid)
     self.mapMainBox.add_widget(self.mapScroll)
 
-    button = Button(text="Save Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=saveMap)
-    self.mapMainBox.add_widget(button)
+    self.mapNavBox = BoxLayout(orientation='horizontal', size_hint=(1,.15))
 
     tempVals = []
     for i in config.mapArray:
@@ -82,12 +88,38 @@ def initPanel(self):
     self.mapSpinner = Spinner(
     text='Blank',
     values=tempVals,
-     size_hint=(1,.10),
+     size_hint=(.75,1),
     )
     self.mapSpinner.self = self
     self.mapSpinner.bind(text=loadMap)
 
-    self.mapMainBox.add_widget(self.mapSpinner)
+    self.mapNavBox.add_widget(self.mapSpinner)
+
+    navList = [
+        ['NW', -.2, +.2 ],
+        ['N',    0, +.2 ],
+        ['NE', +.2, +.2 ],
+        ['W',  -.2,   0 ],
+        [' ',    0,   0 ],
+        ['E',  +.2,   0 ],
+        ['SW', -.2, -.2 ],
+        ['S',    0, -.2 ],
+        ['SE', +.2, -.2 ],
+    ]
+
+    self.mapNavGrid = GridLayout(cols=3, size_hint=(.25,1))
+    for i in range(9):
+        button = Button(text=navList[i][0], size=(10,10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.adjx = navList[i][1]
+        button.adjy = navList[i][2]
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=moveMap)
+        self.mapNavGrid.add_widget(button)
+
+    self.mapNavBox.add_widget(self.mapNavGrid)
+
+    self.mapMainBox.add_widget(self.mapNavBox)
 
     button = Button(text="New Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
@@ -105,7 +137,7 @@ def changeDir(button, *args):
     self = button.self
     newtext = button.text
 
-    dirList = ["←","↖","↑","↗","→","↘","↓","↙","↔","↕","✕"]
+    dirList = ["↔","↕","←","↖","↑","↗","→","↘","↓","↙","✕"]
 
     try:
         index = dirList.index(newtext)
@@ -168,3 +200,41 @@ def saveMap(source):
     for i in config.mapArray:
         tempVals.append(i)
     self.mapSpinner.values = tempVals
+
+def moveMap(*args):
+
+    args[0].background_color = neutral
+    self = args[0].self
+    adjx = args[0].adjx
+    adjy = args[0].adjy
+
+    currx = self.mapScroll.scroll_x
+    curry = self.mapScroll.scroll_y
+
+    newx = currx + adjx
+    newy = curry + adjy
+
+    if newx > 1:
+        newx = 1.
+    elif newx < 0:
+        newx = 0.
+
+    if newy > 1:
+        newy = 1.
+    elif newy < 0:
+        newy = 0.
+
+    self.mapScroll.scroll_x = newx
+    self.mapScroll.scroll_y = newy
+
+def testA(*args):
+    for arg in args:
+        print("start", arg)
+
+def testB(*args):
+    for arg in args:
+        print("move", arg)
+
+def testC(*args):
+    for arg in args:
+        print("end", arg)
