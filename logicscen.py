@@ -30,12 +30,21 @@ def parseRefs(source):
 
     return source
 
-def parseTextVariables(source):
+def parseTextVariables(self, source):
 
     start_sep='<<'
     end_sep='>>'
     result=[]
     tmp=source.split(start_sep)
+
+    try:
+        mod = config.curr_game_dir + "scenlogic.py"
+        filename = mod.split('/')[-1]
+        pyfile = filename.split('.')[0]
+        scenlogic = imp.load_source( pyfile, mod)
+    except:
+        pass
+
     for par in tmp:
       if end_sep in par:
         result.append(par.split(end_sep)[0])
@@ -49,8 +58,9 @@ def parseTextVariables(source):
 
         try:
             if a.split('.')[0] == 'var':
-                a = "config.scenario[\'" + a.split('.')[1] + "\']"
-                a = eval(a)
+                a = config.scenario[ a.split('.')[1] ]
+            else:
+                a = eval("scenlogic." + a)(self)
         except:
             pass
 
@@ -61,8 +71,9 @@ def parseTextVariables(source):
 
         try:
             if b.split('.')[0] == 'var':
-                b = "config.scenario[\'" + b.split('.'[1]) + "\']"
-                b = eval(b)
+                b = config.scenario[ b.split('.')[1] ]
+            else:
+                b = eval("scenlogic." + b)(self)
         except:
             pass
 
@@ -73,8 +84,17 @@ def parseTextVariables(source):
             condition = ""
 
         try:
-            condition = "config.scenario[\'" + condition + "\']"
-            if eval(condition) == True:
+            condition = config.scenario[ condition ]
+        except:
+            pass
+
+        try:
+            condition = eval("scenlogic." + condition)(self)
+        except:
+            pass
+
+        try:
+            if condition == True:
                 new = a
             else:
                 new = b
@@ -128,7 +148,7 @@ def refPress(*args):
         except:
             pass
 
-        display = parseTextVariables(base[0])
+        display = parseTextVariables(self, base[0])
         display = parseRefs(display)
         logic.updateCenterDisplay(self, display, base[1])
 
@@ -153,15 +173,9 @@ def refPress(*args):
     elif subtype == "t":
 
         block = config.scenario['block']
-        try:
-            base = config.advDict[block][text]
-        except:
-            base = config.scenario['toggleRefs'][text]
+        base = config.scenario['toggleRefs'][text]
 
-        if label.text == base[1]:
-            label.text = base[2]
-        else:
-            label.text = base[1]
+        label.text = base[0]
 
         config.textArray[label.index] = label.text
 
@@ -200,7 +214,7 @@ def refPress(*args):
         # this was a jump; clear all older links
         clearOldLinks(self, ref)
 
-        exitmsg = parseTextVariables(exitmsg)
+        exitmsg = parseTextVariables(self, exitmsg)
         exitmsg = parseRefs(exitmsg)
         logic.updateCenterDisplay(self, exitmsg, exitformat)
 
@@ -225,7 +239,7 @@ def showCurrentBlock(self, *args):
     count = 0
     for item in config.advDict[block]['text']:
         count = count + 1
-        display = parseTextVariables(item[0])
+        display = parseTextVariables(self, item[0])
         display = parseRefs(display)
         logic.updateCenterDisplay(self, display, item[1])
 
@@ -240,14 +254,14 @@ def showCurrentExits(self, *args):
 
     try:
         for item in config.advDict[block]['exits']:
-            display = parseTextVariables(item[0])
+            display = parseTextVariables(self, item[0])
             display = parseRefs(display)
             logic.updateCenterDisplay(self, display, item[1])
     except:
         try:
             for item in config.advDict[block]['exitlist']:
                 display = '[[jump|' + config.advDict[block][item]['display'] + '|' + item + ']]'
-                display = parseTextVariables(display)
+                display = parseTextVariables(self, display)
                 display = parseRefs(display)
                 logic.updateCenterDisplay(self, display, config.advDict[block][item]['exitmsg'])
         except:

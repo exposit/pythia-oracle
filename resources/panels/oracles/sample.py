@@ -2,7 +2,7 @@
 #
 # sample user defined panel
 #
-# just add your own widgets to initPanel, add any needed logic below, and put this in the userdata folder,
+# just add your own widgets to initPanel, add any needed logic below, and put this in the panels folder,
 # in whichever of the two folders applies (generator or oracle)
 #
 # check out logic.py for the expected formatting keywords

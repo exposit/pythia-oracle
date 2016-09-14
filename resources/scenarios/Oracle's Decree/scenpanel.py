@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*
 #
-# decree user defined panel for a scenario; will be called during main load and added to the oracle stack
+# Oracle's Decree Tutorial panel
 #
-# just add your own widgets to initPanel, add any needed logic below, and put this in the scenario folder,
-#
-# check out logic.py for the expected formatting keywords
+# This will be called during main load and added to the oracle stack
 #
 # Text content from the adventure "Oracle's Decree" is Copyright © 2015 Michael Prescott
 # http://creativecommons.org/licenses/by-nc/3.0/
@@ -15,10 +13,13 @@ import imports
 from imports import *
 import config
 
+def exclude(self):
+    return False
+
 def onEnter(self):
 
     scenlogic.test()
-    print("decree Oracle: updating my own widgets")
+    print("Oracle\'s Decree: updating my own widgets")
     pass
 
 # add your widgets in here; see the gui for examples
@@ -30,7 +31,7 @@ def initPanel(self):
 
     self.decreeMainBox.add_widget(Label(text="About This Adventure", size_hint=(1,1), font_size=config.basefont90))
 
-    textList = ["Oracle's Decree is based on a one page dungeon from http://blog.trilemma.com/, licensed under CC-BY-NC.", "This is a tutorial intended to demonstrate some of the scenario features of Pythia."]
+    textList = ["Oracle's Decree text is Copyright © 2015 Michael Prescott, from http://blog.trilemma.com/ and licensed under CC-BY-NC.", "This is a tutorial intended to demonstrate some of the scenario features of Pythia."]
 
     for item in textList:
         label = Label(text=item, size_hint=(1,1), markup=True, font_name="Fantasque-Sans", font_size=config.basefont80)
@@ -56,24 +57,22 @@ def initPanel(self):
     button.bind(on_release=hearARumor)
     self.decreeMainBox.add_widget(button)
 
-    self.decreeMainBox.add_widget(Label(text="If you get stuck or go widely off course\nand want to get back to the scenario,\nuse the buttons below to pick a suitable re-entry point.", font_name="Fantasque-Sans", font_size=config.basefont80))
+    item="If you get stuck, want to go back somewhere, or go off course and want to get back to the scenario, use the buttons below."
+    label = Label(text=item, size_hint=(1,1), markup=True, font_name="Fantasque-Sans", font_size=config.basefont80)
+    label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1] + 10))
+    label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+    self.decreeMainBox.add_widget(label)
 
     button = Button(text="List of Scenes", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name="Fantasque-Sans", font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    #button.bind(on_release=overlandEncounter)
+    button.bind(on_release=listScenes)
     self.decreeMainBox.add_widget(button)
 
     button = Button(text="Safe Spot", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name="Fantasque-Sans", font_size=config.basefont80)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    #button.bind(on_release=overlandEncounter)
-    self.decreeMainBox.add_widget(button)
-
-    button = Button(text="List of Rooms", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    #button.bind(on_release=overlandEncounter)
+    button.bind(on_release=moveToStart)
     self.decreeMainBox.add_widget(button)
 
     self.decreeAItem.add_widget(self.decreeMainBox)
@@ -89,27 +88,17 @@ def hearARumor(*args):
     args[0].background_color = neutral
     updateCenterDisplay(self, '"' + random.choice(rumorList) + '"', 'bold')
 
-def overlandEncounter(*args):
+def moveToStart(*args):
     self = args[0].self
     args[0].background_color = neutral
+    safeexit = parseRefs("A door appears, leading to [[jump|safety|findstarsleigh]].")
+    updateCenterDisplay(self, safeexit , 'bold')
 
-    #roll = random.randint(0,9)
-    roll = 1
-    result = config.scenario['overlandEncounterChart'][roll][0]
-
-    if roll == 2 or roll == 5 or roll == 6 or roll == 7 or roll == 10:
-        config.scenario['overlandEncounterChart'][roll][0] = "Water Shades"
-
-    if result == "Water Shades":
-        result = result + " [" + str(random.randint(1,2)) + "] "
-    elif result == "Heelan Bandits":
-        result = result + " [" + str(random.randint(1,3)) + "] "
-    elif result == "Sand Sprites":
-        result = result + " [" + str(random.randint(1,6)) + "] "
-
-    if result == "A field of Sand Domes":
-        config.scenario['fishattack'] = random.choice([True, False])
-
-    updateCenterDisplay(self, result, 'result')
-
-    refPress(config.textLabelArray[-1], config.scenario['overlandEncounterChart'][roll][1])
+def listScenes(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    result = ""
+    for key in config.scenario['jumpRefs']:
+        result = result + "     " + "[[jump|" + key + "|" + key + "]]"
+    scenes = parseRefs(result)
+    updateCenterDisplay(self, scenes , 'bold')

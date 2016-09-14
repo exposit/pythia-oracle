@@ -69,7 +69,7 @@ from logicscen import *
 
 # extra panels -- generators
 #try:
-userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "generators" + os.sep + "*.py")
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "generators" + os.sep + "*.py")
 gen_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]
@@ -82,7 +82,7 @@ for panel in userpanels:
 
 # extra panels -- oracles
 #try:
-userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "oracles" + os.sep + "*.py")
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "oracles" + os.sep + "*.py")
 oracle_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]
@@ -95,7 +95,7 @@ for panel in userpanels:
 
 # extra panels -- oracles
 #try:
-userpanels = glob.glob("." + os.sep + "resources" + os.sep + "userdata" + os.sep + "maps" + os.sep + "*.py")
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "maps" + os.sep + "*.py")
 map_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]

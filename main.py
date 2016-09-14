@@ -346,7 +346,7 @@ class MainScreen(Screen):
 
         # scenario buttons go here, if a scenario is loaded
         self.scenarioButtonList = []
-        button = Button(text="continue", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button = Button(text="show scene", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.showBlock)
@@ -970,7 +970,7 @@ class MainScreen(Screen):
             self.scenarioTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
             self.titleBarBox.add_widget(self.scenarioTitleLabel)
 
-            if config.scenario['block'] == 'Start' and len(config.textLabelArray) == 1:
+            if len(config.textLabelArray) == 1:
                 config.advDict[block]['shown'] == 99
                 showCurrentBlock(self)
                 saveconfig(self, config.curr_game_dir)

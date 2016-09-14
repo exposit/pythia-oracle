@@ -8,9 +8,10 @@ Next Version 0.6.0
 
 BIG STUFF!!!
 * added in a story/scenario mode that supports user-created 'modules'
+* to skip this, just use the blank template when creating a new game
 * lots of fun scenario support, including hyperlinks, descriptive passages, random toggles
-* wrote sample scenario based on Oracle's Decree ()
-* diagram dungeon mapping panel
+* wrote really basic sample scenario based on [Oracle's Decree](http://blog.trilemma.com)
+* diagram dungeon mapping panel for simple mapping
 
 Version 0.5.0
 
