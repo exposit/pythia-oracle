@@ -18,7 +18,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-    actorsAItem = AccordionItem(title='Actors', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
+    self.actorsAItem = AccordionItem(title='Actors', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
     actorsMainBox = BoxLayout(orientation='vertical')
 
@@ -127,9 +127,9 @@ def initPanel(self):
 
     actorsMainBox.add_widget(actorsReactionBox)
 
-    actorsAItem.add_widget(actorsMainBox)
+    self.actorsAItem.add_widget(actorsMainBox)
 
-    return actorsAItem
+    return self.actorsAItem
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # actors & actor button functions

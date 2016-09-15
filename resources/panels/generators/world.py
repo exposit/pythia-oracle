@@ -18,7 +18,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-        hexAItem = AccordionItem(title='World', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
+        self.hexAItem = AccordionItem(title='World', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
 
         hexMainBox = BoxLayout(orientation='vertical')
 
@@ -168,9 +168,9 @@ def initPanel(self):
 
         hexMainBox.add_widget(hexFarBox)
 
-        hexAItem.add_widget(hexMainBox)
+        self.hexAItem.add_widget(hexMainBox)
 
-        return hexAItem
+        return self.hexAItem
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # hexcrawl & wilderness panel button functions

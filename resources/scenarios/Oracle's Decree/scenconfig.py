@@ -10,9 +10,13 @@
 import random
 
 scenario = {
-    'active' : True,
+    'active' : True,                # if this is False scenario will not run
+    'use_core' : True,              # use core generators?
+    'use_oracle': True,             # use an oracle, ie, show ??? button?
+    'oracle' : 'fu',                # module to look in when ??? button is pressed
+    'oracle_func' : 'fu',           # function in module to run when ??? button is pressed
     'name' : "",
-    'block' : "Copyright",
+    'block' : "Copyright",          # starting block that will be shown at beginning
     'descRefs' : {
         'fishbite' : ['<<A large, frilled fish leaps out from beneath the thin sand and bites at you before taking flight! If you save, continue; otherwise, contract the sinking curse; for d3 days any passage over sand results in gradual sinking unless supported. if fishattack else The sand crumbles at your touch, revealing a small amount of loot and some clean water.>>', 'bold_italic', 'repeatable', 'setFishOrWater'],
         'gamble' : ['The hermit will accept almost anything of value as a wager, but cheats masterfully and has an amulet of good luck.', 'bold_italic', 'once'],

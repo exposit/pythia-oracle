@@ -727,11 +727,11 @@ class MainScreen(Screen):
 
         index = 99
         for i in range(len(oracle_module)):
-            if oracle_module[i].__name__ == config.general['oracle']:
+            if oracle_module[i].__name__ == config.scenario['oracle']:
                 index = i
 
         if index < 99:
-            methodToCall = getattr( oracle_module[index], config.general['oracle_func'] )
+            methodToCall = getattr( oracle_module[index], config.scenario['oracle_func'] )
             answer = methodToCall()
         else:
             answer = "No oracle found."
@@ -945,19 +945,50 @@ class MainScreen(Screen):
 
         if config.scenario['active'] == True:
 
-            #global modlogic
+            if config.scenario['use_core'] == False:
+                self.generatorStackAccordion.remove_widget(self.actorsAItem)
+                self.generatorStackAccordion.remove_widget(self.hexAItem)
+                self.mapStackAccordion.remove_widget(self.mapAItem)
+
+            if config.scenario['use_oracle'] == False:
+                self.oracleStackAccordion.remove_widget(self.fuAItem)
+                self.submitButtonsBox.remove_widget(self.questionSubmitButton)
+
+            # scenario logic - required
             mod = config.curr_game_dir + "scenlogic.py"
             filename = mod.split('/')[-1]
             pyfile = filename.split('.')[0]
             scenlogic = imp.load_source( pyfile, mod)
 
-            #global modpanel
+            # scenario oracle/info panel - required
             mod = config.curr_game_dir + "scenpanel.py"
             filename = mod.split('/')[-1]
             pyfile = filename.split('.')[0]
             scenpanel = imp.load_source( pyfile, mod)
 
             self.oracleStackAccordion.add_widget(scenpanel.initPanel(self))
+
+            # scenario map panel - optional
+            try:
+                mod = config.curr_game_dir + "scenmap.py"
+                filename = mod.split('/')[-1]
+                pyfile = filename.split('.')[0]
+                scenmap = imp.load_source( pyfile, mod)
+
+                self.mapStackAccordion.add_widget(scenmap.initPanel(self))
+            except:
+                pass
+
+            # scenario generator panel - optional
+            try:
+                mod = config.curr_game_dir + "scengen.py"
+                filename = mod.split('/')[-1]
+                pyfile = filename.split('.')[0]
+                scengen = imp.load_source( pyfile, mod)
+
+                self.generatorStackAccordion.add_widget(scengen.initPanel(self))
+            except:
+                pass
 
             with open(config.curr_game_dir + "scenario.txt", "r") as f:
                 config.advDict = json.load(f)

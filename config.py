@@ -28,15 +28,16 @@ general = dict(
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
     basefontsize = 16,
-    oracle = "fu",
-    oracle_func = "fu",
-    maplist = ['Blank']
 )
 
 scenario = dict(
     active = False,
+    use_core = True,
+    use_oracle = True,
     name = "",
     block = "Start",
+    oracle = "fu",
+    oracle_func = "fu",
 )
 
 user = dict(
