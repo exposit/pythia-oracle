@@ -61,16 +61,19 @@ class TitleScreen(Screen):
         except:
             pass
 
+        # why is this even being opened?
         try:
             with open(config.curr_game_dir + "config.txt", "r") as config_file:
                 tempDict = json.load(config_file)
-                for i in tempDict['general']:
-                    config.general[i] = tempDict['general'][i]
-                for i in tempDict['user']:
-                    config.user[i] = tempDict['user'][i]
-                for i in tempDict['scenario']:
-                    config.scenario[i] = tempDict['scenario'][i]
-                print("config loaded")
+                config.general['pretitle'] = tempDict['general']['pretitle']
+                config.general['posttitle'] = tempDict['general']['posttitle']
+                #for i in tempDict['general']:
+                #    config.general[i] = tempDict['general'][i]
+                #for i in tempDict['user']:
+                #    config.user[i] = tempDict['user'][i]
+                #for i in tempDict['scenario']:
+                #    config.scenario[i] = tempDict['scenario'][i]
+                #print("config loaded")
         except:
             pass
 

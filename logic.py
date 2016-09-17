@@ -911,12 +911,23 @@ def chooseWeighted(value, text, form):
         return str(result_string), str(result), str("ephemeral"), str("0")
 
 # simple action/subject lists to help answer complex questions
-def complex_action():
+def unused_complex_action():
     chart = ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anticipate', 'assist', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'determine', 'discover', 'disregard', 'divert', 'divide', 'educate', 'emphasize', 'enable', 'enrage', 'enter', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'guess', 'impassion', 'improvise', 'inflate', 'interest', 'involve', 'justify', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw']
 
     return random.choice(chart)
 
-def complex_subject():
+def unused_complex_subject():
     chart = ['addiction', 'ally', 'armor', 'art', 'boss', 'change', 'class', 'common', 'compassion', 'death', 'disaster', 'earth', 'elements', 'emotions', 'emotions', 'enemy', 'fatigue', 'focus', 'friend', 'friendship', 'fury', 'future', 'hatred', 'home', 'hope', 'honor', 'instinct', 'integrity', 'key', 'kin', 'location', 'love', 'luxuries', 'monster', 'moon', 'music', 'necessities', 'neighbor', 'obsession', 'past', 'passion', 'path', 'physical', 'possessions', 'power', 'quarry', 'reserves', 'sex', 'stalemate', 'star', 'status quo', 'sun', 'survival', 'task', 'value', 'vengeance', 'violence', 'wealth', 'weapons', 'work']
 
+    return random.choice(chart)
+    
+# here's full 100 item lists
+def complex_action():
+    chart = ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anger', 'anticipate', 'assist', 'assume', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'couple', 'determine', 'discover', 'disregard', 'divert', 'divide', 'draw', 'dream', 'edgy', 'educate', 'emphasize', 'enable', 'enchain', 'encourage', 'endless', 'enjoy', 'enrage', 'enter', 'entrance', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'feint', 'guess', 'impassion', 'improvise', 'inflame', 'inflate', 'interest', 'involve', 'justify', 'keep', 'ken', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'quarter', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'stoic', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw']
+
+    return random.choice(chart)
+    
+def complex_subject():
+    chart = ['addiction', 'air', 'ally', 'armor', 'art', 'beyond', 'blood', 'bravery', 'change', 'class', 'cold', 'common', 'compassion', 'consumption', 'couple', 'cowardice', 'death', 'disaster', 'dispassion', 'displeasure', 'earth', 'earth', 'elements', 'emotions', 'enemy', 'fatigue', 'focus', 'foreign', 'forgiveness', 'freedom', 'friend', 'friendship', 'fury', 'future', 'grief', 'hatred', 'health', 'home', 'honor', 'hope', 'hot', 'ideas', 'illness', 'insanity', 'instinct', 'integrity', 'jewel', 'journey', 'joy', 'key', 'kin', 'location', 'love', 'luxuries', 'master', 'moderation', 'monster', 'moon', 'music', 'near', 'necessities', 'neighbor', 'obsession', 'passion', 'past', 'path', 'physical', 'possessions', 'power', 'priceless', 'quarry', 'quest', 'rain', 'reason', 'regret', 'reserves', 'rubbish', 'sex', 'shine', 'skill', 'sorrow', 'stalemate', 'star', 'status quo', 'stoicism', 'sun', 'survival', 'task', 'tool', 'trap', 'uncontrollable', 'unknowable', 'value', 'vengeance', 'violence', 'water', 'wealth', 'weapons', 'whimsy', 'work']
+    
     return random.choice(chart)

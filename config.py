@@ -28,6 +28,9 @@ general = dict(
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
     basefontsize = 16,
+    complex_func = 'useTwoPartSeed',   # useTwoPartSeed, useThreePartSeed, useSingleSeed
+    complex_type = 'medieval romance', # see seed panel for options
+    #complex_type_alternate = 'medieval romance action'
 )
 
 scenario = dict(

@@ -329,6 +329,11 @@ class MainScreen(Screen):
         self.complexButton.bind(on_release=self.releaseComplex)
         self.submitButtonsBox.add_widget(self.complexButton)
 
+        self.complexAlternateButton = Button(text="Alternate", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.complexAlternateButton.bind(on_press=self.pressGenericButton)
+        self.complexAlternateButton.bind(on_release=self.releaseComplexAlternate)
+        self.submitButtonsBox.add_widget(self.complexAlternateButton)
+
         self.playerSubmitButton = Button(text="Direct", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.playerSubmitButton.bind(on_press=self.pressGenericButton)
         self.playerSubmitButton.bind(on_release=self.releasePlayer)
@@ -744,7 +749,35 @@ class MainScreen(Screen):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
-        updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
+
+        index=-9
+        for i in range(len(oracle_module)):
+            if oracle_module[i].__name__ == 'seeds':
+                index = i
+        try:
+            methodToCall = getattr( oracle_module[index], config.general['complex_func'] )
+            methodToCall(self, config.general['complex_type'])
+        except:
+            updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
+
+        quicksave(self, config.curr_game_dir)
+        self.textInput.text = ""
+
+    def releaseComplexAlternate(self, *args):
+        args[0].background_color = neutral
+        if len(self.textInput.text) > 0:
+            updateCenterDisplay(self, self.textInput.text, 'query')
+
+        index=-9
+        for i in range(len(oracle_module)):
+            if oracle_module[i].__name__ == 'seeds':
+                index = i
+        try:
+            methodToCall = getattr( oracle_module[index], config.general['complex_func'] )
+            methodToCall(self, config.general['complex_type_alternate'])
+        except:
+            updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
+
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -912,9 +945,8 @@ class MainScreen(Screen):
         loadconfig(self, config.curr_game_dir)
         quickload(self, config.curr_game_dir)
 
-        # now update variable widgets
+        # now update variable widgets; general first
         try:
-            # general
             self.enterSpinner.text = str(config.general["enter_behavior"])
             self.editSpinner.text = str(config.general["edit_behavior"])
 
@@ -928,11 +960,23 @@ class MainScreen(Screen):
             del l
 
             self.trackLabel.text = str(config.general['tracker'])
+
         except:
             pass
 
+        # update which seed scheme to use
         try:
-            #panel specific
+            if config.general['complex_func'] == "useSingleSeed" or config.general['complex_func'] == "useTwoPartSeed":
+                self.submitButtonsBox.remove_widget(self.complexAlternateButton)
+                self.complexButton.text = "Complex"
+            else:
+                self.complexButton.text = "Complex Desc"
+                self.complexAlternateButton.text = "Complex Action"
+        except:
+            pass
+
+        # one function is called per active panel; use to update panel widgets
+        try:
             for i in gen_module:
                 methodToCall = getattr( i, 'onEnter' )
                 methodToCall(self)
@@ -952,7 +996,10 @@ class MainScreen(Screen):
 
             if config.scenario['use_oracle'] == False:
                 self.oracleStackAccordion.remove_widget(self.fuAItem)
+                self.oracleStackAccordion.remove_widget(self.seedsAItem)
                 self.submitButtonsBox.remove_widget(self.questionSubmitButton)
+                self.submitButtonsBox.remove_widget(self.complexButton)
+                self.submitButtonsBox.remove_widget(self.complexAlternateButton)
 
             # scenario logic - required
             mod = config.curr_game_dir + "scenlogic.py"
