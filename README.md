@@ -1,4 +1,4 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! NOTE: There's an issue with Kivy that makes scrolling left or right in a scrollview fail. To move the map around on a Mac trackpad, do a two finger press and drag.
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
 ### Pythia-Oracle 0.6.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
@@ -66,15 +66,19 @@ You can also open up the 'pythia.py' file in your favorite text editor, then unc
 
 Change the numbers (1280, 725) as you'd prefer.
 
-If it is just the font that is too small, open up config.txt and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in 'saves/\<game name\>/config.txt' as well.
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
+
+Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
+
+There are multiple config files. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games. Alternately, you can edit the config.txt file in each save game folder, but please back it up first!
+
+If the font is too small, open up config file and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in 'saves/\<game name\>/config.txt' as well (as always, back it up first).
 
 To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the pythia folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure. Backups are in the "backups" folder.
 
 I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons expect! To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
 Note: the system expects a quicksave folder to be present and it's a good idea to have one.
-
-Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
 

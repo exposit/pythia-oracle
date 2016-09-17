@@ -4,7 +4,11 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version 0.6.0
+Version 0.7.0 (WIP)
+
+* new core panel for a bunch of seed patterns and sources plus new default
+* new config variable to control pattern and source for seeds
+* bugfixes, notably with configs from loaded gaming bleeding into new game
 
 BIG STUFF!!!
 * toggle to disable core tools and core oracle on scenario by scenario basis
@@ -13,7 +17,7 @@ BIG STUFF!!!
 * lots of fun scenario support, including hyperlinks, descriptive passages, inline toggles
 * wrote really basic sample scenario based on part of [Oracle's Decree](http://blog.trilemma.com)
 * diagram dungeon mapping panel for simple mapping while exploring
-* diagram dungeon minimap & nav panel for those of us affected by the x-axis scroll issue
+* diagram dungeon minimap & nav panel for those of us affected by the Kivy-Mac-??? x-axis scroll issue
 
 Version 0.5.0
 
