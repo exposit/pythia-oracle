@@ -28,9 +28,14 @@ general = dict(
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
     basefontsize = 16,
-    complex_func = 'useTwoPartSeed',   # useTwoPartSeed, useThreePartSeed, useSingleSeed
-    complex_type = 'medieval romance', # see seed panel for options
-    #complex_type_alternate = 'medieval romance action'
+    seed_func = 'useTwoPartSeed',         # useTwoPartSeed, useThreePartSeed, useAllSeed
+    seed_type = 'generic',                # see seed panel for options
+    seed_subtype = 'adjective',
+    seed_subtype_pretty = 'Desc',
+    seed_alt_func = '',                  # set to '' to remove second button
+    seed_alt_type = 'medieval romance',
+    seed_alt_subtype = 'verb',
+    seed_alt_subtype_pretty = 'Action',
 )
 
 scenario = dict(

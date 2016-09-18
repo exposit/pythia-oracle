@@ -265,7 +265,6 @@ class MainScreen(Screen):
         self.button0.bind(on_press=self.pressGenericButton)
         self.button0.bind(on_release=self.releasePresetDice)
 
-
         # row one
         self.footerBox.add_widget(self.saveButton)
         self.footerBox.add_widget(self.threadSubmitButton)
@@ -324,16 +323,6 @@ class MainScreen(Screen):
         self.questionSubmitButton.bind(on_release=self.releaseQuestion)
         self.submitButtonsBox.add_widget(self.questionSubmitButton)
 
-        self.complexButton = Button(text="Complex", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.complexButton.bind(on_press=self.pressGenericButton)
-        self.complexButton.bind(on_release=self.releaseComplex)
-        self.submitButtonsBox.add_widget(self.complexButton)
-
-        self.complexAlternateButton = Button(text="Alternate", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.complexAlternateButton.bind(on_press=self.pressGenericButton)
-        self.complexAlternateButton.bind(on_release=self.releaseComplexAlternate)
-        self.submitButtonsBox.add_widget(self.complexAlternateButton)
-
         self.playerSubmitButton = Button(text="Direct", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.playerSubmitButton.bind(on_press=self.pressGenericButton)
         self.playerSubmitButton.bind(on_release=self.releasePlayer)
@@ -348,6 +337,20 @@ class MainScreen(Screen):
         self.rollSubmitButton.bind(on_press=self.pressGenericButton)
         self.rollSubmitButton.bind(on_release=self.releaseRoll)
         self.submitButtonsBox.add_widget(self.rollSubmitButton)
+
+        self.seedButtonsBox = BoxLayout(orientation='vertical', size_hint_y=2)
+
+        self.seedButton = Button(text="Seed", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.seedButton.bind(on_press=self.pressGenericButton)
+        self.seedButton.bind(on_release=self.releaseSeed)
+        self.seedButtonsBox.add_widget(self.seedButton)
+
+        self.seedAlternateButton = Button(text="Action", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.seedAlternateButton.bind(on_press=self.pressGenericButton)
+        self.seedAlternateButton.bind(on_release=self.releaseSeedAlternate)
+        self.seedButtonsBox.add_widget(self.seedAlternateButton)
+
+        self.submitButtonsBox.add_widget(self.seedButtonsBox)
 
         # scenario buttons go here, if a scenario is loaded
         self.scenarioButtonList = []
@@ -745,25 +748,30 @@ class MainScreen(Screen):
         self.textInput.text = ""
         quicksave(self, config.curr_game_dir)
 
-    def releaseComplex(self, *args):
+    def releaseSeed(self, *args):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
 
         index=-9
         for i in range(len(oracle_module)):
+            print(oracle_module[i].__name__)
             if oracle_module[i].__name__ == 'seeds':
                 index = i
+
         try:
-            methodToCall = getattr( oracle_module[index], config.general['complex_func'] )
-            methodToCall(self, config.general['complex_type'])
+            methodToCall = getattr( oracle_module[index], config.general['seed_func'] )
+            if config.general['seed_func'] == 'useThreePartSeed':
+                methodToCall(self, config.general['seed_type'], config.general['seed_subtype'])
+            else:
+                methodToCall(self, config.general['seed_type'])
         except:
-            updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
+            updateCenterDisplay(self,  "[Seed] " + seed_action() + " " + seed_subject(), 'oracle')
 
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
-    def releaseComplexAlternate(self, *args):
+    def releaseSeedAlternate(self, *args):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
@@ -773,10 +781,13 @@ class MainScreen(Screen):
             if oracle_module[i].__name__ == 'seeds':
                 index = i
         try:
-            methodToCall = getattr( oracle_module[index], config.general['complex_func'] )
-            methodToCall(self, config.general['complex_type_alternate'])
+            methodToCall = getattr( oracle_module[index], config.general['seed_alt_func'] )
+            if config.general['seed_alt_func'] == 'useThreePartSeed':
+                methodToCall(self, config.general['seed_alt_type'], config.general['seed_alt_subtype'])
+            else:
+                methodToCall(self, config.general['seed_alt_type'])
         except:
-            updateCenterDisplay(self,  "[Complex] " + complex_action() + " " + complex_subject(), 'oracle')
+            updateCenterDisplay(self,  "[Seed] " + seed_action() + " " + seed_subject(), 'oracle')
 
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
@@ -966,12 +977,13 @@ class MainScreen(Screen):
 
         # update which seed scheme to use
         try:
-            if config.general['complex_func'] == "useSingleSeed" or config.general['complex_func'] == "useTwoPartSeed":
-                self.submitButtonsBox.remove_widget(self.complexAlternateButton)
-                self.complexButton.text = "Complex"
+            if config.general['seed_alt_func'] == '':
+                self.seedButtonsBox.remove_widget(self.seedAlternateButton)
+                self.seedButtonsBox.size_hint_y=1
+                self.seedButton.text = config.general['seed_subtype_pretty'].capitalize()
             else:
-                self.complexButton.text = "Complex Desc"
-                self.complexAlternateButton.text = "Complex Action"
+                self.seedButton.text = config.general['seed_subtype_pretty'].capitalize()
+                self.seedAlternateButton.text = config.general['seed_alt_subtype_pretty'].capitalize()
         except:
             pass
 
@@ -998,8 +1010,8 @@ class MainScreen(Screen):
                 self.oracleStackAccordion.remove_widget(self.fuAItem)
                 self.oracleStackAccordion.remove_widget(self.seedsAItem)
                 self.submitButtonsBox.remove_widget(self.questionSubmitButton)
-                self.submitButtonsBox.remove_widget(self.complexButton)
-                self.submitButtonsBox.remove_widget(self.complexAlternateButton)
+                self.submitButtonsBox.remove_widget(self.seedButton)
+                self.submitButtonsBox.remove_widget(self.seedAlternateButton)
 
             # scenario logic - required
             mod = config.curr_game_dir + "scenlogic.py"

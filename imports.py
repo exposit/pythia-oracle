@@ -17,6 +17,8 @@ import glob
 import string
 import zipfile
 
+print(string.capwords('test'))
+
 # Kivy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition, NoTransition, SlideTransition, SwapTransition, FadeTransition, FallOutTransition, RiseInTransition
@@ -90,6 +92,7 @@ for panel in userpanels:
     potential = imp.load_source( pyfile, panel)
     if potential.exclude() == False:
         oracle_module.append(potential)
+
 #except:
 #    pass
 
