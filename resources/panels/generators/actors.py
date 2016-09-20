@@ -540,23 +540,37 @@ def getActorMove(*args):
     args[0].background_color = neutral
 
     chart = {
-       2 : "Acts out of character in a negative way; a terrible secret revealed. [True Face]",
-       3 : "Draw a new Seed and interpret it negatively in context of the actor's potential actions. [Inept]",
-       4 : "Something from his backstory negatively influences his action. [Flashback]",
-       5 : "Actor indulges or expresses a vice or ignoble facet of their character. [Ignoble]",
-       6 : "Actor takes the easiest possible option for them. [Weak]",
-       7 : "Actor acts in accordance with their current desire. [Focused]",
-       8 : "Actor uses an aspect they're comfortable with (maybe a skill, profession, tactic, or similar). [Skilled]",
-       9 : "Actor indulges or expresses a noble facet of their character. [Noble]",
-      10 : "Something from his backstory positively influences his action. [Flashback]",
-      11 : "Draw a new Seed and interpret it positively in context of the actor's potential actions [On Point]",
-      12 : "Actor acts out of character in a positive way; a secret revealed. [True Face]]",
+       2 : "Acts out of character in a negative way; a terrible secret revealed.",
+       3 : "Draw a new Seed and interpret it negatively in context of the actor's potential actions.",
+       4 : "Something from his backstory negatively influences his action.",
+       5 : "Actor indulges or expresses a vice or ignoble facet of their character.",
+       6 : "Actor takes the easiest possible option for them.",
+       7 : "Actor acts in accordance with their current desire.",
+       8 : "Actor uses an aspect they're comfortable with (maybe a skill, profession, tactic, or similar).",
+       9 : "Actor indulges or expresses a noble facet of their character.",
+      10 : "Something from his backstory positively influences his action.",
+      11 : "Draw a new Seed and interpret it positively in context of the actor's potential actions.",
+      12 : "Actor acts out of character in a positive way; a secret revealed.",
+     }
+
+    modchart = {
+        2 : "True Face",
+        3 : "Inept",
+        4 : "Flashback",
+        5 : "Ignoble",
+        6 : "Weak",
+        7 : "Focused",
+        8 : "Skilled",
+        9 : "Noble",
+       10 : "Flashback",
+       11 : "On Point",
+       12 : "True Face",
      }
 
     roll = random.randint(1,6) + random.randint(1,6)
 
     result = chart[roll]
 
-    result = "[Actor Move] " + result
+    result = "[" + modchart[roll] + "] " + result
 
     updateCenterDisplay(self, result, 'oracle')

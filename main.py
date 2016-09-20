@@ -755,7 +755,7 @@ class MainScreen(Screen):
 
         index=-9
         for i in range(len(oracle_module)):
-            print(oracle_module[i].__name__)
+            #print(oracle_module[i].__name__)
             if oracle_module[i].__name__ == 'seeds':
                 index = i
 

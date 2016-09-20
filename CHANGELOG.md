@@ -6,6 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.7.0 (WIP)
 
+* added a new but/and/- oracle weighted towards lots of events
+* added two new Simple World (Apocalypse World) inspired generation buttons for actor/plot moves
 * reversed panel adding order
 * curated the seeds (barely) and revamped core seed panel to support user-generated seeds
 * new core panel for a bunch of seed patterns and sources
