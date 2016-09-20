@@ -80,10 +80,9 @@ def initPanel(self):
     actorsMainBox.add_widget(button)
 
     button = Button(text="Immediate Goals", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
-    button.function = "dualMotives"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=miscChartRoll)
+    button.bind(on_release=getDualMotives)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Relationship - Close", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
@@ -105,6 +104,20 @@ def initPanel(self):
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=relationshipRoll)
+    actorsMainBox.add_widget(button)
+
+    button = Button(text="Actor's Next Move", size_hint=(1,1), background_normal='',
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getActorMove)
+    actorsMainBox.add_widget(button)
+
+    button = Button(text="One Line Motive", size_hint=(1,1), background_normal='',
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getWhyMotive)
     actorsMainBox.add_widget(button)
 
     actorsMainBox.add_widget(Label(text="Emotional Reaction"))
@@ -170,6 +183,19 @@ def relationshipRoll(*args):
         if args[0].value == 2:
             result = actorRelationshipGeneral()
         updateCenterDisplay(self, result)
+
+def getWhyMotive(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    array = dualMotives()
+    result = "[Motive] " + array[1] + " " + array[2]
+    updateCenterDisplay(self, result)
+
+def getDualMotives(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    result = dualMotives()[0]
+    updateCenterDisplay(self, result)
 
 # logic
 def actorGender():
@@ -376,7 +402,7 @@ def dualMotives():
         "to live like a king", "to taste a delicacy", "to perform a great deed",
         "to perform a masterwork", "to escape a prison", "to imprison someone",
         "to enjoy solitude", "to avoid others", "to learn how to socialize", "to learn a secret",
-        "to perform an appointed duty", "to subvert an appointed duty", "to shirk a duty"
+        "to perform an appointed duty", "to subvert an appointed duty", "to shirk a duty",
         "to feel alive", "to ruin someone more powerful", "to murder",
         "to steal from by stealth or trickery", "to take from by force or guile", "to discredit",
         "to break free from", "to destroy out of malice", "to overthrow a ruler",
@@ -450,7 +476,7 @@ def dualMotives():
     goal1 = "\n[" + degree.capitalize() + "] " + goals[0] + " [" + focus1 + "] "
     goal2 = "\n[" + oppdegree.capitalize() + "] " + goals[1] + " [" + focus2 + "] "
 
-    return "[Goals]" + goal1 + goal2
+    return "[Goals]" + goal1 + goal2, goals[0], goals[1]
 
 def emotionalReaction(reaction="positive"):
 
@@ -507,3 +533,30 @@ def emotionalReaction(reaction="positive"):
     roll = random.randint(1,5)
     result = patterns[roll]
     return "[Reaction] " + result
+
+# inspired by Apocalypse World & Simple World
+def getActorMove(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+
+    chart = {
+       2 : "Acts out of character in a negative way; a terrible secret revealed. [True Face]",
+       3 : "Draw a new Seed and interpret it negatively in context of the actor's potential actions. [Inept]",
+       4 : "Something from his backstory negatively influences his action. [Flashback]",
+       5 : "Actor indulges or expresses a vice or ignoble facet of their character. [Ignoble]",
+       6 : "Actor takes the easiest possible option for them. [Weak]",
+       7 : "Actor acts in accordance with their current desire. [Focused]",
+       8 : "Actor uses an aspect they're comfortable with (maybe a skill, profession, tactic, or similar). [Skilled]",
+       9 : "Actor indulges or expresses a noble facet of their character. [Noble]",
+      10 : "Something from his backstory positively influences his action. [Flashback]",
+      11 : "Draw a new Seed and interpret it positively in context of the actor's potential actions [On Point]",
+      12 : "Actor acts out of character in a positive way; a secret revealed. [True Face]]",
+     }
+
+    roll = random.randint(1,6) + random.randint(1,6)
+
+    result = chart[roll]
+
+    result = "[Actor Move] " + result
+
+    updateCenterDisplay(self, result, 'oracle')

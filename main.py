@@ -583,7 +583,7 @@ class MainScreen(Screen):
         #self.panelsBox = BoxLayout(orientation="vertical")
         for i in gen_module:
             methodToCall = getattr( i, 'initPanel' )
-            self.generatorStackAccordion.add_widget(methodToCall(self))
+            self.generatorStackAccordion.add_widget(methodToCall(self), 1)
 
 
 ##---------------------------------------------------------------------------------------
@@ -593,7 +593,7 @@ class MainScreen(Screen):
         #self.panelsBox = BoxLayout(orientation="vertical")
         for i in oracle_module:
             methodToCall = getattr( i, 'initPanel' )
-            self.oracleStackAccordion.add_widget(methodToCall(self))
+            self.oracleStackAccordion.add_widget(methodToCall(self), 1)
 
 ##---------------------------------------------------------------------------------------
 #  custom maps panels

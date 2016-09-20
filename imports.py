@@ -17,8 +17,6 @@ import glob
 import string
 import zipfile
 
-print(string.capwords('test'))
-
 # Kivy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition, NoTransition, SlideTransition, SwapTransition, FadeTransition, FallOutTransition, RiseInTransition

@@ -15,137 +15,157 @@ def onEnter(self):
 
 def initPanel(self):
 
-        self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
+    self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
 
-        self.fuMainBox = BoxLayout(orientation='vertical')
+    self.fuMainBox = BoxLayout(orientation='vertical')
 
-        #self.fuMainBox.add_widget(Label(text='Oracle', size_hint=(1,0.10)))
+    #self.fuMainBox.add_widget(Label(text='Oracle', size_hint=(1,0.10)))
 
-        fuTextList = [
-            'almost certain', 'very probable', 'probable', 'likely', 'possibly', 'even odds', 'doubtful', 'somewhat unlikely', 'probably not', 'improbable', 'almost certainly not' ]
+    fuTextList = [
+        'almost certain', 'very probable', 'probable', 'likely', 'possibly', 'even odds', 'doubtful', 'somewhat unlikely', 'probably not', 'improbable', 'almost certainly not' ]
 
-        fuOddsList = ['99%', '97%', '94%', '88%', '75%', '50%', '25%', '12%', '6%', '3%', '1%']
+    fuOddsList = ['99%', '97%', '94%', '88%', '75%', '50%', '25%', '12%', '6%', '3%', '1%']
 
-        self.fuSubBox = BoxLayout(orientation='horizontal', size_hint=(1,.6))
+    self.fuSubBox = BoxLayout(orientation='horizontal', size_hint=(1,.6))
 
-        self.fuTextSubBox = BoxLayout(orientation='vertical')
-        self.fuModSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
-        self.fuOddsSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
+    self.fuTextSubBox = BoxLayout(orientation='vertical')
+    self.fuModSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
+    self.fuOddsSubBox = BoxLayout(orientation='vertical', size_hint_x=.25)
 
-        count = 6
-        modifier="none"
-        oddsButtons = []
-        for i in range(len(fuTextList)):
-            count = count - 1
-            if count > 0:
-                modifier = "positive"
-            elif count == 0:
-                modifier = "none"
-            else:
-                modifier = "negative"
+    count = 6
+    modifier="none"
+    oddsButtons = []
+    for i in range(len(fuTextList)):
+        count = count - 1
+        if count > 0:
+            modifier = "positive"
+        elif count == 0:
+            modifier = "none"
+        else:
+            modifier = "negative"
 
-            button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,1))
-            button.count = count
-            button.modifier = modifier
-            button.self = self
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=fuRoll)
-            self.fuTextSubBox.add_widget(button)
-
-            button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
-            button.modifier = modifier
-            button.count = count
-            button.self = self
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=fuRoll)
-            self.fuModSubBox.add_widget(button)
-
-            button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
-            button.modifier = modifier
-            button.count = count
-            button.self = self
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=fuRoll)
-            oddsButtons.append(button)
-            self.fuOddsSubBox.add_widget(button)
-
-        self.fuSubBox.add_widget(self.fuTextSubBox)
-        self.fuSubBox.add_widget(self.fuModSubBox)
-        #self.fuSubBox.add_widget(self.fuOddsSubBox)
-
-        self.fuMainBox.add_widget(self.fuSubBox)
-
-        self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.10)
-        self.oddsButton.self = self
-        self.oddsButton.bind(on_press=self.pressGenericButton)
-        self.oddsButton.bind(on_release=toggleOdds)
-        self.fuMainBox.add_widget(self.oddsButton)
-
-        button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.10)
-        button.function = "howMuchWeighted"
+        button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,1))
+        button.count = count
+        button.modifier = modifier
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=howMuch)
-        self.fuMainBox.add_widget(button)
+        button.bind(on_release=fuRoll)
+        self.fuTextSubBox.add_widget(button)
 
-        dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
+        button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
+        button.modifier = modifier
+        button.count = count
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=fuRoll)
+        self.fuModSubBox.add_widget(button)
 
-        self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.10))
-        self.fuDramaBox = GridLayout(cols=2, size_hint_y=.25)
+        button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
+        button.modifier = modifier
+        button.count = count
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=fuRoll)
+        oddsButtons.append(button)
+        self.fuOddsSubBox.add_widget(button)
 
-        self.fuDramaBox.add_widget(Label(text="Good/Bad"))
-        self.fuDramaBox.add_widget(Label(text="Yes/No"))
+    self.fuSubBox.add_widget(self.fuTextSubBox)
+    self.fuSubBox.add_widget(self.fuModSubBox)
+    #self.fuSubBox.add_widget(self.fuOddsSubBox)
 
-        for i in dramaRollList:
-            button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=dramaChartRoll)
-            button.subtype="Good/Bad"
-            button.self = self
-            self.fuDramaBox.add_widget(button)
+    self.fuMainBox.add_widget(self.fuSubBox)
 
-            button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=dramaChartRoll)
-            button.subtype="Yes/No"
-            button.self = self
-            self.fuDramaBox.add_widget(button)
+    self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.10)
+    self.oddsButton.self = self
+    self.oddsButton.bind(on_press=self.pressGenericButton)
+    self.oddsButton.bind(on_release=toggleOdds)
+    self.fuMainBox.add_widget(self.oddsButton)
 
-        self.fuMainBox.add_widget(self.fuDramaBox)
+    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.10)
+    button.function = "howMuchWeighted"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=howMuch)
+    self.fuMainBox.add_widget(button)
 
-        self.randomEventTypeSpinner = Spinner(
-        text='Random',
-        values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
-        background_normal='',
-        background_color=accent1,
-        background_down='',
-        background_color_down=accent2,
-        size_hint_y=0.07
-        )
-        self.randomEventTypeSpinner.self = self
-        self.fuMainBox.add_widget(self.randomEventTypeSpinner)
+    dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
-        self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.10))
+    self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07))
+    self.fuDramaBox = GridLayout(cols=2, size_hint_y=.25)
 
-        self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
+    self.fuDramaBox.add_widget(Label(text="Good/Bad"))
+    self.fuDramaBox.add_widget(Label(text="Yes/No"))
 
-        for i in dramaRollList:
-            button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=randomChartRoll)
-            button.subtype="Random Event"
-            button.self = self
-            button.link = self.randomEventTypeSpinner
-            self.fuRandomEventBox.add_widget(button)
+    for i in dramaRollList:
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=dramaChartRoll)
+        button.subtype="Good/Bad"
+        button.self = self
+        self.fuDramaBox.add_widget(button)
 
-        self.fuMainBox.add_widget(self.fuRandomEventBox)
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=dramaChartRoll)
+        button.subtype="Yes/No"
+        button.self = self
+        self.fuDramaBox.add_widget(button)
 
-        self.fuAItem.add_widget(self.fuMainBox)
+    self.fuMainBox.add_widget(self.fuDramaBox)
 
-        return self.fuAItem
+    self.randomEventTypeSpinner = Spinner(
+    text='Random',
+    values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
+    background_normal='',
+    background_color=accent1,
+    background_down='',
+    background_color_down=accent2,
+    size_hint_y=0.07
+    )
+    self.randomEventTypeSpinner.self = self
+    self.fuMainBox.add_widget(self.randomEventTypeSpinner)
+
+    self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.10))
+
+    self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
+
+    for i in dramaRollList:
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=randomChartRoll)
+        button.subtype="Random Event"
+        button.self = self
+        button.link = self.randomEventTypeSpinner
+        self.fuRandomEventBox.add_widget(button)
+
+    self.fuMainBox.add_widget(self.fuRandomEventBox)
+
+    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.07))
+    button.function = "getChaosOracle"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=miscChartRoll)
+    self.fuMainBox.add_widget(button)
+
+    button = Button(text="Plot Move", size_hint=(1,.07), background_normal='',
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getPlotMove)
+    self.fuMainBox.add_widget(button)
+
+    self.fuAItem.add_widget(self.fuMainBox)
+
+    return self.fuAItem
 
 #---------------------------------------------------------------------------------------------------# FU Button Functions
 #---------------------------------------------------------------------------------------------------
+def miscChartRoll(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    result = eval(args[0].function)()
+    updateCenterDisplay(self, result)
+
 def fuRoll(*args):
     args[0].background_color = neutral
     self = args[0].self
@@ -467,3 +487,51 @@ def dramaRoll(text, subtype):
         roll = min(rollArray)
         result = chart[roll]
     return "[Drama] " + result
+
+# chaos oracle, for no other reason than I love it and have no place else for it
+def getChaosOracle(*args):
+
+    chart = {
+        2 : "No, and, and",
+        3 : "No, and, but",
+        4 : "No, and",
+        5 : "No",
+        6 : "No, but",
+        7 : "Whatever result would be most interesting or roll a random event.",
+        8 : "Yes, but",
+        9 : "Yes",
+        10 : "Yes, and",
+        11 : "Yes, and, but",
+        12 : "Yes, and, and",
+    }
+    roll = random.randint(1,6) + random.randint(1,6)
+    result = chart[roll]
+
+    result = "[Chaos " + str(roll) + "] " + result
+
+    return result
+
+# inspired by Apocalypse World & Simple World
+def getPlotMove(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    chart = {
+       2 : "Deal harm.",
+       3 : "Trade harm for harm.",
+       4 : "Put someone in a high-stakes situation.",
+       5 : "Turn their move back on them.",
+       6 : "Change the world away from the expected in a subtle way.",
+       7 : "Add or remove an NPC from the current scene or area.",
+       8 : "Use one of their prized things, skills, or traits against them.",
+       9 : "Change something off-screen or in the future.",
+      10 : "Give them a difficult decision to make or present a dilemma.",
+      11 : "Manipulate, alter, rescue, or reveal someone physically, emotionally, or mentally.",
+      12 : "Place an emotional, physical, mental, or other type of barrier in the way.",
+    }
+
+    roll = random.randint(1,6) + random.randint(1,6)
+    result = chart[roll]
+
+    result = "[Plot Move] " + result
+
+    updateCenterDisplay(self, result, 'result')

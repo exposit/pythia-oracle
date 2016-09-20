@@ -6,6 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.7.0 (WIP)
 
+* reversed panel adding order
+* curated the seeds (barely) and revamped core seed panel to support user-generated seeds
 * new core panel for a bunch of seed patterns and sources
 * new config variable to control pattern and source for seeds
 * bugfixes, notably with configs from loaded gaming bleeding into new game
