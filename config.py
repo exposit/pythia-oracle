@@ -45,7 +45,7 @@ scenario = dict(
     name = "",
     block = "Start",
     oracle = "fu",
-    oracle_func = "getChaosOracle",
+    oracle_func = "fu",
 )
 
 user = dict(
