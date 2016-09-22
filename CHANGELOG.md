@@ -6,10 +6,12 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.7.0 (WIP)
 
+* actor index to make navigating long actor rosters easier
+* "don't show" status; items with this tag will no longer show up in main window. Ever.
 * added a new but/and/- oracle weighted towards lots of events
 * added two new Simple World (Apocalypse World) inspired generation buttons for actor/plot moves
 * reversed panel adding order
-* curated the seeds (barely) and revamped core seed panel to support user-generated seeds
+* curated the seeds (barely, likely still a few misses) and revamped core seed panel to support user-generated seeds
 * new core panel for a bunch of seed patterns and sources
 * new config variable to control pattern and source for seeds
 * bugfixes, notably with configs from loaded gaming bleeding into new game

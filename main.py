@@ -342,12 +342,12 @@ class MainScreen(Screen):
 
         self.seedButton = Button(text="Seed", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.seedButton.bind(on_press=self.pressGenericButton)
-        self.seedButton.bind(on_release=self.releaseSeed)
+        self.seedButton.bind(on_release=self.getSeed)
         self.seedButtonsBox.add_widget(self.seedButton)
 
         self.seedAlternateButton = Button(text="Action", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.seedAlternateButton.bind(on_press=self.pressGenericButton)
-        self.seedAlternateButton.bind(on_release=self.releaseSeedAlternate)
+        self.seedAlternateButton.bind(on_release=self.getSeedAlternate)
         self.seedButtonsBox.add_widget(self.seedAlternateButton)
 
         self.submitButtonsBox.add_widget(self.seedButtonsBox)
@@ -383,7 +383,7 @@ class MainScreen(Screen):
 #  PC panel
 ##---------------------------------------------------------------------------------------
 
-        self.pcAItem = AccordionItem(title='PC & Party Tracker', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.pcAItem = AccordionItem(title='PC Tracker', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.pcMainBox = BoxLayout(orientation='vertical')
 
@@ -402,20 +402,28 @@ class MainScreen(Screen):
         self.pcMainBox.add_widget(self.pcButtonBox)
 
         self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
-        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
         self.pcTitleGrid.add_widget(label)
 
         self.pcMainBox.add_widget(self.pcTitleGrid)
 
         self.pcDisplay = ScrollView(size_hint=(1, 1))
-        self.pcDisplayGrid = GridLayout(cols=2, spacing=5, size_hint_y=None, size_hint_x=1)
+        self.pcDisplayGrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
         self.pcDisplayGrid.bind(minimum_height = self.pcDisplayGrid.setter('height'))
+        self.pcDisplay.add_widget(self.pcDisplayGrid)
 
-        for i in range(1,30):
+        self.pcTopGrid = GridLayout(cols=2, size_hint_y=None)
+        self.pcTopGrid.bind(minimum_height = self.pcTopGrid.setter('height'))
+        self.pcHalfGrid = GridLayout(cols=4, size_hint_y=None)
+        self.pcHalfGrid.bind(minimum_height = self.pcHalfGrid.setter('height'))
+        self.pcBottomGrid = GridLayout(cols=2, size_hint_y=None)
+        self.pcBottomGrid.bind(minimum_height = self.pcBottomGrid.setter('height'))
 
-            if i <= 14:
+        for i in range(1,70):
+
+            if i <= 21:
                 ml = False
                 ht = config.tallheight
                 fs = config.basefont90
@@ -424,23 +432,33 @@ class MainScreen(Screen):
                 ht = config.tripleheight
                 fs = config.basefont90
 
-            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=.25, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
-            #label.text_size = (self.pcDisplayGrid.width, None)
+            if i >= 4 and i <= 21:
+                xhint = .25
+            else:
+                xhint = .15
+
+            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
             label.value = i
-            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.pcKeyLabelArray.append(label)
 
-            self.pcDisplayGrid.add_widget(config.pcKeyLabelArray[-1])
-
-            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=.75, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
             label.text_size = (self.pcDisplayGrid.width, None)
             label.value = i
-            #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
             config.pcValueLabelArray.append(label)
 
-            self.pcDisplayGrid.add_widget(config.pcValueLabelArray[-1])
+            if i >= 4 and i <= 21:
+                self.pcHalfGrid.add_widget(config.pcKeyLabelArray[-1])
+                self.pcHalfGrid.add_widget(config.pcValueLabelArray[-1])
+            elif i < 4:
+                self.pcTopGrid.add_widget(config.pcKeyLabelArray[-1])
+                self.pcTopGrid.add_widget(config.pcValueLabelArray[-1])
+            else:
+                self.pcBottomGrid.add_widget(config.pcKeyLabelArray[-1])
+                self.pcBottomGrid.add_widget(config.pcValueLabelArray[-1])
 
-        self.pcDisplay.add_widget(self.pcDisplayGrid)
+        self.pcDisplayGrid.add_widget(self.pcTopGrid)
+        self.pcDisplayGrid.add_widget(self.pcHalfGrid)
+        self.pcDisplayGrid.add_widget(self.pcBottomGrid)
 
         self.pcMainBox.add_widget(self.pcDisplay)
 
@@ -452,7 +470,7 @@ class MainScreen(Screen):
 #  actor panel
 ##---------------------------------------------------------------------------------------
 
-        self.actorAItem = AccordionItem(title='Actor Tracker', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.actorAItem = AccordionItem(title='Actor Tracker', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.actorMainBox = BoxLayout(orientation='vertical')
 
@@ -471,12 +489,25 @@ class MainScreen(Screen):
         self.actorMainBox.add_widget(self.actorButtonBox)
 
         self.actorMainBox.add_widget(Label(text="Actors", halign="center", size_hint=(1,.05), font_size=config.basefont90))
-        self.actorDisplay = ScrollView(size_hint=(1, 1))
+        self.actorDisplay = ScrollView(size_hint=(1, .80))
         self.actorDisplayGrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
         self.actorDisplayGrid.bind(minimum_height = self.actorDisplayGrid.setter('height'))
         self.actorDisplay.add_widget(self.actorDisplayGrid)
 
         self.actorMainBox.add_widget(self.actorDisplay)
+
+        self.actorIndexToggle = Button(text="Actor Index", halign="center", height=config.basefont, size_hint=(1,None), font_size=config.basefont90)
+        self.actorIndexToggle.value = config.general['actor_index_state']
+        self.actorIndexToggle.bind(on_press=self.pressGenericButton)
+        self.actorIndexToggle.bind(on_release=self.toggleActorIndexSize)
+        self.actorMainBox.add_widget(self.actorIndexToggle)
+
+        self.actorIndexDisplay = ScrollView(size_hint=(1,.20))
+        self.actorIndexDisplayGrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
+        self.actorIndexDisplayGrid.bind(minimum_height = self.actorIndexDisplayGrid.setter('height'))
+        self.actorIndexDisplay.add_widget(self.actorIndexDisplayGrid)
+
+        self.actorMainBox.add_widget(self.actorIndexDisplay)
 
         self.actorAItem.add_widget(self.actorMainBox)
 
@@ -486,7 +517,7 @@ class MainScreen(Screen):
 # tracks & scratchpad panel
 #---------------------------------------------------------------------------------------
 
-        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_selected=os.sep + 'resources' + os.sep + 'ui_images' + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.tracksAItem = AccordionItem(title='Tracks, Status, Notes', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.tracksMainBox = BoxLayout(orientation='vertical')
 
@@ -506,10 +537,10 @@ class MainScreen(Screen):
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
-        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         self.trackTitleGrid.add_widget(label)
-        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
         self.trackTitleGrid.add_widget(label)
 
         self.tracksMainBox.add_widget(self.trackTitleGrid)
@@ -520,7 +551,7 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,.5), foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
             config.trackLabelArray.append(label)
 
             self.trackDisplayGrid.add_widget(config.trackLabelArray[-1])
@@ -544,7 +575,7 @@ class MainScreen(Screen):
 #  holder panel for maps
 ##---------------------------------------------------------------------------------------
 
-        self.mapAccordionItem = AccordionItem(title='Maps', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.mapAccordionItem = AccordionItem(title='Maps', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.mapStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
@@ -556,7 +587,7 @@ class MainScreen(Screen):
 #  holder panel for generators
 ##---------------------------------------------------------------------------------------
 
-        self.generatorAccordionItem = AccordionItem(title='Generators', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.generatorAccordionItem = AccordionItem(title='Generators', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.generatorStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
@@ -568,7 +599,7 @@ class MainScreen(Screen):
 #  holder panel for oracles
 ##---------------------------------------------------------------------------------------
 
-        self.oracleAccordionItem = AccordionItem(title='Oracles', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space = config.aiheight)
+        self.oracleAccordionItem = AccordionItem(title='Oracles', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         self.oracleStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
@@ -658,8 +689,8 @@ class MainScreen(Screen):
                 else:
                     pass
 
-    def pressGenericButton(self, *args):
-        args[0].background_color = accent2
+    def pressGenericButton(self, button):
+        button.background_color = accent2
 
     def releaseSave(self, *args):
         args[0].background_color = neutral
@@ -672,7 +703,6 @@ class MainScreen(Screen):
     # generic function calls
     def miscChartRoll(self, *args):
         args[0].background_color = neutral
-        #result = eval(args[0].text)()
         result = eval(args[0].function)()
         updateCenterDisplay(self, result)
 
@@ -706,6 +736,30 @@ class MainScreen(Screen):
             result = result + "\n" + config.actorArray[i] + " [" + config.actorStatusArray[i] + "]"
         result = "[Actors] " + result
         updateCenterDisplay(self, result, "color2")
+
+    def jumpToActor(self, button):
+
+        button.background_color = neutral
+        value = button.value
+
+        self.actorDisplay.scroll_to(config.actorLabelArray[value], padding=40)
+
+    def toggleActorIndexSize(self, button):
+
+        if button.value == 0:
+            self.actorDisplay.size_hint=(1,.80)
+            self.actorIndexDisplay.size_hint=(1,.20)
+            button.value = 1
+        elif button.value == 1:
+            self.actorDisplay.size_hint=(1,.30)
+            self.actorIndexDisplay.size_hint=(1,.70)
+            button.value = 2
+        elif button.value == 2:
+            self.actorDisplay.size_hint=(1,.70)
+            self.actorIndexDisplay.size_hint=(1,.30)
+            button.value = 0
+
+        config.general['actor_index_state'] = button.value
 
     def copyPCsToMain(self, *args):
         args[0].background_color = neutral
@@ -748,7 +802,7 @@ class MainScreen(Screen):
         self.textInput.text = ""
         quicksave(self, config.curr_game_dir)
 
-    def releaseSeed(self, *args):
+    def getSeed(self, *args):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
@@ -771,7 +825,7 @@ class MainScreen(Screen):
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
-    def releaseSeedAlternate(self, *args):
+    def getSeedAlternate(self, *args):
         args[0].background_color = neutral
         if len(self.textInput.text) > 0:
             updateCenterDisplay(self, self.textInput.text, 'query')
@@ -829,6 +883,7 @@ class MainScreen(Screen):
             new_text = self.textInput.text
             updateActorDisplay(self, new_text, 'Current')
             updateCenterDisplay(self, "[New Actor] " + new_text, 'italic')
+            updateActorIndex(self)
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -974,6 +1029,12 @@ class MainScreen(Screen):
 
         except:
             pass
+
+        # now actor index
+        #try:
+        updateActorIndex(self)
+        #except:
+        #    pass
 
         # update which seed scheme to use
         try:

@@ -29,13 +29,14 @@ general = dict(
     tracker = 0,
     basefontsize = 16,
     seed_func = 'useTwoPartSeed',         # useTwoPartSeed, useThreePartSeed, useAllSeed
-    seed_type = 'medieval romance',                # see seed panel for options
+    seed_type = 'medieval romance',       # see seed panel for options
     seed_subtype = 'adjective',
     seed_subtype_pretty = 'Desc',
-    seed_alt_func = '',                  # set to '' to remove second button
+    seed_alt_func = '',                   # set to '' to remove second button
     seed_alt_type = 'medieval romance',
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
+    actor_index_state = 0,
 )
 
 scenario = dict(
@@ -85,6 +86,7 @@ basefont90 = str(general['basefontsize']*.90) + "dp"
 baseheight = str(general['basefontsize']+10) + "dp"
 tallheight = str(general['basefontsize']+15) + "dp"
 tripleheight = str(general['basefontsize']*3+10) + "dp"
+quintupleheight = str(general['basefontsize']*5+10) + "dp"
 octupleheight = str(general['basefontsize']*8+10) + "dp"
 maintextfont = str(general['basefontsize']) + "dp"
 aiheight = baseheight

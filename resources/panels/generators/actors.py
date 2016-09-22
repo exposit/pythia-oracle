@@ -18,8 +18,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-    self.actorsAItem = AccordionItem(title='Actors', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space="28dp")
-
+    self.actorsAItem = AccordionItem(title='Actors & Motives', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
     actorsMainBox = BoxLayout(orientation='vertical')
 
     actorsMainBox.add_widget(Label(text="Appearance", size_hint=(1,1)))

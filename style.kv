@@ -1,26 +1,26 @@
-[AccordionItemTitle@Label]:
-    text: ctx.title
-    canvas.before:
-        Color:
-            rgb: app.accent1_r, app.accent1_g, app.accent1_b
-        BorderImage:
-            source:
-                ctx.item.background_normal \
-                if ctx.item.collapse \
-                else ctx.item.background_selected
-            pos: self.pos
-            size: self.size
-        PushMatrix
-        Translate:
-            xy: self.center_x, self.center_y
-        Rotate:
-            angle: 90 if ctx.item.orientation == 'horizontal' else 0
-            axis: 0, 0, 1
-        Translate:
-            xy: -self.center_x, -self.center_y
-    canvas.after:
-        Color:
-        PopMatrix
+#[AccordionItemTitle@AccordionItemTitle]:
+#    text: ctx.title
+#    canvas.before:
+#        Color:
+#            rgb: app.accent1_r, app.accent1_g, app.accent1_b
+#        BorderImage:
+#            source:
+#                ctx.item.background_normal \
+#                if ctx.item.collapse \
+#                else ctx.item.background_selected
+#            pos: self.pos
+#            size: self.size
+#        PushMatrix
+#        Translate:
+#            xy: self.center_x, self.center_y
+#        Rotate:
+#            angle: 90 if ctx.item.orientation == 'horizontal' else 0
+#            axis: 0, 0, 1
+#        Translate:
+#            xy: -self.center_x, -self.center_y
+#    canvas.after:
+#        Color:
+#        PopMatrix
 
 <ScrollableLabel>:
     Label:

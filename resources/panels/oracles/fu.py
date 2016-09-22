@@ -15,7 +15,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-    self.fuAItem = AccordionItem(title='FU & Weighted Oracle', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
+    self.fuAItem = AccordionItem(title='FU & How\'s It Going', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
     self.fuMainBox = BoxLayout(orientation='vertical')
 
@@ -144,7 +144,7 @@ def initPanel(self):
     button.function = "getChaosOracle"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=miscChartRoll)
+    button.bind(on_release=chaosOracleRoll)
     self.fuMainBox.add_widget(button)
 
     button = Button(text="Plot Move", size_hint=(1,.07), background_normal='',
@@ -160,11 +160,16 @@ def initPanel(self):
 
 #---------------------------------------------------------------------------------------------------# FU Button Functions
 #---------------------------------------------------------------------------------------------------
-def miscChartRoll(*args):
+def chaosOracleRoll(*args):
     args[0].background_color = neutral
     self = args[0].self
-    result = eval(args[0].function)()
-    updateCenterDisplay(self, result)
+
+    result = getChaosOracle()
+
+    if len(self.textInput.text) > 0:
+        updateCenterDisplay(self, self.textInput.text, 'query')
+
+    updateCenterDisplay(self, result, "oracle")
 
 def fuRoll(*args):
     args[0].background_color = neutral

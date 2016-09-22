@@ -51,6 +51,8 @@ def updateCenterDisplay(self, text, status='result', reset=False):
 
     if status == "ephemeral":
         text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
+    elif status == "don't show":
+        text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
     elif status == "query":
         text = "[b]" + text + "[/b]"
     elif status == "result":
@@ -87,7 +89,8 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.index = config.textArray.index(base_text)
         config.textLabelArray.append(label)
 
-        self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
     elif edit_mode == "PLAY":
         # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
@@ -115,8 +118,9 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.markup = True
         config.textStatusLabelArray.append(label)
 
-        self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-        self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
     elif edit_mode == "CLEAN":
         # clean mode for reading just text; don't show mechanics or formatting tags
@@ -149,7 +153,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
             label.text_size = (self.centerDisplayGrid.width, None)
             label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
             label.bind(focus=focusChangeText)
-            label.background_color=(0,0,0,.5)
+            label.background_color=neutral
             label.foreground_color=(1,1,1,1)
             label.index = config.textArray.index(base_text)
             config.textLabelArray.append(label)
@@ -165,7 +169,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.text_size = (self.centerDisplayGrid.width, None)
         label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
         label.bind(focus=focusChangeText)
-        label.background_color=(0,0,0,.5)
+        label.background_color=neutral
         label.foreground_color=(1,1,1,1)
         #label.index = len(config.textLabelArray)
         label.index = config.textArray.index(base_text)
@@ -180,8 +184,9 @@ def updateCenterDisplay(self, text, status='result', reset=False):
         label.markup = True
         config.textStatusLabelArray.append(label)
 
-        self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-        self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
     try:
         self.centerDisplay.scroll_to(config.textLabelArray[-1])
@@ -193,6 +198,9 @@ def cycleText(self, *args):
         self.text = "ephemeral"
         config.textStatusArray[config.textStatusLabelArray.index(self)] = "ephemeral"
     elif self.text == "ephemeral":
+        self.text = "don't show"
+        config.textStatusArray[config.textStatusLabelArray.index(self)] = "don't show"
+    elif self.text == "don't show":
         self.text = "result"
         config.textStatusArray[config.textStatusLabelArray.index(self)] = "result"
     elif self.text == "result":
@@ -287,14 +295,23 @@ def updateActorDisplay(self, text, status):
     config.actorArray.append(text)
     config.actorStatusArray.append(status)
 
-    label = Label(text=' ', size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
-    self.actorDisplayGrid.add_widget(label)
+    tag, text, sep = getActorTag(text)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=1, height=config.octupleheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=tag, size_hint_y=None, size_hint_x=1, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label.bind(focus=focusChangeActorTitle)
+    label.self = self
+    #label.text_size = (self.actorDisplayGrid.width, None)
+    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+    self.actorDisplayGrid.add_widget(label)
+    label.index = len(config.actorLabelArray)
+
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=1, height=config.quintupleheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
-    label.text_size = (self.actorDisplayGrid.width, None)
-    label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-    label.markup = True
+    #label.text_size = (self.actorDisplayGrid.width, None)
+    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+    label.tag = tag
+    label.sep = sep
+    label.index = len(config.actorLabelArray)
     config.actorLabelArray.append(label)
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
@@ -309,9 +326,6 @@ def updateActorDisplay(self, text, status):
     config.actorStatusLabelArray.append(label)
 
     self.actorDisplayGrid.add_widget(config.actorStatusLabelArray[-1])
-
-    label = Label(text=' ', size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
-    self.actorDisplayGrid.add_widget(label)
 
 def cycleActor(self, *args):
     if self.text == "Current":
@@ -352,11 +366,21 @@ def clearActor(self, *args):
             self.actorDisplayGrid.remove_widget(config.actorLabelArray[i])
             self.actorDisplayGrid.remove_widget(config.actorStatusLabelArray[i])
 
-def focusChangeActor(self, value):
+def focusChangeActor(field, value):
     if value:
         pass
     else:
-        config.actorArray[config.actorLabelArray.index(self)] = self.text
+        text = field.tag + field.sep + " " + field.text[0].lower() + field.text[1:]
+        config.actorArray[field.index] = text
+
+def focusChangeActorTitle(field, value):
+    if value:
+        pass
+    else:
+        label = config.actorLabelArray[field.index]
+        text = field.text + label.sep + " " + label.text[0].lower() + label.text[1:]
+        config.actorArray[field.index] = text
+        updateActorIndex(field.self)
 
 def focusChangeThread(self, value):
     if value:
@@ -370,9 +394,58 @@ def focusChangeText(self, value):
     else:
         config.textArray[self.index] = self.text
 
-#---------------------------------------------------------------------------------------------------
+def getActorTag(text):
+
+    tag = " "
+    remainder = text
+
+    sepList = [',', ':', '  ', '\n', '.']
+
+    for sep in sepList:
+        if sep in text:
+            tag, remainder = text.split(sep, 1)
+            if len(remainder) > 0:
+                break
+
+    tag = tag[:25]
+    remainder = remainder.strip()
+    if len(remainder) > 0:
+        remainder =  remainder[0].upper() + remainder[1:]
+    else:
+        remainder = text
+
+    #print(tag, remainder)
+
+    return tag, remainder, sep
+
+def updateActorIndex(self):
+
+    self.actorIndexDisplayGrid.clear_widgets()
+
+    tagArray = []
+    tagDict = {}
+
+    for item in config.actorArray:
+        tag, remainder, sep = getActorTag(item)
+        tagArray.append(tag)
+        tagDict[tag] = item
+
+    tagArray.sort()
+
+    for tag in tagArray:
+
+        item = tagDict[tag]
+
+        button = Button(text=tag, size_hint=(1,None), halign='center', background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80, height=config.basefont90)
+        button.value = config.actorArray.index(item)
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=self.jumpToActor)
+        self.actorIndexDisplayGrid.add_widget(button)
+
+#---------------------------------------------------------------------------------------------
 # save/load functions
-#---------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------
+
 def saveconfig(self, gamedir):
     try:
         tempDict = {}
