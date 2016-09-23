@@ -1,6 +1,6 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Especially from pre-0.7.0 versions, since 0.7.0 upgrades the main display routine.
 
-### Pythia-Oracle 0.6.0
+### Pythia-Oracle 0.7.0
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
 
 #### What is it?
@@ -86,7 +86,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click 
 
 I don't blame you. I use a ton more myself but I don't think it'd be cool to use other authors' content without asking. So I've started asking. Feel free to ask your favorite authors about their licensing/permission as well!
 
-Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted table on the fly, or you can add in whatever tables you like in the code. I've included a sample panel in panels/oracles as a guide, and you can look at the included panels to see how it works.
+Until then, you have a couple of options; you can use the "pick one" buttons to get weighted answers from a copy-pasted, comma separated list on the fly, or you can add in whatever tables you like in the code in your own user panels. I've included a sample panel in panels/oracles as a guide, and you can look at the included panels to see how it works.
 
 If you have created content you'd like included (or you have permission from the original author), drop me a line and I'll add them as panels as I can. Or I'd be happy to link to/add any panels you make, as long as I can follow the code. I've made a separate repository for non-core panels here:
 

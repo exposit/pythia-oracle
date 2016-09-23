@@ -4,17 +4,23 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version 0.7.0 (WIP)
+Version 0.8.0 (WIP)
 
+Version 0.7.0
+
+* refactored main display routine so switching modes should work much much faster now.
 * actor index to make navigating long actor rosters easier
 * "don't show" status; items with this tag will no longer show up in main window. Ever.
 * added a new but/and/- oracle weighted towards lots of events
 * added two new Simple World (Apocalypse World) inspired generation buttons for actor/plot moves
 * reversed panel adding order
 * curated the seeds (barely, likely still a few misses) and revamped core seed panel to support user-generated seeds
-* new core panel for a bunch of seed patterns and sources
+* new default setting so you can choose the seed pattern and source you prefer per game
+* new core panel for several seed patterns and sources
 * new config variable to control pattern and source for seeds
 * bugfixes, notably with configs from loaded gaming bleeding into new game
+
+Version 0.6.0
 
 BIG STUFF!!!
 * toggle to disable core tools and core oracle on scenario by scenario basis

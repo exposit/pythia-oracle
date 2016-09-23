@@ -906,7 +906,7 @@ class MainScreen(Screen):
 
     def toggleLabelToInput(self, spinner, text):
         config.general['edit_behavior'] = text
-        resetCenterDisplay(self, text)
+        switchModes(self)
 
     def toggledBookmark(self, button):
         if self.clearBookmarkButton.state == 'down':

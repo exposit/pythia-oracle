@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------------------
 #
-# PC Emulator Panel
+# Seed Panel
 #
 ##---------------------------------------------------------------------------------------------------
 import imports
@@ -26,11 +26,8 @@ def initPanel(self):
 
     self.seedsMainBox = BoxLayout(orientation='vertical')
 
-    self.seedsMainBox.add_widget(Label(text="Mythic Style", size_hint=(1,.15)))
-
-    self.seedsTwoPartGrid = GridLayout(cols=2)
-
     self.seedArray = []
+    self.displayArray = []
 
     seedfiles = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "seeds" + os.sep + "*.py")
 
@@ -41,28 +38,39 @@ def initPanel(self):
 
     self.seedArray = list(set(self.seedArray))
 
+    for item in self.seedArray:
+        if len(item) > 10 and " " in item:
+            self.displayArray.append(item[:20])
+        else:
+            self.displayArray.append(item)
+
+    self.seedsMainBox.add_widget(Label(text="Verb Noun", size_hint=(1,.20)))
+
+    self.seedsTwoPartGrid = GridLayout(cols=2)
+
     for seedpack in self.seedArray:
 
+        index = self.seedArray.index(seedpack)
+
         # checkbox for making default
-        checkbox = CheckBox(size_hint_y=None, size_hint=(.10,.20), height=config.baseheight, group='default_seed')
+        checkbox = CheckBox(size_hint=(.10,1), height=config.baseheight, group='default_seed')
         checkbox.self = self
         checkbox.func = 'useTwoPartSeed'
         checkbox.type = seedpack
         checkbox.bind(active=setDefaultSeed)
         self.seedsTwoPartGrid.add_widget(checkbox)
 
-        button = Button(text=seedpack, size_hint=(.90,.20), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
         button.self = self
+        button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=useTwoPartSeed)
         self.seedsTwoPartGrid.add_widget(button)
 
     self.seedsMainBox.add_widget(self.seedsTwoPartGrid)
 
-    self.seedsMainBox.add_widget(Label(text="Location Crafter Style", size_hint=(1,.15)))
-
-    self.seedsTitleGrid = GridLayout(cols=3, size_hint=(1,.150))
-    self.seedsTitleGrid.add_widget(Label(text="X", size_hint=(.10,1)))
+    self.seedsTitleGrid = GridLayout(cols=3, size_hint=(1,.15))
+    self.seedsTitleGrid.add_widget(Label(text=" ", size_hint=(.10,1)))
     self.seedsTitleGrid.add_widget(Label(text="Description", size_hint=(.45,1)))
     self.seedsTitleGrid.add_widget(Label(text="Action", size_hint=(.45,1)))
     self.seedsMainBox.add_widget(self.seedsTitleGrid)
@@ -71,66 +79,76 @@ def initPanel(self):
 
     for seedpack in self.seedArray:
 
+        index = self.seedArray.index(seedpack)
+
         # checkbox for defaults
-        checkbox = CheckBox(size_hint_y=None, size_hint=(.10,.20), height=config.baseheight, group='default_seed')
+        checkbox = CheckBox(size_hint=(.10,1), height=config.baseheight, group='default_seed')
         checkbox.self = self
         checkbox.func = 'useThreePartSeed'
         checkbox.type = seedpack
         checkbox.bind(active=setDefaultSeed)
         self.seedsThreePartGrid.add_widget(checkbox)
 
-        button = Button(text=seedpack, size_hint=(.45,.20), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
         button.self = self
         button.subtype = "adjective"
+        button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=useThreePartSeed)
         self.seedsThreePartGrid.add_widget(button)
 
-        button = Button(text=seedpack, size_hint=(.45,.20), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
         button.self = self
         button.subtype = "verb"
+        button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=useThreePartSeed)
         self.seedsThreePartGrid.add_widget(button)
 
     self.seedsMainBox.add_widget(self.seedsThreePartGrid)
 
-    self.seedsMainBox.add_widget(Label(text="One Big List", size_hint=(1,.15)))
+    self.seedsMainBox.add_widget(Label(text="Adverb Adjective Verb Noun", size_hint=(1,.20)))
 
-    self.seedsAllGrid = GridLayout(cols=4)
+    self.seedsAllGrid = GridLayout(cols=2)
 
     for seedpack in self.seedArray:
 
-        checkbox = CheckBox(size_hint_y=None, size_hint=(.10,.20), height=config.baseheight, group='default_seed')
+        index = self.seedArray.index(seedpack)
+
+        checkbox = CheckBox(size_hint=(.10,1), height=config.baseheight, group='default_seed')
         checkbox.self = self
         checkbox.func = 'useAllSeed'
         checkbox.type = seedpack
         checkbox.bind(active=setDefaultSeed)
         self.seedsAllGrid.add_widget(checkbox)
 
-        button = Button(text=seedpack, size_hint=(.90,.20), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
         button.self = self
+        button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=useAllSeed)
         self.seedsAllGrid.add_widget(button)
 
     self.seedsMainBox.add_widget(self.seedsAllGrid)
 
-    self.seedsMainBox.add_widget(Label(text="What Is It?", size_hint=(1,.15)))
+    self.seedsMainBox.add_widget(Label(text="What Is it?", size_hint=(1,.20)))
 
     self.seedsWhatGrid = GridLayout(cols=2)
 
     for seedpack in self.seedArray:
 
-        checkbox = CheckBox(size_hint_y=None, size_hint=(.10,.20), height=config.baseheight, group='default_seed')
+        index = self.seedArray.index(seedpack)
+
+        checkbox = CheckBox(size_hint=(.10,1), height=config.baseheight, group='default_seed')
         checkbox.self = self
         checkbox.func = 'useWhatSeed'
         checkbox.type = seedpack
         checkbox.bind(active=setDefaultSeed)
-        self.seedsAllGrid.add_widget(checkbox)
+        self.seedsWhatGrid.add_widget(checkbox)
 
-        button = Button(text=seedpack, size_hint=(.90,.20), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
         button.self = self
+        button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=useWhatSeed)
         self.seedsWhatGrid.add_widget(button)
@@ -203,7 +221,7 @@ def useTwoPartSeed(*args):
     try:
         self = args[0].self
         args[0].background_color = neutral
-        item = args[0].text
+        item = args[0].pack
     except:
         self = args[0]
         item = args[1]
@@ -228,7 +246,7 @@ def useThreePartSeed(*args):
     try:
         args[0].background_color = neutral
         self = args[0].self
-        item = args[0].text
+        item = args[0].pack
         subtype = args[0].subtype
     except:
         self = args[0]
@@ -265,7 +283,7 @@ def useAllSeed(*args):
     try:
         args[0].background_color = neutral
         self = args[0].self
-        item = args[0].text
+        item = args[0].pack
     except:
         self = args[0]
         item = args[1]
@@ -286,7 +304,7 @@ def useWhatSeed(*args):
     try:
         self = args[0].self
         args[0].background_color = neutral
-        item = args[0].text
+        item = args[0].pack
     except:
         self = args[0]
         item = args[1]
@@ -303,15 +321,4 @@ def useWhatSeed(*args):
 
     result = random.choice(adjectiveList) + " " + random.choice(nounList)
 
-    #updateCenterDisplay(self, "[" + string.capwords(item) + " What] " + result, 'oracle')
     updateCenterDisplay(self, "[Seed] " + result, 'oracle')
-
-oldseedArray = {
-    # general lists off the top of my head; pretty vanilla and bland
-    'generic' : {
-        'adjective' : ['peaceful', 'beautiful', 'kind', 'calm', 'stoic', 'meaningful', 'trivial', 'bland', 'spicy', 'fiesty', 'cruel', 'ugly', 'quarrelsome', 'paired', 'alone', 'edgy', 'endless', 'loved', 'loving', 'hated', 'hating', 'despised', 'secretive', 'open', 'stoic', 'veiled', 'plainspoken', 'honorable', 'dishonorable', 'trustworthy', 'untrustworthy', 'insane', 'clear', 'scary', 'calming'],
-        'adverb' : ['likely', 'ruinously', 'hardly', 'ghostly', 'markedly', 'extremely', 'very', 'unlikely', 'open', 'closed', 'worse', 'better', 'freely', 'guardedly'],
-        'verb' : ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anger', 'anticipate', 'assist', 'assume', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'couple', 'determine', 'discover', 'disregard', 'divert', 'divide', 'draw', 'dream', 'edgy', 'educate', 'emphasize', 'enable', 'enchain', 'encourage', 'endless', 'enjoy', 'enrage', 'enter', 'entrance', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'feint', 'guess', 'impassion', 'improvise', 'inflame', 'inflate', 'interest', 'involve', 'justify', 'keep', 'ken', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'quarter', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'stoic', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw'],
-        'noun' : ['addiction', 'air', 'ally', 'armor', 'art', 'beyond', 'blood', 'bravery', 'change', 'class', 'cold', 'common', 'compassion', 'consumption', 'couple', 'cowardice', 'death', 'disaster', 'dispassion', 'displeasure', 'earth', 'earth', 'elements', 'emotions', 'enemy', 'fatigue', 'focus', 'foreign', 'forgiveness', 'freedom', 'friend', 'friendship', 'fury', 'future', 'grief', 'hatred', 'health', 'home', 'honor', 'hope', 'hot', 'ideas', 'illness', 'insanity', 'instinct', 'integrity', 'jewel', 'journey', 'joy', 'key', 'kin', 'location', 'love', 'luxuries', 'master', 'moderation', 'monster', 'moon', 'music', 'near', 'necessities', 'neighbor', 'obsession', 'passion', 'past', 'path', 'physical', 'possessions', 'power', 'priceless', 'quarry', 'quest', 'rain', 'reason', 'regret', 'reserves', 'rubbish', 'sex', 'shine', 'skill', 'sorrow', 'stalemate', 'star', 'status quo', 'stoicism', 'sun', 'survival', 'task', 'tool', 'trap', 'uncontrollable', 'unknowable', 'value', 'vengeance', 'violence', 'water', 'wealth', 'weapons', 'whimsy', 'work', 'veil', 'passage'],
-        },
-}

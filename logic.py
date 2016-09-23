@@ -22,18 +22,129 @@ class ClickLabel(Button, Label):
 class InputLabel(TextInput, Label):
     pass
 
-def resetCenterDisplay(self, edit_mode):
+def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.textStatusArray):
+
+    for i in textArray:
+        curr_index = textArray.index(i)
+        makeItemLabels(self, i, textStatusArray[curr_index])
+
+    switchModes(self)
+
+def updateCenterDisplay(self, text, status='result'):
+
+    makeItemLabels(self, text, status)
+    addToCenterDisplay(self, text, status)
+
+def switchModes(self):
 
     self.centerDisplayGrid.clear_widgets()
 
-    config.textLabelArray = []
+    edit_mode = config.general['edit_behavior']
 
-    config.textStatusLabelArray = []
+    if edit_mode == "READ":
+        # this mode is for reading the entire log, mechanics and all
 
-    for i in config.textArray:
-        updateCenterDisplay(self, i, config.textStatusArray[config.textArray.index(i)], True)
+        self.centerDisplayGrid.cols = 1
 
-def updateCenterDisplay(self, text, status='result', reset=False):
+        for index in range(len(config.textArray)):
+            status = config.textStatusArray[index]
+            if status != "don't show":
+                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
+
+    elif edit_mode == "PLAY":
+        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
+
+        self.centerDisplayGrid.cols = 2
+
+        for index in range(len(config.textArray)):
+            status = config.textStatusArray[index]
+            if status != "don't show":
+                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
+                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
+
+    elif edit_mode == "CLEAN":
+        # clean mode for reading just text; don't show mechanics or formatting tags
+
+        self.centerDisplayGrid.cols = 1
+
+        for index in range(len(config.textArray)):
+            status = config.textStatusArray[index]
+            if status == "no_format":
+                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
+
+    elif edit_mode == "CEDIT":
+        # editing mode for just text, no mechanics or formatting tags
+
+        self.centerDisplayGrid.cols = 1
+
+        for index in range(len(config.textArray)):
+            status = config.textStatusArray[index]
+            if status == "no_format":
+                self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
+
+    else:
+        # full editing mode, text, mechanics, formatting
+
+        self.centerDisplayGrid.cols = 2
+
+        for index in range(len(config.textArray)):
+            status = config.textStatusArray[index]
+            if status != "don't show":
+                self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
+                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
+
+    try:
+        self.centerDisplay.scroll_to(config.textLabelArray[-1])
+    except:
+        pass
+
+    try:
+        self.centerDisplay.scroll_to(config.textFieldLabelArray[-1])
+    except:
+        pass
+
+def addToCenterDisplay(self, text, status):
+
+    edit_mode = config.general['edit_behavior']
+
+    if edit_mode == "READ":
+        # this mode is for reading the entire log, mechanics and all
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+
+    elif edit_mode == "PLAY":
+        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
+
+    elif edit_mode == "CLEAN":
+        # clean mode for reading just text; don't show mechanics or formatting tags
+        if status == "no_format":
+            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
+
+    elif edit_mode == "CEDIT":
+        # editing mode for just text, no mechanics or formatting tags
+        if status == "no_format":
+            self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
+
+    else:
+        # full editing mode, text, mechanics, formatting
+        if status != "don't show":
+            self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
+            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
+
+    try:
+        self.centerDisplay.scroll_to(config.textLabelArray[-1])
+    except:
+        pass
+
+    try:
+        self.centerDisplay.scroll_to(config.textFieldLabelArray[-1])
+    except:
+        pass
+
+def makeItemLabels(self, text, status='result'):
 
     if len(text) <= 0:
         return
@@ -43,11 +154,45 @@ def updateCenterDisplay(self, text, status='result', reset=False):
     if text[:1] == "\n":
         text = text[1:]
 
-    if reset == False:
-        config.textArray.append(text)
-        config.textStatusArray.append(status)
+    config.textArray.append(text)
+    config.textStatusArray.append(status)
 
     base_text = text
+    text, index = parseText(text, status)
+
+    label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label.text_size = (self.centerDisplayGrid.width, None)
+    label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+    label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+    label.bind(on_release=storeBookmarkLabel)
+    label.bind(on_ref_press=refPress)
+    label.foreground_color=(1,1,1,1)
+    label.markup = True
+    label.self = self
+    label.index = config.textArray.index(base_text)
+    config.textLabelArray.append(label)
+
+    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=config.basefont75, font_name='Fantasque-Sans')
+    label.background_normal=''
+    label.background_color=accent1
+    label.background_down=''
+    label.background_color_down=accent2
+    label.bind(on_press=cycleText)
+    label.markup = True
+    config.textStatusLabelArray.append(label)
+
+    label = TextInput(text=base_text, size_hint_y=None, font_size=config.maintextfont)
+    label.text_size = (self.centerDisplayGrid.width, None)
+    label.height = max(((len(label._lines)/3)+1) * label.line_height, config.general['basefontsize']*2)
+    label.bind(focus=focusChangeText)
+    label.background_color=neutral
+    label.foreground_color=(1,1,1,1)
+    label.index = config.textArray.index(base_text)
+    config.textFieldLabelArray.append(label)
+
+def parseText(text, status):
+
+    index = config.textArray.index(text)
 
     if status == "ephemeral":
         text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
@@ -72,126 +217,7 @@ def updateCenterDisplay(self, text, status='result', reset=False):
     else:
         pass
 
-    if edit_mode == "READ":
-        # this mode is for reading the entire log, mechanics and all
-
-        self.centerDisplayGrid.cols = 1
-
-        label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
-        label.text_size = (self.centerDisplayGrid.width, None)
-        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
-        label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-        label.bind(on_release=storeBookmarkLabel)
-        label.bind(on_ref_press=refPress)
-        label.foreground_color=(1,1,1,1)
-        label.markup = True
-        label.self = self
-        label.index = config.textArray.index(base_text)
-        config.textLabelArray.append(label)
-
-        if status != "don't show":
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-
-    elif edit_mode == "PLAY":
-        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
-
-        self.centerDisplayGrid.cols = 2
-
-        label = Label(text=text, size_hint_y=None, size_hint_x=.85, font_size=config.maintextfont, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
-        label.text_size = (self.centerDisplayGrid.width, None)
-        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
-        label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-        label.bind(on_release=storeBookmarkLabel)
-        label.bind(on_ref_press=refPress)
-        label.foreground_color=(1,1,1,1)
-        label.markup = True
-        label.self = self
-        label.index = config.textArray.index(base_text)
-        config.textLabelArray.append(label)
-
-        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=config.basefont75, font_name='Fantasque-Sans')
-        label.background_normal=''
-        label.background_color=accent1
-        label.background_down=''
-        label.background_color_down=accent2
-        label.bind(on_press=cycleText)
-        label.markup = True
-        config.textStatusLabelArray.append(label)
-
-        if status != "don't show":
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
-
-    elif edit_mode == "CLEAN":
-        # clean mode for reading just text; don't show mechanics or formatting tags
-
-        self.centerDisplayGrid.cols = 1
-
-        if status == "no_format":
-
-            label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
-            label.text_size = (self.centerDisplayGrid.width, None)
-            label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
-            label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-            label.bind(on_release=storeBookmarkLabel)
-            label.bind(on_ref_press=refPress)
-            label.foreground_color=(1,1,1,1)
-            label.markup = True
-            label.index = config.textArray.index(base_text)
-            config.textLabelArray.append(label)
-
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-
-    elif edit_mode == "CEDIT":
-        # editing mode for just text, no mechanics or formatting tags
-
-        self.centerDisplayGrid.cols = 1
-
-        if status == "no_format":
-
-            label = TextInput(text=base_text, size_hint_y=None, font_size=config.maintextfont)
-            label.text_size = (self.centerDisplayGrid.width, None)
-            label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
-            label.bind(focus=focusChangeText)
-            label.background_color=neutral
-            label.foreground_color=(1,1,1,1)
-            label.index = config.textArray.index(base_text)
-            config.textLabelArray.append(label)
-
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-
-    else:
-        # full editing mode, text, mechanics, formatting
-
-        self.centerDisplayGrid.cols = 2
-
-        label = TextInput(text=base_text, size_hint_y=None, size_hint_x=.85, font_size=config.maintextfont)
-        label.text_size = (self.centerDisplayGrid.width, None)
-        label.height = max(((len(label._lines)/4)+1) * label.line_height, config.general['basefontsize']*2)
-        label.bind(focus=focusChangeText)
-        label.background_color=neutral
-        label.foreground_color=(1,1,1,1)
-        #label.index = len(config.textLabelArray)
-        label.index = config.textArray.index(base_text)
-        config.textLabelArray.append(label)
-
-        label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=config.basefont75, font_name='Fantasque-Sans')
-        label.background_normal=''
-        label.background_color=accent1
-        label.background_down=''
-        label.background_color_down=accent2
-        label.bind(on_press=cycleText)
-        label.markup = True
-        config.textStatusLabelArray.append(label)
-
-        if status != "don't show":
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
-
-    try:
-        self.centerDisplay.scroll_to(config.textLabelArray[-1])
-    except:
-        pass
+    return text, index
 
 def cycleText(self, *args):
     if self.text == "color2":
@@ -530,10 +556,7 @@ def quickload(self, gamedir):
         x = open(gamedir + 'main_status.txt', 'r')
         tempArray = json.load(f)
         tempStatusArray = json.load(x)
-        for i in tempArray:
-            curr_index = tempArray.index(i)
-            updateCenterDisplay(self, i, tempStatusArray[curr_index])
-        self.centerDisplay.scroll_to(config.textLabelArray[-1])
+        resetCenterDisplay(self, tempArray, tempStatusArray)
         f.close()
         x.close()
     except:
@@ -930,7 +953,7 @@ def getRandomTrack(key="Active"):
 # weighted choosers
 def chooseWeighted(value, text, form):
     result_string = ""
-    result = "Please enter a comma-separated list in one line that has at least as many options as needed."
+    result = "Please enter a comma-separated list in one line that has at least as many options as needed. Excess options will be ignored."
     try:
         if value == 1:
             # 2d4

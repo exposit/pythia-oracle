@@ -66,6 +66,7 @@ threadStatusLabelArray = []
 textArray = []
 textStatusArray = []
 textLabelArray = []
+textFieldLabelArray = []
 textStatusLabelArray = []
 
 trackLabelArray = []
