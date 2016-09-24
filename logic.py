@@ -219,43 +219,49 @@ def parseText(text, status):
 
     return text, index
 
-def cycleText(self, *args):
-    if self.text == "color2":
-        self.text = "ephemeral"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "ephemeral"
-    elif self.text == "ephemeral":
-        self.text = "don't show"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "don't show"
-    elif self.text == "don't show":
-        self.text = "result"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "result"
-    elif self.text == "result":
-        self.text = "query"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "query"
-    elif self.text == "query":
-        self.text = "oracle"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "oracle"
-    elif self.text == "oracle":
-        self.text = "no_format"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "no_format"
-    elif self.text == "no_format":
-        self.text = "italic"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "italic"
-    elif self.text == "italic":
-        self.text = "bold"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "bold"
-    elif self.text == "bold":
-        self.text = "bold_italic"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "bold_italic"
-    elif self.text == "bold_italic":
-        self.text = "color1"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "color1"
-    elif self.text == "color1":
-        self.text = "color2"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "color2"
+def cycleText(label, *args):
+
+    if label.text == "color2":
+        label.text = "ephemeral"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "ephemeral"
+    elif label.text == "ephemeral":
+        label.text = "don't show"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "don't show"
+    elif label.text == "don't show":
+        label.text = "result"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "result"
+    elif label.text == "result":
+        label.text = "query"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "query"
+    elif label.text == "query":
+        label.text = "oracle"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "oracle"
+    elif label.text == "oracle":
+        label.text = "no_format"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "no_format"
+    elif label.text == "no_format":
+        label.text = "italic"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "italic"
+    elif label.text == "italic":
+        label.text = "bold"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "bold"
+    elif label.text == "bold":
+        label.text = "bold_italic"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "bold_italic"
+    elif label.text == "bold_italic":
+        label.text = "color1"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "color1"
+    elif label.text == "color1":
+        label.text = "color2"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "color2"
     else:
-        self.text = "no_format"
-        config.textStatusArray[config.textStatusLabelArray.index(self)] = "no_format"
+        label.text = "no_format"
+        config.textStatusArray[config.textStatusLabelArray.index(label)] = "no_format"
+
+    text = config.textArray[config.textStatusLabelArray.index(label)]
+    text, index = parseText(text, label.text)
+
+    config.textLabelArray[index].text = text
 
     return True
 
@@ -267,7 +273,6 @@ def updateThreadDisplay(self, text, status):
     label = TextInput(text=text, size_hint_y=None, size_hint_x=.90, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
-    self.threadDisplayGrid.add_widget(config.threadLabelArray[-1], len(self.threadDisplayGrid.children))
 
     label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
     label.background_normal=''
@@ -277,8 +282,13 @@ def updateThreadDisplay(self, text, status):
     label.bind(on_press=cycleThread)
     label.markup = True
     config.threadStatusLabelArray.append(label)
-    self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1], len(self.threadDisplayGrid.children))
 
+    if status == "Resolved":
+        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1])
+        self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
+    else:
+        self.threadDisplayGrid.add_widget(config.threadLabelArray[-1], len(self.threadDisplayGrid.children))
+        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1], len(self.threadDisplayGrid.children))
 
 def cycleThread(self, *args):
     # current -> major -> minor -> past -> resolved -> abandoned -> removed -> current
@@ -309,12 +319,18 @@ def cycleThread(self, *args):
 
     return True
 
-# call this on a new thread added; plenty of time to change our minds
+# this is called only on a save
 def clearThread(self, *args):
+
     for i in range(len(config.threadStatusArray)):
         if config.threadStatusArray[i] == "Don't Show":
             self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
             self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+        if config.threadStatusArray[i] == "Resolved":
+            self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
+            self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+            self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[i])
+            self.threadDisplayGrid.add_widget(config.threadLabelArray[i])
 
 def updateActorDisplay(self, text, status):
 
@@ -326,15 +342,11 @@ def updateActorDisplay(self, text, status):
     label = TextInput(text=tag, size_hint_y=None, size_hint_x=1, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActorTitle)
     label.self = self
-    #label.text_size = (self.actorDisplayGrid.width, None)
-    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
     self.actorDisplayGrid.add_widget(label)
     label.index = len(config.actorLabelArray)
 
     label = TextInput(text=text, size_hint_y=None, size_hint_x=1, height=config.quintupleheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
-    #label.text_size = (self.actorDisplayGrid.width, None)
-    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
     label.tag = tag
     label.sep = sep
     label.index = len(config.actorLabelArray)
@@ -386,6 +398,7 @@ def showActor(self, *args):
             self.actorDisplayGrid.add_widget(config.actorLabelArray[i])
             self.actorDisplayGrid.add_widget(config.actorStatusLabelArray[i])
 
+# this is called only on a save
 def clearActor(self, *args):
     for i in range(len(config.actorStatusArray)):
         if config.actorStatusArray[i] == "Don't Show":
@@ -414,11 +427,16 @@ def focusChangeThread(self, value):
     else:
         config.threadArray[config.threadLabelArray.index(self)] = self.text
 
-def focusChangeText(self, value):
+def focusChangeText(label, value):
     if value:
         pass
     else:
-        config.textArray[self.index] = self.text
+        config.textArray[label.index] = label.text
+        status = config.textStatusArray[label.index]
+        formatted_text, index = parseText(label.text, status)
+
+        config.textLabelArray[index].text = formatted_text
+        config.textFieldLabelArray[index].text = label.text
 
 def getActorTag(text):
 
@@ -671,7 +689,7 @@ def updateCleanMarkdown():
             for item in config.textArray:
                 ti = config.textArray.index(item)
                 item = item.rstrip()
-                if config.textStatusArray[ti] != "ephemeral":
+                if config.textStatusArray[ti] != "ephemeral" and config.textStatusArray[ti] != "don't show":
                     if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
                         item = item.replace('\n', '*\n*')
                         result = result + "\n*" + item + "*"
@@ -689,6 +707,13 @@ def updateCleanMarkdown():
                         result = result + "\n`" + item + "`"
                     else:
                         result = result + "\n" + item
+
+            # now any in block tags
+            result = result.replace('[i]', '*')
+            result = result.replace('[/i]', '*')
+            result = result.replace('[b]', '**')
+            result = result.replace('[/b]', '**')
+
             log_file.write(result)
     except:
         pass
@@ -708,7 +733,7 @@ def updateCleanHTML():
             # actual adventure content starts here
             for item in config.textArray:
                 ti = config.textArray.index(item)
-                if config.textStatusArray[ti] != "ephemeral":
+                if config.textStatusArray[ti] != "ephemeral" and config.textStatusArray[ti] != "don't show":
                     if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
                         result = result + '\n<div class="mechanic"><div class="italic">' + item + "</div></div>"
                     elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
@@ -722,6 +747,12 @@ def updateCleanHTML():
                     else:
                         result = result + '\n<div class="normal">' + item + "</div></div>"
 
+            # now any in block tags
+            result = result.replace('[i]', '<i>')
+            result = result.replace('[/i]', '</i>')
+            result = result.replace('[b]', '<b>')
+            result = result.replace('[/b]', '</b>')
+
             result = result +  "\n</body>\n</html>"
             log_file.write(result)
     except:
@@ -734,7 +765,7 @@ def updateCollapseHTML():
         tempArray = []
 
         for i in range(len(config.textStatusArray)):
-            if config.textStatusArray[i] != "ephemeral":
+            if config.textStatusArray[i] != "ephemeral" and config.textStatusArray[i] != "don't show":
                 if config.textStatusArray[i] == "italic" or config.textStatusArray[i] == "result":
                     result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
                 elif config.textStatusArray[i] == "bold" or config.textStatusArray[i] == "query":
@@ -816,6 +847,12 @@ def updateCollapseHTML():
                     result = result + "\n" + tempArray[ti]
                     chunk = False
                     pass
+
+            # now any in block tags
+            result = result.replace('[i]', '<i>')
+            result = result.replace('[/i]', '</i>')
+            result = result.replace('[b]', '<b>')
+            result = result.replace('[/b]', '</b>')
 
             final = bracket + script + style
 

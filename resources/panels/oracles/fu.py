@@ -75,13 +75,13 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuSubBox)
 
-    self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.10)
+    self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.05)
     self.oddsButton.self = self
     self.oddsButton.bind(on_press=self.pressGenericButton)
     self.oddsButton.bind(on_release=toggleOdds)
     self.fuMainBox.add_widget(self.oddsButton)
 
-    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.10)
+    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.07)
     button.function = "howMuchWeighted"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
@@ -113,33 +113,6 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuDramaBox)
 
-    self.randomEventTypeSpinner = Spinner(
-    text='Random',
-    values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
-    background_normal='',
-    background_color=accent1,
-    background_down='',
-    background_color_down=accent2,
-    size_hint_y=0.07
-    )
-    self.randomEventTypeSpinner.self = self
-    self.fuMainBox.add_widget(self.randomEventTypeSpinner)
-
-    self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.10))
-
-    self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
-
-    for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=randomChartRoll)
-        button.subtype="Random Event"
-        button.self = self
-        button.link = self.randomEventTypeSpinner
-        self.fuRandomEventBox.add_widget(button)
-
-    self.fuMainBox.add_widget(self.fuRandomEventBox)
-
     button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.07))
     button.function = "getChaosOracle"
     button.self = self
@@ -153,6 +126,35 @@ def initPanel(self):
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getPlotMove)
     self.fuMainBox.add_widget(button)
+
+    self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07))
+
+    self.randomEventTypeSpinner = Spinner(
+    text='Random',
+    values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
+    background_normal='',
+    background_color=accent1,
+    background_down='',
+    background_color_down=accent2,
+    size_hint_y=0.07
+    )
+    self.randomEventTypeSpinner.self = self
+    self.fuMainBox.add_widget(self.randomEventTypeSpinner)
+
+    self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.07))
+
+    self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
+
+    for i in dramaRollList:
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=randomChartRoll)
+        button.subtype="Random Event"
+        button.self = self
+        button.link = self.randomEventTypeSpinner
+        self.fuRandomEventBox.add_widget(button)
+
+    self.fuMainBox.add_widget(self.fuRandomEventBox)
 
     self.fuAItem.add_widget(self.fuMainBox)
 
@@ -170,6 +172,7 @@ def chaosOracleRoll(*args):
         updateCenterDisplay(self, self.textInput.text, 'query')
 
     updateCenterDisplay(self, result, "oracle")
+    self.textInput.text = ""
 
 def fuRoll(*args):
     args[0].background_color = neutral

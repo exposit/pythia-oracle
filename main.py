@@ -1031,10 +1031,10 @@ class MainScreen(Screen):
             pass
 
         # now actor index
-        #try:
-        updateActorIndex(self)
-        #except:
-        #    pass
+        try:
+            updateActorIndex(self)
+        except:
+            pass
 
         # update which seed scheme to use
         try:
