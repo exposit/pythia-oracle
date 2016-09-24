@@ -932,10 +932,10 @@ class MainScreen(Screen):
         button.background_color = neutral
         if button.text == "top":
             button.text = "bottom"
-            self.centerDisplay.scroll_to(config.textLabelArray[0])
+            self.centerDisplay.scroll_to(self.centerDisplay.children[0])
         else:
             button.text = "top"
-            self.centerDisplay.scroll_to(config.textLabelArray[-1])
+            self.centerDisplay.scroll_to(self.centerDisplay.children[-1])
 
 #---------------------------------------------------------------------------------------
 # center footer bar
@@ -1126,6 +1126,8 @@ class MainScreen(Screen):
                 showCurrentBlock(self)
                 saveconfig(self, config.curr_game_dir)
 
+        updateRawHTML()
+        updateRawMarkdown()
+        updateCollapseHTML()
         updateCleanMarkdown()
         updateCleanHTML()
-        updateCollapseHTML()

@@ -21,8 +21,8 @@ link_color = styles.curr_palette['accent2']
 visited_link_color = styles.curr_palette['accent1']
 
 general = dict(
-    pretitle = '---',
-    posttitle = '---',
+    pretitle = '------------------------------------------',
+    posttitle = '------------------------------------------',
     enter_behavior = "PLAIN",
     edit_behavior = "READ",
     bookmarks = [-9,-9,-9,-9,-9,-9],

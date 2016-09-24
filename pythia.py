@@ -18,10 +18,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import kivy
 kivy.require('1.8.0')
 
+kivy.config.Config.set('kivy', 'log_level', 'critical' )
+
 # override config values, I'm sure there's a tidier way to do this
 kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-#kivy.config.Config.set ( 'graphics', 'width', 1280 )
-#kivy.config.Config.set ( 'graphics', 'height', 725 )
+kivy.config.Config.set ( 'graphics', 'width', 1280 )
+kivy.config.Config.set ( 'graphics', 'height', 725 )
 kivy.config.Config.set ( 'graphics', 'resizable', 0)
 
 # uncomment the next line and comment out the previous four if you want fullscreen
@@ -79,18 +81,17 @@ class TitleScreen(Screen):
 
         self.mainBox = BoxLayout(orientation='vertical', size_hint_x=.8, size_hint_y=.6, spacing=20)
 
-        self.preTitleLabel = ClickLabel(text=config.general['pretitle'], font_size=22, font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
-        self.preTitleLabel.bind(on_press=self.changePreTitle)
-        #self.preTitleLabel.bind(on_press=self.pressGenericButton)
+        self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
+        self.preTitleLabel.bind(on_enter=self.changePreTitle)
 
         self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='Cormorant', halign="center")
 
-        self.postTitleLabel = ClickLabel(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', halign="center", background_normal='', background_color=(0,0,0,0), background_down='', background_color_down=(0,0,0,0))
-        self.postTitleLabel.bind(on_press=self.changePostTitle)
-        #.postTitleLabel.bind(on_press=self.pressGenericButton)
+        self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
+        self.postTitleLabel.bind(on_enter=self.changePostTitle)
+        self.postTitleLabel.bind(on_enter=self.pressGenericButton)
 
         self.startButton = Button(text="Start", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="22dp")
-        self.startButton.bind(on_press=self.pressStart)
+        self.startButton.bind(on_press=self.pressGenericButton)
         self.startButton.bind(on_release=self.releaseStart)
 
         palettes = []
@@ -190,34 +191,6 @@ class TitleScreen(Screen):
             size_hint=(None, None), size=("400dp", "400dp"),
             auto_dismiss=True)
 
-        self.preTitleBox = BoxLayout(orientation="vertical")
-        self.preTitleNameInput = TextInput(text="", multiline=False)
-        self.preTitleBox.add_widget(self.preTitleNameInput)
-
-        btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.preTitleBox.add_widget(btn)
-        btn.bind(on_release=self.confirmPreTitle)
-        btn.bind(on_press=self.pressGenericButton)
-
-        self.preTitlePopup = Popup(title='Pre Title',
-            content=self.preTitleBox,
-            size_hint=(None, None), size=("200dp", "150dp"),
-            auto_dismiss=True)
-
-        self.postTitleBox = BoxLayout(orientation="vertical")
-        self.postTitleNameInput = TextInput(text="", multiline=False)
-        self.postTitleBox.add_widget(self.postTitleNameInput)
-
-        btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.postTitleBox.add_widget(btn)
-        btn.bind(on_release=self.confirmPostTitle)
-        btn.bind(on_press=self.pressGenericButton)
-
-        self.postTitlePopup = Popup(title='Post Title',
-            content=self.postTitleBox,
-            size_hint=(None, None), size=("200dp", "150dp"),
-            auto_dismiss=True)
-
         # make a new game with a scenario
         available_scenarios = glob.glob("." + os.sep + "resources" + os.sep + "scenarios" + os.sep + "*" + os.sep)
 
@@ -258,8 +231,6 @@ class TitleScreen(Screen):
             size_hint=(None, None), size=("400dp", "400dp"),
             auto_dismiss=True)
 
-    def pressStart(self, *args):
-        self.startButton.background_color = accent2
     def releaseStart(self, *args):
         self.startButton.background_color = accent1
         if os.path.exists(config.curr_game_dir):
@@ -291,24 +262,14 @@ class TitleScreen(Screen):
     def changePreTitle(self, *args):
         #args[0].background_color = ''
         #self.preTitlePopup.open()
+        # have this just save the new pretitle
         pass
 
     def changePostTitle(self, *args):
         #args[0].background_color = ''
         #self.postTitlePopup.open()
+        # have this just save the new posttitle
         pass
-
-    def confirmPreTitle(self, *args):
-        args[0].background_color = ''
-        self.preTitleLabel.text = self.preTitleNameInput.text
-        config.general['pretitle'] = self.preTitleNameInput.text
-        self.preTitlePopup.dismiss()
-
-    def confirmPostTitle(self, *args):
-        args[0].background_color = ''
-        self.postTitleLabel.text = self.postTitleNameInput.text
-        config.general['posttitle'] = self.postTitleNameInput.text
-        self.postTitlePopup.dismiss()
 
     def releaseLoad(self, *args):
          self.savesPopup.open()
@@ -347,6 +308,7 @@ class TitleScreen(Screen):
             newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
             if not os.path.exists(newpath):
                 os.makedirs(newpath)
+                os.makedirs(newpath + "logs")
             else:
                 self.newGameStatus.text = "Folder exists."
                 return
@@ -388,6 +350,7 @@ class TitleScreen(Screen):
         newpath = '.' + os.sep + 'saves' + os.sep + folder_name + os.sep
         if not os.path.exists(newpath):
             os.makedirs(newpath)
+            os.makedirs(newpath + "logs")
         else:
             self.newModGameStatus.text = "Folder exists."
             return

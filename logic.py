@@ -561,9 +561,11 @@ def quicksave(self, gamedir):
     json.dump(config.mapArray, f)
     f.close()
 
+    updateRawHTML()
+    updateRawMarkdown()
+    updateCollapseHTML()
     updateCleanMarkdown()
     updateCleanHTML()
-    updateCollapseHTML()
 
     saveconfig(self, gamedir)
 
@@ -682,9 +684,9 @@ def storeBookmarkLabel(label):
             config.general['bookmarks'][button.value] = index
     del l
 
-def updateCleanMarkdown():
+def updateRawMarkdown():
     try:
-        with open(config.curr_game_dir + "log_clean.md", "w") as log_file:
+        with open(config.curr_game_dir + "logs" + os.sep + "log_raw.md", "w") as log_file:
             result = "\n"
             for item in config.textArray:
                 ti = config.textArray.index(item)
@@ -709,18 +711,26 @@ def updateCleanMarkdown():
                         result = result + "\n" + item
 
             # now any in block tags
-            result = result.replace('[i]', '*')
-            result = result.replace('[/i]', '*')
+            result = result.replace('[i]', '_')
+            result = result.replace('[/i]', '_')
             result = result.replace('[b]', '**')
             result = result.replace('[/b]', '**')
+            result = result.replace('[u]', '<u>')
+            result = result.replace('[/u]', '</u>')
+            result = result.replace('[s]', '<s>')
+            result = result.replace('[/s]', '</s>')
+            result = result.replace('[sub]', '<sub>')
+            result = result.replace('[/sub]', '</sub>')
+            result = result.replace('[sup]', '<sup>')
+            result = result.replace('[/sup]', '</sup>')
 
             log_file.write(result)
     except:
         pass
 
-def updateCleanHTML():
+def updateRawHTML():
     try:
-        with open(config.curr_game_dir + "log_standard.html", "w") as log_file:
+        with open(config.curr_game_dir + "logs" + os.sep + "log_raw.html", "w") as log_file:
             result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             style = '\n<style type="text/css">'
             style = style + "\n.italic {\nfont-style: italic;\n}"
@@ -752,6 +762,14 @@ def updateCleanHTML():
             result = result.replace('[/i]', '</i>')
             result = result.replace('[b]', '<b>')
             result = result.replace('[/b]', '</b>')
+            result = result.replace('[u]', '<u>')
+            result = result.replace('[/u]', '</u>')
+            result = result.replace('[s]', '<s>')
+            result = result.replace('[/s]', '</s>')
+            result = result.replace('[sub]', '<sub>')
+            result = result.replace('[/sub]', '</sub>')
+            result = result.replace('[sup]', '<sup>')
+            result = result.replace('[/sup]', '</sup>')
 
             result = result +  "\n</body>\n</html>"
             log_file.write(result)
@@ -781,7 +799,7 @@ def updateCollapseHTML():
                 tempArray.append(result)
                 tempStatusArray.append(config.textStatusArray[i])
 
-        with open(config.curr_game_dir + "log_ind_collapsible.html", "w") as log_file:
+        with open(config.curr_game_dir + "logs" + os.sep + "log_raw_collapsible.html", "w") as log_file:
             count = 0
             bracket = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             script = '<script>'
@@ -853,6 +871,14 @@ def updateCollapseHTML():
             result = result.replace('[/i]', '</i>')
             result = result.replace('[b]', '<b>')
             result = result.replace('[/b]', '</b>')
+            result = result.replace('[u]', '<u>')
+            result = result.replace('[/u]', '</u>')
+            result = result.replace('[s]', '<s>')
+            result = result.replace('[/s]', '</s>')
+            result = result.replace('[sub]', '<sub>')
+            result = result.replace('[/sub]', '</sub>')
+            result = result.replace('[sup]', '<sup>')
+            result = result.replace('[/sup]', '</sup>')
 
             final = bracket + script + style
 
@@ -861,6 +887,66 @@ def updateCollapseHTML():
             final = final + result
             final = final +  "\n</body>\n</html>"
             log_file.write(final)
+    except:
+        pass
+
+def updateCleanMarkdown():
+    try:
+        with open(config.curr_game_dir + "logs" + os.sep + "log_clean.md", "w") as log_file:
+            result = "\n"
+            for item in config.textArray:
+                ti = config.textArray.index(item)
+                item = item.rstrip()
+                if config.textStatusArray[ti] == 'no_format':
+                        result = result + "\n" + item
+
+            # now replace any in block tags
+            result = result.replace('[i]', '_')
+            result = result.replace('[/i]', '_')
+            result = result.replace('[b]', '**')
+            result = result.replace('[/b]', '**')
+            result = result.replace('[u]', '<u>')
+            result = result.replace('[/u]', '</u>')
+            result = result.replace('[s]', '<s>')
+            result = result.replace('[/s]', '</s>')
+            result = result.replace('[sub]', '<sub>')
+            result = result.replace('[/sub]', '</sub>')
+            result = result.replace('[sup]', '<sup>')
+            result = result.replace('[/sup]', '</sup>')
+
+            log_file.write(result)
+    except:
+        pass
+
+def updateCleanHTML():
+    try:
+        with open(config.curr_game_dir + "logs" + os.sep + "log_clean.html", "w") as log_file:
+            result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
+            style = '\n<style type="text/css">'
+            style = style + "\n</style>\n"
+            result = result + style + "</head>\n<body><!-- actual adventure starts here -->"
+            # actual adventure content starts here
+            for item in config.textArray:
+                ti = config.textArray.index(item)
+                if config.textStatusArray[ti] == "no_format":
+                        result = result + '\n<div class="normal">' + item + "</div></div>"
+
+            # now any in block tags
+            result = result.replace('[i]', '<i>')
+            result = result.replace('[/i]', '</i>')
+            result = result.replace('[b]', '<b>')
+            result = result.replace('[/b]', '</b>')
+            result = result.replace('[u]', '<u>')
+            result = result.replace('[/u]', '</u>')
+            result = result.replace('[s]', '<s>')
+            result = result.replace('[/s]', '</s>')
+            result = result.replace('[sub]', '<sub>')
+            result = result.replace('[/sub]', '</sub>')
+            result = result.replace('[sup]', '<sup>')
+            result = result.replace('[/sup]', '</sup>')
+
+            result = result +  "\n</body>\n</html>"
+            log_file.write(result)
     except:
         pass
 

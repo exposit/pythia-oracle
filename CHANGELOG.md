@@ -6,6 +6,10 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.8.0
 
+* added support for some markdown tags if placed in blocks (italic, bold, superscript, subscript, underline, strikethrough)
+* moved logs to a sub directory and added some clean (no mechanics) versions.
+* pulled out unused stuff from pythia.py
+* updated post and pretitle to textfields; not perfect but working
 * "resolved" status for a thread will now send it to the bottom of the list
 * seeds are much better curated (but there's still a lot of them so I might have missed something).
 
