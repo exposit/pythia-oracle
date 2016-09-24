@@ -421,11 +421,11 @@ def focusChangeActorTitle(field, value):
         config.actorArray[field.index] = text
         updateActorIndex(field.self)
 
-def focusChangeThread(self, value):
+def focusChangeThread(label, value):
     if value:
         pass
     else:
-        config.threadArray[config.threadLabelArray.index(self)] = self.text
+        config.threadArray[config.threadLabelArray.index(label)] = label.text
 
 def focusChangeText(label, value):
     if value:

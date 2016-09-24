@@ -4,7 +4,15 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version 0.8.0 (WIP)
+Version 0.8.0
+
+* "resolved" status for a thread will now send it to the bottom of the list
+
+Version 0.7.1
+
+* fixed a couple of issues related to refactoring the main display routine, mainly formatting updates on status toggle and editing text carrying over to every mode. Looks great now!
+* a few other bug fixes
+* removed some old commented out code
 
 Version 0.7.0
 
