@@ -7,6 +7,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 Version 0.8.0
 
 * "resolved" status for a thread will now send it to the bottom of the list
+* seeds are much better curated (but there's still a lot of them so I might have missed something).
 
 Version 0.7.1
 
