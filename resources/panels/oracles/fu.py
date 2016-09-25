@@ -97,14 +97,14 @@ def initPanel(self):
     self.fuDramaBox.add_widget(Label(text="Yes/No"))
 
     for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=dramaChartRoll)
         button.subtype="Good/Bad"
         button.self = self
         self.fuDramaBox.add_widget(button)
 
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=dramaChartRoll)
         button.subtype="Yes/No"
@@ -113,7 +113,7 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuDramaBox)
 
-    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.07))
+    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,.07))
     button.function = "getChaosOracle"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
@@ -121,7 +121,7 @@ def initPanel(self):
     self.fuMainBox.add_widget(button)
 
     button = Button(text="Plot Move", size_hint=(1,.07), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getPlotMove)
@@ -146,7 +146,7 @@ def initPanel(self):
     self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
 
     for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=randomChartRoll)
         button.subtype="Random Event"

@@ -991,8 +991,8 @@ def getRandomActor(key="All"):
     textarray = []
     result = "[Random actor, key: " + key + "] " + "No results found."
 
-    for i in range(len(config.actorLabelArray)):
-        textarray.append(config.actorLabelArray[i].text + ", " + config.actorStatusLabelArray[i].text)
+    for i in range(len(config.actorArray)):
+        textarray.append(config.actorArray[i] + ", " + config.actorStatusArray[i])
 
     if key == "All" and len(textarray) > 0:
         result = "[Random actor, key: " + key + "] " + random.choice(textarray)

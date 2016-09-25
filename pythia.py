@@ -18,7 +18,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import kivy
 kivy.require('1.8.0')
 
-kivy.config.Config.set('kivy', 'log_level', 'critical' )
+#kivy.config.Config.set('kivy', 'log_level', 'critical' )
 
 # override config values, I'm sure there's a tidier way to do this
 kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
