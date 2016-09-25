@@ -6,7 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.8.0
 
-* added support for some markdown tags if placed in blocks (italic, bold, superscript, subscript, underline, strikethrough)
+* added support for some markdown tags if placed in blocks (italic, bold, superscript, subscript, underline, strikethrough). Note, kivy doesn't appear to actually support displaying underline or strikethrough but the the markdown and html logs will appear correctly.
 * moved logs to a sub directory and added some clean (no mechanics) versions.
 * pulled out unused stuff from pythia.py
 * updated post and pretitle to textfields; not perfect but working
