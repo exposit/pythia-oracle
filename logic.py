@@ -203,7 +203,6 @@ def parseText(text, status):
 
     if status in config.formats:
         blockformat = config.formats[status]
-        print(status, blockformat)
         if blockformat == "color1":
             text = "[color=" + str(config.formats['highlight_color']) + "]" + text + "[/color]"
         elif blockformat == "color2":

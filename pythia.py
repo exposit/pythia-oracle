@@ -235,7 +235,6 @@ class TitleScreen(Screen):
 
     def releaseStart(self, *args):
         self.startButton.background_color = accent1
-        print(self.startButton.background_color)
         if os.path.exists(config.curr_game_dir):
             self.manager.transition = SlideTransition(duration=1,clearcolor=(primary[0], primary[1], primary[2], 1), direction="up")
             self.manager.current = 'mainscn'
@@ -261,23 +260,6 @@ class TitleScreen(Screen):
                         config_file.write(item)
                 except:
                     pass
-
-    def TESTchangePalette(self, *args):
-        # can we update everything from here?
-        print[args]
-        curr_palette = palette[args[1].replace(' ', '_')]
-        primary, secondary, accent1, accent2, neutral, textcolor, black, white = setColors(curr_palette)
-        for widget in self.parent.walk():
-            print("{}".format(widget))
-            if isinstance(widget, Label):
-                print("Label")
-                widget.background_color = accent2
-            elif isinstance(widget, Button):
-                widget.background_normal=''
-                widget.background_color=neutral
-                widget.background_down=''
-                widget.background_color_down=accent2
-                widget.font_name='Fantasque-Sans'
 
     def changePreTitle(self, *args):
         #args[0].background_color = ''
