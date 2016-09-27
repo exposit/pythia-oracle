@@ -16,6 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 
 import kivy
+from kivy.properties import NumericProperty, ListProperty
 kivy.require('1.8.0')
 
 import config
@@ -84,15 +85,12 @@ class TitleScreen(Screen):
         self.mainBox = BoxLayout(orientation='vertical', size_hint_x=.8, size_hint_y=.6, spacing=20)
 
         self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
-        self.preTitleLabel.bind(on_enter=self.changePreTitle)
 
         self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='Cormorant', halign="center")
 
         self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
-        self.postTitleLabel.bind(on_enter=self.changePostTitle)
-        self.postTitleLabel.bind(on_enter=self.pressGenericButton)
 
-        self.startButton = Button(text="Start", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="22dp")
+        self.startButton = Button(text="Start", font_name='Cormorant', font_size="22dp")
         self.startButton.bind(on_press=self.pressGenericButton)
         self.startButton.bind(on_release=self.releaseStart)
 
@@ -105,7 +103,7 @@ class TitleScreen(Screen):
             text=styles.curr_palette['name'],
             values=palettes,
             background_normal='',
-            background_color=accent1,
+            background_color=neutral,
             background_down='',
             background_color_down=accent2,
             size_hint=(.5, 1),
@@ -115,15 +113,15 @@ class TitleScreen(Screen):
 
         self.paletteSpinner.bind(text=self.changePalette)
 
-        self.loadButton = Button(text="Load", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.loadButton = Button(text="Load", font_name='Cormorant', font_size="18dp")
         self.loadButton.bind(on_press=self.pressGenericButton)
         self.loadButton.bind(on_release=self.releaseLoad)
 
-        self.newButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.newButton = Button(text="New Game", font_name='Cormorant', font_size="18dp")
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
-        self.newScenarioButton = Button(text="New Game", background_normal='', background_color=accent1, background_down='', background_color_down=accent2, font_name='Cormorant', font_size="18dp")
+        self.newScenarioButton = Button(text="New Game", font_name='Cormorant', font_size="18dp")
         self.newScenarioButton.bind(on_press=self.pressGenericButton)
         self.newScenarioButton.bind(on_release=self.newGameScenario)
 
@@ -183,7 +181,7 @@ class TitleScreen(Screen):
         self.newGameStatus = Label(text="Enter a new name.")
         self.newGameBox.add_widget(self.newGameStatus)
 
-        btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn = Button(text="Confirm", size_hint=(1,1), font_name='Fantasque-Sans')
         self.newGameBox.add_widget(btn)
         btn.bind(on_release=self.makeNewGame)
         btn.bind(on_press=self.pressGenericButton)
@@ -199,13 +197,13 @@ class TitleScreen(Screen):
         self.scenariosBox = BoxLayout(orientation="vertical")
         for modfolder in available_scenarios:
             modname = modfolder.split(os.sep)[-2]
-            btn = Button(text=modname, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            btn = Button(text=modname, size_hint=(1,1))
             btn.scenario = modfolder
             self.scenariosBox.add_widget(btn)
             btn.bind(on_release=self.choseScenarioToLoad)
             btn.bind(on_press=self.pressGenericButton)
 
-        btn = Button(text="Blank Template (No Scenario)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn = Button(text="Blank Template (No Scenario)", size_hint=(1,1))
         btn.scenario = "None"
         self.scenariosBox.add_widget(btn)
         btn.bind(on_release=self.choseNoScenarioToLoad)
@@ -223,7 +221,7 @@ class TitleScreen(Screen):
         self.newModGameStatus = Label(text="Enter a new name.")
         self.newModGameBox.add_widget(self.newModGameStatus)
 
-        btn = Button(text="Confirm", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        btn = Button(text="Confirm", size_hint=(1,1))
         self.newModGameBox.add_widget(btn)
         btn.bind(on_release=self.makeNewModGame)
         btn.bind(on_press=self.pressGenericButton)
@@ -260,18 +258,6 @@ class TitleScreen(Screen):
                         config_file.write(item)
                 except:
                     pass
-
-    def changePreTitle(self, *args):
-        #args[0].background_color = ''
-        #self.preTitlePopup.open()
-        # have this just save the new pretitle
-        pass
-
-    def changePostTitle(self, *args):
-        #args[0].background_color = ''
-        #self.postTitlePopup.open()
-        # have this just save the new posttitle
-        pass
 
     def releaseLoad(self, *args):
          self.savesPopup.open()
@@ -408,13 +394,17 @@ class OracleApp(App):
 
         #Window.clearcolor = (1, 1, 1, 1)
 
+        global root
+        root = self
+
         # define colors used in style.kv here; is there a way to change this without restart?
-        self.accent1_r = accent1[0]
-        self.accent1_g = accent1[1]
-        self.accent1_b = accent1[2]
-
-        self.basefontsize = config.formats['basefontsize']
-
+        #self.accent1_r = accent1[0]
+        #self.accent1_g = accent1[1]
+        #self.accent1_b = accent1[2]
+        self.basefont = config.formats['basefontsize']
+        self.neutral = styles.neutral
+        self.accent1 = styles.accent1
+        self.accent2 = styles.accent2
         self.textcolor = styles.textcolor
 
         self.screenmanager = ScreenManager()

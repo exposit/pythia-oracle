@@ -8,9 +8,6 @@
 from imports import *
 import config
 
-class ScrollableLabel(ScrollView):
-    text = StringProperty('')
-
 class MainScreen(Screen):
 
     def __init__(self,**kwargs):
@@ -21,7 +18,6 @@ class MainScreen(Screen):
 ##---------------------------------------------------------------------------------------
 
         # set background; to have no background, delete or move the background images
-        texture = ObjectProperty()
 
         #try:
         #    self.texture = Image(source='resources/bg_main/' + styles.curr_palette["name"].replace (" ", "_") + '_5.png').texture
@@ -45,7 +41,7 @@ class MainScreen(Screen):
 #  SIDE PANEL - right horizontal stack
 ##---------------------------------------------------------------------------------------
 
-        self.leftAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space='28dp')
+        self.leftAccordion = Accordion(orientation='horizontal', size_hint=(.6, 1), min_space = config.aiheight)
         self.mainBox.add_widget(self.leftAccordion)
 
 ##---------------------------------------------------------------------------------------
@@ -58,7 +54,7 @@ class MainScreen(Screen):
 
         self.trackBox = BoxLayout(orientation="horizontal", size_hint=(.25,1))
 
-        self.trackDownButton = Button(text="-", size_hint=(.5,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.trackDownButton = Button(text="-", size_hint=(.5,1))
         self.trackDownButton.bind(on_press=self.pressGenericButton)
         self.trackDownButton.bind(on_release=self.releaseTrackerDown)
         self.trackBox.add_widget(self.trackDownButton)
@@ -66,7 +62,7 @@ class MainScreen(Screen):
         self.trackLabel = Label(text="0")
         self.trackBox.add_widget(self.trackLabel)
 
-        self.trackUpButton = Button(text="+", size_hint=(.5,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.trackUpButton = Button(text="+", size_hint=(.5,1))
         self.trackUpButton.bind(on_press=self.pressGenericButton)
         self.trackUpButton.bind(on_release=self.releaseTrackerUp)
         self.trackBox.add_widget(self.trackUpButton)
@@ -131,12 +127,12 @@ class MainScreen(Screen):
 
         self.threadButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
-        self.button = Button(text="copy to main window", size_hint=(1,.03), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button = Button(text="copy to main window", size_hint=(1,.03), font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyThreadsToMain)
         self.threadButtonBox.add_widget(self.button)
 
-        self.randomThreadButton = Button(text="random thread", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomThreadButton = Button(text="random thread", halign='center', font_size=config.basefont75)
         self.randomThreadButton.bind(on_press=self.pressGenericButton)
         self.randomThreadButton.bind(on_release=self.releaseRandomThread)
         self.threadButtonBox.add_widget(self.randomThreadButton)
@@ -156,17 +152,17 @@ class MainScreen(Screen):
 
         self.titleBarBox = BoxLayout(orientation='horizontal', size_hint=(1,.05))
 
-        self.jumpButton = Button(text="top", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.jumpButton = Button(text="top", size_hint=(1,1), font_size=config.basefont75)
         self.jumpButton.bind(on_press=self.pressGenericButton)
         self.jumpButton.bind(on_release=self.navJump)
         self.titleBarBox.add_widget(self.jumpButton)
 
-        self.findButton = Button(text="find", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.findButton = Button(text="find", size_hint=(1,1), font_size=config.basefont75)
         self.findButton.bind(on_press=self.pressGenericButton)
         self.findButton.bind(on_release=self.navFind)
         self.titleBarBox.add_widget(self.findButton)
 
-        self.nextButton = Button(text="next", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.nextButton = Button(text="next", size_hint=(1,1), font_size=config.basefont75)
         self.nextButton.bind(on_press=self.pressGenericButton)
         self.nextButton.bind(on_release=self.navNext)
         self.titleBarBox.add_widget(self.nextButton)
@@ -201,81 +197,81 @@ class MainScreen(Screen):
         self.footerBox = GridLayout(rows=2)
 
         # system buttons, ie, About and save
-        self.saveButton = Button(text="Save", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.saveButton = Button(text="Save")
         self.saveButton.bind(on_press=self.pressGenericButton)
         self.saveButton.bind(on_release=self.releaseSave)
 
-        self.AboutButton = Button(text="About", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.AboutButton = Button(text="About")
         self.AboutButton.bind(on_release=self.showAbout)
 
         #self.box for adding threads & actors
-        self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont90)
+        self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
         self.threadSubmitButton.bind(on_press=self.pressGenericButton)
         self.threadSubmitButton.bind(on_release=self.releaseThread)
 
-        self.addActorButton = Button(text="Add\nActor", halign='center', size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont90)
+        self.addActorButton = Button(text="Add\nActor", halign='center', size_hint=(1,1), font_size=config.basefont90)
         self.addActorButton.bind(on_press=self.pressGenericButton)
         self.addActorButton.bind(on_release=self.releaseAddActor)
 
         # pick one
-        self.listButton1 = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton1 = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton1.bind(on_press=self.pressGenericButton)
         self.listButton1.bind(on_release=self.chooseFromList)
         self.listButton1.value = 0
 
-        self.listButton2 = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton2 = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton2.bind(on_press=self.pressGenericButton)
         self.listButton2.bind(on_release=self.chooseFromList)
         self.listButton2.value = 1
 
-        self.listButton3 = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton3 = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton3.bind(on_press=self.pressGenericButton)
         self.listButton3.bind(on_release=self.chooseFromList)
         self.listButton3.value = 2
 
-        self.listButton4 = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        self.listButton4 = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton4.bind(on_press=self.pressGenericButton)
         self.listButton4.bind(on_release=self.chooseFromList)
         self.listButton4.value = 3
 
         # dice presets
-        self.button1 = Button(text="1d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button1 = Button(text="1d8")
         self.button1.bind(on_press=self.pressGenericButton)
         self.button1.bind(on_release=self.releasePresetDice)
 
-        self.button2 = Button(text="2d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button2 = Button(text="2d8")
         self.button2.bind(on_press=self.pressGenericButton)
         self.button2.bind(on_release=self.releasePresetDice)
 
-        self.button3 = Button(text="3d8", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button3 = Button(text="3d8")
         self.button3.bind(on_press=self.pressGenericButton)
         self.button3.bind(on_release=self.releasePresetDice)
 
-        self.button4 = Button(text="1d20", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
+        self.button4 = Button(text="1d20", font_size=config.basefont80)
         self.button4.bind(on_press=self.pressGenericButton)
         self.button4.bind(on_release=self.releasePresetDice)
 
-        self.button5 = Button(text="1d100", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80)
+        self.button5 = Button(text="1d100", font_size=config.basefont80)
         self.button5.bind(on_press=self.pressGenericButton)
         self.button5.bind(on_release=self.releasePresetDice)
 
-        self.button6 = Button(text="1d4", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button6 = Button(text="1d4")
         self.button6.bind(on_press=self.pressGenericButton)
         self.button6.bind(on_release=self.releasePresetDice)
 
-        self.button7 = Button(text="1d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button7 = Button(text="1d6")
         self.button7.bind(on_press=self.pressGenericButton)
         self.button7.bind(on_release=self.releasePresetDice)
 
-        self.button8 = Button(text="2d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button8 = Button(text="2d6")
         self.button8.bind(on_press=self.pressGenericButton)
         self.button8.bind(on_release=self.releasePresetDice)
 
-        self.button9 = Button(text="3d6", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button9 = Button(text="3d6")
         self.button9.bind(on_press=self.pressGenericButton)
         self.button9.bind(on_release=self.releasePresetDice)
 
-        self.button0 = Button(text="1d10", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.button0 = Button(text="1d10")
         self.button0.bind(on_press=self.pressGenericButton)
         self.button0.bind(on_release=self.releasePresetDice)
 
@@ -332,34 +328,34 @@ class MainScreen(Screen):
 
         self.submitButtonsBox = BoxLayout(orientation='vertical', size_hint=(.23,1))
 
-        self.questionSubmitButton = Button(text="???", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.questionSubmitButton = Button(text="???")
         self.questionSubmitButton.bind(on_press=self.pressGenericButton)
         self.questionSubmitButton.bind(on_release=self.releaseQuestion)
         self.submitButtonsBox.add_widget(self.questionSubmitButton)
 
-        self.playerSubmitButton = Button(text="Direct", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.playerSubmitButton = Button(text="Direct")
         self.playerSubmitButton.bind(on_press=self.pressGenericButton)
         self.playerSubmitButton.bind(on_release=self.releasePlayer)
         self.submitButtonsBox.add_widget(self.playerSubmitButton)
 
-        self.dmSubmitButton = Button(text="Aside", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.dmSubmitButton = Button(text="Aside")
         self.dmSubmitButton.bind(on_press=self.pressGenericButton)
         self.dmSubmitButton.bind(on_release=self.releaseDM)
         self.submitButtonsBox.add_widget(self.dmSubmitButton)
 
-        self.rollSubmitButton = Button(text="Roll Dice", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.rollSubmitButton = Button(text="Roll Dice")
         self.rollSubmitButton.bind(on_press=self.pressGenericButton)
         self.rollSubmitButton.bind(on_release=self.releaseRoll)
         self.submitButtonsBox.add_widget(self.rollSubmitButton)
 
         self.seedButtonsBox = BoxLayout(orientation='vertical', size_hint_y=2)
 
-        self.seedButton = Button(text="Seed", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.seedButton = Button(text="Seed")
         self.seedButton.bind(on_press=self.pressGenericButton)
         self.seedButton.bind(on_release=self.getSeed)
         self.seedButtonsBox.add_widget(self.seedButton)
 
-        self.seedAlternateButton = Button(text="Action", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.seedAlternateButton = Button(text="Action")
         self.seedAlternateButton.bind(on_press=self.pressGenericButton)
         self.seedAlternateButton.bind(on_release=self.getSeedAlternate)
         self.seedButtonsBox.add_widget(self.seedAlternateButton)
@@ -368,13 +364,13 @@ class MainScreen(Screen):
 
         # scenario buttons go here, if a scenario is loaded
         self.scenarioButtonList = []
-        button = Button(text="show scene", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button = Button(text="show scene")
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.showBlock)
         self.scenarioButtonList.append(button)
 
-        button = Button(text="show exits", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        button = Button(text="show exits")
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.showExits)
@@ -419,12 +415,12 @@ class MainScreen(Screen):
 
             self.buttonbox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
-            self.button = Button(text="copy to main window", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+            self.button = Button(text="copy to main window", font_size=config.basefont75)
             self.button.bind(on_press=self.pressGenericButton)
             self.button.bind(on_release=self.copyPCsToMain)
             self.buttonbox.add_widget(self.button)
 
-            self.button = Button(text="random major", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            self.button = Button(text="random major", halign='center', font_size=config.basefont75)
             self.button.bind(on_press=self.pressGenericButton)
             self.button.bind(on_release=self.releaseRandomPC)
             self.buttonbox.add_widget(self.button)
@@ -498,12 +494,12 @@ class MainScreen(Screen):
 
         self.actorButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
-        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button = Button(text="copy to main window", size_hint=(1,.05), font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyActorToMain)
         self.actorButtonBox.add_widget(self.button)
 
-        self.randomActorButton = Button(text="random actor", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomActorButton = Button(text="random actor", halign='center', font_size=config.basefont75)
         self.randomActorButton.bind(on_press=self.pressGenericButton)
         self.randomActorButton.bind(on_release=self.releaseRandomActor)
         self.actorButtonBox.add_widget(self.randomActorButton)
@@ -545,12 +541,12 @@ class MainScreen(Screen):
 
         self.trackButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
-        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.button = Button(text="copy to main window", size_hint=(1,.05), font_size=config.basefont75)
         self.button.bind(on_press=self.pressGenericButton)
         self.button.bind(on_release=self.copyTracksToMain)
         self.trackButtonBox.add_widget(self.button)
 
-        self.randomTrackButton = Button(text="random track", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+        self.randomTrackButton = Button(text="random track", halign='center', font_size=config.basefont75)
         self.randomTrackButton.bind(on_press=self.pressGenericButton)
         self.randomTrackButton.bind(on_release=self.releaseRandomTrack)
         self.trackButtonBox.add_widget(self.randomTrackButton)
@@ -910,6 +906,7 @@ class MainScreen(Screen):
             button.text = '-'
             button.state = 'normal'
             self.clearBookmarkButton.state = 'normal'
+            self.clearBookmarkButton.background_color = neutral
         else:
             if button.index >= 0:
                 jumpToIndex(self, button.index)
@@ -1147,7 +1144,7 @@ class MainScreen(Screen):
 
             block = config.scenario['block']
 
-            self.scenarioTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+            self.scenarioTitleLabel = Button(text=config.advDict[block]['title'], size_hint=(1,1), font_size=config.basefont75)
             self.titleBarBox.add_widget(self.scenarioTitleLabel)
 
             if len(config.textLabelArray) == 1:
