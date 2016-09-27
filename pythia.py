@@ -235,6 +235,7 @@ class TitleScreen(Screen):
 
     def releaseStart(self, *args):
         self.startButton.background_color = accent1
+        print(self.startButton.background_color)
         if os.path.exists(config.curr_game_dir):
             self.manager.transition = SlideTransition(duration=1,clearcolor=(primary[0], primary[1], primary[2], 1), direction="up")
             self.manager.current = 'mainscn'
@@ -250,7 +251,7 @@ class TitleScreen(Screen):
             self.newGamePopup.open()
             self.newGameStatus.text = "no game loaded"
 
-    def changePaletteDEF(self, *args):
+    def changePalette(self, *args):
         args[0].background_color = accent1
         self.paletteSample.source = "." + os.sep + "resources" + os.sep + "bg_sample" + os.sep + str(args[1]).replace (" ", "_") + ".png"
         for item in styles.palette:
@@ -261,7 +262,7 @@ class TitleScreen(Screen):
                 except:
                     pass
 
-    def changePalette(self, *args):
+    def TESTchangePalette(self, *args):
         # can we update everything from here?
         print[args]
         curr_palette = palette[args[1].replace(' ', '_')]
