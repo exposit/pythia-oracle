@@ -127,6 +127,8 @@ def refPress(*args):
     subtype = subtype[:1]
     ref = args[1]
 
+    print(label.index)
+
     try:
         mod = config.curr_game_dir + "scenlogic.py"
         filename = mod.split('/')[-1]
@@ -192,7 +194,7 @@ def refPress(*args):
         try:
             exitmsg = base['exitmsg']
         except:
-            exitmsg = ""
+            exitmsg = "..."
 
         try:
             exitformat = base['exitformat']
@@ -216,6 +218,7 @@ def refPress(*args):
 
         exitmsg = parseTextVariables(self, exitmsg)
         exitmsg = parseRefs(exitmsg)
+
         logic.updateCenterDisplay(self, exitmsg, exitformat)
 
         if pause == False:

@@ -25,7 +25,7 @@ def onEnter(self):
 # add your widgets in here; see the gui for examples
 def initPanel(self):
 
-    self.decreeAItem = AccordionItem(title='Oracle\'s Decree', background_selected= os.sep + 'resources' + os.sep + "ui_images" + os.sep + 'invisible.png', min_space=config.aiheight)
+    self.decreeAItem = AccordionItem(title='Oracle\'s Decree', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
     self.decreeMainBox = BoxLayout(orientation='vertical')
 
