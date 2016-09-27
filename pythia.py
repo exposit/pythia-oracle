@@ -370,7 +370,7 @@ class TitleScreen(Screen):
         # this should likely be switched over to entirely pull from the scenario
         tempDict['general'] = config.general
         tempDict['user'] = config.user
-        tempDict['formats'] = config.user
+        tempDict['formats'] = config.formats
         tempDict['scenario'] = modconfig.scenario
         with open(newpath + 'config.txt', "w") as fum:
             json.dump(tempDict, fum)
