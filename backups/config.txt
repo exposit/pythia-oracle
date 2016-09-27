@@ -8,6 +8,8 @@
 import styles
 import os
 
+debug = True
+
 curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
 curr_adv = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
 
@@ -21,10 +23,10 @@ link_color = styles.curr_palette['accent2']
 visited_link_color = styles.curr_palette['accent1']
 
 general = dict(
-    pretitle = '---',
-    posttitle = '---',
-    enter_behavior = "PLAIN",
-    edit_behavior = "READ",
+    pretitle = '------------------------------------------',
+    posttitle = '------------------------------------------',
+    enter_behavior = "plain",
+    edit_behavior = "read",
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
     basefontsize = 16,
@@ -37,6 +39,9 @@ general = dict(
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
     actor_index_state = 0,
+    total_pcs_to_show = 2,
+    findList = [],
+    findIndex = 0,
 )
 
 scenario = dict(
@@ -81,6 +86,7 @@ mapArray = {}
 # font sizes; feel free to edit these
 # also, going to move all of these to the general array so they can be saved and loaded on a game by game basis
 basefont = str(general['basefontsize']) + "dp"
+basefont60 = str(general['basefontsize']*.60) + "dp"
 basefont75 = str(general['basefontsize']*.75) + "dp"
 basefont80 = str(general['basefontsize']*.80) + "dp"
 basefont90 = str(general['basefontsize']*.90) + "dp"
@@ -89,5 +95,5 @@ tallheight = str(general['basefontsize']+15) + "dp"
 tripleheight = str(general['basefontsize']*3+10) + "dp"
 quintupleheight = str(general['basefontsize']*5+10) + "dp"
 octupleheight = str(general['basefontsize']*8+10) + "dp"
-maintextfont = str(general['basefontsize']) + "dp"
+maintextfont = str(general['basefontsize']*.90) + "dp"
 aiheight = baseheight

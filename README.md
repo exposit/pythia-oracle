@@ -1,6 +1,7 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Especially from pre-0.7.0 versions, since 0.7.0 upgrades the main display routine.
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Version 0.8.0 introduces some formatting changes; be sure to read the section on upgrading if you have older save files.
 
-### Pythia-Oracle 0.7.0
+### Pythia-Oracle 0.8.0
+
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
 
 #### What is it?
@@ -40,6 +41,16 @@ You have two options now. Easiest (in Windows) is to double-click on the 'pythia
 `python pythia.py --size 1280x725`
 
 You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently. Also read over the customization section in this file.
+
+### Upgrading from 0.7.0 & earlier
+
+Your save game will still work fine, but you may experience some formatting issues. You can either set the format on errant blocks in Pythia one at a time, or (MAKE A BACKUP FIRST) open the main_status.txt and do some find and replaces.
+
+First, replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Finally, replace any 'don't show' entries with 'ephemeral'.
+
+From this point forward you can assign formatting tags to your fiction besides the basic 'plain' tag (italic, bold, bold_italic, color1, color2), if you want the whole block formatted a certain way. For your mechanics you can choose from oracle, query, aside, result, mechanic1, and mechanic2. You can also use standard markdown to tag individual words or phrases inside each block.
+
+Read the next section on upgrading as well!
 
 #### Upgrading from an older version
 

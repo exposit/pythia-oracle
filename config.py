@@ -8,26 +8,27 @@
 import styles
 import os
 
+debug = True
+
 curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
 curr_adv = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
 
 curr_title = "replace me"
 
 # color stuff
-transitory_color = styles.curr_palette['accent2']
-highlight_color = styles.curr_palette['accent1']
-alternate_color = styles.curr_palette['secondary']
-link_color = styles.curr_palette['accent2']
-visited_link_color = styles.curr_palette['accent1']
+#transitory_color = styles.curr_palette['accent2']
+#highlight_color = styles.curr_palette['accent1']
+#alternate_color = styles.curr_palette['secondary']
+#link_color = styles.curr_palette['accent2']
+#visited_link_color = styles.curr_palette['accent1']
 
 general = dict(
     pretitle = '------------------------------------------',
     posttitle = '------------------------------------------',
-    enter_behavior = "PLAIN",
-    edit_behavior = "READ",
+    enter_behavior = "plain",
+    edit_behavior = "read",
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
-    basefontsize = 16,
     seed_func = 'useTwoPartSeed',         # useTwoPartSeed, useThreePartSeed, useAllSeed
     seed_type = 'medieval romance',       # see seed panel for options
     seed_subtype = 'adjective',
@@ -37,6 +38,34 @@ general = dict(
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
     actor_index_state = 0,
+    total_pcs_to_show = 2,
+    findList = [],
+    findIndex = 0,
+)
+
+formats = dict(
+    basefontsize = 16,
+    transitory_color = styles.curr_palette['accent2'],
+    highlight_color = styles.curr_palette['accent1'],
+    alternate_color = styles.curr_palette['secondary'],
+    # mechanics formatting
+    oracle = "bold",
+    result = "italic",
+    query = "bold_italic",
+    aside = "italic",
+    mechanic1 = "color1",
+    mechanic2 = "color2",
+    ephemeral = "color3",
+    # fiction formatting
+    bold = "bold",
+    italic = "italic",
+    bold_italic = "bold_italic",
+    color1 = "color1",
+    color2 = "color2",
+    color3 = "color3",
+    # scenario/in block links
+    link_color = styles.curr_palette['accent2'],
+    visited_link_color = styles.curr_palette['accent1'],
 )
 
 scenario = dict(
@@ -80,14 +109,15 @@ mapArray = {}
 
 # font sizes; feel free to edit these
 # also, going to move all of these to the general array so they can be saved and loaded on a game by game basis
-basefont = str(general['basefontsize']) + "dp"
-basefont75 = str(general['basefontsize']*.75) + "dp"
-basefont80 = str(general['basefontsize']*.80) + "dp"
-basefont90 = str(general['basefontsize']*.90) + "dp"
-baseheight = str(general['basefontsize']+10) + "dp"
-tallheight = str(general['basefontsize']+15) + "dp"
-tripleheight = str(general['basefontsize']*3+10) + "dp"
-quintupleheight = str(general['basefontsize']*5+10) + "dp"
-octupleheight = str(general['basefontsize']*8+10) + "dp"
-maintextfont = str(general['basefontsize']) + "dp"
+basefont = str(formats['basefontsize']) + "dp"
+basefont60 = str(formats['basefontsize']*.60) + "dp"
+basefont75 = str(formats['basefontsize']*.75) + "dp"
+basefont80 = str(formats['basefontsize']*.80) + "dp"
+basefont90 = str(formats['basefontsize']*.90) + "dp"
+baseheight = str(formats['basefontsize']+10) + "dp"
+tallheight = str(formats['basefontsize']+15) + "dp"
+tripleheight = str(formats['basefontsize']*3+10) + "dp"
+quintupleheight = str(formats['basefontsize']*5+10) + "dp"
+octupleheight = str(formats['basefontsize']*8+10) + "dp"
+maintextfont = str(formats['basefontsize']*.90) + "dp"
 aiheight = baseheight

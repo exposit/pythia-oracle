@@ -69,7 +69,7 @@ def initPanel(self):
 def testFunction(*args):
     self = args[0].self
     args[0].background_color = neutral
-    updateCenterDisplay(self, rollDice(args[0].text), 'bold_italic')
+    updateCenterDisplay(self, rollDice(args[0].text), 'result')
 
 # this just does stuff directly, no intermediary function
 def testFunctionTwo(*args):
@@ -78,7 +78,7 @@ def testFunctionTwo(*args):
     chart = ["eenie", "meenie", "miney", "moe", "tiger"]
     # uncomment this to echo back the text in the text input
     #if len(self.textInput.text) > 0:
-    #    updateCenterDisplay(self, self.textInput.text, 'bold_italic')
+    #    updateCenterDisplay(self, self.textInput.text, 'result')
     updateCenterDisplay(self, random.choice(chart), 'oracle')
 
     # uncomment this to run the save routine

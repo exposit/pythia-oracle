@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle 0.7.0
+Pythia-Oracle 0.8.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit
@@ -18,7 +18,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import kivy
 kivy.require('1.8.0')
 
-#kivy.config.Config.set('kivy', 'log_level', 'critical' )
+import config
+
+if config.debug == False:
+    kivy.config.Config.set('kivy', 'log_level', 'critical' )
 
 # override config values, I'm sure there's a tidier way to do this
 kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
@@ -31,7 +34,6 @@ kivy.config.Config.set ( 'graphics', 'resizable', 0)
 
 from imports import *
 from main import MainScreen
-import config
 
 class TitleScreen(Screen):
 
@@ -248,7 +250,7 @@ class TitleScreen(Screen):
             self.newGamePopup.open()
             self.newGameStatus.text = "no game loaded"
 
-    def changePalette(self, *args):
+    def changePaletteDEF(self, *args):
         args[0].background_color = accent1
         self.paletteSample.source = "." + os.sep + "resources" + os.sep + "bg_sample" + os.sep + str(args[1]).replace (" ", "_") + ".png"
         for item in styles.palette:
@@ -258,6 +260,23 @@ class TitleScreen(Screen):
                         config_file.write(item)
                 except:
                     pass
+
+    def changePalette(self, *args):
+        # can we update everything from here?
+        print[args]
+        curr_palette = palette[args[1].replace(' ', '_')]
+        primary, secondary, accent1, accent2, neutral, textcolor, black, white = setColors(curr_palette)
+        for widget in self.parent.walk():
+            print("{}".format(widget))
+            if isinstance(widget, Label):
+                print("Label")
+                widget.background_color = accent2
+            elif isinstance(widget, Button):
+                widget.background_normal=''
+                widget.background_color=neutral
+                widget.background_down=''
+                widget.background_color_down=accent2
+                widget.font_name='Fantasque-Sans'
 
     def changePreTitle(self, *args):
         #args[0].background_color = ''
@@ -326,6 +345,9 @@ class TitleScreen(Screen):
 
             config.curr_game_dir = newpath
 
+            config.general['pretitle'] = ' '
+            config.general['posttitle'] = ' '
+
             saveconfig(self, config.curr_game_dir)
 
         except:
@@ -376,8 +398,10 @@ class TitleScreen(Screen):
         modconfig = imp.load_source( pyfile, mod)
 
         tempDict = {}
+        # this should likely be switched over to entirely pull from the scenario
         tempDict['general'] = config.general
         tempDict['user'] = config.user
+        tempDict['formats'] = config.user
         tempDict['scenario'] = modconfig.scenario
         with open(newpath + 'config.txt', "w") as fum:
             json.dump(tempDict, fum)
@@ -406,7 +430,7 @@ class OracleApp(App):
         self.accent1_g = accent1[1]
         self.accent1_b = accent1[2]
 
-        self.basefontsize = config.general['basefontsize']
+        self.basefontsize = config.formats['basefontsize']
 
         self.textcolor = styles.textcolor
 

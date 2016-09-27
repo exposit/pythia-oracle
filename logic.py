@@ -12,6 +12,8 @@ import config
 import logicscen
 from logicscen import *
 
+from kivy.uix.spinner import SpinnerOption
+
 #---------------------------------------------------------------------------------------------------
 # Basic
 #---------------------------------------------------------------------------------------------------
@@ -19,14 +21,14 @@ from logicscen import *
 class ClickLabel(Button, Label):
     pass
 
+# is this even used anywhere anymore?
 class InputLabel(TextInput, Label):
     pass
 
 def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.textStatusArray):
 
-    for i in textArray:
-        curr_index = textArray.index(i)
-        makeItemLabels(self, i, textStatusArray[curr_index])
+    for i in range(len(textArray)):
+        makeItemLabels(self, textArray[i], textStatusArray[i])
 
     switchModes(self)
 
@@ -38,111 +40,96 @@ def updateCenterDisplay(self, text, status='result'):
 def switchModes(self):
 
     self.centerDisplayGrid.clear_widgets()
+    fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
     edit_mode = config.general['edit_behavior']
 
-    if edit_mode == "READ":
+    if edit_mode == "read":
         # this mode is for reading the entire log, mechanics and all
 
         self.centerDisplayGrid.cols = 1
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
-            if status != "don't show":
+            if status != "ephemeral":
                 self.centerDisplayGrid.add_widget(config.textLabelArray[index])
 
-    elif edit_mode == "PLAY":
-        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
+    elif edit_mode == "play":
+        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text; probably going to deprecate this now that switching modes is faster
 
         self.centerDisplayGrid.cols = 2
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
-            if status != "don't show":
+            if status != "ephemeral":
                 self.centerDisplayGrid.add_widget(config.textLabelArray[index])
                 self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
 
-    elif edit_mode == "CLEAN":
-        # clean mode for reading just text; don't show mechanics or formatting tags
+    elif edit_mode == "fiction":
+        # fiction mode for reading just text; don't show mechanics or formats tags
 
         self.centerDisplayGrid.cols = 1
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
-            if status == "no_format":
+            if status in fictionStatusList:
                 self.centerDisplayGrid.add_widget(config.textLabelArray[index])
 
-    elif edit_mode == "CEDIT":
-        # editing mode for just text, no mechanics or formatting tags
+    elif edit_mode == "fic-edit":
+        # editing mode for just text, no mechanics or formats tags
 
         self.centerDisplayGrid.cols = 1
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
-            if status == "no_format":
+            if status in fictionStatusList:
                 self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
 
     else:
-        # full editing mode, text, mechanics, formatting
-
+        # full editing mode, text, mechanics, formats
         self.centerDisplayGrid.cols = 2
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
-            if status != "don't show":
+            if status != "ephemeral":
                 self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
                 self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
 
-    try:
-        self.centerDisplay.scroll_to(config.textLabelArray[-1])
-    except:
-        pass
-
-    try:
-        self.centerDisplay.scroll_to(config.textFieldLabelArray[-1])
-    except:
-        pass
+    jumpToIndex(self, -1)
 
 def addToCenterDisplay(self, text, status):
 
     edit_mode = config.general['edit_behavior']
+    fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
-    if edit_mode == "READ":
+    if edit_mode == "read":
         # this mode is for reading the entire log, mechanics and all
-        if status != "don't show":
+        if status != "ephemeral":
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
-    elif edit_mode == "PLAY":
+    elif edit_mode == "play":
         # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
-        if status != "don't show":
+        if status != "ephemeral":
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
             self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
-    elif edit_mode == "CLEAN":
-        # clean mode for reading just text; don't show mechanics or formatting tags
-        if status == "no_format":
+    elif edit_mode == "fiction":
+        # fiction mode for reading just text; don't show mechanics or formats tags
+        if status in fictionStatusList:
             self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
-    elif edit_mode == "CEDIT":
-        # editing mode for just text, no mechanics or formatting tags
-        if status == "no_format":
+    elif edit_mode == "fic-edit":
+        # editing mode for just text, no mechanics or formats tags
+        if status in fictionStatusList:
             self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
 
     else:
-        # full editing mode, text, mechanics, formatting
-        if status != "don't show":
+        # full editing mode, text, mechanics, formats
+        if status != "ephemeral":
             self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
             self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
 
-    try:
-        self.centerDisplay.scroll_to(config.textLabelArray[-1])
-    except:
-        pass
-
-    try:
-        self.centerDisplay.scroll_to(config.textFieldLabelArray[-1])
-    except:
-        pass
+    jumpToIndex(self, -1)
 
 def makeItemLabels(self, text, status='result'):
 
@@ -158,7 +145,7 @@ def makeItemLabels(self, text, status='result'):
     config.textStatusArray.append(status)
 
     base_text = text
-    text, index = parseText(text, status)
+    text = parseText(text, status)
 
     label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
     label.text_size = (self.centerDisplayGrid.width, None)
@@ -169,99 +156,99 @@ def makeItemLabels(self, text, status='result'):
     label.foreground_color=(1,1,1,1)
     label.markup = True
     label.self = self
-    label.index = config.textArray.index(base_text)
+    label.index = len(config.textArray)-1
+    #label.index = config.textArray.index(base_text)
     config.textLabelArray.append(label)
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.15, height=12, font_size=config.basefont75, font_name='Fantasque-Sans')
+    label = ClickLabel(text=status, size_hint=(None, .15), height=12, font_size=config.basefont60, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
     label.background_color_down=accent2
     label.bind(on_press=cycleText)
-    label.markup = True
     config.textStatusLabelArray.append(label)
+    label.index = len(config.textArray)-1
 
-    label = TextInput(text=base_text, size_hint_y=None, font_size=config.maintextfont)
-    label.text_size = (self.centerDisplayGrid.width, None)
-    label.height = max(((len(label._lines)/3)+1) * label.line_height, config.general['basefontsize']*2)
+    # this is a much cleaner solution instead of cycling, but takes an unacceptably long time
+    #formatList = ['query', 'result', 'oracle', 'aside', 'mechanic1', 'mechanic2', "plain", "italic", "bold", "bold_italic", "color1", "color2"]
+
+    #spinner = Spinner(
+        # default value shown
+    #    text=status,
+        # available values
+    #    values=formatList,
+    #    background_normal='',
+    #    background_color=accent1,
+    #    background_down='',
+    #    background_color_down=accent2,
+    #    font_size=config.basefont60,
+    #    size_hint=(.15, None),
+    #    )
+    #spinner.bind(text=reformatText)
+    #config.textStatusLabelArray.append(spinner)
+
+    label = TextInput(text="", size_hint_y=None, font_size=config.maintextfont)
     label.bind(focus=focusChangeText)
     label.background_color=neutral
     label.foreground_color=(1,1,1,1)
-    label.index = config.textArray.index(base_text)
+    #label.index = config.textArray.index(base_text)
+    label.index = len(config.textArray)-1
+    label.text = base_text
     config.textFieldLabelArray.append(label)
 
 def parseText(text, status):
 
-    index = config.textArray.index(text)
+    #mechanicStatusList = ["oracle", "result", "aside", "query", "mechanic1", "mechanic2"]
+    #fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
-    if status == "ephemeral":
-        text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
-    elif status == "don't show":
-        text = "[i][color=" + str(config.transitory_color) + "]" + text + "[/color][/i]"
-    elif status == "query":
-        text = "[b]" + text + "[/b]"
-    elif status == "result":
-        text = "[i]" + text + "[/i]"
-    elif status == "oracle":
-        text = "[b][i]" + text + "[/i][/b]"
-    elif status == "italic":
-        text = "[i]" + text + "[/i]"
-    elif status == "bold":
-        text = "[b]" + text + "[/b]"
-    elif status == "color1":
-        text = "[color=" + str(config.highlight_color) + "]" + text + "[/color]"
-    elif status == "color2":
-        text = "[color=" + str(config.alternate_color) + "]" + text + "[/color]"
-    elif status == "bold_italic":
-        text = "[b][i]" + text + "[/i][/b]"
-    else:
-        pass
+    if status in config.formats:
+        blockformat = config.formats[status]
+        print(status, blockformat)
+        if blockformat == "color1":
+            text = "[color=" + str(config.formats['highlight_color']) + "]" + text + "[/color]"
+        elif blockformat == "color2":
+            text = "[color=" + str(config.formats['alternate_color']) + "]" + text + "[/color]"
+        elif blockformat == "color3":
+            text = "[i][color=" + str(config.formats['transitory_color']) + "]" + text + "[/color][/i]"
+        else:
+            if blockformat == "bold":
+                text = "[b]" + text + "[/b]"
+            elif blockformat == "italic":
+                text = "[i]" + text + "[/i]"
+            elif blockformat == "bold_italic":
+                text = "[b][i]" + text + "[/i][/b]"
 
-    return text, index
+    return text
+
+# used by the spinner option; not used now
+def reformatText(spinner, status):
+
+    config.textStatusArray[config.textStatusLabelArray.index(spinner)] = status
+    text = config.textArray[config.textStatusLabelArray.index(spinner)]
+    text = parseText(text, status)
+    config.textLabelArray[index].text = text
+
+    return True
 
 def cycleText(label, *args):
 
-    if label.text == "color2":
-        label.text = "ephemeral"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "ephemeral"
-    elif label.text == "ephemeral":
-        label.text = "don't show"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "don't show"
-    elif label.text == "don't show":
-        label.text = "result"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "result"
-    elif label.text == "result":
-        label.text = "query"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "query"
-    elif label.text == "query":
-        label.text = "oracle"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "oracle"
-    elif label.text == "oracle":
-        label.text = "no_format"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "no_format"
-    elif label.text == "no_format":
-        label.text = "italic"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "italic"
-    elif label.text == "italic":
-        label.text = "bold"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "bold"
-    elif label.text == "bold":
-        label.text = "bold_italic"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "bold_italic"
-    elif label.text == "bold_italic":
-        label.text = "color1"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "color1"
-    elif label.text == "color1":
-        label.text = "color2"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "color2"
+    status = label.text
+
+    # mechanics tags
+    formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
+
+    if formatList.index(status) == len(formatList)-1:
+        status = formatList[0]
     else:
-        label.text = "no_format"
-        config.textStatusArray[config.textStatusLabelArray.index(label)] = "no_format"
+        status = formatList[formatList.index(status)+1]
+
+    config.textStatusArray[config.textStatusLabelArray.index(label)] = status
+    label.text = status
 
     text = config.textArray[config.textStatusLabelArray.index(label)]
-    text, index = parseText(text, label.text)
+    text = parseText(text, status)
 
-    config.textLabelArray[index].text = text
+    config.textLabelArray[config.textStatusLabelArray.index(label)].text = text
 
     return True
 
@@ -433,10 +420,14 @@ def focusChangeText(label, value):
     else:
         config.textArray[label.index] = label.text
         status = config.textStatusArray[label.index]
-        formatted_text, index = parseText(label.text, status)
+        index = label.index
+        formatted_text = parseText(label.text, status)
 
         config.textLabelArray[index].text = formatted_text
         config.textFieldLabelArray[index].text = label.text
+
+        field = config.textFieldLabelArray[index]
+        field.height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
 
 def getActorTag(text):
 
@@ -496,24 +487,35 @@ def saveconfig(self, gamedir):
         tempDict['general'] = config.general
         tempDict['user'] = config.user
         tempDict['scenario'] = config.scenario
+        tempDict['formats'] = config.formats
 
         f = open(gamedir + 'config.txt', 'w')
         json.dump(tempDict, f)
         f.close()
     except:
-        print("Saving configuration file failed.")
+        if debug == True:
+            print("[saveconfig] Unexpected error:", sys.exc_info())
 
 def loadconfig(self, gamedir):
+
+    with open(gamedir + 'config.txt', 'r') as config_file:
+        tempDict = json.load(config_file)
+        config.general = tempDict['general']
+        config.formats = tempDict['formats']
+        config.user = tempDict['user']
+        config.scenario = tempDict['scenario']
     #try:
-        f = open(gamedir + 'config.txt', 'r')
-        tempDict = json.load(f)
-        for i in tempDict['general']:
-            config.general[i] = tempDict['general'][i]
-        for i in tempDict['user']:
-            config.user[i] = tempDict['user'][i]
-        for i in tempDict['scenario']:
-            config.scenario[i] = tempDict['scenario'][i]
-        f.close()
+    #    f = open(gamedir + 'config.txt', 'r')
+    #    tempDict = json.load(f)
+    #    for i in tempDict['general']:
+    #        config.general[i] = tempDict['general'][i]
+    #    for i in tempDict['user']:
+    #        config.user[i] = tempDict['user'][i]
+    #    for i in tempDict['scenario']:
+    #        config.scenario[i] = tempDict['scenario'][i]
+    #    for i in tempDict['formats']:
+    #        config.formats[i] = tempDict['formats'][i]
+    #    f.close()
     #except:
     #    saveconfig(self, gamedir)
 
@@ -552,8 +554,13 @@ def quicksave(self, gamedir):
 
     f = open(gamedir + 'pcs.txt', 'w')
     tempArray = []
-    for i in range(len(config.pcKeyLabelArray)):
-        tempArray.append([config.pcKeyLabelArray[i].text, config.pcValueLabelArray[i].text])
+    for pc in range(len(config.pcKeyLabelArray)):
+        tempArray.append([])
+        for i in range(len(config.pcKeyLabelArray[pc])):
+            key = config.pcKeyLabelArray[pc][i].text
+            val = config.pcValueLabelArray[pc][i].text
+            tempArray[pc].append([key,val])
+
     json.dump(tempArray, f)
     f.close
 
@@ -564,98 +571,81 @@ def quicksave(self, gamedir):
     updateRawHTML()
     updateRawMarkdown()
     updateCollapseHTML()
-    updateCleanMarkdown()
-    updateCleanHTML()
+    updateFictionMarkdown()
+    updateFictionHTML()
 
     saveconfig(self, gamedir)
 
 def quickload(self, gamedir):
 
     try:
-        f = open(gamedir + 'main.txt', 'r')
-        x = open(gamedir + 'main_status.txt', 'r')
-        tempArray = json.load(f)
-        tempStatusArray = json.load(x)
-        resetCenterDisplay(self, tempArray, tempStatusArray)
-        f.close()
-        x.close()
+        with open(gamedir + 'main.txt', 'r') as mainfile, open(gamedir + 'main_status.txt', 'r') as statusfile:
+            text = json.load(mainfile)
+            status = json.load(statusfile)
+
+        resetCenterDisplay(self, text, status)
+
     except:
+        if config.debug == True:
+            print("[quickload Main] Unexpected error:", sys.exc_info())
         updateCenterDisplay(self, "The adventure begins...", 'italic')
 
     try:
-        f = open(gamedir + 'threads.txt', 'r')
-        x = open(gamedir + 'threads_status.txt', 'r')
-        tempTable = []
-        tempStatusTable = []
+        with open(gamedir + 'threads.txt', 'r') as mainfile, open(gamedir + 'threads_status.txt', 'r') as statusfile:
+            text = json.load(mainfile)
+            status = json.load(statusfile)
 
-        for i in json.load(f):
-            tempTable.append(i)
-
-        for z in json.load(x):
-            tempStatusTable.append(z)
-
-        for m in range(len(tempTable)):
-            updateThreadDisplay(self, tempTable[m], tempStatusTable[m])
-        f.close()
-        x.close()
+        for i in range(len(text)):
+            updateThreadDisplay(self, text[i], status[i])
     except:
-        pass
+        if config.debug == True:
+            print("[quickload Threads] Unexpected error:", sys.exc_info())
 
     try:
-        f = open(gamedir + 'actors.txt', 'r')
-        x = open(gamedir + 'actors_status.txt', 'r')
-        tempTable = []
-        tempStatusTable = []
+        with open(gamedir + 'actors.txt', 'r') as mainfile, open(gamedir + 'actors_status.txt', 'r') as statusfile:
+            text = json.load(mainfile)
+            status = json.load(statusfile)
 
-        for i in json.load(f):
-            tempTable.append(i)
-
-        for z in json.load(x):
-            tempStatusTable.append(z)
-
-        for m in range(len(tempTable)):
-            updateActorDisplay(self, tempTable[m], tempStatusTable[m])
-        f.close()
-        x.close()
+        for i in range(len(text)):
+            updateActorDisplay(self, text[i], status[i])
     except:
-        pass
+        if config.debug == True:
+            print("[quickload actors_status] Unexpected error:", sys.exc_info())
 
     try:
-        f = open(gamedir + 'tracks.txt', 'r')
-        tempTable = []
-        for i in json.load(f):
-            tempTable.append(i)
+        with open(gamedir + 'tracks.txt', 'r') as filename:
+            tempTable= json.load(filename)
 
         for x in range(len(tempTable)):
             config.trackLabelArray[x].text = tempTable[x][0]
             config.trackStatusLabelArray[x].active = tempTable[x][1]
-        f.close()
     except:
-        pass
+        if config.debug == True:
+            print("[quickload Tracks] Unexpected error:", sys.exc_info())
 
     try:
-        f = open(gamedir + 'pcs.txt', 'r')
-        tempTable = []
-        for i in json.load(f):
-            tempTable.append(i)
+        with open(gamedir + 'pcs.txt', 'r') as f:
+            tempArray = json.load(f)
 
-        for x in range(len(tempTable)):
-            config.pcKeyLabelArray[x].text = tempTable[x][0]
-            config.pcValueLabelArray[x].text = tempTable[x][1]
-        f.close()
+        for pc in range(len(tempArray)):
+            for x in range(len(config.pcKeyLabelArray[pc])):
+                config.pcKeyLabelArray[pc][x].text = tempArray[pc][x][0]
+                config.pcValueLabelArray[pc][x].text = tempArray[pc][x][1]
     except:
-        pass
+        if config.debug == True:
+            print("[quickload PCs] Unexpected error:", sys.exc_info())
 
     try:
-        f = open(gamedir + 'maps.txt', 'r')
-        config.mapArray = json.load(f)
+        with open(gamedir + 'maps.txt', 'r') as filename:
+            config.mapArray = json.load(filename)
+
         tempVals = []
         for i in config.mapArray:
             tempVals.append(i)
         self.mapSpinner.values = tempVals
-        f.close()
     except:
-        pass
+        if config.debug == True:
+            print("[quickload Maps] Unexpected error:", sys.exc_info())
 
 def makeBackup():
     saveFiles = '.' + os.sep + 'saves' + os.sep
@@ -672,9 +662,6 @@ def storeBookmarkLabel(label):
         index = label.index
     except:
         index = -9
-    #for i in range(len(config.textArray)):
-    #    if label.text == config.textArray[i]:
-    #        index = i
     l = ToggleButtonBehavior.get_widgets('bookmarks')
     for button in l:
         if button.state == "down":
@@ -690,9 +677,9 @@ def updateRawMarkdown():
             result = "\n"
             for item in config.textArray:
                 ti = config.textArray.index(item)
-                item = item.rstrip()
-                if config.textStatusArray[ti] != "ephemeral" and config.textStatusArray[ti] != "don't show":
-                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
+                item = item.strip()
+                if config.textStatusArray[ti] != "ephemeral":
+                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result" or config.textStatusArray[ti] == "aside":
                         item = item.replace('\n', '*\n*')
                         result = result + "\n*" + item + "*"
                     elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
@@ -701,10 +688,10 @@ def updateRawMarkdown():
                     elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
                         item = item.replace('\n', '_**\n**_')
                         result = result + "\n**_" + item + "_**"
-                    elif config.textStatusArray[ti] == "color1":
+                    elif config.textStatusArray[ti] == "color1" or config.textStatusArray[ti] == "mechanic1":
                         item = item.replace('\n', '`\n`')
                         result = result + "\n`" + item + "`"
-                    elif config.textStatusArray[ti] == "color2":
+                    elif config.textStatusArray[ti] == "color2" or config.textStatusArray[ti] == "mechanic2":
                         item = item.replace('\n', '`\n`')
                         result = result + "\n`" + item + "`"
                     else:
@@ -736,26 +723,39 @@ def updateRawHTML():
             style = style + "\n.italic {\nfont-style: italic;\n}"
             style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
             style = style + "\n.bold {\nfont-weight: bold;\n}"
-            style = style + "\n.highlightcolor {\ncolor: #" + config.highlight_color + ";\n}"
-            style = style + "\n.alternatecolor {\ncolor: #" + config.alternate_color + ";\n}"
+            style = style + "\n.highlightcolor {\ncolor: #" + config.formats['highlight_color'] + ";\n}"
+            style = style + "\n.alternatecolor {\ncolor: #" + config.formats['alternate_color'] + ";\n}"
             style = style + "\n</style>\n"
             result = result + style + "</head>\n<body><!-- actual adventure starts here -->"
             # actual adventure content starts here
             for item in config.textArray:
                 ti = config.textArray.index(item)
-                if config.textStatusArray[ti] != "ephemeral" and config.textStatusArray[ti] != "don't show":
-                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result":
+                if config.textStatusArray[ti] != "ephemeral":
+                    if config.textStatusArray[ti] == "result":
                         result = result + '\n<div class="mechanic"><div class="italic">' + item + "</div></div>"
-                    elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
+                    elif config.textStatusArray[ti] == "query":
                         result = result + '\n<div class="mechanic"><div class="bold">' + item + "</div></div>"
-                    elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
+                    elif config.textStatusArray[ti] == "aside":
+                        result = result + '\n<div class="mechanic"><div class="italic">' + item + "</div></div>"
+                    elif config.textStatusArray[ti] == "oracle":
                         result = result + '\n<div class="mechanic"><div class="italicbold">' + item + "</div></div>"
-                    elif config.textStatusArray[ti] == "color1":
+                    elif config.textStatusArray[ti] == "mechanic1":
                         result = result + '\n<div class="mechanic"><div class="highlightcolor">' + item + "</div></div>"
-                    elif config.textStatusArray[ti] == "color2":
+                    elif config.textStatusArray[ti] == "mechanic2":
                         result = result + '\n<div class="mechanic"><div class="alternatecolor">' + item + "</div></div>"
                     else:
-                        result = result + '\n<div class="normal">' + item + "</div></div>"
+                        if config.textStatusArray[ti] == "italic":
+                            result = result + '\n<div class="italic">' + item + "</div></div>"
+                        elif config.textStatusArray[ti] == "bold":
+                            result = result + '\n<div class="bold">' + item + "</div></div>"
+                        elif config.textStatusArray[ti] == "bold_italic":
+                            result = result + '\n<div class="bold_italic">' + item + "</div></div>"
+                        elif config.textStatusArray[ti] == "color1":
+                            result = result + '\n<div class="color1">' + item + "</div></div>"
+                        elif config.textStatusArray[ti] == "color2":
+                            result = result + '\n<div class="color2">' + item + "</div></div>"
+                        else:
+                            result = result + '\n<div class="normal">' + item + "</div></div>"
 
             # now any in block tags
             result = result.replace('[i]', '<i>')
@@ -779,23 +779,38 @@ def updateRawHTML():
 def updateCollapseHTML():
 
     try:
+        fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
         tempStatusArray = []
         tempArray = []
 
         for i in range(len(config.textStatusArray)):
-            if config.textStatusArray[i] != "ephemeral" and config.textStatusArray[i] != "don't show":
-                if config.textStatusArray[i] == "italic" or config.textStatusArray[i] == "result":
+            if config.textStatusArray[i] != "ephemeral":
+                if config.textStatusArray[ti] == "result":
                     result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[i] == "bold" or config.textStatusArray[i] == "query":
+                elif config.textStatusArray[ti] == "aside":
+                    result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
+                elif config.textStatusArray[ti] == "query":
                     result = '\n<p class="bold">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[i] == "bold_italic" or config.textStatusArray[i] == "oracle":
+                elif config.textStatusArray[ti] == "oracle":
                     result = '\n<p class="italicbold">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[i] == "color1":
+                elif config.textStatusArray[ti] == "mechanic1":
                     result = '\n<p class="highlightcolor">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[i] == "color2":
+                elif config.textStatusArray[ti] == "mechanic2":
                     result = '\n<p class="alternatecolor">' + config.textArray[i] + "</p>\n"
                 else:
-                    result = '\n<p class="normal">' + config.textArray[i] + "</p>\n"
+                    if config.textStatusArray[ti] == "italic":
+                        result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
+                    elif config.textStatusArray[ti] == "bold":
+                        result = '\n<p class="bold">' + config.textArray[i] + "</p>\n"
+                    elif config.textStatusArray[ti] == "bold_italic":
+                        result = '\n<p class="italicbold">' + config.textArray[i] + "</p>\n"
+                    elif config.textStatusArray[ti] == "color1":
+                        result = '\n<p class="highlightcolor">' + config.textArray[i] + "</p>\n"
+                    elif config.textStatusArray[ti] == "color2":
+                        result = '\n<p class="alternatecolor">' + config.textArray[i] + "</p>\n"
+                    else:
+                        result = '\n<p class="normal">' + config.textArray[i] + "</p>\n"
+
                 tempArray.append(result)
                 tempStatusArray.append(config.textStatusArray[i])
 
@@ -830,8 +845,8 @@ def updateCollapseHTML():
             style = style + "\n.italic {\nfont-style: italic;\n}"
             style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
             style = style + "\n.bold {\nfont-weight: bold;\n}"
-            style = style + "\n.highlightcolor {\ncolor: #" + config.highlight_color + ";\n}"
-            style = style + "\n.alternatecolor {\ncolor: #" + config.alternate_color + ";\n}"
+            style = style + "\n.highlightcolor {\ncolor: #" + config.formats['highlight_color'] + ";\n}"
+            style = style + "\n.alternatecolor {\ncolor: #" + config.formats['alternate_color'] + ";\n}"
             style = style + "\n</style>\n"
             bracket = bracket + "</head>\n<body><!-- actual adventure starts here -->"
 
@@ -839,7 +854,7 @@ def updateCollapseHTML():
             header_string = ""
             result = ""
             chunk = False
-            if tempStatusArray[0] != 'no_format':
+            if tempStatusArray[0] not in fictionStatusList:
                 count = count + 1
                 result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >hide</a>'
                 result = result + "\n<div id='myContent" + str(count) + "'>"
@@ -848,7 +863,7 @@ def updateCollapseHTML():
                 chunk = True
 
             for ti in range(len(tempStatusArray)):
-                if tempStatusArray[ti] != "no_format" and chunk == False:
+                if tempStatusArray[ti] not in fictionStatusList and chunk == False:
                     count = count + 1
                     result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >collapse</a>'
                     result = result + "\n<div id='myContent" + str(count) + "'>"
@@ -856,9 +871,9 @@ def updateCollapseHTML():
                     content_string = content_string + "'myContent" + str(count) + "',"
                     header_string = header_string + "'myHeader" + str(count) + "',"
                     chunk = True
-                elif tempStatusArray[ti] != "no_format" and chunk == True:
+                elif tempStatusArray[ti] not in fictionStatusList and chunk == True:
                     result = result + "\n" + tempArray[ti]
-                elif tempStatusArray[ti] == "no_format" and chunk == True:
+                elif tempStatusArray[ti] in fictionStatusList and chunk == True:
                      result = result + "</div>\n" + tempArray[ti]
                      chunk = False
                 else:
@@ -890,14 +905,15 @@ def updateCollapseHTML():
     except:
         pass
 
-def updateCleanMarkdown():
+def updateFictionMarkdown():
     try:
-        with open(config.curr_game_dir + "logs" + os.sep + "log_clean.md", "w") as log_file:
+        fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+        with open(config.curr_game_dir + "logs" + os.sep + "log_fiction.md", "w") as log_file:
             result = "\n"
             for item in config.textArray:
                 ti = config.textArray.index(item)
                 item = item.rstrip()
-                if config.textStatusArray[ti] == 'no_format':
+                if config.textStatusArray[ti] in fictionStatusList:
                         result = result + "\n" + item
 
             # now replace any in block tags
@@ -918,9 +934,10 @@ def updateCleanMarkdown():
     except:
         pass
 
-def updateCleanHTML():
+def updateFictionHTML():
     try:
-        with open(config.curr_game_dir + "logs" + os.sep + "log_clean.html", "w") as log_file:
+        fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+        with open(config.curr_game_dir + "logs" + os.sep + "log_fiction.html", "w") as log_file:
             result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             style = '\n<style type="text/css">'
             style = style + "\n</style>\n"
@@ -928,8 +945,9 @@ def updateCleanHTML():
             # actual adventure content starts here
             for item in config.textArray:
                 ti = config.textArray.index(item)
-                if config.textStatusArray[ti] == "no_format":
-                        result = result + '\n<div class="normal">' + item + "</div></div>"
+                if config.textStatusArray[ti] in fictionStatusList:
+                    status = config.textStatusArray[ti]
+                    result = result + '\n<div class="' + status + '">' + item + "</div></div>"
 
             # now any in block tags
             result = result.replace('[i]', '<i>')
@@ -992,7 +1010,7 @@ def getRandomActor(key="All"):
     result = "[Random actor, key: " + key + "] " + "No results found."
 
     for i in range(len(config.actorArray)):
-        textarray.append(config.actorArray[i] + ", " + config.actorStatusArray[i])
+        textarray.append(config.actorArray[i] + " (" + config.actorStatusArray[i]) + ")"
 
     if key == "All" and len(textarray) > 0:
         result = "[Random actor, key: " + key + "] " + random.choice(textarray)
@@ -1005,12 +1023,6 @@ def getRandomActor(key="All"):
     return result
 
 def getRandomThread(key="All"):
-
-    exclusion = False
-    if key[:1] == "!":
-        # this is a exclusion search
-        exclusion = True
-        key = key[1:]
 
     textarray = []
     result = "[Random thread, key: " + key  + "] No results found."
@@ -1030,23 +1042,18 @@ def getRandomThread(key="All"):
 
 def getRandomPC(key="Name"):
 
-    exclusion = False
-    if key[:1] == "!":
-        # this is a exclusion search
-        exclusion = True
-        key = key[1:]
-
     textarray = []
 
-    for i in range(len(config.pcKeyLabelArray)):
-        textarray.append(config.pcKeyLabelArray[i].text + ": " + config.pcValueLabelArray[i].text)
+    for k in range(len(config.pcKeyLabelArray)):
+        for i in range(len(config.pcKeyLabelArray[k])):
+            textarray.append(config.pcKeyLabelArray[k][i].text + ": " + config.pcValueLabelArray[k][i].text)
 
     matching = [s for s in textarray if key in s]
 
     if len(matching) > 0:
-        result = "[Random PC, key: " + key  + " ] " + random.choice(matching)
+        result = "[Random Major Character, key: " + key  + " ] " + random.choice(matching)
     else:
-        result = "[Random PC, key: " + key  + " ] "  + "No results found."
+        result = "[Random Major Character, key: " + key  + " ] "  + "No results found."
 
     return result
 
@@ -1072,6 +1079,56 @@ def getRandomTrack(key="Active"):
         result = "[Random track, key: " + key  + " ] " + random.choice(matching)
 
     return result
+
+# find
+def findText(self, search_string):
+    # list comprehension on config.textArray
+    search_terms = [search_string.lower(), search_string.capitalize(), search_string]
+
+    resultList = []
+
+    for term in search_terms:
+        resultList = resultList + [s for s in config.textArray if term in s]
+
+    config.general['findList'] = list(set(resultList))
+    config.general['findIndex'] = 0
+
+    self.findButton.text = "find: " + str(len(config.general['findList']))
+
+    # get the index of the first element
+    element = ""
+    if len(config.general['findList']) > 0:
+        element = config.general['findList'][0]
+
+    if len(element) > 0:
+        index = config.textArray.index(element)
+    else:
+        return "No results found."
+
+    jumpToIndex(self, index)
+
+def jumpToNext(self):
+
+    if config.general['findIndex'] == len(config.general['findList'])-1:
+        config.general['findIndex'] = 0
+    else:
+        config.general['findIndex'] = config.general['findIndex'] + 1
+
+    element = config.general['findList'][config.general['findIndex']]
+    index = config.textArray.index(element)
+    jumpToIndex(self, index)
+
+def jumpToIndex(self, index):
+
+    edit_mode = config.general['edit_behavior']
+    fieldList = ['edit', 'fic-edit']
+
+    # this could use some catching in case the curent label is not visible for some reason
+
+    if edit_mode in fieldList:
+        self.centerDisplay.scroll_to(config.textFieldLabelArray[index])
+    else:
+        self.centerDisplay.scroll_to(config.textLabelArray[index])
 
 # weighted choosers
 def chooseWeighted(value, text, form):
@@ -1129,7 +1186,7 @@ def chooseWeighted(value, text, form):
     except:
         return str(result_string), str(result), str("ephemeral"), str("0")
 
-# here's full 100 item lists
+# here's full 100 item lists; I don't think these are tied in right now
 def seed_action():
     chart = ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anger', 'anticipate', 'assist', 'assume', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'couple', 'determine', 'discover', 'disregard', 'divert', 'divide', 'draw', 'dream', 'edgy', 'educate', 'emphasize', 'enable', 'enchain', 'encourage', 'endless', 'enjoy', 'enrage', 'enter', 'entrance', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'feint', 'guess', 'impassion', 'improvise', 'inflame', 'inflate', 'interest', 'involve', 'justify', 'keep', 'ken', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'quarter', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'stoic', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw']
 

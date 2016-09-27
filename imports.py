@@ -7,6 +7,7 @@
 
 # General Python
 import os
+import sys
 import re
 import time
 import datetime
@@ -30,6 +31,7 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.uix.behaviors import ToggleButtonBehavior
+from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
 
 from kivy.uix.image import Image
 from kivy.graphics import *

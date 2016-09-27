@@ -18,12 +18,12 @@ scenario = {
     'name' : "",
     'block' : "Copyright",          # starting block that will be shown at beginning
     'descRefs' : {
-        'fishbite' : ['<<A large, frilled fish leaps out from beneath the thin sand and bites at you before taking flight! If you save, continue; otherwise, contract the sinking curse; for d3 days any passage over sand results in gradual sinking unless supported. if fishattack else The sand crumbles at your touch, revealing a small amount of loot and some clean water.>>', 'bold_italic', 'repeatable', 'setFishOrWater'],
-        'gamble' : ['The hermit will accept almost anything of value as a wager, but cheats masterfully and has an amulet of good luck.', 'bold_italic', 'once'],
-        'woketoad' : ['The toad lashes out with its tongue, eating a fragment of a scroll. <<getProphecy>>', 'bold_italic', 'repeatable'],
-        'spear' : ['His spear is a relic of his homeland and causes blood to catch  re as if it were oil.', 'bold_italic', 'once'],
-        'sanddance' : ['Dancing with them relieves thirst for an entire day. In exchange, they demand a small service or token of gratitude, and if this is not performed, they attack.', 'bold_italic', 'once'],
-        'activatesleigh' : ['If the wearer of the the charioteer’s helm approaches, it hums and rises into the air. It floats magically, carrying up to 4 people in whatever direction the helm points, except north - owing to the damage.', 'bold_italic', 'once'],
+        'fishbite' : ['<<A large, frilled fish leaps out from beneath the thin sand and bites at you before taking flight! If you save, continue; otherwise, contract the sinking curse; for d3 days any passage over sand results in gradual sinking unless supported. if fishattack else The sand crumbles at your touch, revealing a small amount of loot and some clean water.>>', 'result', 'repeatable', 'setFishOrWater'],
+        'gamble' : ['The hermit will accept almost anything of value as a wager, but cheats masterfully and has an amulet of good luck.', 'result', 'once'],
+        'woketoad' : ['The toad lashes out with its tongue, eating a fragment of a scroll. <<getProphecy>>', 'result', 'repeatable'],
+        'spear' : ['His spear is a relic of his homeland and causes blood to catch  re as if it were oil.', 'result', 'once'],
+        'sanddance' : ['Dancing with them relieves thirst for an entire day. In exchange, they demand a small service or token of gratitude, and if this is not performed, they attack.', 'result', 'once'],
+        'activatesleigh' : ['If the wearer of the the charioteer’s helm approaches, it hums and rises into the air. It floats magically, carrying up to 4 people in whatever direction the helm points, except north - owing to the damage.', 'result', 'once'],
     },
     'toggleRefs' : {
         'heelanambush' : ['One of the scouts is attempting to circle around and attack from behind!'],

@@ -24,7 +24,7 @@ def parseRefs(source):
     for clause in result:
         action, text, link = clause.split('|')
 
-        new = "[ref=" + action + "_" + link + "][color=" + config.link_color + "]" + text + "[/color][/ref]"
+        new = "[ref=" + action + "_" + link + "][color=" + config.formats['link_color'] + "]" + text + "[/color][/ref]"
 
         source = source.replace("[[" + clause + "]]", new, 1)
 
@@ -156,7 +156,7 @@ def refPress(*args):
             newtext = label.text
             colorList = re.findall('(?:[0-9a-fA-F]{3}){2}', newtext)
             for color in colorList:
-                newtext = newtext.replace(color, config.visited_link_color)
+                newtext = newtext.replace(color, config.formats['visited_link_color'])
             label.text = newtext
             config.textArray[label.index] = label.text
         else:
@@ -221,7 +221,7 @@ def refPress(*args):
         if pause == False:
             showCurrentBlock(self)
         else:
-            more = "[ref=f_showCurrentBlock][color=" + config.link_color + "]continue" + "[/color][/ref]"
+            more = "[ref=f_showCurrentBlock][color=" + config.formats['link_color'] + "]continue" + "[/color][/ref]"
             logic.updateCenterDisplay(self, more, 'italic')
     else:
         # this is a function; clear all older links

@@ -6,12 +6,21 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.8.0
 
-* added support for some markdown tags if placed in blocks (italic, bold, superscript, subscript, underline, strikethrough). Note, kivy doesn't appear to actually support displaying underline or strikethrough but the markdown and html logs will appear correctly.
-* moved logs to a sub directory and added some clean (no mechanics) versions.
+* formatting now pulls from the config file and can be set on a tag by tag basis
+* refactored some things to help avoid identification issues when two lines of block text were identical
+* added a toggle for a basic "debug mode" to config; with it False you will see a lot less messaging, with True, a lot more (and hopefully more helpful) messaging. If your game is working correctly, ignore the messaging
+* fixed scrolling and jumps and bookmarks so hopefully they work correctly now
+* basic "Find" and "Next" functions for quickly jumping around (still experimental).
+* deprecated "don't show" in favor of "ephemeral"; ephemeral now triggers the old "don't show" behavior
+* renamed 'clean' to 'fiction' and 'cedit' to 'fic-edit' (for now)
+* separated out block formatting into clear "fiction" and "mechanics" categories; the appearance is the same but "mechanics" tags won't show in "fiction" editing modes or in fiction-only logs
+* added support to logs for some markdown tags if placed in blocks (italic, bold, superscript, subscript, underline, strikethrough). Underline and strikethrough won't display in block but the markdown and html logs will appear correctly
+* moved play logs to a sub directory and added some "no mechanics" versions
+* updated PC panel to support multiple PCs; renamed to "Character Sheets"
 * pulled out unused stuff from pythia.py
-* updated post and pretitle to textfields; not perfect but working
+* updated post and pretitle to textfields and cleared config issue carrying them over
 * "resolved" status for a thread will now send it to the bottom of the list
-* seeds are much better curated (but there's still a lot of them so I might have missed something).
+* seeds are much better curated (but there's still a lot of them so I might have missed something)
 
 Version 0.7.1
 

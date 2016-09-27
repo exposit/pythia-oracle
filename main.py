@@ -81,7 +81,7 @@ class MainScreen(Screen):
             btn.index = -9
             self.bookmarkBox.add_widget(btn)
 
-        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont90, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
         self.bookmarkBox.add_widget(self.clearBookmarkButton)
         self.clearBookmarkButton.bind(on_press=self.pressGenericButton)
 
@@ -91,26 +91,30 @@ class MainScreen(Screen):
             # default value shown
             text=config.general['edit_behavior'],
             # available values
-            values=['PLAY', 'READ', 'CLEAN', 'CEDIT', 'EDIT'],
+            values=['play', 'read', 'fiction', 'fic-edit', 'edit'],
             background_normal='',
             background_color=accent1,
             background_down='',
             background_color_down=accent2,
+            font_size=config.basefont90,
             size_hint=(.15, 1),
             )
 
         self.editSpinner.bind(text=self.toggleLabelToInput)
         self.statusBox.add_widget(self.editSpinner)
 
+        enterBehaviorList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2", "multi"]
+
         self.enterSpinner = Spinner(
             # default value shown
-            text='PLAIN',
+            text='plain',
             # available values
-            values=['PLAIN', 'CITE', 'BOLD', "COLOR1", "COLOR2", "NONE"],
+            values=enterBehaviorList,
             background_normal='',
             background_color=accent1,
             background_down='',
             background_color_down=accent2,
+            font_size=config.basefont90,
             size_hint=(.2, 1),
             )
 
@@ -152,10 +156,20 @@ class MainScreen(Screen):
 
         self.titleBarBox = BoxLayout(orientation='horizontal', size_hint=(1,.05))
 
-        self.button = Button(text="top", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.jumpToTop)
-        self.titleBarBox.add_widget(self.button)
+        self.jumpButton = Button(text="top", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.jumpButton.bind(on_press=self.pressGenericButton)
+        self.jumpButton.bind(on_release=self.navJump)
+        self.titleBarBox.add_widget(self.jumpButton)
+
+        self.findButton = Button(text="find", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.findButton.bind(on_press=self.pressGenericButton)
+        self.findButton.bind(on_release=self.navFind)
+        self.titleBarBox.add_widget(self.findButton)
+
+        self.nextButton = Button(text="next", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+        self.nextButton.bind(on_press=self.pressGenericButton)
+        self.nextButton.bind(on_release=self.navNext)
+        self.titleBarBox.add_widget(self.nextButton)
 
         self.centerBox.add_widget(self.titleBarBox)
 
@@ -181,7 +195,7 @@ class MainScreen(Screen):
         self.textInputMainBox.add_widget(self.textInput)
 
 ##---------------------------------------------------------------------------------------
-#  center footer box
+#  center footerself.box
 ##---------------------------------------------------------------------------------------
 
         self.footerBox = GridLayout(rows=2)
@@ -194,7 +208,7 @@ class MainScreen(Screen):
         self.AboutButton = Button(text="About", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
         self.AboutButton.bind(on_release=self.showAbout)
 
-        # box for adding threads & actors
+        #self.box for adding threads & actors
         self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont90)
         self.threadSubmitButton.bind(on_press=self.pressGenericButton)
         self.threadSubmitButton.bind(on_release=self.releaseThread)
@@ -286,7 +300,7 @@ class MainScreen(Screen):
         self.footerBox.add_widget(self.button9)
         self.footerBox.add_widget(self.button0)
 
-        # About box popup
+        # Aboutself.box popup
         self.AboutBox = GridLayout(cols=1, padding=(10,10))
 
         text = []
@@ -383,88 +397,96 @@ class MainScreen(Screen):
 #  PC panel
 ##---------------------------------------------------------------------------------------
 
-        self.pcAItem = AccordionItem(title='PC Tracker', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+        self.pcAccordionItem = AccordionItem(title='Character Sheets', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
-        self.pcMainBox = BoxLayout(orientation='vertical')
+        self.pcStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
 
-        self.pcButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
+        self.pcAccordionItem.add_widget(self.pcStackAccordion)
 
-        self.button = Button(text="copy to main window", size_hint=(1,.05), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
-        self.button.bind(on_press=self.pressGenericButton)
-        self.button.bind(on_release=self.copyPCsToMain)
-        self.pcButtonBox.add_widget(self.button)
+        self.rightAccordion.add_widget(self.pcAccordionItem)
 
-        self.randomPCButton = Button(text="random PC", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
-        self.randomPCButton.bind(on_press=self.pressGenericButton)
-        self.randomPCButton.bind(on_release=self.releaseRandomPC)
-        self.pcButtonBox.add_widget(self.randomPCButton)
+        # let's not get too fancy/custom with this; just add fixed panels
+        self.pcPanelsList = []
 
-        self.pcMainBox.add_widget(self.pcButtonBox)
+        for i in range(6):
 
-        self.pcTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
-        label = Label(text="Key", halign="center", size_hint_x=.25, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
-        self.pcTitleGrid.add_widget(label)
-        label = Label(text="Value", halign="center", size_hint_x=.75, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
-        self.pcTitleGrid.add_widget(label)
+            config.pcKeyLabelArray.append([])
+            config.pcValueLabelArray.append([])
 
-        self.pcMainBox.add_widget(self.pcTitleGrid)
+            self.pcPanelsList.append(AccordionItem(title='Character ' + str(i), background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight))
 
-        self.pcDisplay = ScrollView(size_hint=(1, 1))
-        self.pcDisplayGrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
-        self.pcDisplayGrid.bind(minimum_height = self.pcDisplayGrid.setter('height'))
-        self.pcDisplay.add_widget(self.pcDisplayGrid)
+            self.box = BoxLayout(orientation='vertical')
 
-        self.pcTopGrid = GridLayout(cols=2, size_hint_y=None)
-        self.pcTopGrid.bind(minimum_height = self.pcTopGrid.setter('height'))
-        self.pcHalfGrid = GridLayout(cols=4, size_hint_y=None)
-        self.pcHalfGrid.bind(minimum_height = self.pcHalfGrid.setter('height'))
-        self.pcBottomGrid = GridLayout(cols=2, size_hint_y=None)
-        self.pcBottomGrid.bind(minimum_height = self.pcBottomGrid.setter('height'))
+            self.buttonbox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
-        for i in range(1,70):
+            self.button = Button(text="copy to main window", background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont75)
+            self.button.bind(on_press=self.pressGenericButton)
+            self.button.bind(on_release=self.copyPCsToMain)
+            self.buttonbox.add_widget(self.button)
 
-            if i <= 21:
-                ml = False
-                ht = config.tallheight
-                fs = config.basefont90
-            else:
-                ml = True
-                ht = config.tripleheight
-                fs = config.basefont90
+            self.button = Button(text="random major", halign='center', font_size=config.basefont75, background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            self.button.bind(on_press=self.pressGenericButton)
+            self.button.bind(on_release=self.releaseRandomPC)
+            self.buttonbox.add_widget(self.button)
 
-            if i >= 4 and i <= 21:
-                xhint = .25
-            else:
-                xhint = .15
+            self.box.add_widget(self.buttonbox)
 
-            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
-            label.value = i
-            config.pcKeyLabelArray.append(label)
+            self.display = ScrollView(size_hint=(1, 1))
+            self.displaygrid = GridLayout(cols=1, spacing=5, size_hint_y=None, size_hint_x=1)
+            self.displaygrid.bind(minimum_height = self.displaygrid.setter('height'))
+            self.display.add_widget(self.displaygrid)
 
-            label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
-            label.text_size = (self.pcDisplayGrid.width, None)
-            label.value = i
-            config.pcValueLabelArray.append(label)
+            self.topgrid = GridLayout(cols=2, size_hint_y=None)
+            self.topgrid.bind(minimum_height = self.topgrid.setter('height'))
+            self.halfgrid = GridLayout(cols=4, size_hint_y=None)
+            self.halfgrid.bind(minimum_height = self.halfgrid.setter('height'))
+            self.bottomgrid = GridLayout(cols=2, size_hint_y=None)
+            self.bottomgrid.bind(minimum_height = self.bottomgrid.setter('height'))
 
-            if i >= 4 and i <= 21:
-                self.pcHalfGrid.add_widget(config.pcKeyLabelArray[-1])
-                self.pcHalfGrid.add_widget(config.pcValueLabelArray[-1])
-            elif i < 4:
-                self.pcTopGrid.add_widget(config.pcKeyLabelArray[-1])
-                self.pcTopGrid.add_widget(config.pcValueLabelArray[-1])
-            else:
-                self.pcBottomGrid.add_widget(config.pcKeyLabelArray[-1])
-                self.pcBottomGrid.add_widget(config.pcValueLabelArray[-1])
+            for x in range(1,40):
 
-        self.pcDisplayGrid.add_widget(self.pcTopGrid)
-        self.pcDisplayGrid.add_widget(self.pcHalfGrid)
-        self.pcDisplayGrid.add_widget(self.pcBottomGrid)
+                if x <= 24:
+                    ml = False
+                    ht = config.tallheight
+                    fs = config.basefont90
+                else:
+                    ml = True
+                    ht = config.tripleheight
+                    fs = config.basefont90
 
-        self.pcMainBox.add_widget(self.pcDisplay)
+                if x >= 5 and x <= 24:
+                    xhint = .25
+                else:
+                    xhint = .15
 
-        self.pcAItem.add_widget(self.pcMainBox)
+                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+                label.value = x
+                config.pcKeyLabelArray[i].append(label)
 
-        self.rightAccordion.add_widget(self.pcAItem)
+                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+                label.text_size = (self.displaygrid.width, None)
+                label.value = x
+                config.pcValueLabelArray[i].append(label)
+
+                if x >= 5 and x <= 24:
+                    self.halfgrid.add_widget(config.pcKeyLabelArray[i][-1])
+                    self.halfgrid.add_widget(config.pcValueLabelArray[i][-1])
+                elif x < 5:
+                    self.topgrid.add_widget(config.pcKeyLabelArray[i][-1])
+                    self.topgrid.add_widget(config.pcValueLabelArray[i][-1])
+                else:
+                    self.bottomgrid.add_widget(config.pcKeyLabelArray[i][-1])
+                    self.bottomgrid.add_widget(config.pcValueLabelArray[i][-1])
+
+            self.displaygrid.add_widget(self.topgrid)
+            self.displaygrid.add_widget(self.halfgrid)
+            self.displaygrid.add_widget(self.bottomgrid)
+
+            self.box.add_widget(self.display)
+
+            self.pcPanelsList[-1].add_widget(self.box)
+
+            # add the actual PC panels later
 
 ##---------------------------------------------------------------------------------------
 #  actor panel
@@ -648,7 +670,7 @@ class MainScreen(Screen):
 # miscellaneous functions
 #---------------------------------------------------------------------------------------
 
-# trap for enter keystrokes in main input box so 'enter' submits text
+# trap on main textinput so hitting 'enter' submits text instead of a line break
     def key_action(self, *args):
         #print "got a key event: %s" % list(args)
         #print(self.textInput.text, self.textInput.focus)
@@ -656,38 +678,11 @@ class MainScreen(Screen):
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:
                 new_text = self.textInput.text
-                if config.general['enter_behavior'] == "CITE":
-                    updateCenterDisplay(self, new_text, "italic")
+                if config.general['enter_behavior'] != "None":
+                    updateCenterDisplay(self, new_text, config.general['enter_behavior'])
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
                     return True
-                elif config.general['enter_behavior'] == "BOLD":
-                    updateCenterDisplay(self, new_text, "bold")
-                    quicksave(self, config.curr_game_dir)
-                    self.textInput.text = ""
-                    return True
-                elif config.general['enter_behavior'] == "EMCITE":
-                    updateCenterDisplay(self, new_text, "bold_italic")
-                    quicksave(self, config.curr_game_dir)
-                    self.textInput.text = ""
-                    return True
-                elif config.general['enter_behavior'] == "COLOR1":
-                    updateCenterDisplay(self, new_text, "color1")
-                    quicksave(self, config.curr_game_dir)
-                    self.textInput.text = ""
-                    return True
-                elif config.general['enter_behavior'] == "COLOR2":
-                    updateCenterDisplay(self, new_text, "color2")
-                    quicksave(self, config.curr_game_dir)
-                    self.textInput.text = ""
-                    return True
-                elif config.general['enter_behavior'] == "PLAIN":
-                    updateCenterDisplay(self, new_text, "no_format")
-                    quicksave(self, config.curr_game_dir)
-                    self.textInput.text = ""
-                    return True
-                else:
-                    pass
 
     def pressGenericButton(self, button):
         button.background_color = accent2
@@ -848,7 +843,7 @@ class MainScreen(Screen):
 
     def releaseRoll(self, *args):
         self.rollSubmitButton.background_color = neutral
-        updateCenterDisplay(self, rollDice(self.textInput.text), 'bold_italic')
+        updateCenterDisplay(self, rollDice(self.textInput.text), 'result')
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -856,7 +851,7 @@ class MainScreen(Screen):
         self.playerSubmitButton.background_color = neutral
         if len(self.textInput.text) > 0:
             new_text = self.textInput.text
-            updateCenterDisplay(self, new_text, 'no_format')
+            updateCenterDisplay(self, new_text, 'plain')
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -864,7 +859,7 @@ class MainScreen(Screen):
         self.dmSubmitButton.background_color = neutral
         if len(self.textInput.text) > 0:
             new_text = self.textInput.text
-            updateCenterDisplay(self, new_text, "italic")
+            updateCenterDisplay(self, new_text, "aside")
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -873,7 +868,7 @@ class MainScreen(Screen):
         if len(self.textInput.text) > 0:
             new_text = "" + self.textInput.text + ""
             updateThreadDisplay(self, new_text, "Current")
-            updateCenterDisplay(self, "[New Thread] " + new_text, 'italic')
+            updateCenterDisplay(self, "[New Thread] " + new_text, 'aside')
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -882,7 +877,7 @@ class MainScreen(Screen):
         if len(self.textInput.text) > 0:
             new_text = self.textInput.text
             updateActorDisplay(self, new_text, 'Current')
-            updateCenterDisplay(self, "[New Actor] " + new_text, 'italic')
+            updateCenterDisplay(self, "[New Actor] " + new_text, 'aside')
             updateActorIndex(self)
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
@@ -911,31 +906,35 @@ class MainScreen(Screen):
     def toggledBookmark(self, button):
         if self.clearBookmarkButton.state == 'down':
             button.index = -9
-            button.state = 'normal'
             config.general['bookmarks'][button.value] = -9
             button.text = '-'
+            button.state = 'normal'
             self.clearBookmarkButton.state = 'normal'
         else:
             if button.index >= 0:
-
-                try:
-                    for item in config.textLabelArray:
-                        if config.textArray[button.index] in item.text:
-                            self.centerDisplay.scroll_to(item)
-                except:
-                    pass
-                    #updateCenterDisplay(self, "That bookmark is not available in this mode.", 'ephemeral')
-
+                jumpToIndex(self, button.index)
                 button.state = 'normal'
 
-    def jumpToTop(self, button):
+    def navJump(self, button):
         button.background_color = neutral
         if button.text == "top":
             button.text = "bottom"
-            self.centerDisplay.scroll_to(self.centerDisplay.children[0])
+            jumpToIndex(self, 0)
         else:
             button.text = "top"
-            self.centerDisplay.scroll_to(self.centerDisplay.children[-1])
+            jumpToIndex(self, -1)
+
+    def navFind(self, button):
+        button.background_color = neutral
+        print(len(self.textInput.text))
+        if len(self.textInput.text) > 0:
+            findText(self, self.textInput.text)
+            self.textInput.text = ""
+
+    def navNext(self, button):
+        button.background_color = neutral
+        if len(config.general['findList']) > 0:
+            jumpToNext(self)
 
 #---------------------------------------------------------------------------------------
 # center footer bar
@@ -981,7 +980,7 @@ class MainScreen(Screen):
 
     def releasePresetDice(self, *args):
         args[0].background_color = neutral
-        updateCenterDisplay(self, rollDice(args[0].text), 'bold_italic')
+        updateCenterDisplay(self, rollDice(args[0].text), 'result')
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
@@ -1008,6 +1007,7 @@ class MainScreen(Screen):
 
     def on_enter(self):
 
+        # populate all the fields that pull from save game files
         loadconfig(self, config.curr_game_dir)
         quickload(self, config.curr_game_dir)
 
@@ -1028,7 +1028,36 @@ class MainScreen(Screen):
             self.trackLabel.text = str(config.general['tracker'])
 
         except:
-            pass
+            if config.debug == True:
+                print("[Main on enter general] Unexpected error:", sys.exc_info())
+
+        # pc panel
+        del self.pcPanelsList[config.general['total_pcs_to_show']:]
+
+        for i in range(len(self.pcPanelsList)):
+            self.pcStackAccordion.add_widget(self.pcPanelsList[i], len(self.pcPanelsList))
+
+        try:
+            nameList = []
+            for pc in range(len(config.pcKeyLabelArray)):
+                name = [i for i in config.pcKeyLabelArray[pc] if i.text=="Name"]
+                nn = [i for i in config.pcKeyLabelArray[pc] if i.text=="NN"]
+
+                if nn:
+                    index = config.pcKeyLabelArray[pc].index(nn[0])
+                    nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+                elif name:
+                    index = config.pcKeyLabelArray[pc].index(name[0])
+                    nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+                else:
+                    nameList.append("")
+
+            for i in range(len(self.pcPanelsList)):
+                if len(nameList[i]) > 0:
+                    self.pcPanelsList[i].title = nameList[i]
+        except:
+            if config.debug == True:
+                print("[Main on enter pc names] Unexpected error:", sys.exc_info())
 
         # now actor index
         try:
@@ -1126,8 +1155,9 @@ class MainScreen(Screen):
                 showCurrentBlock(self)
                 saveconfig(self, config.curr_game_dir)
 
+        # finally, update logs
         updateRawHTML()
         updateRawMarkdown()
         updateCollapseHTML()
-        updateCleanMarkdown()
-        updateCleanHTML()
+        updateFictionMarkdown()
+        updateFictionHTML()
