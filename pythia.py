@@ -401,7 +401,7 @@ class OracleApp(App):
         #self.accent1_r = accent1[0]
         #self.accent1_g = accent1[1]
         #self.accent1_b = accent1[2]
-        self.basefont = config.formats['basefontsize']
+        self.basefont = config.basefont
         self.neutral = styles.neutral
         self.accent1 = styles.accent1
         self.accent2 = styles.accent2
