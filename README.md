@@ -46,7 +46,7 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 Your save game will still work fine, but you may experience some formatting issues. You can either set the format on errant blocks in Pythia one at a time, or (MAKE A BACKUP FIRST) open the main_status.txt and do some find and replaces.
 
-First, replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Finally, replace any 'don't show' entries with 'ephemeral'.
+First, replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Replace 'no_format' with 'plain'. Finally, replace any 'don't show' entries with 'ephemeral'.
 
 From this point forward you can assign formatting tags to your fiction besides the basic 'plain' tag (italic, bold, bold_italic, color1, color2), if you want the whole block formatted a certain way. For your mechanics you can choose from oracle, query, aside, result, mechanic1, and mechanic2. You can also use standard markdown to tag individual words or phrases inside each block.
 

@@ -236,10 +236,13 @@ def cycleText(label, *args):
     # mechanics tags
     formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
-    if formatList.index(status) == len(formatList)-1:
-        status = formatList[0]
-    else:
-        status = formatList[formatList.index(status)+1]
+    try:
+        if formatList.index(status) == len(formatList)-1:
+            status = formatList[0]
+        else:
+            status = formatList[formatList.index(status)+1]
+    except:
+        status = "plain"
 
     config.textStatusArray[config.textStatusLabelArray.index(label)] = status
     label.text = status

@@ -923,7 +923,7 @@ class MainScreen(Screen):
 
     def navFind(self, button):
         button.background_color = neutral
-        print(len(self.textInput.text))
+        #print(len(self.textInput.text))
         if len(self.textInput.text) > 0:
             findText(self, self.textInput.text)
             self.textInput.text = ""
