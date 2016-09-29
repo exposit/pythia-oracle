@@ -47,7 +47,7 @@ class TitleScreen(Screen):
 
         Window.clearcolor = (neutral[0]*.75, neutral[1]*.75, neutral[2]*.75,.5)
 
-        texture = ObjectProperty()
+        #texture = ObjectProperty()
 
         self.texture = Image(source='resources' + os.sep + 'bg_title' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_1.png').texture
         self.texture.wrap = 'repeat'
@@ -90,7 +90,7 @@ class TitleScreen(Screen):
 
         self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
 
-        self.startButton = Button(text="Start", font_name='Cormorant', font_size="22dp")
+        self.startButton = Button(text="Start", font_name='Cormorant', font_size="20dp")
         self.startButton.bind(on_press=self.pressGenericButton)
         self.startButton.bind(on_release=self.releaseStart)
 
@@ -108,20 +108,20 @@ class TitleScreen(Screen):
             background_color_down=accent2,
             size_hint=(.5, 1),
             font_name='Cormorant',
-            font_size="22dp",
+            font_size="14dp",
             )
 
         self.paletteSpinner.bind(text=self.changePalette)
 
-        self.loadButton = Button(text="Load", font_name='Cormorant', font_size="18dp")
+        self.loadButton = Button(text="Load", font_name='Cormorant', font_size="16dp")
         self.loadButton.bind(on_press=self.pressGenericButton)
         self.loadButton.bind(on_release=self.releaseLoad)
 
-        self.newButton = Button(text="New Game", font_name='Cormorant', font_size="18dp")
+        self.newButton = Button(text="New Game", font_name='Cormorant', font_size="16dp")
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
-        self.newScenarioButton = Button(text="New Game", font_name='Cormorant', font_size="18dp")
+        self.newScenarioButton = Button(text="New Game", font_name='Cormorant', font_size="16dp")
         self.newScenarioButton.bind(on_press=self.pressGenericButton)
         self.newScenarioButton.bind(on_release=self.newGameScenario)
 

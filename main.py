@@ -50,7 +50,7 @@ class MainScreen(Screen):
 
         self.centerBox = BoxLayout(orientation='vertical', padding=(10,10))
 
-        self.statusBox = BoxLayout(orientation='horizontal', size_hint=(1,.07), padding=(10,10))
+        self.statusBox = BoxLayout(orientation='horizontal', size_hint=(1,.10), padding=(10,10))
 
         self.trackBox = BoxLayout(orientation="horizontal", size_hint=(.25,1))
 
@@ -194,15 +194,15 @@ class MainScreen(Screen):
 #  center footerself.box
 ##---------------------------------------------------------------------------------------
 
-        self.footerBox = GridLayout(rows=2)
+        self.footerBox = BoxLayout(orientation="horizontal")
 
         # system buttons, ie, About and save
         self.saveButton = Button(text="Save")
         self.saveButton.bind(on_press=self.pressGenericButton)
         self.saveButton.bind(on_release=self.releaseSave)
 
-        self.AboutButton = Button(text="About")
-        self.AboutButton.bind(on_release=self.showAbout)
+        self.aboutButton = Button(text="About")
+        self.aboutButton.bind(on_release=self.showAbout)
 
         #self.box for adding threads & actors
         self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
@@ -214,90 +214,96 @@ class MainScreen(Screen):
         self.addActorButton.bind(on_release=self.releaseAddActor)
 
         # pick one
-        self.listButton1 = Button(text="Pick One\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton1 = Button(text="Pick\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton1.bind(on_press=self.pressGenericButton)
         self.listButton1.bind(on_release=self.chooseFromList)
         self.listButton1.value = 0
 
-        self.listButton2 = Button(text="Pick One\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton2 = Button(text="Pick\n2d4", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton2.bind(on_press=self.pressGenericButton)
         self.listButton2.bind(on_release=self.chooseFromList)
         self.listButton2.value = 1
 
-        self.listButton3 = Button(text="Pick One\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton3 = Button(text="Pick\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton3.bind(on_press=self.pressGenericButton)
         self.listButton3.bind(on_release=self.chooseFromList)
         self.listButton3.value = 2
 
-        self.listButton4 = Button(text="Pick One\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton4 = Button(text="Pick\n3:2:1", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton4.bind(on_press=self.pressGenericButton)
         self.listButton4.bind(on_release=self.chooseFromList)
         self.listButton4.value = 3
 
         # dice presets
-        self.button1 = Button(text="1d8")
-        self.button1.bind(on_press=self.pressGenericButton)
-        self.button1.bind(on_release=self.releasePresetDice)
+        self.diceButtonsList = []
 
-        self.button2 = Button(text="2d8")
-        self.button2.bind(on_press=self.pressGenericButton)
-        self.button2.bind(on_release=self.releasePresetDice)
+        for preset in config.dice_presets:
 
-        self.button3 = Button(text="3d8")
-        self.button3.bind(on_press=self.pressGenericButton)
-        self.button3.bind(on_release=self.releasePresetDice)
+            if len(preset) > 4:
+                self.button = Button(text=preset, font_size=config.basefont80)
+            else:
+                self.button = Button(text=preset)
 
-        self.button4 = Button(text="1d20", font_size=config.basefont80)
-        self.button4.bind(on_press=self.pressGenericButton)
-        self.button4.bind(on_release=self.releasePresetDice)
+            self.button.bind(on_press=self.pressGenericButton)
+            self.button.bind(on_release=self.releasePresetDice)
+            self.diceButtonsList.append(self.button)
 
-        self.button5 = Button(text="1d100", font_size=config.basefont80)
-        self.button5.bind(on_press=self.pressGenericButton)
-        self.button5.bind(on_release=self.releasePresetDice)
+        #diceList = ["4", "6", "8", "10", "12", "20", "30", "100"]
+        diceList = ["4", "6", "8", "10"]
+        diceSpinnersList = []
 
-        self.button6 = Button(text="1d4")
-        self.button6.bind(on_press=self.pressGenericButton)
-        self.button6.bind(on_release=self.releasePresetDice)
+        for item in diceList:
+            diceValueList = []
+            for i in range(1,11):
+                diceValueList.append( str(i) + "d" + item )
 
-        self.button7 = Button(text="1d6")
-        self.button7.bind(on_press=self.pressGenericButton)
-        self.button7.bind(on_release=self.releasePresetDice)
+            self.spinner = Spinner(
+                # default value shown
+                text=diceValueList[0],
+                # available values
+                values=diceValueList,
+                background_normal='',
+                background_color=neutral,
+                background_down='',
+                background_color_down=accent2,
+                font_size=config.basefont90,
+                )
 
-        self.button8 = Button(text="2d6")
-        self.button8.bind(on_press=self.pressGenericButton)
-        self.button8.bind(on_release=self.releasePresetDice)
+            self.spinner.bind(text=self.releasePresetDice)
+            diceSpinnersList.append(self.spinner)
 
-        self.button9 = Button(text="3d6")
-        self.button9.bind(on_press=self.pressGenericButton)
-        self.button9.bind(on_release=self.releasePresetDice)
+        self.systemBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
+        self.systemBox.add_widget(self.saveButton)
+        self.systemBox.add_widget(self.aboutButton)
 
-        self.button0 = Button(text="1d10")
-        self.button0.bind(on_press=self.pressGenericButton)
-        self.button0.bind(on_release=self.releasePresetDice)
+        self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
+        self.threadBox.add_widget(self.threadSubmitButton)
+        self.threadBox.add_widget(self.addActorButton)
 
-        # row one
-        self.footerBox.add_widget(self.saveButton)
-        self.footerBox.add_widget(self.threadSubmitButton)
-        self.footerBox.add_widget(self.listButton1)
-        self.footerBox.add_widget(self.listButton2)
-        self.footerBox.add_widget(self.button1)
-        self.footerBox.add_widget(self.button2)
-        self.footerBox.add_widget(self.button3)
-        self.footerBox.add_widget(self.button4)
-        self.footerBox.add_widget(self.button5)
+        self.weightedBox = GridLayout(cols=2, size_hint=(.2,1))
+        self.weightedBox.add_widget(self.listButton1)
+        self.weightedBox.add_widget(self.listButton2)
+        self.weightedBox.add_widget(self.listButton3)
+        self.weightedBox.add_widget(self.listButton4)
 
-        self.footerBox.add_widget(self.AboutButton)
-        self.footerBox.add_widget(self.addActorButton)
-        self.footerBox.add_widget(self.listButton3)
-        self.footerBox.add_widget(self.listButton4)
-        self.footerBox.add_widget(self.button6)
-        self.footerBox.add_widget(self.button7)
-        self.footerBox.add_widget(self.button8)
-        self.footerBox.add_widget(self.button9)
-        self.footerBox.add_widget(self.button0)
+        self.dicePresetsBox = GridLayout(cols=5, size_hint=(.4,1))
 
-        # Aboutself.box popup
-        self.AboutBox = GridLayout(cols=1, padding=(10,10))
+        for dice in self.diceButtonsList:
+            self.dicePresetsBox.add_widget(dice)
+
+        self.diceSpinnersBox = GridLayout(cols=2, size_hint=(.2,1))
+
+        for spinner in diceSpinnersList:
+            self.diceSpinnersBox.add_widget(spinner)
+
+        self.footerBox.add_widget(self.systemBox)
+        self.footerBox.add_widget(self.threadBox)
+        self.footerBox.add_widget(self.weightedBox)
+        self.footerBox.add_widget(self.dicePresetsBox)
+        self.footerBox.add_widget(self.diceSpinnersBox)
+
+        # aboutBox popup
+        self.aboutBox = GridLayout(cols=1, padding=(10,10))
 
         text = []
         text.append("Make a new game, push buttons, enter text, push more buttons, let me know if anything crashes. Back up your save folder frequently in case of boom. Have fun!")
@@ -311,10 +317,10 @@ class MainScreen(Screen):
             label = Label(text=entry)
             label.size = label.texture_size
             label.text_size = (500,None)
-            self.AboutBox.add_widget(label)
+            self.aboutBox.add_widget(label)
 
         self.AboutPopup = Popup(title='About',
-            content=self.AboutBox,
+            content=self.aboutBox,
             size_hint=(None, None), size=(550, 500),
             auto_dismiss=True)
 
@@ -977,7 +983,8 @@ class MainScreen(Screen):
 
     def releasePresetDice(self, *args):
         args[0].background_color = neutral
-        updateCenterDisplay(self, rollDice(args[0].text), 'result')
+        result = rollDice(args[0].text)
+        updateCenterDisplay(self, result, 'result')
         quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 

@@ -12,13 +12,11 @@ import config
 import logicscen
 from logicscen import *
 
-from kivy.uix.spinner import SpinnerOption
-
 #---------------------------------------------------------------------------------------------------
 # Basic
 #---------------------------------------------------------------------------------------------------
 
-class ClickLabel(Button, Label):
+class ClickLabel(ButtonBehavior, Label):
     pass
 
 # is this even used anywhere anymore?
@@ -84,6 +82,7 @@ def switchModes(self):
             status = config.textStatusArray[index]
             if status in fictionStatusList:
                 self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
+                field = config.textFieldLabelArray[index]
 
     else:
         # full editing mode, text, mechanics, formats
@@ -147,7 +146,7 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    label = ClickLabel(text=text, size_hint_y=None, font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label = ClickLabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -157,10 +156,9 @@ def makeItemLabels(self, text, status='result'):
     label.markup = True
     label.self = self
     label.index = len(config.textArray)-1
-    #label.index = config.textArray.index(base_text)
     config.textLabelArray.append(label)
 
-    label = ClickLabel(text=status, size_hint=(None, .15), height=12, font_size=config.basefont60, font_name='Fantasque-Sans')
+    label = ClickLabel(text=status, size_hint=(.15, None), height='12dp', font_size=config.basefont60, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -187,14 +185,16 @@ def makeItemLabels(self, text, status='result'):
     #spinner.bind(text=reformatText)
     #config.textStatusLabelArray.append(spinner)
 
-    label = TextInput(text="", size_hint_y=None, font_size=config.maintextfont)
+    label = TextInput(text="", size_hint=(.85, None), font_size=config.maintextfont)
     label.bind(focus=focusChangeText)
     label.background_color=neutral
     label.foreground_color=(1,1,1,1)
-    #label.index = config.textArray.index(base_text)
     label.index = len(config.textArray)-1
     label.text = base_text
     config.textFieldLabelArray.append(label)
+    #label.width = self.centerDisplayGrid.width
+    label.height = label.minimum_height
+    label.height = math.ceil(len(label._lines)/5.0) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
 
 def parseText(text, status):
 
@@ -429,7 +429,13 @@ def focusChangeText(label, value):
         config.textFieldLabelArray[index].text = label.text
 
         field = config.textFieldLabelArray[index]
-        field.height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
+
+        # if the text height has changed by more than two lines
+        old_height = field.height
+        new_height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
+
+        if abs(old_height - new_height) > field.line_height*2:
+            field.height = new_height
 
 def getActorTag(text):
 

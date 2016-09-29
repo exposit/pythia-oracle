@@ -4,6 +4,11 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+WIP
+
+* dice presets cleaned up, customizable in config
+* buttons now have a border for better usability
+
 Version 0.8.0
 
 * formatting now pulls from the config file and can be set on a tag by tag basis

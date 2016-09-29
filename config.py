@@ -10,17 +10,9 @@ import os
 
 debug = True
 
-curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
-curr_adv = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
-
-curr_title = "replace me"
-
-# color stuff
-#transitory_color = styles.curr_palette['accent2']
-#highlight_color = styles.curr_palette['accent1']
-#alternate_color = styles.curr_palette['secondary']
-#link_color = styles.curr_palette['accent2']
-#visited_link_color = styles.curr_palette['accent1']
+#------------------------------------------------------------------------
+# Changes to the following are stored in save games
+#------------------------------------------------------------------------
 
 general = dict(
     pretitle = '------------------------------------------',
@@ -44,7 +36,7 @@ general = dict(
 )
 
 formats = dict(
-    basefontsize = 16,
+    basefontsize = 14,
     transitory_color = styles.curr_palette['accent2'],
     highlight_color = styles.curr_palette['accent1'],
     alternate_color = styles.curr_palette['secondary'],
@@ -82,6 +74,40 @@ user = dict(
     temp = 0,
 )
 
+#------------------------------------------------------------------------
+# Changes to the following are game-wide and not stored in save games
+#------------------------------------------------------------------------
+
+curr_title = "replace me"
+
+# dice presets
+dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
+
+# font sizes
+basefont = str(formats['basefontsize']) + "dp"
+basefont60 = str(formats['basefontsize']*.70) + "dp"
+basefont75 = str(formats['basefontsize']*.80) + "dp"
+basefont80 = str(formats['basefontsize']*.85) + "dp"
+basefont90 = str(formats['basefontsize']*.95) + "dp"
+baseheight = str(formats['basefontsize']+10) + "dp"
+tallheight = str(formats['basefontsize']+15) + "dp"
+tripleheight = str(formats['basefontsize']*3+10) + "dp"
+quintupleheight = str(formats['basefontsize']*5+10) + "dp"
+octupleheight = str(formats['basefontsize']*8+10) + "dp"
+maintextfont = str(formats['basefontsize']*1) + "dp"
+aiheight = baseheight
+
+#------------------------------------------------------------------------
+# Don't mess with anything below this line
+#------------------------------------------------------------------------
+
+curr_game_dir = "." + os.sep + "saves" + os.sep + "quicksave" + os.sep
+curr_adv = "." + os.sep + "resources" + os.sep + "modules" + os.sep + "moduleA" + os.sep
+
+#------------------------------------------------------------------------
+# Config array holders; don't change or edit these
+#------------------------------------------------------------------------
+
 actorArray = []
 actorStatusArray = []
 actorLabelArray = []
@@ -106,18 +132,3 @@ pcValueLabelArray = []
 
 tempMapArray = []
 mapArray = {}
-
-# font sizes; feel free to edit these
-# also, going to move all of these to the general array so they can be saved and loaded on a game by game basis
-basefont = str(formats['basefontsize']) + "dp"
-basefont60 = str(formats['basefontsize']*.60) + "dp"
-basefont75 = str(formats['basefontsize']*.75) + "dp"
-basefont80 = str(formats['basefontsize']*.80) + "dp"
-basefont90 = str(formats['basefontsize']*.90) + "dp"
-baseheight = str(formats['basefontsize']+10) + "dp"
-tallheight = str(formats['basefontsize']+15) + "dp"
-tripleheight = str(formats['basefontsize']*3+10) + "dp"
-quintupleheight = str(formats['basefontsize']*5+10) + "dp"
-octupleheight = str(formats['basefontsize']*8+10) + "dp"
-maintextfont = str(formats['basefontsize']*.90) + "dp"
-aiheight = baseheight
