@@ -16,7 +16,10 @@ from logicscen import *
 # Basic
 #---------------------------------------------------------------------------------------------------
 
-class ClickLabel(ButtonBehavior, Label):
+class ButtonBehaviorLaabel(ButtonBehavior, Label):
+    pass
+
+class ButtonLabel(Button, Label):
     pass
 
 # is this even used anywhere anymore?
@@ -74,15 +77,15 @@ def switchModes(self):
                 self.centerDisplayGrid.add_widget(config.textLabelArray[index])
 
     elif edit_mode == "fic-edit":
-        # editing mode for just text, no mechanics or formats tags
+        # editing mode for just text, no mechanics tags
 
-        self.centerDisplayGrid.cols = 1
+        self.centerDisplayGrid.cols = 2
 
         for index in range(len(config.textArray)):
             status = config.textStatusArray[index]
             if status in fictionStatusList:
                 self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
-                field = config.textFieldLabelArray[index]
+                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
 
     else:
         # full editing mode, text, mechanics, formats
@@ -146,7 +149,7 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    label = ClickLabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label = ButtonBehaviorLaabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -158,7 +161,7 @@ def makeItemLabels(self, text, status='result'):
     label.index = len(config.textArray)-1
     config.textLabelArray.append(label)
 
-    label = ClickLabel(text=status, size_hint=(.15, None), height='12dp', font_size=config.basefont60, font_name='Fantasque-Sans')
+    label = ButtonLabel(text=status, size_hint=(.15, None), height='12dp', font_size=config.basefont60, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -263,7 +266,7 @@ def updateThreadDisplay(self, text, status):
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -343,7 +346,7 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
 
-    label = ClickLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
     label.bind(on_press=cycleActor)
     label.background_normal=''
     label.background_color=accent1
@@ -922,6 +925,22 @@ def updateFictionMarkdown():
                 ti = config.textArray.index(item)
                 item = item.rstrip()
                 if config.textStatusArray[ti] in fictionStatusList:
+                    if config.textStatusArray[ti] == "italic":
+                        item = item.replace('\n', '*\n*')
+                        result = result + "\n*" + item + "*"
+                    elif config.textStatusArray[ti] == "bold":
+                        item = item.replace('\n', '**\n**')
+                        result = result + "\n**" + item + "**"
+                    elif config.textStatusArray[ti] == "bold_italic":
+                        item = item.replace('\n', '_**\n**_')
+                        result = result + "\n**_" + item + "_**"
+                    elif config.textStatusArray[ti] == "color1":
+                        item = item.replace('\n', '`\n`')
+                        result = result + "\n`" + item + "`"
+                    elif config.textStatusArray[ti] == "color2":
+                        item = item.replace('\n', '`\n`')
+                        result = result + "\n`" + item + "`"
+                    else:
                         result = result + "\n" + item
 
             # now replace any in block tags
@@ -948,6 +967,11 @@ def updateFictionHTML():
         with open(config.curr_game_dir + "logs" + os.sep + "log_fiction.html", "w") as log_file:
             result = "\n<html>\n<head>\n<title>" + config.curr_title + "</title>\n"
             style = '\n<style type="text/css">'
+            style = style + "\n.italic {\nfont-style: italic;\n}"
+            style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
+            style = style + "\n.bold {\nfont-weight: bold;\n}"
+            style = style + "\n.color1 {\ncolor: #" + config.formats['highlight_color'] + ";\n}"
+            style = style + "\n.color2 {\ncolor: #" + config.formats['alternate_color'] + ";\n}"
             style = style + "\n</style>\n"
             result = result + style + "</head>\n<body><!-- actual adventure starts here -->"
             # actual adventure content starts here
