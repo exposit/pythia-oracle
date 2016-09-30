@@ -197,7 +197,7 @@ def makeItemLabels(self, text, status='result'):
     config.textFieldLabelArray.append(label)
     #label.width = self.centerDisplayGrid.width
     label.height = label.minimum_height
-    label.height = math.ceil(len(label._lines)/5.0) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
+    label.height = ((len(label._lines)/5) + 1) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
 
 def parseText(text, status):
 
@@ -346,7 +346,7 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
 
-    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.basefont80, font_name='Fantasque-Sans',)
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.tallheight, font_name='Fantasque-Sans',)
     label.bind(on_press=cycleActor)
     label.background_normal=''
     label.background_color=accent1
@@ -482,7 +482,7 @@ def updateActorIndex(self):
 
         item = tagDict[tag]
 
-        button = Button(text=tag, size_hint=(1,None), halign='center', background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80, height=config.basefont90)
+        button = Button(text=tag, size_hint=(1,None), halign='center', background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80, height=config.tallheight)
         button.value = config.actorArray.index(item)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.jumpToActor)
@@ -1042,7 +1042,7 @@ def getRandomActor(key="All"):
     result = "[Random actor, key: " + key + "] " + "No results found."
 
     for i in range(len(config.actorArray)):
-        textarray.append(config.actorArray[i] + " (" + config.actorStatusArray[i]) + ")"
+        textarray.append( config.actorArray[i] + " (" + config.actorStatusArray[i] + ")" )
 
     if key == "All" and len(textarray) > 0:
         result = "[Random actor, key: " + key + "] " + random.choice(textarray)

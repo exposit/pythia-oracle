@@ -91,7 +91,7 @@ def initPanel(self):
     dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
     self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07))
-    self.fuDramaBox = GridLayout(cols=2, size_hint_y=.25)
+    self.fuDramaBox = GridLayout(cols=2, size_hint_y=.3)
 
     self.fuDramaBox.add_widget(Label(text="Good/Bad"))
     self.fuDramaBox.add_widget(Label(text="Yes/No"))
@@ -141,7 +141,7 @@ def initPanel(self):
     self.randomEventTypeSpinner.self = self
     self.fuMainBox.add_widget(self.randomEventTypeSpinner)
 
-    self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.07))
+    self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.06, font_size=config.basefont75))
 
     self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
 

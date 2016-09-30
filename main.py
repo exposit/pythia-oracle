@@ -520,7 +520,7 @@ class MainScreen(Screen):
 
         self.actorMainBox.add_widget(self.actorDisplay)
 
-        self.actorIndexToggle = Button(text="Actor Index", halign="center", height=config.basefont, size_hint=(1,None), font_size=config.basefont90)
+        self.actorIndexToggle = Button(text="Actor Index", halign="center", height=config.tallheight, size_hint=(1,None), font_size=config.basefont90)
         self.actorIndexToggle.value = config.general['actor_index_state']
         self.actorIndexToggle.bind(on_press=self.pressGenericButton)
         self.actorIndexToggle.bind(on_release=self.toggleActorIndexSize)
@@ -743,6 +743,8 @@ class MainScreen(Screen):
 
     def toggleActorIndexSize(self, button):
 
+        button.background_color = neutral
+        
         if button.value == 0:
             self.actorDisplay.size_hint=(1,.80)
             self.actorIndexDisplay.size_hint=(1,.20)
