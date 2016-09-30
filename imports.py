@@ -20,6 +20,7 @@ import zipfile
 
 # Kivy
 from kivy.app import App
+from kivy.base import EventLoop
 from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition, NoTransition, SlideTransition, SwapTransition, FadeTransition, FallOutTransition, RiseInTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout

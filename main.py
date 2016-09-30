@@ -744,7 +744,7 @@ class MainScreen(Screen):
     def toggleActorIndexSize(self, button):
 
         button.background_color = neutral
-        
+
         if button.value == 0:
             self.actorDisplay.size_hint=(1,.80)
             self.actorIndexDisplay.size_hint=(1,.20)

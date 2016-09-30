@@ -242,6 +242,7 @@ class TitleScreen(Screen):
                 with open("." + os.sep + "resources" + os.sep + "defaults" + os.sep + "current_game.txt", "w") as config_file:
                     gamename = config.curr_game_dir.split(os.sep)[-2]
                     config_file.write(gamename)
+                    EventLoop.window.title = gamename
             except:
                 pass
         else:
