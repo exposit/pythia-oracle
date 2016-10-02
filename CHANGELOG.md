@@ -6,10 +6,12 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
-* eliminated fiction block tags; they were unnecessary
-* added a merge mode to make multiples of the same tag combine down
+* new options in the world generator panel for generating grid patterns (rough)
+* added a simple grid map panel for grid-based dungeon crawls
+* merge mode; choose if your save game consolidates sequential identical tags or not
 * dice presets cleaned up, customizable in config
 * buttons now have a border for better usability
+* as always, bug fixes
 
 Version 0.8.0
 
