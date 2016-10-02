@@ -680,7 +680,7 @@ class MainScreen(Screen):
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:
                 new_text = self.textInput.text
-                if config.general['enter_behavior'] != "None":
+                if config.general['enter_behavior'] != "Multi":
                     updateCenterDisplay(self, new_text, config.general['enter_behavior'])
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""

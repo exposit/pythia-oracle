@@ -21,40 +21,44 @@ def initPanel(self):
         self.hexAItem = AccordionItem(title='World & Dungeon', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
         hexMainBox = BoxLayout(orientation='vertical')
 
-        button = Button(text="Make Kingdom", size_hint=(1,.15), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Make Kingdom", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.20))
         button.function = "makeKingdom"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        button = Button(text="Village Size", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        kingdomBox = GridLayout(cols=2, size_hint=(1,.30))
+
+        button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "mathVillagePop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
+        kingdomBox.add_widget(button)
 
-        button = Button(text="Town Size", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Town Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "mathTownPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
+        kingdomBox.add_widget(button)
 
-        button = Button(text="City Size", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "mathCityPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
+        kingdomBox.add_widget(button)
 
-        button = Button(text="Big City Size", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Big City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "mathBigCityPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
+        kingdomBox.add_widget(button)
+
+        hexMainBox.add_widget(kingdomBox)
 
         hexMainBox.add_widget(Label(text="Region Diagram Dungeon", size_hint=(1,.1)))
 
@@ -111,7 +115,7 @@ def initPanel(self):
         button.bind(on_release=getNextRegionDistance)
         hexMainBox.add_widget(button)
 
-        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.25)))
+        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.15)))
 
         button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "weatherWeighted"
@@ -154,7 +158,7 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.25)))
+        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.15)))
 
         hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
         howFarList = ['same room', 'same area', 'same region', 'anywhere']
@@ -167,13 +171,33 @@ def initPanel(self):
 
         hexMainBox.add_widget(hexFarBox)
 
+        hexMainBox.add_widget(Label(text="Grid Mapping", size_hint=(1,.10)))
+
+        button = Button(text="Get Grid Room Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getGridRoomPattern)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="Get Grid Corridor Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getGridCorridorPattern)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="Get Grid Exits", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getGridExits)
+        hexMainBox.add_widget(button)
+
         self.hexAItem.add_widget(hexMainBox)
 
         return self.hexAItem
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 # hexcrawl & wilderness panel button functions
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 def getNextRegionDistance(*args):
     args[0].background_color = neutral
     self = args[0].self
@@ -218,11 +242,11 @@ def moreOrLessRoll(*args):
     updateCenterDisplay(self, result)
     self.textInput.text = ""
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 # --> Math based world generation
 # inspired by http://www222.pair.com/sjohn/blueroom/demog.htm
 # all dumb math errors, wildly inaccurate extrapolations, and lazy fudges are my fault
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 def makeKingdom(userandom=True, total_area=88700, subtype="Standard", popdensity=75, popfactor=5, kingdom_age=300):
 
     # lower popdensity for crappier world conditions, higher for better, with 120 being the best-ish and 30 being lowest-ish
@@ -623,7 +647,7 @@ def passageLike():
         3 : "an intersection",
         4 : "a side passage",
         5 : "nothing",
-        6 : "a door or arch or gap in the wall",
+        6 : "a exit or arch or gap in the wall",
         7 : "special",
         8 : "nothing",
     }
@@ -688,3 +712,101 @@ def howFarIsIt(subtype='same room'):
 
     result = "[How Far?] " + chart[diff]
     return result
+
+def getGridRoomPattern(*args):
+
+    args[0].background_color = neutral
+    self = args[0].self
+
+    result = ""
+    pattern = 0
+    start = 1
+    end = 0
+    exits = []
+    lines = random.randint(1,4) + random.randint(1,4)
+
+    for depth in range(1, lines):
+        if depth == 1:
+            maxwidth = random.randint(1,4) + random.randint(1,4)
+            end = maxwidth
+
+        repeat = random.randint(1,100)
+
+        if pattern == 4 and repeat >= 10:
+            result = result + "\n" + str(depth) + ": " + ", ".join(mark)
+        elif pattern == 5 and repeat >= 50:
+            result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+        elif pattern > 0 and repeat >= 50 and pattern != 4:
+            result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+        else:
+            pattern = random.randint(1,7)
+            if pattern <= 3:
+                end = random.randint(start, maxwidth)
+                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+            elif pattern == 4:
+                mark = []
+                end = random.sample(range(maxwidth), random.randint(start,maxwidth))
+                end.sort()
+                for item in end:
+                    mark.append(str(item))
+                result = result + "\n" + str(depth) + ": " + ", ".join(mark)
+            elif pattern == 5:
+                roll1 = random.randint(start,maxwidth)
+                roll2 = random.randint(start,maxwidth)
+                if roll1 == roll2:
+                    roll2 = roll2 + 1
+                end = max(roll1, roll2)
+                start = min(roll1, roll2)
+                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+            else:
+                end = maxwidth
+                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+
+    result = "[Grid Room] " + result
+
+    updateCenterDisplay(self, result)
+
+def getGridCorridorPattern(*args):
+
+    args[0].background_color = neutral
+    self = args[0].self
+
+    pattern = []
+    intersection = []
+
+    for i in range(1,10):
+        pattern.append("1 by " + str(i))
+
+    for i in range(2, 10):
+        for x in range(1,10):
+            intersection.append(", 1 by " + str(x) + " intersection at " + str(i))
+
+    roll = random.randint(0, len(pattern)-1)
+    base = pattern[roll]
+
+    base + random.choice([", vertical", ", horizontal"])
+
+    if roll > 1 and random.randint(1,100) > 80:
+        base = base + random.choice(intersection)
+
+    result = "[Corridor] " + base
+
+    updateCenterDisplay(self, result)
+
+def getGridExits(*args):
+
+    args[0].background_color = neutral
+    self = args[0].self
+
+    result = ""
+
+    roll = random.randint(0,5)
+
+    chart = [ "North or Up", "East or Right", "South or Down", "West or Left",]
+
+    for i in range(roll):
+        result = result + random.choice(chart)
+
+    result = "[Exits] " + str(roll) + " " + result
+
+    updateCenterDisplay(self, result)

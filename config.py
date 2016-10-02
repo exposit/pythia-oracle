@@ -33,6 +33,7 @@ general = dict(
     total_pcs_to_show = 2,
     findList = [],
     findIndex = 0,
+    merge = True,
 )
 
 formats = dict(
@@ -132,3 +133,6 @@ pcValueLabelArray = []
 
 tempMapArray = []
 mapArray = {}
+
+tempGmapArray = []
+gmapArray = {}

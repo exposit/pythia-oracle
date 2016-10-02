@@ -16,7 +16,7 @@ from logicscen import *
 # Basic
 #---------------------------------------------------------------------------------------------------
 
-class ButtonBehaviorLaabel(ButtonBehavior, Label):
+class ButtonBehaviorLabel(ButtonBehavior, Label):
     pass
 
 class ButtonLabel(Button, Label):
@@ -35,8 +35,36 @@ def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.
 
 def updateCenterDisplay(self, text, status='result'):
 
-    makeItemLabels(self, text, status)
-    addToCenterDisplay(self, text, status)
+    if len(config.textStatusArray) > 0:
+
+        if config.textStatusArray[-1] == status and config.general['merge'] == True:
+
+            # this label's status is the same as the last; consolidate them for brevity
+            config.textArray[-1] = config.textArray[-1] + "\n\n" + text
+            status = config.textStatusArray[-1]
+            formatted_text = parseText(config.textArray[-1], status)
+
+            config.textLabelArray[-1].text = formatted_text
+            config.textFieldLabelArray[-1].text = config.textArray[-1]
+
+            field = config.textFieldLabelArray[-1]
+
+            # if the text height has changed by more than two lines
+            old_height = field.height
+            new_height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
+
+            if abs(old_height - new_height) > field.line_height*2:
+                field.height = new_height
+
+        else:
+
+            makeItemLabels(self, text, status)
+            addToCenterDisplay(self, text, status)
+
+    else:
+
+        makeItemLabels(self, text, status)
+        addToCenterDisplay(self, text, status)
 
 def switchModes(self):
 
@@ -149,7 +177,7 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    label = ButtonBehaviorLaabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label = ButtonBehaviorLabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -576,7 +604,10 @@ def quicksave(self, gamedir):
     f.close
 
     f = open(gamedir + 'maps.txt', 'w')
-    json.dump(config.mapArray, f)
+    maps = {}
+    maps['ddmaps'] = config.mapArray
+    maps['gmaps'] = config.gmapArray
+    json.dump(maps, f)
     f.close()
 
     updateRawHTML()
@@ -591,14 +622,46 @@ def quickload(self, gamedir):
 
     try:
         with open(gamedir + 'main.txt', 'r') as mainfile, open(gamedir + 'main_status.txt', 'r') as statusfile:
-            text = json.load(mainfile)
-            status = json.load(statusfile)
+            textArray = json.load(mainfile)
+            textStatusArray = json.load(statusfile)
 
-        resetCenterDisplay(self, text, status)
+            tempTextArray = []
+            tempStatusArray = []
+
+            if config.general['merge'] == True:
+
+                for i in range(len(textArray)):
+                    if i > 0:
+                        if textStatusArray[i] == textStatusArray[i-1]:
+                            tempTextArray[-1] = tempTextArray[-1] + "\n\n" + textArray[i]
+                        else:
+                            tempTextArray.append(textArray[i])
+                            tempStatusArray.append(textStatusArray[i])
+                    else:
+                        tempTextArray.append(textArray[i])
+                        tempStatusArray.append(textStatusArray[i])
+
+            else:
+
+                for i in range(len(textArray)):
+                    if "\n\n" in textArray[i]:
+                        paragraphs = textArray[i].split('\n\n')
+                        for block in paragraphs:
+                            tempTextArray.append(block)
+                            tempStatusArray.append(textStatusArray[i])
+                    else:
+                        tempTextArray.append(textArray[i])
+                        tempStatusArray.append(textStatusArray[i])
+
+        if config.debug == True:
+            print("Total Lines: " + str(len(tempTextArray)))
+
+        resetCenterDisplay(self, tempTextArray, tempStatusArray)
 
     except:
         if config.debug == True:
             print("[quickload Main] Unexpected error:", sys.exc_info())
+
         updateCenterDisplay(self, "The adventure begins...", 'italic')
 
     try:
@@ -648,12 +711,21 @@ def quickload(self, gamedir):
 
     try:
         with open(gamedir + 'maps.txt', 'r') as filename:
-            config.mapArray = json.load(filename)
+            maps = json.load(filename)
+
+        config.mapArray = maps['ddmaps']
+        config.gmapArray = maps['gmaps']
 
         tempVals = []
         for i in config.mapArray:
             tempVals.append(i)
         self.mapSpinner.values = tempVals
+
+        tempVals = []
+        for i in config.gmapArray:
+            tempVals.append(i)
+        self.gmapSpinner.values = tempVals
+
     except:
         if config.debug == True:
             print("[quickload Maps] Unexpected error:", sys.exc_info())

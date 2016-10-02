@@ -6,6 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
+* eliminated fiction block tags; they were unnecessary
+* added a merge mode to make multiples of the same tag combine down
 * dice presets cleaned up, customizable in config
 * buttons now have a border for better usability
 
