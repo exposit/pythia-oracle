@@ -136,7 +136,7 @@ There is a small (~5%) chance of a random event occurring.
 
 "Chaotic" will pick at random. "Same Old" weights towards the middle, and the other options tend towards more positive results or more negative results, depending on which you choose.
 
-The "Chaos Oracle" returns a response weighted heavily towards random events and qualifiers. Use it when you want lots of information quickly.
+The "Chaos Oracle" returns a response weighted heavily towards random events and qualifiers. Use it when you want lots of information quickly -- or want there to be lots of excitement, mixed victories, and sudden reversals in your characters' lives.
 
 >__*is my hero tied up?*__<br>
 > *[Chaos 11] Yes, and, but*<br>
@@ -183,7 +183,7 @@ __Appearance__
 
 These buttons are generally used when you first meet an NPC, to guide how they are described and their initial behavior. The "Non-Visible Quirk" is used for behavior that isn't immediately apparent, like a stutter or tendency towards rhetorical questions or a phobia, that can help define the character in play.
 
-"Age - Any" chooses from child to elder, weighted towards the middle of the range. "Age - Adult" should be used when a character is known to be an adult or to narrow it down if you get "Mature" on the "Age = Any" roll.
+"Age - Any" chooses from child to elder, weighted towards the middle of the range. "Age - Adult" should be used when a character is known to be an adult or to narrow it down if you get "Mature" on the "Age - Any" roll.
 
 > [Age - Any] Mature.<br>
 > [Age - Mature] Late twenties.<br>
