@@ -219,7 +219,7 @@ Immediate goals returns two goals that the actor wants to achieve, along with ho
 
 __*Relationships*__
 
-These three buttons -- Close, Group, and General -- take two parameters, "Actor" and "Subject", which, depending on the button chosen, can be "Second Actor", "Group", or "Target" (which could be an item, person, place, type of thing, and so on). The first actor is the primary source of the emotion or perspective.
+These three buttons -- Close, Group, and General -- describe out a "first actor" feels about a "subject" (specific to each query type). The first actor is the primary source of the emotion or perspective.
 
 "Relationship - Close" covers friendships, personal enmities, blood kin, essentially any time two people have a shared history based on proximity. It takes the parameters First Actor and Second Actor, with the first actor's actions and attitude being described towards the second actor. So if you ask "How does the hero feel about the king?", the hero is the first actor and the king is the second actor. If you reverse the question -- "How does the king feel about the hero?" -- the king is the first actor and the hero, the second actor.
 
