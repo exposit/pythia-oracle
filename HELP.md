@@ -4,6 +4,8 @@
 
 When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
 
+If you change the theme, you'll need to restart the program for it to take effect.
+
 ##Main Screen
 
 ###Center Panel
@@ -127,7 +129,7 @@ There is a small (~5%) chance of a random event occurring.
 
 "How Much...?" returns a weighted response; the first part is empirical, the second in context of expected results. Choose the answer that makes the most sense for your question.
 
->__*"How much does it cost?"*__
+>__*"How much does it cost?"*__<br>
 >*[How Much?] A little or much less than expected.*
 
 "How's It Going?" offers two columns, one for questions best answered with a "good" or "bad" response, the other for "yes" and "no" answers. Press the button that best describes the current state of events.
@@ -136,8 +138,8 @@ There is a small (~5%) chance of a random event occurring.
 
 The "Chaos Oracle" returns a response weighted heavily towards random events and qualifiers. Use it when you want lots of information quickly.
 
->__*is my hero tied up?*__
-> *[Chaos 11] Yes, and, but*
+>__*is my hero tied up?*__<br>
+> *[Chaos 11] Yes, and, but*<br>
 >__*Yes, and*__ *blind-folded,* __*but*__ *not gagged.*
 
 "Plot Move" chooses a potential GM-style move. Use to emulate a GM's actions or plot movement.
@@ -150,7 +152,7 @@ To get a random event, once you've set the spinner (or left it at Random), choos
 
 Results state the context, the effect, and if it's good or bad (and how good or bad it is). Draw a Seed if needed to help flesh out the answer.
 
-> *Random, random*
+> *Random, random*<br>
 > *[Random Event] Context: Plot! New thread. This is good.*
 
 #### Seeds & Complex Answers
@@ -159,16 +161,16 @@ This panel holds links to all the different seed types and patterns available in
 
 If you need to answer a question like "what does it look like" or "what is it" or "what's this random event about" or just need inspiration, choose a pattern ("verb noun", "description", "action", and so on) and press the button for the appropriate genre. The default is "medieval romance". You can select the default for the current game by clicking in the column to the left of the option you'd like to set as default.
 
-> __*I search the room. What do I find? (What Is It, Detective)*__
-> *[Seed] oblique clues*
-> I find a letter, but it only alludes to motive.
+> __*I search the room. What do I find? (What Is It, Detective)*__<br>
+> *[Seed] oblique clues*<br>
+> I find a letter, but it only alludes to motive.<br>
 
-> __*I pick up the sword, what does it look like? (Description, Fairytale)*__
-> *[Seed] asleep unfortunate*
+> __*I pick up the sword, what does it look like? (Description, Fairytale)*__<br>
+> *[Seed] asleep unfortunate*<br>
 > Its power lies dormant, and it is cursed.
 
-> __*Why is the Captain so anti-Empire? (Verb Noun, Planet Romance)*__
-> *[Seed] creep soldier*
+> __*Why is the Captain so anti-Empire? (Verb Noun, Planet Romance)*__<br>
+> *[Seed] creep soldier*<br>
 > He hates their soldiers because they raided his home during the war.
 
 ####Generators Stack
@@ -183,13 +185,13 @@ These buttons are generally used when you first meet an NPC, to guide how they a
 
 "Age - Any" chooses from child to elder, weighted towards the middle of the range. "Age - Adult" should be used when a character is known to be an adult or to narrow it down if you get "Mature" on the "Age = Any" roll.
 
-> [Age - Any] Mature.
-> [Age - Mature] Late twenties.
-> [Gender Appearance] female
-> [Reality] Is impersonating or mimicking someone else in some way.
-> [Visible Quirk] very short
-> [Visible Quirk] very pale
-> [Non-Visible Quirk] lacks self-confidence
+> [Age - Any] Mature.<br>
+> [Age - Mature] Late twenties.<br>
+> [Gender Appearance] female<br>
+> [Reality] Is impersonating or mimicking someone else in some way.<br>
+> [Visible Quirk] very short<br>
+> [Visible Quirk] very pale<br>
+> [Non-Visible Quirk] lacks self-confidence<br>
 
 __Motivations__
 
@@ -199,8 +201,8 @@ __*Wheel (General Outlook)*__
 
 The wheel button returns a line indicating the actor's primary emotions, followed by their primary (and possibly secondary) focus. You can interpret the parts separately or together, as seems appropriate to you.
 
->[Wheel]
->[Strong] amusement, [strong] interest
+>[Wheel]<br>
+>[Strong] amusement, [strong] interest<br>
 >[Focus] inappropriate target [secondary], secrets [primary]
 
 *Obviously a super-spy with a weakness for the enemy's chief lieutenant, who he finds equal parts interesting and amusing, even as he seeks out interesting secrets to use against his enemy.*
@@ -209,8 +211,8 @@ __*Immediate Goals*__
 
 Immediate goals returns two goals that the actor wants to achieve, along with how strongly he wants to achieve them and a context. The context can be interpreted as part of the goal or as the driving force for it, as appropriate.
 
->[Goals]
->[Twinge] to transmit a disease, contagion, or state of being [hero's enemy]
+>[Goals]<br>
+>[Twinge] to transmit a disease, contagion, or state of being [hero's enemy]<br>
 >[Driving] to learn how to socialize [hero's heritage]
 
 *This actor is the hero; she is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive*
@@ -221,21 +223,21 @@ These three buttons -- Close, Group, and General -- take two parameters, "Actor"
 
 "Relationship - Close" covers friendships, personal enmities, blood kin, essentially any time two people have a shared history based on proximity. It takes the parameters First Actor and Second Actor, with the first actor's actions and attitude being described towards the second actor. So if you ask "How does the hero feel about the king?", the hero is the first actor and the king is the second actor. If you reverse the question -- "How does the king feel about the hero?" -- the king is the first actor and the hero, the second actor.
 
-> How does the merchant Jelur feel about his old school-mate Reil?
+> How does the merchant Jelur feel about his old school-mate Reil?<br>
 > The first actor was childhood rivals with the second actor and expresses it covertly and passively.
 
 *Jelur was childhood rivals with Reil and to this day he holds a grudge, acting against his old rival whenever it won't be obvious and he doesn't have to go out of his way to do it.*
 
 "Relationship - Group" is used whenever an actor's affiliation is in question; it takes the parameters First Actor and Target Group.
 
-> How does the merchant Jelur feel about the Circle of the Seven Suns?
+> How does the merchant Jelur feel about the Circle of the Seven Suns?<br>
 > The first actor wants the counsel of the target group and expresses it overtly and actively.
 
 *Jelur thinks that the Circle might be able to help him prosper. He seeks out every opportunity to laud their good works and makes sure any visitors from the circle hear him doing so.*
 
 "Relationship - General" is used whenever a close connection is unlikely but you want to know how a target feels about a specific thing. It takes First Actor and Target, where Target is a person, place, thing, or whatever.
 
-> Reil, the nearby swamps
+> Reil, the nearby swamps<br>
 > The actor hates and fears the target.
 
 *Reil hates and fears the nearby swamps, because his parents vanished there while picking berries several years ago.*
@@ -244,7 +246,7 @@ __*Actor's Next Move*__
 
 The Actor's Next Move returns a move and a tag that indicate what the actor in question will do next. You can use this as frequently or infrequently as you wish. The "move" is generally a concrete instruction, while the "tag" in brackets points to motive or general effectiveness.
 
-> How does Reil proceed?
+> How does Reil proceed?<br>
 > [Noble] Actor indulges or expresses a noble facet of their character.
 
 *Reil has the assassin responsible for his parents' death at his mercy. The assassin claims he was coerced with magic; Reil finds he doesn't have it in him to murder someone in cold blood, let alone someone who was forced into evil deeds. Nobly, he turns the man over to the city guard -- and goes hunting for the sorcerer behind things.*
@@ -273,7 +275,7 @@ __*Defining Characteristic*__
 
 This returns a character trait and a modifier that sum up the character in some way. You can use it to describe an immediate impression of the actor or to set ballparks for their stat(s).
 
-> [Defining Characteristic] The actor is very "lovely".
+> [Defining Characteristic] The actor is very "lovely".<br>
 > [Defining Characteristic] The actor is impaired "imaginative".
 
 *When Reil meets Maela, a prisoner he frees from the Circle's secret prisons, he immediately falls in love with her lovely spirit and great personal beauty. However, he quickly realizes she's a bit, to put it nicely, tiresome and overly literal.*
@@ -284,7 +286,7 @@ __Emotional Reaction__
 
 This tool is used to generate an emotion and degree of emotion from a negative or positive list. It can be used as a reaction roll, in response to a successful or failed check, or it can be used simply to determine how a character responds to a particular crisis or event.
 
-> A successful Persuasion check to convince the scout to help against the Circle.
+> A successful Persuasion check to convince the scout to help against the Circle.<br>
 > [Reaction] Relief [driving]
 
 *The scout is relieved someone's here to assist him, and that relief drives him to be as helpful as he can be.*
@@ -311,8 +313,8 @@ __*Known Quirk*__
 
 Roll this to get a fact or rumor that "everyone knows" about the people of your new kingdom. Whether or not it's true is up to you (and your oracle). You should likely roll up several of these, ranking them from "strongest" to "weakest".
 
-> [Known Quirk] The majority are proud of a local ability like sailing, fishing, or navigating swamps.
-> [Known Quirk] The common folk are very traditional.
+> [Known Quirk] The majority are proud of a local ability like sailing, fishing, or navigating swamps.<br>
+> [Known Quirk] The common folk are very traditional.<br>
 > [Known Quirk] Criminals are very poor
 
 *The locals, known as "fenfolk" are justifiably proud of their long tradition of navigating the local fens. They carry this traditionalism into every aspect of their lives, including their criminal punishment system, which is elaborately built on a system of weregild and fines that generally mean a bad or unlucky thief is a poor one.*
@@ -321,8 +323,8 @@ __*Secret Quirk*__
 
 Roll this to get a fact or rumor that is only whispered about -- or perhaps nobody dares to do even that -- about the people of your new kingdom. Whether or not it's true is up to you (and your oracle).
 
-> [Secret Quirk] The church leaders are cursed with ill-luck.
-> [Secret Quirk] The poor are blessed with good luck.
+> [Secret Quirk] The church leaders are cursed with ill-luck.<br>
+> [Secret Quirk] The poor are blessed with good luck.<br>
 > [Secret Quirk] The ruler's advisors are fomenting rebellion.
 
 *The traditional fenfolk stubbonly cling to their old traditions and rituals of propitation, bringing them continued good luck, while the determined friars of the new religion seem cursed at every turn. The devout whisper of divine wrath. One of the high-ranking enlisted men is secretly a loyalist looking for allies.*
@@ -353,11 +355,11 @@ Example:
 
 Reil enters the notoriously dangerous environs of the sorcerer-king he's heard is in thrall to the Circle.
 
-> [Settled Level] Dense [Seed] 4
-> [Terrain Type] plains (1) | heavy forest | light forest (3) | hills (4)
-> [Settlements] ['Town', 'City', 'Town', 'City', 'Town']
-> [Beneath] Ruins
-> [Known Ruins] ['habitation', 'sewer']
+> [Settled Level] Dense [Seed] 4<br>
+> [Terrain Type] plains (1) | heavy forest | light forest (3) | hills (4)<br>
+> [Settlements] ['Town', 'City', 'Town', 'City', 'Town']<br>
+> [Beneath] Ruins<br>
+> [Known Ruins] ['habitation', 'sewer']<br>
 
 *It's a densely settled area, predominantly plains, with some light and heavy forest and a few hills. There are two major cities and three towns; beneath the area is a sprawling set of ancient ruins. One of the major cities has been decimated by plague and lies abandoned. Adventure also can be found in the sewers beneath the remaining city, the sorcerer-king's capital.*
 
@@ -377,11 +379,11 @@ __Miscellaneous Questions__
 
 "More or Less Than Expected" requires a general idea of the quantity, size, or duration. If you enter text into the text input, it will replace "expected".
 
-> "Is the ogre larger than expected?"
+> "Is the ogre larger than expected?"<br>
 > [More or Less] A bit less than expected.
 
-> "How long will it take?"
-> "a few hours"
+> "How long will it take?"<br>
+> "a few hours"<br>
 > [More or Less] Less than a few hours.
 
 "How Difficult is It?" returns a statement on how hard the task or feat is, along with a suggested modifier to the DC.
@@ -408,10 +410,10 @@ __Grid Mapping__
 
 Grid mapping is used in conjunction with the grid map panel or with a piece of graph paper or a similar program. Each button returns a set of coordinates you can click or fill in to make a room or passage. Obviously, sanity checks are needed; if something doesn't make sense, connect it differently or skip it.
 
-"Get Grid Room Pattern" returns a room-shaped set of coordinates. Pick a square on the map (likely an exit from another room or corridor) and count it as "1"; the rest of the room coordinates are in relation to this.
+"Get Grid Room Pattern" returns a room-shaped set of coordinates. Pick a square on the map (likely an exit from another room or corridor or center-bottom if it's a new map) and count it as "1"; the rest of the room coordinates are in relation to this.
 
-> [Grid Room]
-> 1: 1 to 6
+> [Grid Room]<br>
+> 1: 1 to 6<br>
 > 2: 1 to 3
 
 *You would, starting from your "1", fill in 1 to 6, then move up one row and fill in 1 to 3.*
