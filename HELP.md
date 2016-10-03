@@ -219,19 +219,19 @@ Immediate goals returns two goals that the actor wants to achieve, along with ho
 
 __*Relationships*__
 
-These three buttons -- Close, Group, and General -- describe out a "first actor" feels about a "subject" (specific to each query type). The first actor is the primary source of the emotion or perspective. Each takes two parameters in the textinput, separated by a comma and capitalized as indicated. If no parameters are in the text input, it will just use the listed defaults.
+These three buttons -- Close, Group, and General -- describe out a "first actor" feels about a "subject" (specific to each query type). The first actor is the primary source of the emotion or perspective. Each button takes two parameters in the text input, separated by a comma, generally prefaced with "the" if appropriate. If no parameters are in the text input, it will just use the listed defaults.
 
 "Relationship - Close" ["The first actor, the second actor"] covers friendships, personal enmities, blood kin, essentially any time two people have a shared history based on proximity. It takes the parameters First Actor and Second Actor, with the first actor's actions and attitude being described towards the second actor. So if you ask "How does the hero feel about the king?", the hero is the first actor and the king is the second actor. If you reverse the question -- "How does the king feel about the hero?" -- the king is the first actor and the hero, the second actor.
 
 > How does the merchant Jelur feel about his old school-mate Reil?<br>
-> The first actor was childhood rivals with the second actor and expresses it covertly and passively.
+> The first actor was childhood rivals with the second actor and expresses this covertly and passively.
 
 *Jelur was childhood rivals with Reil and to this day he holds a grudge, acting against his old rival whenever it won't be obvious and he doesn't have to go out of his way to do it.*
 
 "Relationship - Group" ["The first actor, the target group"] is used whenever an actor's affiliation is in question; it takes the parameters First Actor and Target Group.
 
 > How does the merchant Jelur feel about the Circle of the Seven Suns?<br>
-> The first actor wants the counsel of the target group and expresses it overtly and actively.
+> The first actor wants the counsel of the target group and expresses this overtly and actively.
 
 *Jelur thinks that the Circle might be able to help him prosper. He seeks out every opportunity to laud their good works and makes sure any visitors from the circle hear him doing so.*
 
