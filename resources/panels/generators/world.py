@@ -324,20 +324,24 @@ def getKingdomPowerStructure(button):
     button.background_color = neutral
     self = button.self
 
-    powertype = ["a democracy", "a republic", "a monarchy", "an absolute monarchy", "a dictatorship", "a democratic republic", "a collection of city-states", "ruled by corporations", "ruled by thieves", "authoritarian", "totalitarian", "anarchic", "bureaucratic", "tribal", "feudal"]
-    primaryleader = ["the sorcerer-king", "a cabal of sorcerers", "a hereditary king", "a usurper", "a ruling council of seven", "an elected body of ex-soldiers", "the high king", "a twice a year gathering of clan leaders", "a war chief in war and a peace chief in peace", "an elected leader", "a group of noble houses", "the head of the church"]
-    powergroups = ["the church", "the nobles", "the aristocracy", "the working class", "the slaves", "the serfs", "the common man", "everyone", "no one", "the nearest kingdom", "the criminal element", "the military", "a powerful guild", "a weak guild", "a powerful trade partner", "a weak trader partner", "a powerful moneylender", "the wealthy", "the honorable", "the dutiful", "those who have inherited power", "those who have earned power", "those who have taken power by force", "those who have schemed for power", "the educated", "the ill-educated", "the powerful", "the meek", "the most skilled craftsmen", "the less skilled craftsmen", "the movers and shakers"]
+    powertype = ["a democracy", "a republic", "a monarchy", "a dictatorship", "a democratic republic", "a collection of city-states", "made up of those who serve the guilds and banks", "made up of thieves", "authoritarian", "totalitarian", "in anarchy", "libertarian", "bureaucratic", "tribalism", "feudalism", "a loose collection of clans", "in service to those with wealth and trade connections", "infested with criminals at all levels", "ruled with an iron fist", "guided by enlightened self-interest", "a meritocracy", "guided by a noble class decided by birth", "guided by a citizen class decided by service"]
+
+    primaryleader = ["the sorcerer-king", "a cabal of sorcerers", "a king", "a usurper", "a ruling council of seven", "a body of ex-soldiers", "the high king", "a gathering of clan leaders", "a war chief in war and a peace chief in peace", "a leader", "a group of noble houses", "the head of the church", "a cult leader", "a holy person", "a normally stigmatized group", "a charismatic leader", "a warlord", "a tyrant", "a dictator", "a tribunal of miltary leaders", "a tribunal of craftsmen", "an incestuous pack of feuding noble houses"]
+
+    powergroups = ["the church", "the nobles", "the aristocracy", "the working class", "the slaves", "the serfs", "the common man", "everyone", "no one", "the nearest kingdom", "the criminal element", "the military", "a powerful guild", "a weak guild", "a powerful trade partner", "a weak trader partner", "a powerful moneylender", "the wealthy", "the honorable", "the dutiful", "those who have inherited power", "those who have earned power", "those who have taken power by force", "those who have schemed for power", "the educated", "the ill-educated", "the powerful", "the meek", "the most skilled craftsmen", "the less skilled craftsmen", "the movers and shakers", "the ruler's advisors", "a normally stigmatized class"]
+
+    methodstopower = ["elected by peers", "elected by public acclaim", "usurping", "hereditary", "de facto", "feared", "unopposed", "ruthlessly disposed of rivals", "a loophole in the law", "the only option", "the best hope", "a figurehead", "a wildcard", "unstable", "weak", "strong", "stable", "dependent", "independent", "assassination", "scheming", "slander and lies", "betrayal", "seduction", "vast wealth", "the last survivor", "the last of the line", "the last of the blood"]
 
     roll = random.randint(1,100)
     if roll <= 50:
         ptype = random.sample(powertype,2)
-        ptype = " and ".join(ptype)
+        ptype = ", and ".join(ptype)
     else:
         ptype = random.choice(powertype)
 
     powergroup = random.sample(powergroups, 2)
 
-    result = "[Power] It is formally " + ptype + ". The highest authority is " + random.choice(primaryleader) + " that has the support of " + powergroup[0] + " and the enmity of " + powergroup[1]  + "."
+    result = "[Power] The government is " + ptype + ". The highest authority is " + random.choice(primaryleader) + " (" + random.choice(methodstopower) + ") with the support of " + powergroup[0] + " and the enmity of " + powergroup[1]  + "."
 
     updateCenterDisplay(self, result)
 
