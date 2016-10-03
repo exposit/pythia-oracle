@@ -177,7 +177,7 @@ If you need to answer a question like "what does it look like" or "what is it" o
 
 ####Actors & Motives
 
-This panel holds random generators related to creating "actors" for your stories and games.
+This panel holds random generators related to creating "actors" for your stories and games. They can be used to make NPCs for your hero to interact with or to help flesh out your hero himself.
 
 __Appearance__
 
@@ -215,7 +215,7 @@ Immediate goals returns two goals that the actor wants to achieve, along with ho
 >[Twinge] to transmit a disease, contagion, or state of being [hero's enemy]<br>
 >[Driving] to learn how to socialize [hero's heritage]
 
-*This actor is the hero; she is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive*
+*This actor is the hero; she is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive.*
 
 __*Relationships*__
 
