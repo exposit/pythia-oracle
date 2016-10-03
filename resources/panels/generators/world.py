@@ -347,13 +347,13 @@ def getKingdomKnownQuirk(button):
 
     subject = ["The majority", "A minority", "The common folk", "The nobles", "The elite", "The rulers", "The church leaders", "The poor", "The wealthy", "The working people", "The craftspeople", "Criminals", "The servant or slave class", "The ruler's advisors", "The ruler's family and hanger-ons", "A particular noble house's members", "The ruler's most trusted allies"]
 
-    adjective = ["ill-educated", "ill-fed", "very poor", "prosperous", "greedy", "greedy and rapacious", "frugal", "law-abiding", "[roll up a \"Defining Characteristic\" from the Actor Panel]", "constantly feuding", "subdued", "repressed", "imprisoned", "very traditional", "very untraditional", "proud of a local feature like a waterfall, forest, or building", "proud of a local ability like sailing, fishing, or navigating swamps", "proud of a local product like ale, wine, or wool", "proud of a local tradition like a festival, ceremony, or religious rite", "proud of a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", ]
+    adjective = ["ill-educated", "ill-fed", "very poor", "prosperous", "greedy", "greedy and rapacious", "frugal", "law-abiding", "[roll up a \"Defining Characteristic\" from the Actor Panel]", "feuding and belligerent", "subdued", "repressed", "imprisoned", "very traditional", "very untraditional", "proud of a local feature like a waterfall, forest, or building", "proud of a local ability like sailing, fishing, or navigating swamps", "proud of a local product like ale, wine, or wool", "proud of a local tradition like a festival, ceremony, or religious rite", "proud of a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", ]
 
     general = [ "Many thieves among the populace", "The land is very rocky and inhospitable", "Arable land is plentiful", "The land is rich in some valuable resource", "The land is rich in a ridiculously valuable, ridiculously rare resource", "The land is very dangerous and inhospitable"]
 
     for group in subject:
         for obj in adjective:
-            general.append(group + " are " + obj)
+            general.append(group + " are " + obj + ".")
 
     result = "[Known Quirk] " + random.choice(general)
 
@@ -371,7 +371,7 @@ def getKingdomSecretQuirk(button):
 
     for group in subject:
         for obj in adjective:
-            general.append(group + " are " + obj)
+            general.append(group + " are " + obj + ".")
 
     result = "[Secret Quirk] " + random.choice(general)
 

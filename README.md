@@ -2,7 +2,7 @@
 
 ### Pythia-Oracle 0.9.0
 
-Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
+Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A basic guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
 
 #### What is it?
 

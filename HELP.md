@@ -1,8 +1,10 @@
-##Documentation
+#Documentation
 
-####Title Screen
+##Title Screen
 
 When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
+
+##Main Screen
 
 ###Center Panel
 
