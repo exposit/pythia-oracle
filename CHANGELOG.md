@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 0.9.0
 
+* added in a merge toggle for merging behavior and moved "about" to the title screen
 * rewrote the kindom generation on the world panel with new, more useful generators
 * wrote up a rough part by part documentation
 * more seed curation; there are a LOT of seeds to go through. Recommend using "hardboiled" or "medieval romance" for the most curated results
