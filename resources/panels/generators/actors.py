@@ -283,31 +283,31 @@ def actorNonvisibleQuirk():
 def actorRelationshipClose(npc1="The first actor", npc2="the second actor"):
 
     closeChart = [
-       "opposes every goal of", "is married/devoted to", "is close blood kin of", "is distand blood kin of", "hates but can't escape from", "is in love with", "is trying to ruin", "was childhood friends with", "grew up with", "was childhood rivals with", "came to blows with", "respects the opinion of", "disregards the value of", "finds everything objectionable about", "finds everything admirable about", "seeks out the advice of", "was lovers/friends with but drifted apart", "was lovers/friends with but had a bitter falling out", "is a lover/friend of", "is married/trapped by", "would like to free", "wants to see dead", "tolerates", "is inconvenienced by", "would be happier without", "would be much less well-off without", "was saved once from physical harm by", "was saved once from dire peril by", "was saved from embarrassment or social ruin by", "took a blow for", "is adamantly loyal to", "is disloyal to", "is an ex of", "is estranged from", "is bitterly angry at", "is resentful of",
+       "opposes every goal of", "is married to or devoted to", "is close blood kin of", "is distant blood kin of", "hates but can't escape from", "is in love with", "is trying to ruin", "was childhood friends with", "grew up with", "was childhood rivals with", "came to blows with", "respects the opinion of", "disregards the value of", "finds everything objectionable about", "finds everything admirable about", "seeks out the advice of", "is a lover or friend of", "is married to or trapped by", "wants to free", "puts up with", "watches out for", "would be happier without", "would be much worse off without", "would be much worse off if not for", "would be richer if not for", "was saved from harm by", "was saved from dire peril by", "was saved from embarrassment or social ruin by", "took a blow for", "sacrificed for", "is loyal to", "is disloyal to", "is an ex of", "was close to but is now estranged from", "is resentful of", "is a crutch or linchpin for", "was uplifted because of", "would be less well-off if not for"
     ]
 
     overtly = random.choice(["overtly", "covertly"])
     actively = random.choice(["actively", "passively"])
 
-    result = npc1 + " " + random.choice(closeChart) + " " + npc2 + " and expresses it " + overtly + " and " + actively + "."
+    result = npc1 + " " + random.choice(closeChart) + " " + npc2 + " and expresses this " + overtly + " and " + actively + "."
     return result
 
 def actorRelationshipGroup(npc1="The first actor", group1="the target group"):
 
     groupChart = [
-       "is a member in good standing of", "is an escapee from", "is a lapsed member of", "is an ardent supporter of", "is a fanatic of", "seeks to undermine", "seeks to join", "seeks to disband", "wants to avoid contact with", "wants to be left alone by", "wants the counsel of", "is hunted by", "pays lip service to", "tithes regularly to", "is oppressed by", "was liberated by", "believes in the cause of", "agrees with the philosphy but not the methods of", "agrees with the methods but not the motives of", "is being fooled by", "is secretly a high-ranking member of", "has a relative who is a high-ranking member of", "has a relative they wish to free from"
+       "is a member in good standing of", "is an escapee from", "is a lapsed member of", "is an ardent supporter of", "is a fanatic of", "seeks to undermine", "seeks to join", "seeks to disband", "wants to avoid contact with", "wants to be left alone by", "wants the counsel of", "is hunted by", "pays lip service to", "tithes regularly to", "is oppressed by", "was liberated by", "believes in the cause of", "agrees with the philosphy but not the methods of", "agrees with the methods but not the motives of", "is being fooled by", "is a high-ranking member of", "has a relative who is a high-ranking member of", "has a relative they wish to free from", "swore an oath to", "owes a great debt to", "is trapped by", "was aided by", "was rescued by"
     ]
 
     overtly = random.choice(["overtly", "covertly"])
     actively = random.choice(["actively", "passively"])
 
-    result = npc1 + " " + random.choice(groupChart) + " " + group1 + " and expresses it " + overtly + " and " + actively + "."
+    result = npc1 + " " + random.choice(groupChart) + " " + group1 + " and expresses this " + overtly + " and " + actively + "."
     return result
 
 def actorRelationshipGeneral(npc1="The actor", object="the target"):
 
     generalChart =[
-    "hates and fears", "is enraged by", "is happy with", "is thrilled by", "wants to avoid", "prefers to deal with", "wants to destroy", "wants to preserve", "wants to fight", "wants to make peace with", "wants to use", "wants to prevent others from using"
+    "hates and fears", "is enraged by", "is happy with", "is thrilled by", "wants to avoid", "prefers to deal with", "wants to destroy", "wants to preserve", "wants to fight", "wants to make peace with", "wants to use", "wants to prevent others from using", "wants to hide", "wants to reveal"
     ]
 
     result = npc1 + " " + random.choice(generalChart) + " " + object + "."
