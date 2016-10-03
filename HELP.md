@@ -119,7 +119,7 @@ The left stack contains oracles, random generators, and maps. User-created panel
 
 ####Oracle Stack
 
-#####FU & How's It Going
+####FU & How's It Going
 
 The FU oracle is based on rolling d6s and counting the number of odd versus even results. When asking a question of the oracle, press the text (or percentage) that matches how likely the answer is a "yes".
 
@@ -175,7 +175,7 @@ If you need to answer a question like "what does it look like" or "what is it" o
 
 ####Generators Stack
 
-#####Actors & Motives
+####Actors & Motives
 
 This panel holds random generators related to creating "actors" for your stories and games.
 
@@ -442,10 +442,10 @@ The first thing you should do when making a new map is to enter a title in the t
 
 Finally, there are a number of tools on the World Panel in the Generators Stack for generating content for the different maps.
 
-#####Grid Map
+####Grid Map
 
 This is exactly like a sheet of graph paper. Click once to change the background color, click again to return it to base. You can enter a single digit or letter into any square.
 
-#####Diagram Map
+####Diagram Map
 
 The black squares are "rooms" or "blocks" and can be labeled, and the areas between can be clicked to set links between two blocks or rooms. Click repeatedly to cycle through the various types of connections.
