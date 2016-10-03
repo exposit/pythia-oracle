@@ -40,12 +40,12 @@ def initPanel(self):
 
     self.gmapScroll = ScrollView(size_hint=(1, 1))
 
-    self.gmapGrid = GridLayout(cols=21, rows=21, spacing=5, size_hint=(None, None))
+    self.gmapGrid = GridLayout(cols=26, spacing=5, size_hint=(None, None))
     self.gmapGrid.bind(minimum_height=self.gmapGrid.setter('height'))
     self.gmapGrid.bind(minimum_width=self.gmapGrid.setter('width'))
 
     count = -1
-    for i in range(441):
+    for i in range(26*24):
 
         button = TextInput(text="", size_hint=(None,None), size=('25dp', '25dp'), font_size=config.basefont75, background_color=(0,0,0,1), foreground_color=(1,1,1,1), halign="center", valign="center")
         button.self = self
@@ -106,15 +106,32 @@ def initPanel(self):
     button.bind(on_release=makeNewMap)
     self.gmapMainBox.add_widget(button)
 
+    button = Button(text="Full Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=fullMapPopup)
+    self.gmapMainBox.add_widget(button)
+
     self.miniMapButton = Button(text="Show Minimap", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     self.miniMapButton.self = self
     self.miniMapButton.bind(on_press=self.pressGenericButton)
     self.miniMapButton.bind(on_release=toggleMiniMap)
     self.gmapMainBox.add_widget(self.miniMapButton)
 
-    self.miniMapGrid = GridLayout(cols=21)
+    self.miniMapGrid = GridLayout(cols=26)
 
     self.gmapAItem.add_widget(self.gmapMainBox)
+
+    # popup for showing the full map
+    self.displayGmapGrid = GridLayout(cols=26, spacing=5, size_hint=(1, 1))
+
+    self.displayGmapPopup = Popup(title='Map',
+        content=self.displayGmapGrid,
+        size_hint=(None, None))
+    self.displayGmapPopup.self = self
+    self.displayGmapPopup.bind(on_open=copyMapToDisplay)
+    self.displayGmapPopup.bind(on_dismiss=saveAsPng)
+    self.displayGmapPopup.size=(800, 800)
 
     return self.gmapAItem
 
@@ -142,7 +159,8 @@ def makeNewMap(source):
     except:
         self = source
 
-    saveMap(self)
+    if len(self.gmapTitle.text) > 0:
+        saveMap(self)
 
     for i in config.tempGmapArray:
         i.text = ""
@@ -250,3 +268,32 @@ def genMiniMap(self):
         button = Button(text=text, font_name='Cormorant', font_size=config.basefont90, background_color=bgcolor, color=fgcolor, size=(10,10))
 
         self.miniMapGrid.add_widget(button)
+
+def fullMapPopup(button, *args):
+    button.background_color = neutral
+    self = button.self
+    self.displayGmapPopup.open()
+
+def copyMapToDisplay(popup):
+    # populate grid properly
+    self = popup.self
+
+    for i in config.tempGmapArray:
+        i.parent.remove_widget(i)
+        self.displayGmapGrid.add_widget(i)
+
+def saveAsPng(popup):
+
+    self = popup.self
+
+    # save png
+    if self.gmapTitle.text == "":
+        maptitle = "unknown"
+    else:
+        maptitle = self.gmapTitle.text
+
+    self.displayGmapGrid.export_to_png(config.curr_game_dir + "grid_" + maptitle + ".png")
+
+    for i in config.tempGmapArray:
+        i.parent.remove_widget(i)
+        self.gmapGrid.add_widget(i)

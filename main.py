@@ -35,7 +35,7 @@ class MainScreen(Screen):
         # comment this out to return to default text input behavior, ie, enter while focused on main textinput does nothing
         Window.bind(on_key_down=self.key_action)
 
-        Button.background_down=""
+        #Button.background_down=""
 
 ##---------------------------------------------------------------------------------------
 #  SIDE PANEL - right horizontal stack
@@ -54,15 +54,15 @@ class MainScreen(Screen):
 
         self.trackBox = BoxLayout(orientation="horizontal", size_hint=(.25,1))
 
-        self.trackDownButton = Button(text="-", size_hint=(.5,1))
+        self.trackDownButton = Button(text="-", size_hint=(.3,1))
         self.trackDownButton.bind(on_press=self.pressGenericButton)
         self.trackDownButton.bind(on_release=self.releaseTrackerDown)
         self.trackBox.add_widget(self.trackDownButton)
 
-        self.trackLabel = Label(text="0")
+        self.trackLabel = Label(text="0", size_hint=(.3,1))
         self.trackBox.add_widget(self.trackLabel)
 
-        self.trackUpButton = Button(text="+", size_hint=(.5,1))
+        self.trackUpButton = Button(text="+", size_hint=(.3,1))
         self.trackUpButton.bind(on_press=self.pressGenericButton)
         self.trackUpButton.bind(on_release=self.releaseTrackerUp)
         self.trackBox.add_widget(self.trackUpButton)
@@ -196,13 +196,13 @@ class MainScreen(Screen):
 
         self.footerBox = BoxLayout(orientation="horizontal")
 
-        # system buttons, ie, About and save
+        # system buttons, ie, save & merge
         self.saveButton = Button(text="Save")
         self.saveButton.bind(on_press=self.pressGenericButton)
         self.saveButton.bind(on_release=self.releaseSave)
 
-        self.aboutButton = Button(text="About")
-        self.aboutButton.bind(on_release=self.showAbout)
+        self.mergeButton = ToggleButton(text="Merge")
+        self.mergeButton.bind(on_release=self.toggleMerge)
 
         #self.box for adding threads & actors
         self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
@@ -224,7 +224,7 @@ class MainScreen(Screen):
         self.listButton2.bind(on_release=self.chooseFromList)
         self.listButton2.value = 1
 
-        self.listButton3 = Button(text="Pick\n3d6", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton3 = Button(text="Pick\n2d6", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton3.bind(on_press=self.pressGenericButton)
         self.listButton3.bind(on_release=self.chooseFromList)
         self.listButton3.value = 2
@@ -249,10 +249,9 @@ class MainScreen(Screen):
             self.diceButtonsList.append(self.button)
 
         #diceList = ["4", "6", "8", "10", "12", "20", "30", "100"]
-        diceList = ["4", "6", "8", "10"]
         diceSpinnersList = []
 
-        for item in diceList:
+        for item in config.dice_spinner_list:
             diceValueList = []
             for i in range(1,11):
                 diceValueList.append( str(i) + "d" + item )
@@ -274,7 +273,7 @@ class MainScreen(Screen):
 
         self.systemBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.systemBox.add_widget(self.saveButton)
-        self.systemBox.add_widget(self.aboutButton)
+        self.systemBox.add_widget(self.mergeButton)
 
         self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.threadBox.add_widget(self.threadSubmitButton)
@@ -301,28 +300,6 @@ class MainScreen(Screen):
         self.footerBox.add_widget(self.weightedBox)
         self.footerBox.add_widget(self.dicePresetsBox)
         self.footerBox.add_widget(self.diceSpinnersBox)
-
-        # aboutBox popup
-        self.aboutBox = GridLayout(cols=1, padding=(10,10))
-
-        text = []
-        text.append("Make a new game, push buttons, enter text, push more buttons, let me know if anything crashes. Back up your save folder frequently in case of boom. Have fun!")
-        text.append("")
-        text.append("Drama chart & How's It Going rolls from Joel Priddy @ http://abominablefancy.blogspot.com; go there for more neat stuff!")
-        text.append("")
-        text.append("The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).")
-        text.append("")
-        text.append("Pythia (this program) is licensed under MIT.\nGithub (user name exposit, repo pythia-oracle) for more information.")
-        for entry in text:
-            label = Label(text=entry)
-            label.size = label.texture_size
-            label.text_size = (500,None)
-            self.aboutBox.add_widget(label)
-
-        self.AboutPopup = Popup(title='About',
-            content=self.aboutBox,
-            size_hint=(None, None), size=(550, 500),
-            auto_dismiss=True)
 
         self.textInputMainBox.add_widget(self.footerBox)
 
@@ -424,6 +401,7 @@ class MainScreen(Screen):
             self.button = Button(text="copy to main window", font_size=config.basefont75)
             self.button.bind(on_press=self.pressGenericButton)
             self.button.bind(on_release=self.copyPCsToMain)
+            self.button.sheet = i
             self.buttonbox.add_widget(self.button)
 
             self.button = Button(text="random major", halign='center', font_size=config.basefont75)
@@ -685,6 +663,8 @@ class MainScreen(Screen):
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
                     return True
+        elif args[1] == 13 and config.debug == True:   # really sloppy screenshot taker
+            Window.screenshot(name='./screenshot_' + str(time.time()) + '.png')
 
     def pressGenericButton(self, button):
         button.background_color = accent2
@@ -703,6 +683,7 @@ class MainScreen(Screen):
         result = eval(args[0].function)()
         updateCenterDisplay(self, result)
 
+    # scenario
     def showBlock(self, *args):
         args[0].background_color = neutral
         showCurrentBlock(self)
@@ -724,7 +705,7 @@ class MainScreen(Screen):
                 if config.trackStatusLabelArray[i].active:
                     result = result + " [X]"
         result = "[Tracked] " + result
-        updateCenterDisplay(self, result, "color2")
+        updateCenterDisplay(self, result, "mechanic1")
 
     def copyActorToMain(self, *args):
         args[0].background_color = neutral
@@ -732,7 +713,7 @@ class MainScreen(Screen):
         for i in range(len(config.actorArray)):
             result = result + "\n" + config.actorArray[i] + " [" + config.actorStatusArray[i] + "]"
         result = "[Actors] " + result
-        updateCenterDisplay(self, result, "color2")
+        updateCenterDisplay(self, result, "mechanic1")
 
     def jumpToActor(self, button):
 
@@ -760,14 +741,15 @@ class MainScreen(Screen):
 
         config.general['actor_index_state'] = button.value
 
-    def copyPCsToMain(self, *args):
-        args[0].background_color = neutral
+    def copyPCsToMain(self, button):
+        button.background_color = neutral
         result = ""
-        for i in range(len(config.pcKeyLabelArray)):
-            if len(config.pcKeyLabelArray[i].text) > 0:
-                result = result + "\n" + config.pcKeyLabelArray[i].text + ": " + config.pcValueLabelArray[i].text
-        result = "[PC] " + result
-        updateCenterDisplay(self, result, "color2")
+        sheet = button.sheet
+        for i in range(len(config.pcKeyLabelArray[sheet])):
+            if len(config.pcKeyLabelArray[sheet][i].text) > 0:
+                result = result + " | " + config.pcKeyLabelArray[sheet][i].text + ": " + config.pcValueLabelArray[sheet][i].text
+        result = "[PC " + str(sheet) + "] " + result
+        updateCenterDisplay(self, result, "mechanic1")
 
     def copyThreadsToMain(self, *args):
         args[0].background_color = neutral
@@ -775,7 +757,7 @@ class MainScreen(Screen):
         for i in range(len(config.threadArray)):
             result = result + "\n" + config.threadArray[i] + " [" + config.threadStatusArray[i] + "]"
         result = "[Threads] " + result
-        updateCenterDisplay(self, result, "color2")
+        updateCenterDisplay(self, result, "mechanic1")
 
 #---------------------------------------------------------------------------------------
 # submit text input buttons
@@ -945,6 +927,14 @@ class MainScreen(Screen):
 # center footer bar
 #---------------------------------------------------------------------------------------
 
+    def toggleMerge(self, button):
+        if button.state == "down":
+            button.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
+            config.general['merge'] = True
+        else:
+            button.background_color = neutral
+            config.general['merge'] = False
+
     def releaseRandomThread(self, *args):
         args[0].background_color = neutral
         text = self.textInput.text.capitalize()
@@ -1004,9 +994,6 @@ class MainScreen(Screen):
                 updateCenterDisplay(self, "Please enter a comma-separated list in one line that has at least as many options as needed.", 'ephemeral')
         self.textInput.text = ""
 
-    def showAbout(self, *args):
-        self.AboutPopup.open()
-
 #---------------------------------------------------------------------------------------
 # heartbeat functions
 #---------------------------------------------------------------------------------------
@@ -1017,7 +1004,7 @@ class MainScreen(Screen):
         loadconfig(self, config.curr_game_dir)
         quickload(self, config.curr_game_dir)
 
-        # now update variable widgets; general first
+        # now update variable widgets; general miscellanous first
         try:
             self.enterSpinner.text = str(config.general["enter_behavior"])
             self.editSpinner.text = str(config.general["edit_behavior"])
@@ -1032,6 +1019,11 @@ class MainScreen(Screen):
             del l
 
             self.trackLabel.text = str(config.general['tracker'])
+
+            if config.general['merge'] == True:
+                self.mergeButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
+            else:
+                self.mergeButton.background_color = neutral
 
         except:
             if config.debug == True:

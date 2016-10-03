@@ -12,7 +12,7 @@ import re
 import time
 import datetime
 import random
-#import math
+import math
 import json
 import glob
 import string
@@ -33,6 +33,10 @@ from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.uix.behaviors import ToggleButtonBehavior
 from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+
+from kivy.factory import Factory
+#from kivy.lang import Builder
+from kivy.clock import Clock
 
 from kivy.uix.image import Image
 from kivy.graphics import *

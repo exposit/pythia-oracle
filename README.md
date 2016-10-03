@@ -1,6 +1,6 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!! Version 0.8.0 introduces some formatting changes; be sure to read the section on upgrading if you have older save files.
+### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 
-### Pythia-Oracle 0.8.0
+### Pythia-Oracle 0.9.0
 
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/).
 
@@ -58,13 +58,11 @@ Move your saves folder and your backups folder to another directory completely o
 
 Double check that you have a saved copy of your saves folder and backups folder somewhere else, then delete your existing pythia-oracle folder.
 
-Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see or just read the error messages.
-
-If there doesn't seem to be an easy fix, you can always just make a new game with the new version. Then copy (NOT MOVE) your save files from your backup into the new game directory, overwriting as prompted, but skipping the config.txt file. Then just set your variables as you play.
+Grab a fresh download, unzip, then copy (don't move) your save folder in. Run the program; if you get any errors, read them. Some file names may have changed. New variables might have been added to the config file. You can compare your game's config.txt against the default quicksave to see or just read the error messages or just replace your config.txt with the clean version from the quicksave.
 
 #### Customization/Setup
 
-Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and opening up one of the log files to make sure things are saving as you expected them to.
+Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
 
 If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
 

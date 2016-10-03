@@ -4,12 +4,18 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-WIP
+Version 0.9.0
 
+* rewrote the kindom generation on the world panel with new, more useful generators
+* wrote up a rough part by part documentation
+* more seed curation; there are a LOT of seeds to go through. Recommend using "hardboiled" or "medieval romance" for the most curated results
+* hitting "enter" with no input focused will now take a screenshot if debug mode is on
+* button for showing the full map and saving a screenshot to your save directory
+* fixed up map panels a bit, streamlined saving (no more auto-save)
 * new options in the world generator panel for generating grid patterns (rough)
 * added a simple grid map panel for grid-based dungeon crawls
-* merge mode; choose if your save game consolidates sequential identical tags or not
-* dice presets cleaned up, customizable in config
+* merge mode; choose if your save game consolidates sequential identical tags or not (or vice versa)
+* dice presets cleaned up, now customizable in config
 * buttons now have a border for better usability
 * as always, bug fixes
 

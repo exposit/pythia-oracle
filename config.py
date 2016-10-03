@@ -8,7 +8,7 @@
 import styles
 import os
 
-debug = True
+debug = False
 
 #------------------------------------------------------------------------
 # Changes to the following are stored in save games
@@ -83,6 +83,7 @@ curr_title = "replace me"
 
 # dice presets
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
+dice_spinner_list = ["4", "6", "8", "20"]
 
 # font sizes
 basefont = str(formats['basefontsize']) + "dp"

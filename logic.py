@@ -66,6 +66,9 @@ def updateCenterDisplay(self, text, status='result'):
         makeItemLabels(self, text, status)
         addToCenterDisplay(self, text, status)
 
+    #field = config.textFieldLabelArray[-1]
+    #print(field.minimum_height)
+
 def switchModes(self):
 
     self.centerDisplayGrid.clear_widgets()
@@ -654,7 +657,7 @@ def quickload(self, gamedir):
                         tempStatusArray.append(textStatusArray[i])
 
         if config.debug == True:
-            print("Total Lines: " + str(len(tempTextArray)))
+            print("Total Lines In Main Text: " + str(len(tempTextArray)))
 
         resetCenterDisplay(self, tempTextArray, tempStatusArray)
 
@@ -1253,15 +1256,15 @@ def chooseWeighted(value, text, form):
             for key,value in chart.items():
                 result_string = result_string + "[" + str(key) + "] " + value + " "
         elif value == 2:
-            # 3d6
-            index = 3
+            # 2d6
+            index = 2
             chart = {}
             result_string = ""
             result = text.split(", ")
             for i in result:
                 chart[index] = i
                 index = index + 1
-            roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
+            roll = random.randint(1,6) + random.randint(1,6)
             result = chart[roll]
             for key,value in chart.items():
                 result_string = result_string + str(key) + ": " + value + " "
@@ -1289,6 +1292,11 @@ def chooseWeighted(value, text, form):
 
     except:
         return str(result_string), str(result), str("ephemeral"), str("0")
+
+# ------------
+# Tooltips
+# ------------
+
 
 # here's full 100 item lists; I don't think these are tied in right now
 def seed_action():

@@ -145,8 +145,16 @@ def initPanel(self):
 
     self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
 
+    button = Button(text='random', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80, size_hint=(1,.07))
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=randomChartRoll)
+    button.subtype="Random Event"
+    button.self = self
+    button.link = self.randomEventTypeSpinner
+    self.fuMainBox.add_widget(button)
+
     for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=randomChartRoll)
         button.subtype="Random Event"
@@ -303,7 +311,7 @@ def randomEventRoll(text, event_type="Random"):
     if event_type == "Random":
         event_type = random.choice(['Action', 'Social', 'Weird', 'World', 'Plot'])
 
-    if text == "Random":
+    if text == "random":
         text = random.choice(["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"])
 
     if event_type == "Action":

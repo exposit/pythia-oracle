@@ -21,14 +21,43 @@ def initPanel(self):
         self.hexAItem = AccordionItem(title='World & Dungeon', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
         hexMainBox = BoxLayout(orientation='vertical')
 
-        button = Button(text="Make Kingdom", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.20))
-        button.function = "makeKingdom"
+        hexMainBox.add_widget(Label(text="Make Kingdom", size_hint=(1,.10)))
+
+        sizeBox = GridLayout(cols=2, size_hint=(1,.10))
+
+        button = Button(text="Modern", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
+        button.bind(on_release=getKingdomSize)
+        sizeBox.add_widget(button)
+
+        button = Button(text="Medieval", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getKingdomSize)
+        sizeBox.add_widget(button)
+
+        hexMainBox.add_widget(sizeBox)
+
+        button = Button(text="Power Structure", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.10))
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getKingdomPowerStructure)
         hexMainBox.add_widget(button)
 
         kingdomBox = GridLayout(cols=2, size_hint=(1,.30))
+
+        button = Button(text="Known Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getKingdomKnownQuirk)
+        kingdomBox.add_widget(button)
+
+        button = Button(text="Secret Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getKingdomSecretQuirk)
+        kingdomBox.add_widget(button)
 
         button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "mathVillagePop"
@@ -60,12 +89,12 @@ def initPanel(self):
 
         hexMainBox.add_widget(kingdomBox)
 
-        hexMainBox.add_widget(Label(text="Region Diagram Dungeon", size_hint=(1,.1)))
+        hexMainBox.add_widget(Label(text="Region Diagram Dungeon", size_hint=(1,.1), font_size=config.basefont90))
 
         regionTypeSpinner = Spinner(
             text='Random',
             values=["Random", "Scattered", "Dense", "Unsettled", "Frontier", "Desolate"],
-            size_hint=(1,.25),
+            size_hint=(1,.10),
             background_normal='',
             background_color=accent1,
             background_down='',
@@ -97,7 +126,8 @@ def initPanel(self):
 
         hexMainBox.add_widget(hexPointABox)
 
-        hexMainBox.add_widget(Label(text="Upcoming Terrain", size_hint=(1,.1)))
+        hexMainBox.add_widget(Label(text="Upcoming Terrain", size_hint=(1,.1), font_size=config.basefont90))
+
         hexPointCBox = GridLayout(cols=9, size_hint=(1,.2))
         for i in range(0,9):
             button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
@@ -115,7 +145,7 @@ def initPanel(self):
         button.bind(on_release=getNextRegionDistance)
         hexMainBox.add_widget(button)
 
-        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.15)))
+        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.10), font_size=config.basefont90))
 
         button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.function = "weatherWeighted"
@@ -136,6 +166,21 @@ def initPanel(self):
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
+
+        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.10), font_size=config.basefont90))
+
+        hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
+        howFarList = ['same room', 'same area', 'same region', 'anywhere']
+        for item in howFarList:
+            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+            button.self = self
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=pressHowFar)
+            hexFarBox.add_widget(button)
+
+        hexMainBox.add_widget(hexFarBox)
+
+        hexMainBox.add_widget(Label(text='Diagram Mapping', size_hint=(1,.10), font_size=config.basefont90))
 
         button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.self = self
@@ -158,20 +203,7 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.15)))
-
-        hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
-        howFarList = ['same room', 'same area', 'same region', 'anywhere']
-        for item in howFarList:
-            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
-            button.self = self
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=pressHowFar)
-            hexFarBox.add_widget(button)
-
-        hexMainBox.add_widget(hexFarBox)
-
-        hexMainBox.add_widget(Label(text="Grid Mapping", size_hint=(1,.10)))
+        hexMainBox.add_widget(Label(text="Grid Mapping", size_hint=(1,.10), font_size=config.basefont90))
 
         button = Button(text="Get Grid Room Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
         button.self = self
@@ -198,6 +230,7 @@ def initPanel(self):
 #---------------------------------------------------------------------------------------------------
 # hexcrawl & wilderness panel button functions
 #---------------------------------------------------------------------------------------------------
+
 def getNextRegionDistance(*args):
     args[0].background_color = neutral
     self = args[0].self
@@ -243,120 +276,112 @@ def moreOrLessRoll(*args):
     self.textInput.text = ""
 
 #---------------------------------------------------------------------------------------------------
-# --> Math based world generation
+# --> Kingdom
+#
+#---------------------------------------------------------------------------------------------------
+
+def getKingdomSize(button):
+
+    button.background_color = neutral
+    self = button.self
+
+    if button.text == "Modern":
+        mod = 2
+    else:
+        mod = 0
+
+    chart = [
+        ("vast", "Russia", "Russia", "Russia"),
+        ("massive", "China", "United States", "Canada"),
+        ("great", "Australia", "India", "Kazakhstan"),
+        ("major", "Mexico", "Indonesia", "Libya"),
+        ("large", "Peru", "Mongolia", "South Africa"),
+        ("medium", "Turkey", "Chile", "Morocco"),
+        ("small", "France", "Sweden", "Germany"),
+        ("small", "France", "Sweden", "Germany"),
+        ("minor", "United Kingdom", "New Zealand", "Italy"),
+        ("modest", "Greece", "North Korea", "Iceland"),
+        ("minor", "Denmark", "Switzerland", "Slovakia"),
+        ("petty", "The Bahamas", "Montenegro", "Slovenia"),
+        ("city-state", "Hong Kong", "Samoa", "Barbados"),
+    ]
+
+    # result of 0 to 12
+    roll = random.randint(1, 7) + random.randint(1, 7) - mod
+    if roll > 12:
+        roll = 11
+
+    option = chart[roll]
+
+    comp = random.choice([option[1], option[2], option[3]])
+
+    result = "[Kingdom Size] " + option[0] + " (" + comp + ")"
+
+    updateCenterDisplay(self, result)
+
+def getKingdomPowerStructure(button):
+
+    button.background_color = neutral
+    self = button.self
+
+    powertype = ["a democracy", "a republic", "a monarchy", "an absolute monarchy", "a dictatorship", "a democratic republic", "a collection of city-states", "ruled by corporations", "ruled by thieves", "authoritarian", "totalitarian", "anarchic", "bureaucratic", "tribal", "feudal"]
+    primaryleader = ["the sorcerer-king", "a cabal of sorcerers", "a hereditary king", "a usurper", "a ruling council of seven", "an elected body of ex-soldiers", "the high king", "a twice a year gathering of clan leaders", "a war chief in war and a peace chief in peace", "an elected leader", "a group of noble houses", "the head of the church"]
+    powergroups = ["the church", "the nobles", "the aristocracy", "the working class", "the slaves", "the serfs", "the common man", "everyone", "no one", "the nearest kingdom", "the criminal element", "the military", "a powerful guild", "a weak guild", "a powerful trade partner", "a weak trader partner", "a powerful moneylender", "the wealthy", "the honorable", "the dutiful", "those who have inherited power", "those who have earned power", "those who have taken power by force", "those who have schemed for power", "the educated", "the ill-educated", "the powerful", "the meek", "the most skilled craftsmen", "the less skilled craftsmen", "the movers and shakers"]
+
+    roll = random.randint(1,100)
+    if roll <= 50:
+        ptype = random.sample(powertype,2)
+        ptype = " and ".join(ptype)
+    else:
+        ptype = random.choice(powertype)
+
+    powergroup = random.sample(powergroups, 2)
+
+    result = "[Power] It is formally " + ptype + ". The highest authority is " + random.choice(primaryleader) + " that has the support of " + powergroup[0] + " and the enmity of " + powergroup[1]  + "."
+
+    updateCenterDisplay(self, result)
+
+def getKingdomKnownQuirk(button):
+    button.background_color = neutral
+    self = button.self
+
+    subject = ["The majority", "A minority", "The common folk", "The nobles", "The elite", "The rulers", "The church leaders", "The poor", "The wealthy", "The working people", "The craftspeople", "Criminals", "The servant or slave class", "The ruler's advisors", "The ruler's family and hanger-ons", "A particular noble house's members", "The ruler's most trusted allies"]
+
+    adjective = ["ill-educated", "ill-fed", "very poor", "prosperous", "greedy", "greedy and rapacious", "frugal", "law-abiding", "[roll up a \"Defining Characteristic\" from the Actor Panel]", "constantly feuding", "subdued", "repressed", "imprisoned", "very traditional", "very untraditional", "proud of a local feature like a waterfall, forest, or building", "proud of a local ability like sailing, fishing, or navigating swamps", "proud of a local product like ale, wine, or wool", "proud of a local tradition like a festival, ceremony, or religious rite", "proud of a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", ]
+
+    general = [ "Many thieves among the populace", "The land is very rocky and inhospitable", "Arable land is plentiful", "The land is rich in some valuable resource", "The land is rich in a ridiculously valuable, ridiculously rare resource", "The land is very dangerous and inhospitable"]
+
+    for group in subject:
+        for obj in adjective:
+            general.append(group + " are " + obj)
+
+    result = "[Known Quirk] " + random.choice(general)
+
+    updateCenterDisplay(self, result)
+
+def getKingdomSecretQuirk(button):
+    button.background_color = neutral
+    self = button.self
+
+    subject = ["The majority", "A minority", "The common folk", "The nobles", "The elite", "The rulers", "The church leaders", "The poor", "The wealthy", "The working people", "The craftspeople", "Thieves", "Assassins", "Criminals", "The servant or slave class", "The ruler's advisors", "The ruler's family and hanger-ons", "A particular noble house's members", "The ruler's most trusted allies"]
+
+    adjective = ["serving dark masters", "licentious", "feuding", "in league with a neighboring kingdom", "fomenting rebellion", "seeking a replacement leader", "very untraditional", "very traditional", "hiding a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", "[roll up a \"Defining Characteristic\" from the Actor Panel]"]
+
+    general = ["Dark magic permeates the country", "Powerful thieves' guild or mafia runs things", "The land is rich in some valuable resource", "The land is rich in a ridiculously valuable, ridiculously rare resource", "Monsters stalk the realm at night", "People go missing far more commonly than might be expected"]
+
+    for group in subject:
+        for obj in adjective:
+            general.append(group + " are " + obj)
+
+    result = "[Secret Quirk] " + random.choice(general)
+
+    updateCenterDisplay(self, result)
+
+#---------------------------------------------------------------------------------------------------
+# --> Math based town sizes
 # inspired by http://www222.pair.com/sjohn/blueroom/demog.htm
 # all dumb math errors, wildly inaccurate extrapolations, and lazy fudges are my fault
 #---------------------------------------------------------------------------------------------------
-def makeKingdom(userandom=True, total_area=88700, subtype="Standard", popdensity=75, popfactor=5, kingdom_age=300):
-
-    # lower popdensity for crappier world conditions, higher for better, with 120 being the best-ish and 30 being lowest-ish
-    if userandom == True:
-        # set variables here
-        #total_area = random.randint(1, 6592772)
-        roll = random.randint(1,100)
-        if roll <= 5:
-            # giant country, Russia, 5%
-            roll = float(random.randint(1,25)) / 100
-            total_area = int(6601670 - (6601670 * roll))
-        elif roll <= 10:
-            # big country, America or China, 5%
-            roll = random.randint(-250000,250001)
-            total_area = 3250000 + roll
-        elif roll <= 11:
-            # very small country, ie, Guernsey 1%
-            roll = random.randint(1,100) + 20
-            total_area = roll
-        else:
-            if roll <= 20:
-                roll = random.randint(-200000,200001)
-                total_area = 900000 + roll
-            elif roll <= 40:
-                roll = random.randint(-2000,2000)
-                total_area = 4000 + roll
-            else:
-                total_area = random.randint(100000, 500000)
-
-        subtype = random.choice(["Standard", "Pre-Crusades", "Renaissance"])
-        popfactor = random.randint(1,5)
-        popdensity = 0
-        for i in range(6):
-            popdensity = popdensity + random.randint(1,4)
-        popdensity = popdensity * popfactor
-        kingdom_age = random.randint(2, 30) * 100
-
-    total_population = total_area * popdensity
-    pop_remaining = total_population
-
-    largest_city_pop_p = math.sqrt(total_population)
-    largest_city_pop_m = random.randint(1,4) + random.randint(1,4) + 10
-    largest_city_pop = int(largest_city_pop_p * largest_city_pop_m)
-
-    second_largest_pop_p = (random.randint(1,4) + random.randint(1,4) * 10) / 100.0
-    second_largest_pop = int(largest_city_pop * second_largest_pop_p)
-
-    pop_remaining = pop_remaining - largest_city_pop - second_largest_pop
-
-    cityList = [largest_city_pop, second_largest_pop]
-    if subtype == "Renaissance" or subtype == "Pre-Crusades":
-        target = 1000
-    else:
-        target = 8000
-
-    cities = len(cityList)
-    towns = 0
-    count = 0
-    while pop_remaining > target and count < 10:
-        factor = (random.randint(1,4) + random.randint(1,4) * 5) / 100.0
-        new_pop = cityList[-1] - (cityList[-1] * factor)
-        if pop_remaining - new_pop >= 8000:
-            cityList.append(new_pop)
-            if pop_remaining > 8000:
-                cities = cities + 1
-            else:
-                towns = towns + 1
-            pop_remaining = pop_remaining - new_pop
-        else:
-            pop_remaining = target - 1
-        count = count + 1
-        pop_remaining = target - 10
-
-    if subtype == "Standard":
-        towns = (random.randint(1,8) * random.randint(1,8)) * len(cityList)
-
-        townie_pop = towns * 2500
-
-        pop_remaining = pop_remaining - townie_pop
-
-    # everyone else lives in a village or hamlet, or solo in the wilderness
-    while pop_remaining > 0:
-        village_size = random.randint(2, 100) * 10
-        if pop_remaining - village_size > 0:
-            cityList.append(village_size)
-            pop_remaining = pop_remaining - village_size
-        else:
-            pop_remaining = 0
-
-    agrarian_land = (float(total_population / 180.0) / total_area) * 100
-
-    wilderness_land = 100 - agrarian_land
-
-    ruins = total_population / 5000000
-    ruins = int(ruins * math.sqrt(kingdom_age))
-
-    active_castles = int(total_population/50000)
-
-    urban_string = ""
-    for urban in cityList:
-        urban_string = urban_string + " | "
-        urban_string = urban_string + str(math.floor(urban))
-
-    result = "Total area: " + str(total_area) + ", subtype: " + subtype + ", population density: " + str(popdensity) + ", population factor: " + str(popfactor) + ", kingdom age: " + str(kingdom_age)
-    result = result + "\nTotal population: " + str(total_population)
-    result = result + "\nCities: " + str(cities) + ", Towns: " + str(towns) + "\nCity/town populations (8k): " + str(urban_string)
-    result = result + "\nAgrarian land percent: " + str(agrarian_land) + ", percent wilderness: " + str(wilderness_land)
-    result = result + "\nRuins: " + str(ruins) + ", active castles: " + str(active_castles)
-
-    return result
 
 def mathBigCityPop():
     roll = random.randint(1,100)
@@ -784,7 +809,7 @@ def getGridCorridorPattern(*args):
     roll = random.randint(0, len(pattern)-1)
     base = pattern[roll]
 
-    base + random.choice([", vertical", ", horizontal"])
+    base = base + random.choice([", vertical", ", horizontal"])
 
     if roll > 1 and random.randint(1,100) > 80:
         base = base + random.choice(intersection)
@@ -804,9 +829,12 @@ def getGridExits(*args):
 
     chart = [ "North or Up", "East or Right", "South or Down", "West or Left",]
 
+    exits = []
     for i in range(roll):
-        result = result + random.choice(chart)
+        exits.append(random.choice(chart))
 
-    result = "[Exits] " + str(roll) + " " + result
+
+
+    result = "[Exits] " + str(roll) + " " + ", ".join(exits)
 
     updateCenterDisplay(self, result)

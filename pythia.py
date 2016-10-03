@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle 0.8.0
+Pythia-Oracle 0.9.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit
@@ -45,7 +45,8 @@ class TitleScreen(Screen):
 
         Builder.load_file('style.kv')
 
-        Window.clearcolor = (neutral[0]*.75, neutral[1]*.75, neutral[2]*.75,.5)
+        Window.clearcolor = (neutral[0]*.75, neutral[1]*.75, neutral[2]*.75,1)
+        #Window.clearcolor = neutral
 
         #texture = ObjectProperty()
 
@@ -125,14 +126,18 @@ class TitleScreen(Screen):
         self.newScenarioButton.bind(on_press=self.pressGenericButton)
         self.newScenarioButton.bind(on_release=self.newGameScenario)
 
+        self.aboutButton = Button(text="About", font_name='Cormorant', font_size="16dp")
+        self.aboutButton.bind(on_press=self.pressGenericButton)
+        self.aboutButton.bind(on_release=self.showAbout)
+
         self.mainBox.add_widget(self.preTitleLabel)
         self.mainBox.add_widget(self.currentLabel)
         self.mainBox.add_widget(self.postTitleLabel)
         self.mainBox.add_widget(Label(text=""))
         self.mainBox.add_widget(self.startButton)
         self.mainBox.add_widget(self.loadButton)
-        #self.mainBox.add_widget(self.newButton)
         self.mainBox.add_widget(self.newScenarioButton)
+        self.mainBox.add_widget(self.aboutButton)
 
         self.paletteBox = BoxLayout(orientation='horizontal')
         self.paletteBox.add_widget(self.paletteSpinner)
@@ -144,6 +149,8 @@ class TitleScreen(Screen):
         self.mainAnchor.add_widget(self.mainBox)
 
         self.add_widget(self.mainAnchor)
+
+        #--- Under this is popups
 
         saves = glob.glob("." + os.sep + "saves" + os.sep + "*" + os.sep)
 
@@ -230,6 +237,32 @@ class TitleScreen(Screen):
             content=self.newModGameBox,
             size_hint=(None, None), size=("400dp", "400dp"),
             auto_dismiss=True)
+
+        # aboutBox popup
+        self.aboutBox = GridLayout(cols=1, padding=(10,10))
+
+        text = []
+        text.append("Make a new game, push buttons, enter text, push more buttons, let me know if anything crashes. Back up your save folder frequently in case of boom. Have fun!")
+        text.append("")
+        text.append("Drama chart & How's It Going rolls from Joel Priddy @ http://abominablefancy.blogspot.com; go there for more neat stuff!")
+        text.append("")
+        text.append("The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).")
+        text.append("")
+        text.append("Pythia (this program) is licensed under MIT.\nGithub (user name exposit, repo pythia-oracle) for more information.")
+        for entry in text:
+            label = Label(text=entry)
+            label.size = label.texture_size
+            label.text_size = (500,None)
+            self.aboutBox.add_widget(label)
+
+        self.AboutPopup = Popup(title='About',
+            content=self.aboutBox,
+            size_hint=(None, None), size=(550, 500),
+            auto_dismiss=True)
+
+    def showAbout(self, *args):
+        self.aboutButton.background_color = neutral
+        self.AboutPopup.open()
 
     def releaseStart(self, *args):
         self.startButton.background_color = accent1

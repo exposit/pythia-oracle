@@ -40,41 +40,11 @@ def initPanel(self):
 
     self.mapScroll = ScrollView(size_hint=(1, 1))
 
-    self.mapGrid = GridLayout(cols=21, rows=21, spacing=5, size_hint=(None, None))
+    self.mapGrid = GridLayout(cols=21, spacing=5, size_hint=(None, None))
     self.mapGrid.bind(minimum_height=self.mapGrid.setter('height'))
     self.mapGrid.bind(minimum_width=self.mapGrid.setter('width'))
 
-    count = -1
-    for i in range(441):
-        subtype = ""
-        ind = i % 21
-        if ind == 0:
-            count = count + 1
-
-        if count % 2 == 0:
-            subtype = "arrow"
-            button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
-            button.self = self
-            button.subtype = subtype
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=changeDir)
-        else:
-            if ind % 2 != 0:
-                subtype = "room"
-                button = TextInput(text="", size_hint=(None,None), size=('40dp', '40dp'), font_size=config.basefont75, background_color=(0,0,0,.5), foreground_color=(1,1,1,1), halign="center", valign="center")
-                button.self = self
-                button.subtype = "room"
-                #roomArray.append(button)
-            else:
-                subtype = "arrow"
-                button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
-                button.self = self
-                button.subtype = subtype
-                button.bind(on_press=self.pressGenericButton)
-                button.bind(on_release=changeDir)
-
-        self.mapGrid.add_widget(button)
-        config.tempMapArray.append(button)
+    makeGrid(self, self.mapGrid)
 
     self.mapScroll.add_widget(self.mapGrid)
     self.mapMainBox.add_widget(self.mapScroll)
@@ -127,6 +97,12 @@ def initPanel(self):
     button.bind(on_release=makeNewMap)
     self.mapMainBox.add_widget(button)
 
+    button = Button(text="Full Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=fullMapPopup)
+    self.mapMainBox.add_widget(button)
+
     self.miniMapButton = Button(text="Show Minimap", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     self.miniMapButton.self = self
     self.miniMapButton.bind(on_press=self.pressGenericButton)
@@ -137,7 +113,53 @@ def initPanel(self):
 
     self.mapAItem.add_widget(self.mapMainBox)
 
+    self.displayMapGrid = GridLayout(cols=21, spacing=5, size_hint=(1, 1))
+
+    # popup for showing the map
+    self.displayPopup = Popup(title='Map',
+        content=self.displayMapGrid,
+        size_hint=(None, None))
+    self.displayPopup.self = self
+    self.displayPopup.bind(on_open=copyMapToDisplay)
+    self.displayPopup.bind(on_dismiss=saveAsPng)
+    self.displayPopup.size=(800, 800)
+
     return self.mapAItem
+
+def makeGrid(self, holder):
+
+    count = -1
+    for i in range(441):
+        subtype = ""
+        ind = i % 21
+        if ind == 0:
+            count = count + 1
+
+        if count % 2 == 0:
+            subtype = "arrow"
+            button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
+            button.self = self
+            button.subtype = subtype
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=changeDir)
+        else:
+            if ind % 2 != 0:
+                subtype = "room"
+                button = TextInput(text="", size_hint=(None,None), size=('40dp', '40dp'), font_size=config.basefont75, background_color=(0,0,0,.5), foreground_color=(1,1,1,1), halign="center", valign="center")
+                button.self = self
+                button.subtype = "room"
+                #roomArray.append(button)
+            else:
+                subtype = "arrow"
+                button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
+                button.self = self
+                button.subtype = subtype
+                button.bind(on_press=self.pressGenericButton)
+                button.bind(on_release=changeDir)
+
+        holder.add_widget(button)
+
+        config.tempMapArray.append(button)
 
 def changeDir(button, *args):
 
@@ -158,7 +180,7 @@ def changeDir(button, *args):
         newtext = dirList[0]
 
     button.text = str(newtext)
-    saveMap(self)
+    #saveMap(self)
 
 def makeNewMap(source):
 
@@ -168,7 +190,7 @@ def makeNewMap(source):
     except:
         self = source
 
-    saveMap(self)
+    #saveMap(self)
 
     for i in config.tempMapArray:
         i.text = ""
@@ -200,7 +222,7 @@ def saveMap(source):
         self.mapTitle.text = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
     maptitle = self.mapTitle.text
-    print("Maptitle", maptitle)
+    #print("Maptitle", maptitle)
 
     config.mapArray[maptitle] = []
 
@@ -215,7 +237,6 @@ def saveMap(source):
     self.mapSpinner.values = tempVals
 
     genMiniMap(self)
-
 
 def moveMap(*args):
 
@@ -274,3 +295,32 @@ def genMiniMap(self):
                 text = button.text[:1]
         label = Label(text=text, font_name='Cormorant', font_size=config.basefont90)
         self.miniMapGrid.add_widget(label)
+
+def fullMapPopup(button, *args):
+    button.background_color = neutral
+    self = button.self
+    self.displayPopup.open()
+
+def copyMapToDisplay(popup):
+    # populate grid properly
+    self = popup.self
+
+    for i in config.tempMapArray:
+        i.parent.remove_widget(i)
+        self.displayMapGrid.add_widget(i)
+
+def saveAsPng(popup):
+
+    self = popup.self
+
+    # save png
+    if self.mapTitle.text == "":
+        maptitle = "unknown"
+    else:
+        maptitle = self.mapTitle.text
+
+    self.displayMapGrid.export_to_png(config.curr_game_dir + "dd_" + maptitle + ".png")
+
+    for i in config.tempMapArray:
+        i.parent.remove_widget(i)
+        self.mapGrid.add_widget(i)
