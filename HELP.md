@@ -418,12 +418,12 @@ The grid map options are used in conjunction with the grid map panel or with a p
 > 3: 1 to 5 <br>
 > 4: 1 to 5 <br>
 
-> * * * * * * *  <br>
-> * X X X X X *  <br>
-> * X X X X X *  <br>
-> * X X X X X *  <br>
-> * X X X X X *  <br>
-> * * * * * * * <br>
+> \* * * * * * *  <br>
+> \* X X X X X *  <br>
+> \* X X X X X *  <br>
+> \* X X X X X *  <br>
+> \* X X X X X *  <br>
+> \* * * * * * * <br>
 
 *You would, starting from your "1", fill in 1 to 5, then move down a row and repeat until you have four filled rows.*
 
@@ -434,11 +434,11 @@ If a result has two or more numbers separated by commas, you should just fill in
 > 2: 1, 2, 5, 6 <br>
 > 3: 1, 2, 5, 6 <br>
 
-> * * * * * * * * * *  <br>
-> * X X X X X X X X *  <br>
-> * X X * * X X * * *  <br>
-> * X X * * X X * * *  <br>
-> * * * * * * * * * *  <br>
+> \* * * * * * * * * *  <br>
+> \* X X X X X X X X *  <br>
+> \* X X * * X X * * *  <br>
+> \* X X * * X X * * *  <br>
+> \* * * * * * * * * *  <br>
 
 "Get Grid Corridor Pattern" returns a corridor. Use "Get Grid Exits" to determine how many exits and which direction they are first.
 
