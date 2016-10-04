@@ -14,8 +14,10 @@ def exclude():
     return False
 
 def onEnter(self):
-    print("Map panel: updating my own widgets")
-    pass
+    tempVals = []
+    for i in config.gmapArray:
+        tempVals.append(i)
+    self.gmapSpinner.values = tempVals
 
 # add your widgets in here; see the gui for examples
 def initPanel(self):
@@ -40,12 +42,12 @@ def initPanel(self):
 
     self.gmapScroll = ScrollView(size_hint=(1, 1))
 
-    self.gmapGrid = GridLayout(cols=26, spacing=5, size_hint=(None, None))
+    self.gmapGrid = GridLayout(cols=52, spacing=5, size_hint=(None, None))
     self.gmapGrid.bind(minimum_height=self.gmapGrid.setter('height'))
     self.gmapGrid.bind(minimum_width=self.gmapGrid.setter('width'))
 
     count = -1
-    for i in range(26*24):
+    for i in range(52*52):
 
         button = TextInput(text="", size_hint=(None,None), size=('25dp', '25dp'), font_size=config.basefont75, background_color=(0,0,0,1), foreground_color=(1,1,1,1), halign="center", valign="center")
         button.self = self
@@ -123,7 +125,7 @@ def initPanel(self):
     self.gmapAItem.add_widget(self.gmapMainBox)
 
     # popup for showing the full map
-    self.displayGmapGrid = GridLayout(cols=26, spacing=5, size_hint=(1, 1))
+    self.displayGmapGrid = GridLayout(cols=52, spacing=5, size_hint=(1, 1))
 
     self.displayGmapPopup = Popup(title='Map',
         content=self.displayGmapGrid,
@@ -281,6 +283,7 @@ def copyMapToDisplay(popup):
     for i in config.tempGmapArray:
         i.parent.remove_widget(i)
         self.displayGmapGrid.add_widget(i)
+        i.size=('10dp', '10dp')
 
 def saveAsPng(popup):
 
@@ -297,3 +300,4 @@ def saveAsPng(popup):
     for i in config.tempGmapArray:
         i.parent.remove_widget(i)
         self.gmapGrid.add_widget(i)
+        i.size=('25dp', '25dp')

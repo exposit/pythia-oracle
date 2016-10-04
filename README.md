@@ -1,4 +1,5 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
+### MAPPING is still a work in progress, especially the random generator. Expect issues, save frequently. Remember pythia makes a backup zip in backups every time you run the program.
 
 ### Pythia-Oracle 0.9.0
 

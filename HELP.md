@@ -408,15 +408,37 @@ __Diagram Mapping__
 
 __Grid Mapping__
 
-Grid mapping is used in conjunction with the grid map panel or with a piece of graph paper or a similar program. Each button returns a set of coordinates you can click or fill in to make a room or passage. Obviously, sanity checks are needed; if something doesn't make sense, connect it differently or skip it.
+The grid map options are used in conjunction with the grid map panel or with a piece of graph paper or a similar program. Each button returns a set of coordinates you can click or fill in to make a room or passage. Obviously, sanity checks are needed; if something doesn't make sense, connect it differently or skip it.
 
 "Get Grid Room Pattern" returns a room-shaped set of coordinates. Pick a square on the map (likely an exit from another room or corridor or center-bottom if it's a new map) and count it as "1"; the rest of the room coordinates are in relation to this.
 
-> [Grid Room]<br>
-> 1: 1 to 6<br>
-> 2: 1 to 3
+> [Grid Room] <br>
+> 1: 1 to 5 <br>
+> 2: 1 to 5 <br>
+> 3: 1 to 5 <br>
+> 4: 1 to 5 <br>
 
-*You would, starting from your "1", fill in 1 to 6, then move up one row and fill in 1 to 3.*
+> * * * * * * *  <br>
+> * X X X X X *  <br>
+> * X X X X X *  <br>
+> * X X X X X *  <br>
+> * X X X X X *  <br>
+> * * * * * * * <br>
+
+*You would, starting from your "1", fill in 1 to 5, then move down a row and repeat until you have four filled rows.*
+
+If a result has two or more numbers separated by commas, you should just fill in those squares.
+
+> [Grid Room] <br>
+> 1: 1 to 8 <br>
+> 2: 1, 2, 5, 6 <br>
+> 3: 1, 2, 5, 6 <br>
+
+> * * * * * * * * * *  <br>
+> * X X X X X X X X *  <br>
+> * X X * * X X * * *  <br>
+> * X X * * X X * * *  <br>
+> * * * * * * * * * *  <br>
 
 "Get Grid Corridor Pattern" returns a corridor. Use "Get Grid Exits" to determine how many exits and which direction they are first.
 

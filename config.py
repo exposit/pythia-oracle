@@ -8,7 +8,7 @@
 import styles
 import os
 
-debug = False
+debug = True
 
 #------------------------------------------------------------------------
 # Changes to the following are stored in save games

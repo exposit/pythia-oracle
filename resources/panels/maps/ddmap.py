@@ -14,8 +14,10 @@ def exclude():
     return False
 
 def onEnter(self):
-    print("Map panel: updating my own widgets")
-    pass
+    tempVals = []
+    for i in config.mapArray:
+        tempVals.append(i)
+    self.mapSpinner.values = tempVals
 
 # add your widgets in here; see the gui for examples
 def initPanel(self):

@@ -1084,8 +1084,13 @@ class MainScreen(Screen):
             for i in oracle_module:
                 methodToCall = getattr( i, 'onEnter' )
                 methodToCall(self)
+
+            for i in map_module:
+                methodToCall = getattr( i, 'onEnter' )
+                methodToCall(self)
         except:
-            pass
+            if config.debug == True:
+                print("[OnEnter calls] Unexpected error:", sys.exc_info())
 
         if config.scenario['active'] == True:
 
