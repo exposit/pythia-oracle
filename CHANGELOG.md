@@ -6,9 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.0.0
 
-* randomly generated map panel with fog of war (very experimental)
 * fixed issue where map panels weren't loading pre-existing maps on start
-* adjusted the "Generate Grid Room Pattern" some
+* adjusted the "Generate Grid Room Pattern" some more, added graphical representation
 
 Version 0.9.0
 
