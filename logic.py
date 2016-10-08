@@ -50,11 +50,11 @@ def updateCenterDisplay(self, text, status='result'):
             field = config.textFieldLabelArray[-1]
 
             # if the text height has changed by more than two lines
-            old_height = field.height
-            new_height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
+            #old_height = field.height
+            #new_height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
 
-            if abs(old_height - new_height) > field.line_height*2:
-                field.height = new_height
+            #if abs(old_height - new_height) > field.line_height*2:
+            #    field.height = new_height
 
         else:
 
