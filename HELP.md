@@ -181,9 +181,17 @@ This panel holds random generators related to creating "actors" for your stories
 
 __Appearance__
 
-These buttons are generally used when you first meet an NPC, to guide how they are described and their initial behavior. The "Non-Visible Quirk" is used for behavior that isn't immediately apparent, like a stutter or tendency towards rhetorical questions or a phobia, that can help define the character in play.
+These buttons are generally used when you first meet an NPC, to guide how they are described and their initial behavior.
 
 "Age - Any" chooses from child to elder, weighted towards the middle of the range. "Age - Adult" should be used when a character is known to be an adult or to narrow it down if you get "Mature" on the "Age - Any" roll.
+
+"Gender Appearance" is a simple flip of a coin between "male" and "female". You can interpret it however you want.
+
+"Appearance Modifier" is things like "is younger than they appear" or "is in disguise". It's up to you to interpret this -- "older than they look" might mean they look very young for their age, or perhaps they're more experienced or world-weary, or perhaps they're a supernatural creature.
+
+"Visible Quirk" is a detail you'd notice when you first encounter someone. Their height, their attractiveness, their gear or bearing or tattoos or gestures or expression. It's up to you if your hero notices these things.
+
+The "Non-Visible Quirk" is used for behavior that isn't immediately apparent, like a stutter or tendency towards rhetorical questions or a phobia or a dislike for cats, that can help define the character in play. I tend to roll one of these fairly soon after the hero's initial impressions are noted, but before I start roleplaying the actor heavily.
 
 > [Age - Any] Mature.<br>
 > [Age - Mature] Late twenties.<br>
@@ -195,7 +203,7 @@ These buttons are generally used when you first meet an NPC, to guide how they a
 
 __Motivations__
 
-These are different ways of getting character motivations, goals, and outlook. You generally won't roll all or even most of these per character. I always do "Wheel" and "Immediate Goals".
+These are different ways of getting character motivations, goals, and outlook. You generally won't roll all or even most of these per character. I almost always do "Wheel" and "Immediate Goals".
 
 __*Wheel (General Outlook)*__
 
@@ -205,7 +213,7 @@ The wheel button returns a line indicating the actor's primary emotions, followe
 >[Strong] amusement, [strong] interest<br>
 >[Focus] inappropriate target [secondary], secrets [primary]
 
-*Obviously a super-spy with a weakness for the enemy's chief lieutenant, who he finds equal parts interesting and amusing, even as he seeks out interesting secrets to use against his enemy.*
+*Obviously a super-spy with a weakness for the enemy's chief lieutenant, who he finds equal parts interesting and entertaining, even as he seeks out secrets to use against his enemy.*
 
 __*Immediate Goals*__
 
@@ -215,7 +223,7 @@ Immediate goals returns two goals that the actor wants to achieve, along with ho
 >[Twinge] to transmit a disease, contagion, or state of being [hero's enemy]<br>
 >[Driving] to learn how to socialize [hero's heritage]
 
-*This actor is the hero; she is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive.*
+*This actor is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive.*
 
 __*Relationships*__
 
@@ -233,7 +241,7 @@ These three buttons -- Close, Group, and General -- describe out a "first actor"
 > How does the merchant Jelur feel about the Circle of the Seven Suns?<br>
 > The first actor wants the counsel of the target group and expresses this overtly and actively.
 
-*Jelur thinks that the Circle might be able to help him prosper. He seeks out every opportunity to laud their good works and makes sure any visitors from the circle hear him doing so.*
+*Jelur thinks that the Circle might be able to help him prosper. He seeks out every opportunity to laud their good works and makes sure any visitors from the Circle hear him doing so.*
 
 "Relationship - General" ["The actor, the target"] is used whenever a close connection is unlikely but you want to know how a target feels about a specific thing. It takes First Actor and Target, where Target is a person, place, thing, or whatever.
 
@@ -244,7 +252,7 @@ These three buttons -- Close, Group, and General -- describe out a "first actor"
 
 __*Actor's Next Move*__
 
-The Actor's Next Move returns a move and a tag that indicate what the actor in question will do next. You can use this as frequently or infrequently as you wish. The "move" is generally a concrete instruction, while the "tag" in brackets points to motive or general effectiveness.
+The Actor's Next Move returns a move that indicates what the actor in question will do next. You can use this as frequently or infrequently as you wish. The "move" is generally a concrete instruction, while the "tag" in brackets points to motive or to general effectiveness.
 
 > How does Reil proceed?<br>
 > [Noble] Actor indulges or expresses a noble facet of their character.
@@ -269,7 +277,7 @@ Using a character trait (possibly one generated by "Get Character Trait"), gener
 
 > The event was a personal victory. It started in childhood. The actor was affected and it completely changed the actor's outlook on life. The immediate consequences were concrete. Currently, the consequences are secretly working against him. The actor pretends that part of him is set aside.
 
-*Reil has always been good at athletic pursuits, with a naturally gifted physique. This confidence has defined him and led to his choice of career, but led him to behaving less than kindly to those he perceived as weaker than he was. Secretly, an old childhood rival envious of his natural prowess and angry about past mistreatment is scheming against him. Reil is embarrassed about his past as a bully and does his best to avoid behaving like that now.*
+*Reil has always been good at athletic pursuits, with a naturally gifted physique. This confidence has defined him and led to his choice of career, but also led him to behaving less than kindly to those he perceived as weaker than he was. Secretly, an old childhood rival envious of his natural prowess and angry about past mistreatment is scheming against him. Reil is embarrassed about his past as a bully and does his best to avoid behaving like that now.*
 
 __*Defining Characteristic*__
 
@@ -278,7 +286,7 @@ This returns a character trait and a modifier that sum up the character in some 
 > [Defining Characteristic] The actor is very "lovely".<br>
 > [Defining Characteristic] The actor is impaired "imaginative".
 
-*When Reil meets Maela, a prisoner he frees from the Circle's secret prisons, he immediately falls in love with her lovely spirit and great personal beauty. However, he quickly realizes she's a bit, to put it nicely, tiresome and overly literal.*
+*When Reil meets Maela, a prisoner he frees from the Circle's secret prisons, he immediately falls in love with her lovely spirit and great personal beauty. However, he quickly realizes she's a bit, to put it nicely, overly literal, in a way that sets his teeth on edge.*
 
 *[The GM assigns Maela a Charisma of 18 and a Wisdom of 8.]*
 
@@ -311,23 +319,23 @@ Returns a power structure for your new kingdom, complete with general ruling sty
 
 __*Known Quirk*__
 
-Roll this to get a fact or rumor that "everyone knows" about the people of your new kingdom. Whether or not it's true is up to you (and your oracle). You should likely roll up several of these, ranking them from "strongest" to "weakest".
+Roll this to get a fact or rumor that "everyone knows" about the people of your new kingdom or village. Whether or not it's true is up to you (and your oracle). You should likely roll up several of these, ranking them from "strongest" to "weakest".
 
 > [Known Quirk] The majority are proud of a local ability like sailing, fishing, or navigating swamps.<br>
 > [Known Quirk] The common folk are very traditional.<br>
 > [Known Quirk] Criminals are very poor
 
-*The locals, known as "fenfolk" are justifiably proud of their long tradition of navigating the local fens. They carry this traditionalism into every aspect of their lives, including their criminal punishment system, which is elaborately built on a system of weregild and fines that generally mean a bad or unlucky thief is a poor one.*
+*The locals, known as "fen-folk" are justifiably proud of their long tradition of navigating the local fens. They carry this traditionalism into every aspect of their lives, including their criminal punishment system, which is elaborately built on a system of weregild and fines that generally mean a bad or unlucky thief is a poor one.*
 
 __*Secret Quirk*__
 
-Roll this to get a fact or rumor that is only whispered about -- or perhaps nobody dares to do even that -- about the people of your new kingdom. Whether or not it's true is up to you (and your oracle).
+Roll this to get a fact or rumor that is only whispered about -- or perhaps nobody dares to do even that -- about the people of your new kingdom or village. Whether or not it's true is up to you (and your oracle).
 
 > [Secret Quirk] The church leaders are cursed with ill-luck.<br>
 > [Secret Quirk] The poor are blessed with good luck.<br>
 > [Secret Quirk] The ruler's advisors are fomenting rebellion.
 
-*The traditional fenfolk stubbonly cling to their old traditions and rituals of propitation, bringing them continued good luck, while the determined friars of the new religion seem cursed at every turn. The devout whisper of divine wrath. One of the high-ranking enlisted men is secretly a loyalist looking for allies.*
+*The traditional fen-folk stubbornly cling to their old traditions and rituals of propitiation, bringing them continued good luck, while the determined friars of the new religion seem cursed at every turn. The devout whisper of divine wrath. One of the high-ranking enlisted men is secretly a loyalist looking for allies.*
 
 __*Sizes*__
 

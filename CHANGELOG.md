@@ -7,7 +7,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 Version 1.0.0
 
 * fixed issue where map panels weren't loading pre-existing maps on start
-* adjusted the "Generate Grid Room Pattern" some more, added graphical representation
+* adjusted the "Generate Grid Room Pattern" some more, added graphical representations
+* removed most of the ways to set plain text formatting to streamline interface; use standard markdown if needed
 
 Version 0.9.0
 
