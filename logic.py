@@ -201,8 +201,20 @@ def makeItemLabels(self, text, status='result'):
     config.textStatusLabelArray.append(label)
     label.index = len(config.textArray)-1
 
+    label = TextInput(text="", size_hint=(.85, None), font_size=config.maintextfont)
+    label.bind(focus=focusChangeText)
+    label.background_color=neutral
+    label.foreground_color=(1,1,1,1)
+    label.index = len(config.textArray)-1
+    label.text = base_text
+    config.textFieldLabelArray.append(label)
+    #label.width = self.centerDisplayGrid.width
+    label.height = label.minimum_height
+    label.height = ((len(label._lines)/5) + 1) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
+
     # this is a much cleaner solution instead of cycling, but takes an unacceptably long time
-    #formatList = ['query', 'result', 'oracle', 'aside', 'mechanic1', 'mechanic2', "plain", "italic", "bold", "bold_italic", "color1", "color2"]
+    # trying again with fewer buttons; nope, still unacceptably slow
+    #formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2']
 
     #spinner = Spinner(
         # default value shown
@@ -219,17 +231,6 @@ def makeItemLabels(self, text, status='result'):
     #spinner.bind(text=reformatText)
     #config.textStatusLabelArray.append(spinner)
 
-    label = TextInput(text="", size_hint=(.85, None), font_size=config.maintextfont)
-    label.bind(focus=focusChangeText)
-    label.background_color=neutral
-    label.foreground_color=(1,1,1,1)
-    label.index = len(config.textArray)-1
-    label.text = base_text
-    config.textFieldLabelArray.append(label)
-    #label.width = self.centerDisplayGrid.width
-    label.height = label.minimum_height
-    label.height = ((len(label._lines)/5) + 1) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
-
 def parseText(text, status):
 
     #mechanicStatusList = ["oracle", "result", "aside", "query", "mechanic1", "mechanic2"]
@@ -244,6 +245,7 @@ def parseText(text, status):
         elif blockformat == "color3":
             text = "[i][color=" + str(config.formats['transitory_color']) + "]" + text + "[/color][/i]"
         else:
+            # this is no longer 'hooked in' to the status buttons but left for backwards compatibility
             if blockformat == "bold":
                 text = "[b]" + text + "[/b]"
             elif blockformat == "italic":
@@ -259,7 +261,7 @@ def reformatText(spinner, status):
     config.textStatusArray[config.textStatusLabelArray.index(spinner)] = status
     text = config.textArray[config.textStatusLabelArray.index(spinner)]
     text = parseText(text, status)
-    config.textLabelArray[index].text = text
+    config.textLabelArray[config.textStatusLabelArray.index(spinner)].text = text
 
     return True
 
@@ -268,7 +270,8 @@ def cycleText(label, *args):
     status = label.text
 
     # mechanics tags
-    formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
+    #formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
+    formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "ephemeral"]
 
     try:
         if formatList.index(status) == len(formatList)-1:

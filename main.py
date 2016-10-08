@@ -99,7 +99,9 @@ class MainScreen(Screen):
         self.editSpinner.bind(text=self.toggleLabelToInput)
         self.statusBox.add_widget(self.editSpinner)
 
-        enterBehaviorList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2", "multi"]
+        # enterBehaviorList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2", "multi"]
+
+        enterBehaviorList = ["aside", "plain", "mechanic1", "mechanic2", "color1", "color2", "multi"]
 
         self.enterSpinner = Spinner(
             # default value shown
