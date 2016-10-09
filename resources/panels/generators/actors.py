@@ -133,6 +133,13 @@ def initPanel(self):
     button.bind(on_release=getTraitBasedCharacter)
     actorsMainBox.add_widget(button)
 
+    button = Button(text="Defining Attribute", size_hint=(1,1), background_normal='',
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getDefiningAttribute)
+    actorsMainBox.add_widget(button)
+
     button = Button(text="Defining Characteristic", size_hint=(1,1), background_normal='',
      background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
     button.self = self
@@ -644,10 +651,14 @@ def getDefiningAttribute(button, *args):
     button.background_color = neutral
     self = button.self
 
+    degreeList = ["a little", "very", "somewhat", "slightly", "impair", "incredibly", "ridiculously", "currently", "usually"]
+
+    qualifierList = ["skilled at", "impaired at", "good at", "bad at", "terrible at", "amazing at"]
+
     statsList = ['quickness', 'dexterity', 'reflexes', 'grace', 'intelligence', 'book learning', 'street smarts', 'knowledge', 'spiritual matters', 'wisdom', 'making connections', 'understanding consequences', 'charisma', 'leadership', 'persuasion', 'social', 'strength', 'heavy lifting', 'hauling', 'hitting things', 'tirelessness', 'endurance', 'constitution', 'stamina', 'everything', 'no one thing', 'several things']
 
     char = random.choice(statsList)
-    important_attribute = "[Defining Attribute] The actor is " + random.choice(degreeList) +  " \"" + char + "\"" + "."
+    important_attribute = "[Defining Attribute] The actor is " + random.choice(degreeList) + " " + random.choice(qualifierList) + " \"" + char + "\"" + "."
     updateCenterDisplay(self, important_attribute)
 
 def getDefiningCharacteristic(button, *args):
