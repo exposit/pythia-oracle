@@ -640,13 +640,22 @@ def getTraitBasedCharacter(button, *args):
     result = event + how_recently + how_affected + consequences + immediate_situation + response_reaction + "."
     updateCenterDisplay(self, result)
 
+def getDefiningAttribute(button, *args):
+    button.background_color = neutral
+    self = button.self
+
+    statsList = ['quickness', 'dexterity', 'reflexes', 'grace', 'intelligence', 'book learning', 'street smarts', 'knowledge', 'spiritual matters', 'wisdom', 'making connections', 'understanding consequences', 'charisma', 'leadership', 'persuasion', 'social', 'strength', 'heavy lifting', 'hauling', 'hitting things', 'tirelessness', 'endurance', 'constitution', 'stamina', 'everything', 'no one thing', 'several things']
+
+    char = random.choice(statsList)
+    important_attribute = "[Defining Attribute] The actor is " + random.choice(degreeList) +  " \"" + char + "\"" + "."
+    updateCenterDisplay(self, important_attribute)
+
 def getDefiningCharacteristic(button, *args):
     button.background_color = neutral
     self = button.self
 
-    char = random.choice(traitList).lower()
-
-    important_characteristic = "[Characteristic] The actor is " + random.choice(degreeList) +  " \"" + char + "\"" + "."
+    char = random.choice(adjectiveList + traitList)
+    important_characteristic = "[Simple Trait] The actor is " + random.choice(degreeList) +  " \"" + char + "\"" + "."
     updateCenterDisplay(self, important_characteristic)
 
 degreeList = ["minorly", "majorly", "extremely", "a little", "very", "somewhat", "slightly", "impaired at", "enhanced at", "incredibly", "ridiculously bad at", "downright terrible at", "amazing at"]
