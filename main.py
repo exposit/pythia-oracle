@@ -442,13 +442,17 @@ class MainScreen(Screen):
                     xhint = .15
 
                 label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+                label.self = self
                 label.value = x
                 config.pcKeyLabelArray[i].append(label)
+                label.bind(focus=focusChangePC)
 
                 label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
                 label.text_size = (self.displaygrid.width, None)
+                label.self = self
                 label.value = x
                 config.pcValueLabelArray[i].append(label)
+                label.bind(focus=focusChangePC)
 
                 if x >= 5 and x <= 24:
                     self.halfgrid.add_widget(config.pcKeyLabelArray[i][-1])

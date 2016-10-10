@@ -6,6 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.0.0
 
+* character sheet stack titles will update as soon as the field is exited now
+* fixed yet another issue with the collapsing html output; should at least work now
 * tweaked some of the random content on the actor panel to be less gender specific and more broad
 * fixed issue where map panels weren't loading pre-existing maps on start
 * adjusted the "Generate Grid Room Pattern" some more, added graphical representations

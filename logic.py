@@ -522,6 +522,30 @@ def updateActorIndex(self):
         button.bind(on_release=self.jumpToActor)
         self.actorIndexDisplayGrid.add_widget(button)
 
+def focusChangePC(field, value):
+    try:
+        self = field.self
+        nameList = []
+        for pc in range(len(config.pcKeyLabelArray)):
+            name = [i for i in config.pcKeyLabelArray[pc] if i.text=="Name"]
+            nn = [i for i in config.pcKeyLabelArray[pc] if i.text=="NN"]
+
+            if nn:
+                index = config.pcKeyLabelArray[pc].index(nn[0])
+                nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+            elif name:
+                index = config.pcKeyLabelArray[pc].index(name[0])
+                nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+            else:
+                nameList.append("")
+
+        for i in range(len(self.pcPanelsList)):
+            if len(nameList[i]) > 0:
+                self.pcPanelsList[i].title = nameList[i]
+    except:
+        if config.debug == True:
+            print("[focusChangePC] Unexpected error:", sys.exc_info())
+
 #---------------------------------------------------------------------------------------------
 # save/load functions
 #---------------------------------------------------------------------------------------------
@@ -874,28 +898,28 @@ def updateCollapseHTML():
 
         for i in range(len(config.textStatusArray)):
             if config.textStatusArray[i] != "ephemeral":
-                if config.textStatusArray[ti] == "result":
+                if config.textStatusArray[i] == "result":
                     result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[ti] == "aside":
+                elif config.textStatusArray[i] == "aside":
                     result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[ti] == "query":
+                elif config.textStatusArray[i] == "query":
                     result = '\n<p class="bold">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[ti] == "oracle":
+                elif config.textStatusArray[i] == "oracle":
                     result = '\n<p class="italicbold">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[ti] == "mechanic1":
+                elif config.textStatusArray[i] == "mechanic1":
                     result = '\n<p class="highlightcolor">' + config.textArray[i] + "</p>\n"
-                elif config.textStatusArray[ti] == "mechanic2":
+                elif config.textStatusArray[i] == "mechanic2":
                     result = '\n<p class="alternatecolor">' + config.textArray[i] + "</p>\n"
                 else:
-                    if config.textStatusArray[ti] == "italic":
+                    if config.textStatusArray[i] == "italic":
                         result = '\n<p class="italic">' + config.textArray[i] + "</p>\n"
-                    elif config.textStatusArray[ti] == "bold":
+                    elif config.textStatusArray[i] == "bold":
                         result = '\n<p class="bold">' + config.textArray[i] + "</p>\n"
-                    elif config.textStatusArray[ti] == "bold_italic":
+                    elif config.textStatusArray[i] == "bold_italic":
                         result = '\n<p class="italicbold">' + config.textArray[i] + "</p>\n"
-                    elif config.textStatusArray[ti] == "color1":
+                    elif config.textStatusArray[i] == "color1":
                         result = '\n<p class="highlightcolor">' + config.textArray[i] + "</p>\n"
-                    elif config.textStatusArray[ti] == "color2":
+                    elif config.textStatusArray[i] == "color2":
                         result = '\n<p class="alternatecolor">' + config.textArray[i] + "</p>\n"
                     else:
                         result = '\n<p class="normal">' + config.textArray[i] + "</p>\n"
