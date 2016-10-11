@@ -420,7 +420,7 @@ class TitleScreen(Screen):
     def pressGenericButton(self, *args):
         args[0].background_color = accent2
 
-class OracleApp(App):
+class PythiaOracleApp(App):
 
     def build(self):
 
@@ -464,4 +464,4 @@ class OracleApp(App):
         pass
 
 if __name__ == '__main__':
-    OracleApp().run()
+    PythiaOracleApp().run()
