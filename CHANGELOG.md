@@ -6,12 +6,15 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.0.0
 
-* character sheet stack titles will update as soon as the field is exited now
-* fixed yet another issue with the collapsing html output; should at least work now
+* seed curation. so much seed curation
+* fixed a bug with the actor panel titles; should update correctly now
+* new setting to determine how many half size (attribute) rows show on a character sheet
+* character sheet stack titles will update as soon as the name or nn field is exited now
+* fixed yet another issue with the collapsing html output; should work now
 * tweaked some of the random content on the actor panel to be less gender specific and more broad
 * fixed issue where map panels weren't loading pre-existing maps on start
 * adjusted the "Generate Grid Room Pattern" some more, added graphical representations
-* removed most of the ways to set plain text formatting to streamline interface; use standard markdown if needed
+* removed most of the ways to set plain text formatting to streamline interface; use kivy [markup](https://kivy.org/docs/api-kivy.core.text.markup.html) inline if needed
 
 Version 0.9.0
 

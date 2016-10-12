@@ -245,7 +245,6 @@ def parseText(text, status):
         elif blockformat == "color3":
             text = "[i][color=" + str(config.formats['transitory_color']) + "]" + text + "[/color][/i]"
         else:
-            # this is no longer 'hooked in' to the status buttons but left for backwards compatibility
             if blockformat == "bold":
                 text = "[b]" + text + "[/b]"
             elif blockformat == "italic":
@@ -271,7 +270,7 @@ def cycleText(label, *args):
 
     # mechanics tags
     #formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
-    formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "ephemeral"]
+    formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "color3", "ephemeral"]
 
     try:
         if formatList.index(status) == len(formatList)-1:
@@ -443,6 +442,7 @@ def focusChangeActorTitle(field, value):
         pass
     else:
         label = config.actorLabelArray[field.index]
+        label.tag = field.text
         text = field.text + label.sep + " " + label.text[0].lower() + label.text[1:]
         config.actorArray[field.index] = text
         updateActorIndex(field.self)

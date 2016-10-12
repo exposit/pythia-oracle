@@ -49,7 +49,9 @@ Your save game will still work fine, but you may experience some formatting issu
 
 First, replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Replace 'no_format' with 'plain'. Finally, replace any 'don't show' entries with 'ephemeral'.
 
-From this point forward you can assign formatting tags to your fiction besides the basic 'plain' tag (italic, bold, bold_italic, color1, color2), if you want the whole block formatted a certain way. For your mechanics you can choose from oracle, query, aside, result, mechanic1, and mechanic2. You can also use standard markdown to tag individual words or phrases inside each block.
+From this point forward, fiction will be tagged 'plain', 'color1', or 'color2'. For your mechanics you can choose from 'aside', 'mechanic1', or 'mechanic2'. You can also use standard markdown to tag individual words or phrases inside each block.
+
+You will need to replace your old config file with a fresh one from the quicksave or a new game.
 
 Read the next section on upgrading as well!
 

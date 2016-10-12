@@ -388,8 +388,11 @@ class MainScreen(Screen):
 
         # let's not get too fancy/custom with this; just add fixed panels
         self.pcPanelsList = []
+        self.topgrid = []
+        self.halfgrid = []
+        self.bottomgrid = []
 
-        for i in range(6):
+        for i in range(config.general['max_character_sheets']):
 
             config.pcKeyLabelArray.append([])
             config.pcValueLabelArray.append([])
@@ -418,16 +421,16 @@ class MainScreen(Screen):
             self.displaygrid.bind(minimum_height = self.displaygrid.setter('height'))
             self.display.add_widget(self.displaygrid)
 
-            self.topgrid = GridLayout(cols=2, size_hint_y=None)
-            self.topgrid.bind(minimum_height = self.topgrid.setter('height'))
-            self.halfgrid = GridLayout(cols=4, size_hint_y=None)
-            self.halfgrid.bind(minimum_height = self.halfgrid.setter('height'))
-            self.bottomgrid = GridLayout(cols=2, size_hint_y=None)
-            self.bottomgrid.bind(minimum_height = self.bottomgrid.setter('height'))
+            self.topgrid.append(GridLayout(cols=2, size_hint_y=None))
+            self.topgrid[-1].bind(minimum_height = self.topgrid[-1].setter('height'))
+            self.halfgrid.append(GridLayout(cols=4, size_hint_y=None))
+            self.halfgrid[-1].bind(minimum_height = self.halfgrid[-1].setter('height'))
+            self.bottomgrid.append(GridLayout(cols=2, size_hint_y=None))
+            self.bottomgrid[-1].bind(minimum_height = self.bottomgrid[-1].setter('height'))
 
-            for x in range(1,40):
+            for x in range(0,39):
 
-                if x <= 24:
+                if x <= 26:
                     ml = False
                     ht = config.tallheight
                     fs = config.basefont90
@@ -436,7 +439,7 @@ class MainScreen(Screen):
                     ht = config.tripleheight
                     fs = config.basefont90
 
-                if x >= 5 and x <= 24:
+                if x >= 4 and x <= 26:
                     xhint = .25
                 else:
                     xhint = .15
@@ -454,19 +457,19 @@ class MainScreen(Screen):
                 config.pcValueLabelArray[i].append(label)
                 label.bind(focus=focusChangePC)
 
-                if x >= 5 and x <= 24:
-                    self.halfgrid.add_widget(config.pcKeyLabelArray[i][-1])
-                    self.halfgrid.add_widget(config.pcValueLabelArray[i][-1])
-                elif x < 5:
-                    self.topgrid.add_widget(config.pcKeyLabelArray[i][-1])
-                    self.topgrid.add_widget(config.pcValueLabelArray[i][-1])
+                if x >= 4 and x <= 26:
+                    self.halfgrid[-1].add_widget(config.pcKeyLabelArray[i][-1])
+                    self.halfgrid[-1].add_widget(config.pcValueLabelArray[i][-1])
+                elif x <= 3:
+                    self.topgrid[-1].add_widget(config.pcKeyLabelArray[i][-1])
+                    self.topgrid[-1].add_widget(config.pcValueLabelArray[i][-1])
                 else:
-                    self.bottomgrid.add_widget(config.pcKeyLabelArray[i][-1])
-                    self.bottomgrid.add_widget(config.pcValueLabelArray[i][-1])
+                    self.bottomgrid[-1].add_widget(config.pcKeyLabelArray[i][-1])
+                    self.bottomgrid[-1].add_widget(config.pcValueLabelArray[i][-1])
 
-            self.displaygrid.add_widget(self.topgrid)
-            self.displaygrid.add_widget(self.halfgrid)
-            self.displaygrid.add_widget(self.bottomgrid)
+            self.displaygrid.add_widget(self.topgrid[-1])
+            self.displaygrid.add_widget(self.halfgrid[-1])
+            self.displaygrid.add_widget(self.bottomgrid[-1])
 
             self.box.add_widget(self.display)
 
@@ -1062,6 +1065,54 @@ class MainScreen(Screen):
         except:
             if config.debug == True:
                 print("[Main on enter pc names] Unexpected error:", sys.exc_info())
+
+        # now update PC panel to the right sizes
+        #try:
+        for i in range(config.general['max_character_sheets']):
+
+            self.halfgrid[i].clear_widgets()
+            self.topgrid[i].clear_widgets()
+            self.bottomgrid[i].clear_widgets()
+
+            limiter = config.general['half_size_rows']
+
+            for x in range(0,39):
+
+                if x <= limiter:
+                    ml = False
+                    ht = config.tallheight
+                    fs = config.basefont90
+                else:
+                    ml = True
+                    ht = config.tripleheight
+                    fs = config.basefont90
+
+                if x >= 4 and x <= limiter:
+                    xhint = .25
+                else:
+                    xhint = .15
+
+                config.pcKeyLabelArray[i][x].multiline = ml
+                config.pcKeyLabelArray[i][x].size_hint_x = xhint
+                config.pcKeyLabelArray[i][x].height = ht
+                config.pcKeyLabelArray[i][x].font_size = fs
+
+                config.pcValueLabelArray[i][x].multiline = ml
+                config.pcValueLabelArray[i][x].size_hint_x = 1.0-xhint
+                config.pcValueLabelArray[i][x].height = ht
+                config.pcValueLabelArray[i][x].font_size = fs
+
+                if x >= 4 and x <= limiter:
+                    self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                    self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                elif x <= 3:
+                    self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                    self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                else:
+                    self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                    self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
+#        except:
+#            pass
 
         # now actor index
         try:
