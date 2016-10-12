@@ -573,46 +573,62 @@ def loadconfig(self, gamedir):
         config.formats = tempDict['formats']
         config.user = tempDict['user']
         config.scenario = tempDict['scenario']
-    #try:
-    #    f = open(gamedir + 'config.txt', 'r')
-    #    tempDict = json.load(f)
-    #    for i in tempDict['general']:
-    #        config.general[i] = tempDict['general'][i]
-    #    for i in tempDict['user']:
-    #        config.user[i] = tempDict['user'][i]
-    #    for i in tempDict['scenario']:
-    #        config.scenario[i] = tempDict['scenario'][i]
-    #    for i in tempDict['formats']:
-    #        config.formats[i] = tempDict['formats'][i]
-    #    f.close()
-    #except:
-    #    saveconfig(self, gamedir)
 
 def quicksave(self, gamedir):
 
-    f = open(gamedir + 'main.txt', 'w')
-    json.dump(config.textArray, f)
-    f.close()
+    tempArray = []
+    for i in range(len(config.textArray)):
+        tempArray.append([config.textArray[i], config.textStatusArray[i]])
 
-    f = open(gamedir + 'main_status.txt', 'w')
-    json.dump(config.textStatusArray, f)
-    f.close()
+    with open(gamedir + 'main.txt', 'w') as mainfile:
+        json.dump(tempArray, mainfile)
 
-    f = open(gamedir + 'threads.txt', 'w')
-    json.dump(config.threadArray, f)
-    f.close()
+    if os.path.isfile(gamedir + 'main_status.txt'):
+        os.remove(gamedir + 'main_status.txt')
 
-    f = open(gamedir + 'threads_status.txt', 'w')
-    json.dump(config.threadStatusArray, f)
-    f.close()
+    tempArray = []
+    for i in range(len(config.threadArray)):
+        tempArray.append([config.threadArray[i], config.threadStatusArray[i]])
 
-    f = open(gamedir + 'actors.txt', 'w')
-    json.dump(config.actorArray, f)
-    f.close()
+    with open(gamedir + 'threads.txt', 'w') as threadfile:
+        json.dump(tempArray, threadfile)
 
-    f = open(gamedir + 'actors_status.txt', 'w')
-    json.dump(config.actorStatusArray, f)
-    f.close()
+    if os.path.isfile(gamedir + 'threads_status.txt'):
+        os.remove(gamedir + 'threads_status.txt')
+
+    tempArray = []
+    for i in range(len(config.actorArray)):
+        tempArray.append([config.actorArray[i], config.actorStatusArray[i]])
+
+    with open(gamedir + 'actors.txt', 'w') as actorfile:
+        json.dump(tempArray, actorfile)
+
+    if os.path.isfile(gamedir + 'actors_status.txt'):
+        os.remove(gamedir + 'actors_status.txt')
+
+    #f = open(gamedir + 'main.txt', 'w')
+    #json.dump(config.textArray, f)
+    #f.close()
+
+    #f = open(gamedir + 'main_status.txt', 'w')
+    #json.dump(config.textStatusArray, f)
+    #f.close()
+
+    #f = open(gamedir + 'threads.txt', 'w')
+    #json.dump(config.threadArray, f)
+    #f.close()
+
+    #f = open(gamedir + 'threads_status.txt', 'w')
+    #json.dump(config.threadStatusArray, f)
+    #f.close()
+
+    #f = open(gamedir + 'actors.txt', 'w')
+    #json.dump(config.actorArray, f)
+    #f.close()
+
+    #f = open(gamedir + 'actors_status.txt', 'w')
+    #json.dump(config.actorStatusArray, f)
+    #f.close()
 
     f = open(gamedir + 'tracks.txt', 'w')
     tempArray = []
@@ -650,38 +666,59 @@ def quicksave(self, gamedir):
 
 def quickload(self, gamedir):
 
+    # MAIN FILE
+    success = False
     try:
         with open(gamedir + 'main.txt', 'r') as mainfile, open(gamedir + 'main_status.txt', 'r') as statusfile:
             textArray = json.load(mainfile)
             textStatusArray = json.load(statusfile)
+        success = True
+    except:
+        pass
 
-            tempTextArray = []
-            tempStatusArray = []
+    if success == False:
+        try:
+            with open(gamedir + 'main.txt', 'r') as mainfile:
+                tempArray = json.load(mainfile)
 
-            if config.general['merge'] == True:
+            textArray = []
+            textStatusArray = []
+            for i in range(len(tempArray)):
+                textArray.append(tempArray[i][0])
+                textStatusArray.append(tempArray[i][1])
 
-                for i in range(len(textArray)):
-                    if i > 0:
-                        if textStatusArray[i] == textStatusArray[i-1]:
-                            tempTextArray[-1] = tempTextArray[-1] + "\n\n" + textArray[i]
-                        else:
-                            tempTextArray.append(textArray[i])
-                            tempStatusArray.append(textStatusArray[i])
+        except:
+            print("opening single file failed")
+
+    try:
+
+        tempTextArray = []
+        tempStatusArray = []
+
+        if config.general['merge'] == True:
+
+            for i in range(len(textArray)):
+                if i > 0:
+                    if textStatusArray[i] == textStatusArray[i-1]:
+                        tempTextArray[-1] = tempTextArray[-1] + "\n\n" + textArray[i]
                     else:
                         tempTextArray.append(textArray[i])
                         tempStatusArray.append(textStatusArray[i])
+                else:
+                    tempTextArray.append(textArray[i])
+                    tempStatusArray.append(textStatusArray[i])
 
-            else:
+        else:
 
-                for i in range(len(textArray)):
-                    if "\n\n" in textArray[i]:
-                        paragraphs = textArray[i].split('\n\n')
-                        for block in paragraphs:
-                            tempTextArray.append(block)
-                            tempStatusArray.append(textStatusArray[i])
-                    else:
-                        tempTextArray.append(textArray[i])
+            for i in range(len(textArray)):
+                if "\n\n" in textArray[i]:
+                    paragraphs = textArray[i].split('\n\n')
+                    for block in paragraphs:
+                        tempTextArray.append(block)
                         tempStatusArray.append(textStatusArray[i])
+                else:
+                    tempTextArray.append(textArray[i])
+                    tempStatusArray.append(textStatusArray[i])
 
         if config.debug == True:
             print("Total Lines In Main Text: " + str(len(tempTextArray)))
@@ -694,28 +731,69 @@ def quickload(self, gamedir):
 
         updateCenterDisplay(self, "The adventure begins...", 'italic')
 
+    # THREADS
+    success = False
     try:
         with open(gamedir + 'threads.txt', 'r') as mainfile, open(gamedir + 'threads_status.txt', 'r') as statusfile:
-            text = json.load(mainfile)
-            status = json.load(statusfile)
+            threadArray = json.load(mainfile)
+            threadStatusArray = json.load(statusfile)
+        success = True
+    except:
+        pass
 
-        for i in range(len(text)):
-            updateThreadDisplay(self, text[i], status[i])
+    if success == False:
+        try:
+            with open(gamedir + 'threads.txt', 'r') as mainfile:
+                tempArray = json.load(mainfile)
+
+            threadArray = []
+            threadStatusArray = []
+            for i in range(len(tempArray)):
+                threadArray.append(tempArray[i][0])
+                threadStatusArray.append(tempArray[i][1])
+
+        except:
+            print("opening single file failed")
+
+    try:
+        for i in range(len(threadArray)):
+            updateThreadDisplay(self, threadArray[i], threadStatusArray[i])
     except:
         if config.debug == True:
             print("[quickload Threads] Unexpected error:", sys.exc_info())
 
+    # ACTORS
+    success = False
     try:
         with open(gamedir + 'actors.txt', 'r') as mainfile, open(gamedir + 'actors_status.txt', 'r') as statusfile:
-            text = json.load(mainfile)
-            status = json.load(statusfile)
+            actorArray = json.load(mainfile)
+            actorStatusArray = json.load(statusfile)
+        success = True
+    except:
+        pass
 
-        for i in range(len(text)):
-            updateActorDisplay(self, text[i], status[i])
+    if success == False:
+        try:
+            with open(gamedir + 'actors.txt', 'r') as mainfile:
+                tempArray = json.load(mainfile)
+
+            actorArray = []
+            actorStatusArray = []
+            for i in range(len(tempArray)):
+                actorArray.append(tempArray[i][0])
+                actorStatusArray.append(tempArray[i][1])
+
+        except:
+            print("opening single file failed")
+
+    try:
+        for i in range(len(actorArray)):
+            updateActorDisplay(self, actorArray[i], actorStatusArray[i])
     except:
         if config.debug == True:
-            print("[quickload actors_status] Unexpected error:", sys.exc_info())
+            print("[quickload Actors] Unexpected error:", sys.exc_info())
 
+    # TRACKED INFO
     try:
         with open(gamedir + 'tracks.txt', 'r') as filename:
             tempTable= json.load(filename)

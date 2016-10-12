@@ -43,6 +43,10 @@ You have two options now. Easiest (in Windows) is to double-click on the 'pythia
 
 You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently. Also read over the customization section in this file.
 
+### Upgrading from 0.9.0 & earlier
+
+Save games will still load without issues. However, after they've been loaded and saved the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file.
+
 ### Upgrading from 0.7.0 & earlier
 
 Your save game will still work fine, but you may experience some formatting issues. You can either set the format on errant blocks in Pythia one at a time, or (MAKE A BACKUP FIRST) open the main_status.txt and do some find and replaces.
@@ -53,7 +57,7 @@ From this point forward, fiction will be tagged 'plain', 'color1', or 'color2'. 
 
 You will need to replace your old config file with a fresh one from the quicksave or a new game.
 
-Read the next section on upgrading as well!
+Read the other sections on upgrading as well!
 
 #### Upgrading from an older version
 

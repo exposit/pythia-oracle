@@ -336,11 +336,11 @@ class TitleScreen(Screen):
                 return
 
             f = file(newpath + "main.txt", "w")
-            f = file(newpath + "main_status.txt", "w")
+            #f = file(newpath + "main_status.txt", "w")
             f = file(newpath + "threads.txt", "w")
-            f = file(newpath + "threads_status.txt", "w")
+            #f = file(newpath + "threads_status.txt", "w")
             f = file(newpath + "actors.txt", "w")
-            f = file(newpath + "actors_status.txt", "w")
+            #f = file(newpath + "actors_status.txt", "w")
             f = file(newpath + "config.txt", "w")
             f = file(newpath + "tracks.txt", "w")
             f = file(newpath + "pcs.txt", "w")
@@ -380,7 +380,9 @@ class TitleScreen(Screen):
             self.newModGameStatus.text = "Folder exists."
             return
 
-        fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "maps.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
+        #fileList = [ "main.txt", "main_status.txt", "threads.txt", "threads_status.txt", "actors.txt", "actors_status.txt", "tracks.txt", "pcs.txt", "maps.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
+
+        fileList = [ "main.txt", "threads.txt", "actors.txt", "tracks.txt", "pcs.txt", "maps.txt", "scenario.txt", "scenlogic.py", "scenpanel.py" ]
 
         config.curr_game_dir = newpath
 

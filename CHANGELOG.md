@@ -6,9 +6,10 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.0.0
 
+* combined status and main save files; should load old format fine
 * seed curation. so much seed curation
 * fixed a bug with the actor panel titles; should update correctly now
-* new setting to determine how many half size (attribute) rows show on a character sheet
+* new per game setting to determine how many half size (attribute) rows show on a character sheet
 * character sheet stack titles will update as soon as the name or nn field is exited now
 * fixed yet another issue with the collapsing html output; should work now
 * tweaked some of the random content on the actor panel to be less gender specific and more broad
