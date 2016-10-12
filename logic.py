@@ -98,7 +98,7 @@ def switchModes(self):
                 self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
 
     elif edit_mode == "fiction":
-        # fiction mode for reading just text; don't show mechanics or formats tags
+        # fiction mode for reading just text; Hide mechanics or formats tags
 
         self.centerDisplayGrid.cols = 1
 
@@ -308,14 +308,28 @@ def updateThreadDisplay(self, text, status):
     label.markup = True
     config.threadStatusLabelArray.append(label)
 
-    if status == "Resolved":
-        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1])
-        self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
-    else:
-        self.threadDisplayGrid.add_widget(config.threadLabelArray[-1], len(self.threadDisplayGrid.children))
-        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1], len(self.threadDisplayGrid.children))
+    self.threadDisplayGrid.add_widget(config.threadLabelArray[-1])
+    self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[-1])
 
-def cycleThread(self, *args):
+def cycleThread(label, *args):
+
+    statusList = ['Current', 'Past', 'Major', 'Minor', 'Resolved', 'Abandoned', 'Success', 'Failure', 'Hide']
+
+    status = label.text
+
+    try:
+        if statusList.index(status) == len(statusList)-1:
+            status = statusList[0]
+        else:
+            status = statusList[statusList.index(status)+1]
+    except:
+        status = 'Current'
+
+    config.threadStatusArray[config.threadStatusLabelArray.index(label)] = status
+
+    label.text = status
+
+def OLDcycleThread(self, *args):
     # current -> major -> minor -> past -> resolved -> abandoned -> removed -> current
     if self.text == "Current":
         self.text = "Major"
@@ -333,8 +347,14 @@ def cycleThread(self, *args):
         self.text = "Abandoned"
         config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Abandoned"
     elif self.text == "Abandoned":
-        self.text = "Don't Show"
-        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Don't Show"
+        self.text = "Success"
+        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Success"
+    elif self.text == "Success":
+        self.text = "Minor"
+        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Minor"
+    elif self.text == "Major":
+        self.text = "Minor"
+        config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Minor"
     elif self.text == "Don't Show":
         self.text = "Current"
         config.threadStatusArray[config.threadStatusLabelArray.index(self)] = "Current"
@@ -344,18 +364,51 @@ def cycleThread(self, *args):
 
     return True
 
-# this is called only on a save
+# sort and hide threads
 def clearThread(self, *args):
 
+    downList = ["Resolved", "Success", "Failure", "Past", "Abandoned"]
+    upList = ['Major', 'Current']
+
+    topList = []
+    midList = []
+    bottomList = []
+    hideList = []
+
     for i in range(len(config.threadStatusArray)):
-        if config.threadStatusArray[i] == "Don't Show":
-            self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
-            self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
-        if config.threadStatusArray[i] == "Resolved":
-            self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
-            self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
-            self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[i])
-            self.threadDisplayGrid.add_widget(config.threadLabelArray[i])
+
+        status = config.threadStatusArray[i]
+
+        if status in downList:
+            bottomList.append(i)
+        elif status in upList:
+            topList.append(i)
+        elif status == "Hide":
+            hideList.append(i)
+        else:
+            midList.append(i)
+
+    for i in hideList:
+        self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+
+    for i in topList:
+        self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[i])
+
+    for i in midList:
+        self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[i])
+
+    for i in bottomList:
+        self.threadDisplayGrid.remove_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.remove_widget(config.threadStatusLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadLabelArray[i])
+        self.threadDisplayGrid.add_widget(config.threadStatusLabelArray[i])
 
 def updateActorDisplay(self, text, status):
 
@@ -390,7 +443,27 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorStatusLabelArray[-1])
 
-def cycleActor(self, *args):
+def cycleActor(label, *args):
+
+    statusList = ['Past', 'In Party', 'Retired', 'Deceased', 'Remote', 'Unknown', 'Hide', 'Current']
+
+    status = label.text
+
+    try:
+        if statusList.index(status) == len(statusList)-1:
+            status = statusList[0]
+        else:
+            status = statusList[statusList.index(status)+1]
+    except:
+        status = 'Current'
+
+    config.actorStatusArray[config.actorStatusLabelArray.index(label)] = status
+
+    label.text = status
+
+    return True
+
+def OLDcycleActor(self, *args):
     if self.text == "Current":
         self.text = "Past"
         config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Past"
@@ -417,6 +490,7 @@ def cycleActor(self, *args):
         config.actorStatusArray[config.actorStatusLabelArray.index(self)] = "Current"
     return True
 
+# I don't think this is hooked in
 def showActor(self, *args):
     for i in range(len(config.actorStatusArray)):
         if config.actorStatusArray[i] == "Hide":
@@ -426,7 +500,7 @@ def showActor(self, *args):
 # this is called only on a save
 def clearActor(self, *args):
     for i in range(len(config.actorStatusArray)):
-        if config.actorStatusArray[i] == "Don't Show":
+        if config.actorStatusArray[i] == "Hide":
             self.actorDisplayGrid.remove_widget(config.actorLabelArray[i])
             self.actorDisplayGrid.remove_widget(config.actorStatusLabelArray[i])
 
@@ -1183,18 +1257,31 @@ def updateFictionHTML():
 def rollDice(text):
 
     results = "Please use standard dice notation, ie, 1d10."
-
+    count = 1
+    sides = 100
+    reps = 1
+    
     if len(text) > 0:
         try:
             count, sides = text.split("d")
         except:
-            count = 1
-            sides = 100
-        # are we repeating?
+            return results
+
         try:
             sides, reps = sides.split("x")
         except:
-            reps = 1
+            pass
+
+        try:
+            sides = int(sides)
+            count = int(count)
+        except:
+            return results
+
+        try:
+            reps = int(reps)
+        except:
+            pass
 
         results = "Rolling " + str(count) + "d" + str(sides) + " " + str(reps) + " times."
         for m in range(int(reps)):
