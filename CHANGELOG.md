@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.0.0
 
+* added an image panel to the map stack that reads all files out of an 'images' subfolder in a save game and displays them
 * combined status and main save files; should load old format fine
 * seed curation. so much seed curation
 * fixed a bug with the actor panel titles; should update correctly now

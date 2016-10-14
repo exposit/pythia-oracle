@@ -141,3 +141,5 @@ mapArray = {}
 
 tempGmapArray = []
 gmapArray = {}
+
+imgLabelArray = []

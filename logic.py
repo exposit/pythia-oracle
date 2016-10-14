@@ -730,6 +730,19 @@ def quicksave(self, gamedir):
     json.dump(maps, f)
     f.close()
 
+    # this is in try/except because it might not exist
+    try:
+        if os.path.exists(gamedir + "images"):
+            tempArray = []
+            for i in range(len(config.imgLabelArray)):
+                tempArray.append(config.imgLabelArray[i].text)
+            with open(gamedir + 'imgs.txt', 'w') as filename:
+                json.dump(tempArray, filename)
+    except:
+        if config.debug == True:
+            print("[quicksave Images] Unexpected error:", sys.exc_info())
+
+    # now update logs
     updateRawHTML()
     updateRawMarkdown()
     updateCollapseHTML()
@@ -879,6 +892,19 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Tracks] Unexpected error:", sys.exc_info())
 
+    # IMAGE LABELS
+    try:
+        tempTable = []
+        if os.path.exists(gamedir + "images"):
+            with open(gamedir + 'imgs.txt', 'r') as filename:
+                tempTable = json.load(filename)
+        config.imgLabelArray = tempTable
+
+    except:
+        if config.debug == True:
+            print("[quickload Images] Unexpected error:", sys.exc_info())
+
+    # CHARACTER SHEETS
     try:
         with open(gamedir + 'pcs.txt', 'r') as f:
             tempArray = json.load(f)
@@ -891,6 +917,7 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload PCs] Unexpected error:", sys.exc_info())
 
+    # MAPS
     try:
         with open(gamedir + 'maps.txt', 'r') as filename:
             maps = json.load(filename)
@@ -1260,7 +1287,7 @@ def rollDice(text):
     count = 1
     sides = 100
     reps = 1
-    
+
     if len(text) > 0:
         try:
             count, sides = text.split("d")

@@ -30,3 +30,10 @@
     background_color_down: app.accent2
     font_name: "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Regular.ttf"
     font_size: app.basefont
+
+<Image>
+    canvas.after:
+        Color:
+            rgb: 0,0,0
+        Line:
+            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
