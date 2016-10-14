@@ -483,3 +483,9 @@ This is exactly like a sheet of graph paper. Click once to change the background
 ####Diagram Map
 
 The black squares are "rooms" or "blocks" and can be labeled, and the areas between can be clicked to set links between two blocks or rooms. Click repeatedly to cycle through the various types of connections.
+
+####Images
+
+To use this panel, you need a subdirectory in your save folder named 'images' and a blank text file named 'imgs.txt' in your save directory. Any images in the images folder will be displayed in the images panel, along with simple fields to label or store notes about each picture.
+
+Note that the images directory and file are not created by default with a new game!

@@ -730,17 +730,12 @@ def quicksave(self, gamedir):
     json.dump(maps, f)
     f.close()
 
-    # this is in try/except because it might not exist
-    try:
-        if os.path.exists(gamedir + "images"):
-            tempArray = []
-            for i in range(len(config.imgLabelArray)):
-                tempArray.append(config.imgLabelArray[i].text)
-            with open(gamedir + 'imgs.txt', 'w') as filename:
-                json.dump(tempArray, filename)
-    except:
-        if config.debug == True:
-            print("[quicksave Images] Unexpected error:", sys.exc_info())
+    if os.path.exists(gamedir + "images"):
+        tempArray = []
+        for i in range(len(config.imgLabelArray)):
+            tempArray.append(config.imgLabelArray[i].text)
+        with open(gamedir + 'imgs.txt', 'w') as filename:
+            json.dump(tempArray, filename)
 
     # now update logs
     updateRawHTML()
@@ -897,9 +892,7 @@ def quickload(self, gamedir):
         tempTable = []
         if os.path.exists(gamedir + "images"):
             with open(gamedir + 'imgs.txt', 'r') as filename:
-                tempTable = json.load(filename)
-        config.imgLabelArray = tempTable
-
+                config.imgTextArray = json.load(filename)
     except:
         if config.debug == True:
             print("[quickload Images] Unexpected error:", sys.exc_info())

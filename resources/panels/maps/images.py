@@ -14,6 +14,7 @@ def exclude():
     return False
 
 def onEnter(self):
+
     imgLabelArray = []
     # grab all images in the current directory's img folder
     if os.path.exists(config.curr_game_dir + "images"):
@@ -37,6 +38,13 @@ def onEnter(self):
             self.imgGrid.add_widget(config.imgLabelArray[-1])
 
             self.imgGrid.add_widget(Label(text="", size_hint=(None, None), height=config.tallheight))
+
+        if len(config.imgTextArray) > 0:
+            for i in range(len(config.imgTextArray)):
+                if i <= len(config.imgLabelArray):
+                    config.imgLabelArray[i].text = config.imgTextArray[i]
+    else:
+        self.imgAItem.parent.remove_widget(self.imgAItem)
 
 def initPanel(self):
 
