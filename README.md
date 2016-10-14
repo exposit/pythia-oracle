@@ -47,6 +47,8 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 Save games will still load without issues. However, after they've been loaded and saved the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file.
 
+To use images, you need to create a folder named 'images' in your save directory and a blank text file (you can copy the one out of the quicksave) named 'imgs.txt' in your save folder. Put any pictures in the images folder (it takes any kind kivy supports but will choke if there's a non-image in there).
+
 ### Upgrading from 0.7.0 & earlier
 
 Your save game will still work fine, but you may experience some formatting issues. You can either set the format on errant blocks in Pythia one at a time, or (MAKE A BACKUP FIRST) open the main_status.txt and do some find and replaces.
