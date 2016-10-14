@@ -30,7 +30,9 @@ general = dict(
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
     actor_index_state = 0,
+    max_character_sheets = 6,
     total_pcs_to_show = 2,
+    half_size_rows = 23,
     findList = [],
     findIndex = 0,
     merge = True,
@@ -38,21 +40,23 @@ general = dict(
 
 formats = dict(
     basefontsize = 14,
-    transitory_color = styles.curr_palette['accent2'],
-    highlight_color = styles.curr_palette['accent1'],
-    alternate_color = styles.curr_palette['secondary'],
-    # mechanics formatting
+    transitory_color = styles.curr_palette['accent2'],    # color3 & ephemeral, format as '9d2e39'
+    highlight_color = styles.curr_palette['accent1'],     # color1
+    alternate_color = styles.curr_palette['secondary'],   # color2
+    # mechanics formatting; expects these keywords but can be swapped around
     oracle = "bold",
     result = "italic",
     query = "bold_italic",
     aside = "italic",
+    # don't change these directly; change transitory_color, highlight_color, etc
     mechanic1 = "color1",
     mechanic2 = "color2",
     ephemeral = "color3",
-    # fiction formatting
+    # fiction formatting; expects these keywords but can be swapped around
     bold = "bold",
     italic = "italic",
     bold_italic = "bold_italic",
+    # don't change these directly; change transitory_color, highlight_color, etc
     color1 = "color1",
     color2 = "color2",
     color3 = "color3",
@@ -137,3 +141,5 @@ mapArray = {}
 
 tempGmapArray = []
 gmapArray = {}
+
+imgLabelArray = []
