@@ -671,6 +671,8 @@ class MainScreen(Screen):
                     updateCenterDisplay(self, new_text, config.general['enter_behavior'])
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
+                    if config.general['enter_behavior'] == 'plain':
+                        checkForTrigger(self)
                     return True
         elif args[1] == 13 and config.debug == True:   # really sloppy screenshot taker
             Window.screenshot(name='./screenshot_' + str(time.time()) + '.png')
@@ -849,6 +851,8 @@ class MainScreen(Screen):
             updateCenterDisplay(self, new_text, 'plain')
             quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
+
+        checkForTrigger(self)
 
     def releaseDM(self, *args):
         self.dmSubmitButton.background_color = neutral

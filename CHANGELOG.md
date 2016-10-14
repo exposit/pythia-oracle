@@ -4,6 +4,10 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+Version 1.1.0 (WIP)
+
+* added 'secrets & triggers' panel for adding some surprise to your games
+
 Version 1.0.0
 
 * added an image panel to the map stack that reads all files out of an 'images' subfolder in a save game and displays them

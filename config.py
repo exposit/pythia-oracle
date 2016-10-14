@@ -36,6 +36,7 @@ general = dict(
     findList = [],
     findIndex = 0,
     merge = True,
+    secrets = [],
 )
 
 formats = dict(

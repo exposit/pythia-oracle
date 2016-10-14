@@ -290,6 +290,28 @@ def cycleText(label, *args):
 
     return True
 
+def checkForTrigger(self):
+    index = []
+    for i in range(len(config.general['secrets'])):
+
+        if config.general['secrets'][i][0] <= 0:
+            # this trigger should Fire
+            if config.general['secrets'][i][2] != 'Nothing.':
+                updateCenterDisplay(self, "[" + config.general['secrets'][i][1] + "] " + config.general['secrets'][i][2], 'result')
+
+            # remove the widget
+            index.append(i)
+            self.secretDisplayGrid.remove_widget(self.secretLabels[i])
+            self.secretDisplayGrid.remove_widget(self.secretButtons[i])
+        else:
+            config.general['secrets'][i][0] = config.general['secrets'][i][0] - 1
+
+    for i in index:
+        # clear the trigger from config.general
+        del config.general['secrets'][i]
+        del self.secretLabels[i]
+        del self.secretButtons[i]
+
 def updateThreadDisplay(self, text, status):
 
     config.threadArray.append(text)
