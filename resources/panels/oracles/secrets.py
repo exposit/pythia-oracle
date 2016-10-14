@@ -160,7 +160,7 @@ def addPresetTrigger(button, *args):
 
     for i in range(len(testList)):
         for item in degreeList:
-            testsList.append("Test of " + testList[i] + ", difficulty, " + item)
+            testsList.append("Test of " + testsList[i] + ", difficulty, " + item)
 
     extrasList = ["Actor Move", "Plot Move"]
 
