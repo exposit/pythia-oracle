@@ -1048,9 +1048,13 @@ class MainScreen(Screen):
             nameList = []
             for pc in range(len(config.pcKeyLabelArray)):
                 name = [i for i in config.pcKeyLabelArray[pc] if i.text=="Name"]
+                nick = [i for i in config.pcKeyLabelArray[pc] if i.text=="Nick"]
                 nn = [i for i in config.pcKeyLabelArray[pc] if i.text=="NN"]
 
-                if nn:
+                if nick:
+                    index = config.pcKeyLabelArray[pc].index(nick[0])
+                    nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+                elif nn:
                     index = config.pcKeyLabelArray[pc].index(nn[0])
                     nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
                 elif name:

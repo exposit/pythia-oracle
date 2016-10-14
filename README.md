@@ -1,7 +1,7 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 ### MAPPING is still a work in progress, especially the random generator. Expect issues, save frequently. Remember pythia makes a backup zip in backups every time you run the program.
 
-### Pythia-Oracle 0.9.0
+### Pythia-Oracle 1.0.0
 
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A basic guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
 
