@@ -292,9 +292,10 @@ def cycleText(label, *args):
 
 def checkForTrigger(self):
     index = []
+    fired = False
     for i in range(len(config.general['secrets'])):
 
-        if config.general['secrets'][i][0] <= 0:
+        if config.general['secrets'][i][0] <= 0 and fired == False:
             # this trigger should Fire
             if config.general['secrets'][i][2] != 'Nothing.':
                 updateCenterDisplay(self, "[" + config.general['secrets'][i][1] + "] " + config.general['secrets'][i][2], 'result')
@@ -303,6 +304,7 @@ def checkForTrigger(self):
             index.append(i)
             self.secretDisplayGrid.remove_widget(self.secretLabels[i])
             self.secretDisplayGrid.remove_widget(self.secretButtons[i])
+            fired = True
         else:
             config.general['secrets'][i][0] = config.general['secrets'][i][0] - 1
 

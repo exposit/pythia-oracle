@@ -173,6 +173,24 @@ If you need to answer a question like "what does it look like" or "what is it" o
 > *[Seed] creep soldier*<br>
 > He hates their soldiers because they raided his home during the war.
 
+####Secrets & Triggers
+
+This panel is all about surprises. The first section creates random event triggers that will fire after a certain number of fiction blocks have been created. Click on the duration that seems appropriate, based on the current chaos/excitement level in your game, then continue playing as normal. When you see the event fire, hit the generator button it directs you to.
+
+__*Custom Triggers*__
+
+If you think something might be present -- an ambush, a hidden treasure, a clue -- make a roll for it. Then create a custom trigger.
+
+"Name" is a short, descriptive phrase describing the trigger. For example, "perc check at cave".
+
+"Interval" is a rough estimate of, if something is there, when it should fire. If you've just entered a new area and think an ambush is likely, pick 'now', for example.
+
+"Succeed/Fail" is if you succeeded or failed at your check.
+
+"Odds" are the odds something might be there to be missed. In an area frequented by bandits? Maybe it's "likely". Just wandering around? "Even odds" or "Doubtful" or "Unlikely".
+
+When or if the trigger fires, it will tell you you missed something but now it has come to light. Ask oracle questions or draw a seed to determine what 'it' is, as usual.
+
 ####Generators Stack
 
 ####Actors & Motives
