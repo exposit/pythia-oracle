@@ -278,10 +278,12 @@ __*Actor's Next Move*__
 
 The Actor's Next Move returns a move that indicates what the actor in question will do next. You can use this as frequently or infrequently as you wish. The "move" is generally a concrete instruction, while the "tag" in brackets points to motive or to general effectiveness.
 
+*Reil has the assassin responsible for his parents' death at his mercy. The assassin claims he was coerced with magic. Reil's player isn't sure what Reil would do.*
+
 > How does Reil proceed?<br>
 > [Noble] Actor indulges or expresses a noble facet of their character.
 
-*Reil has the assassin responsible for his parents' death at his mercy. The assassin claims he was coerced with magic; Reil finds he doesn't have it in him to murder someone in cold blood, let alone someone who was forced into evil deeds. Nobly, he turns the man over to the city guard -- and goes hunting for the sorcerer behind things.*
+*Reil finds he doesn't have it in him to murder someone in cold blood, let alone someone who was forced into evil deeds. Nobly, he turns the man over to the city guard -- and goes hunting for the sorcerer behind things.*
 
 __*One Line Motive*__
 
@@ -389,7 +391,7 @@ This gives you a distance in [units] of ideal travel time (easiest is for each "
 
 Example:
 
-Reil enters the notoriously dangerous environs of the sorcerer-king he's heard is in thrall to the Circle.
+*Reil enters the notoriously dangerous realm of the sorcerer-king he's heard is in thrall to the Circle.*
 
 > [Settled Level] Dense [Seed] 4<br>
 > [Terrain Type] plains (1) | heavy forest | light forest (3) | hills (4)<br>
