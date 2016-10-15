@@ -17,6 +17,7 @@ import json
 import glob
 import string
 import zipfile
+import traceback
 
 # Kivy
 from kivy.app import App

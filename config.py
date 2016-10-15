@@ -8,7 +8,12 @@
 import styles
 import os
 
-debug = True
+# set this to True to get lots of messaging
+debug = False
+# set this to true if you are manually editing your main file
+# then back to False when you're satisfied it loads properly
+# game will NOT save if this is True
+manual_edit_mode = False
 
 #------------------------------------------------------------------------
 # Changes to the following are stored in save games
@@ -144,4 +149,4 @@ tempGmapArray = []
 gmapArray = {}
 
 imgLabelArray = []
-imgTextArray = []
+#imgTextArray = []

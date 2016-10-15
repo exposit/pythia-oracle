@@ -674,6 +674,10 @@ def loadconfig(self, gamedir):
 
 def quicksave(self, gamedir):
 
+    if config.manual_edit_mode == True:
+        print("Game not saved because manual_edit_mode is set to True.")
+        return False
+
     tempArray = []
     for i in range(len(config.textArray)):
         tempArray.append([config.textArray[i], config.textStatusArray[i]])
@@ -754,12 +758,19 @@ def quicksave(self, gamedir):
     json.dump(maps, f)
     f.close()
 
+    #if os.path.exists(gamedir + "images"):
+    #    tempArray = []
+    #    for i in range(len(config.imgLabelArray)):
+    #        tempArray.append(config.imgLabelArray[i].text)
+    #    with open(gamedir + 'imgs.txt', 'w') as filename:
+    #        json.dump(tempArray, filename)
+
+    # handle this a little differently; stick the image labels in config.user instead
+    # which means they'll be saved in the config file in the next step
     if os.path.exists(gamedir + "images"):
-        tempArray = []
+        config.user['image_labels'] = []
         for i in range(len(config.imgLabelArray)):
-            tempArray.append(config.imgLabelArray[i].text)
-        with open(gamedir + 'imgs.txt', 'w') as filename:
-            json.dump(tempArray, filename)
+            config.user['image_labels'].append(config.imgLabelArray[i].text)
 
     # now update logs
     updateRawHTML()
@@ -786,7 +797,10 @@ def quickload(self, gamedir):
         try:
             with open(gamedir + 'main.txt', 'r') as mainfile:
                 tempArray = json.load(mainfile)
+        except ValueError as err:
+            print(err)
 
+        try:
             textArray = []
             textStatusArray = []
             for i in range(len(tempArray)):
@@ -794,7 +808,8 @@ def quickload(self, gamedir):
                 textStatusArray.append(tempArray[i][1])
 
         except:
-            print("opening single file failed")
+            if config.debug == True:
+                traceback.print_exc()
 
     try:
 
@@ -833,9 +848,15 @@ def quickload(self, gamedir):
 
     except:
         if config.debug == True:
+            #traceback.print_exc()
+            #print str(e)
             print("[quickload Main] Unexpected error:", sys.exc_info())
 
-        updateCenterDisplay(self, "The adventure begins...", 'italic')
+        if config.manual_edit_mode == False:
+            updateCenterDisplay(self, "The adventure begins...", 'italic')
+
+    if config.manual_edit_mode == True:
+        updateCenterDisplay(self, "WARNING: MANUAL EDIT MODE is ON and text will not be saved.", 'ephemeral')
 
     # THREADS
     success = False
@@ -911,15 +932,15 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Tracks] Unexpected error:", sys.exc_info())
 
-    # IMAGE LABELS
-    try:
-        tempTable = []
-        if os.path.exists(gamedir + "images"):
-            with open(gamedir + 'imgs.txt', 'r') as filename:
-                config.imgTextArray = json.load(filename)
-    except:
-        if config.debug == True:
-            print("[quickload Images] Unexpected error:", sys.exc_info())
+    # IMAGE LABELS - now handled in config load
+    #try:
+        #tempTable = []
+        #if os.path.exists(gamedir + "images"):
+        #    with open(gamedir + 'imgs.txt', 'r') as filename:
+        #        config.imgTextArray = json.load(filename)
+    #except:
+    #    if config.debug == True:
+    #        print("[quickload Images] Unexpected error:", sys.exc_info())
 
     # CHARACTER SHEETS
     try:

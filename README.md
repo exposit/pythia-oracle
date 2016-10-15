@@ -45,9 +45,9 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 ### Upgrading from 0.9.0 & earlier
 
-Save games will still load without issues. However, after they've been loaded and saved the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file.
+Save games will still load without issues. However, after they've been loaded and saved the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file. Please still back up your save game before making manual edits and consider using the new "manual edit mode" flag in the config file.
 
-To use images, you need to create a folder named 'images' in your save directory and a blank text file (you can copy the one out of the quicksave) named 'imgs.txt' in your save folder. Put any pictures in the images folder (it takes any kind kivy supports but will choke if there's a non-image in there).
+To use images, you need to create a folder named 'images' in your save directory. Put any pictures in the images folder (it takes any kind kivy supports but will choke if there's a non-image in there).
 
 ### Upgrading from 0.7.0 & earlier
 
@@ -71,6 +71,8 @@ Grab a fresh download, unzip, then copy (don't move) your save folder in. Run th
 
 #### Customization/Setup
 
+READ THE HELP.MD file!
+
 Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
 
 If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
@@ -89,8 +91,6 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click 
 Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
 
 There are multiple config files. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games. Alternately, you can edit the config.txt file in each save game folder, but please back it up first!
-
-If the font is too small, open up config file and change the number after 'basefontsize' to the size you'd prefer; this may make some of your buttons or labels crowded if you go too big but you can always change it back! Note, this changes it for every new game; if you already have a game created you'll need to change the basefontsize in 'saves/\<game name\>/config.txt' as well (as always, back it up first).
 
 To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the pythia folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure. Backups are in the "backups" folder.
 

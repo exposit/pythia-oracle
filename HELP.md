@@ -1,5 +1,42 @@
 #Documentation -- Pythia 1.0.0
 
+##Configuration
+
+__*Basics*__
+
+Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
+
+If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
+
+`python pythia.py --size 1280x725`
+
+You can also open up the 'pythia.py' file in your favorite text editor, then uncomment these lines:
+
+`kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
+`kivy.config.Config.set ( 'graphics', 'height', 725 )`
+
+Change the numbers (1280, 725) as you'd prefer.
+
+Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
+
+There are multiple config files, the main config and one per game. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games (but not old ones). You can always make a new, fresh game, and copy that config into older save games to 'refresh' them on upgrades.
+
+Formatting is set in the config file and on a per game basis. If you really want to change something, you can scroll to the bottom of the config file for the app-wide derived font settings.
+
+To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the pythia folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure. Backups are in the "backups" folder. Pythia automatically makes a zipped backup of your current saves director and places it in backups when you start up Pythia.
+
+To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
+
+Note: the system expects a quicksave folder to be present and it's a good idea to have one.
+
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
+
+__*Config Flags*__
+
+If 'manual_edit_mode' is set to True, the game will no longer overwrite a failed save game load with "the adventure begins". It will also no longer save any changes made in Pythia itself until the manual_edit_mode flag is set back to False. This is so, if you're making manual edits, you have a bit of protection against missed commas or other json formatting issues in the main text file.
+
+If 'debug' is set to True, you'll get a lot more messaging than default. Some of it might even be useful if you're having an issue. Most of it is simple notifications and should be ignored.
+
 ##Title Screen
 
 When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
@@ -175,7 +212,7 @@ If you need to answer a question like "what does it look like" or "what is it" o
 
 ####Secrets & Triggers
 
-This panel is all about surprises. 
+This panel is all about surprises.
 
 __*Preset Triggers*__
 

@@ -39,10 +39,14 @@ def onEnter(self):
 
             self.imgGrid.add_widget(Label(text="", size_hint=(None, None), height=config.tallheight))
 
-        if len(config.imgTextArray) > 0:
-            for i in range(len(config.imgTextArray)):
-                if i <= len(config.imgLabelArray):
-                    config.imgLabelArray[i].text = config.imgTextArray[i]
+        try:
+            if len(config.user['image_labels']) > 0:
+                for i in range(len(config.user['image_labels'])):
+                    if i <= len(config.imgLabelArray):
+                        config.imgLabelArray[i].text = config.user['image_labels'][i]
+        except:
+            pass
+            
     else:
         self.imgAItem.parent.remove_widget(self.imgAItem)
 

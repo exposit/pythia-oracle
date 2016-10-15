@@ -1,12 +1,15 @@
 ####Changelog
 
-Please note that this is very rough and just to give you an idea of what's been changed or improved. API breaking and save game breaking stuff may happen fairly frequently until we get up to 1.0!
+Please note that this is very rough and just to give you an idea of what's been changed or improved. API breaking and save game breaking stuff may happen!
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.1.0 (WIP)
 
 * added 'secrets & triggers' panel for adding some surprise to your games
+* moved the save for images to the config.user variable, just to eliminate the extra file
+* updated help pretty thoroughly
+* added a manual edit flag to config to help protect against manual editing overwrites
 
 Version 1.0.0
 
