@@ -175,11 +175,17 @@ If you need to answer a question like "what does it look like" or "what is it" o
 
 ####Secrets & Triggers
 
-This panel is all about surprises. The first section creates random event and check request triggers that will fire after a certain number of fiction blocks have been created. Click on the duration that seems appropriate, based on the current chaos/excitement level in your game, then continue playing as normal. When you see the event fire, hit the generator button it directs you to or make the check as instructed. If you roll a check, use a custom trigger to see whether or not something really was there -- or if the dm is just messing with you!
+This panel is all about surprises. 
+
+__*Preset Triggers*__
+
+The first section adds random triggers that will fire after a certain number of fiction blocks have been created. Click on the interval that seems appropriate, based on the current chaos/excitement level in your game, then continue playing as normal. When you see the event fire, hit the generator button it directs you to or make the check as instructed. If you are asked to roll a check, do so, then use a custom trigger to see whether or not something really was there -- or if the dm is just messing with you!
+
+Keep a few at "random" duration active any time something interesting might happen.
 
 __*Custom Triggers*__
 
-If you think something might be present -- an ambush, a hidden treasure, a clue -- make a roll for it. Then create a custom trigger.
+If you think something might be present -- an ambush, a hidden treasure, a clue -- make an appropriate check as if a GM has called for it. Then create a custom trigger.
 
 "Name" is a short, descriptive phrase describing the trigger. For example, "perc check at cave".
 
