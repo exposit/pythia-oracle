@@ -389,8 +389,6 @@ __*Distance to Next Region*__
 
 This gives you a distance in [units] of ideal travel time (easiest is for each "unit" to correspond to one "day" of travel or block on the map).
 
-Example:
-
 *Reil enters the notoriously dangerous realm of the sorcerer-king he's heard is in thrall to the Circle.*
 
 > [Settled Level] Dense [Seed] 4<br>
