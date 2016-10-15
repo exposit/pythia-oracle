@@ -52,11 +52,11 @@ The main text blocks might be one per entered chunk of text or merged, depending
 
 At the bottom of the center panel is the main control panel. It has the primary text input, the footer buttons, and the side control panel.
 
-#####Primary Text Input
+####Primary Text Input
 
 The primary text input is how you get text into the program. It also supports passing information to various other buttons across the program, like the different "random [item]" buttons, the dice roller, and the "find" button.
 
-#####Side Controls
+####Side Controls
 
 The side control panel has a quick oracle button ("???") that generates an answer to a yes or no question. Which oracle is used by default can be changed in the config file; it defaults to "Fu" at even odds.
 
@@ -66,7 +66,7 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 "Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
 
-#####Footer Controls
+####Footer Controls
 
 __*System*__
 
