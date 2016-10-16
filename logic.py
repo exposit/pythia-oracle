@@ -337,7 +337,7 @@ def updateThreadDisplay(self, text, status):
 
 def cycleThread(label, *args):
 
-    statusList = ['Current', 'Past', 'Major', 'Minor', 'Resolved', 'Abandoned', 'Success', 'Failure', 'Hide']
+    statusList = ['Current', 'Past', 'Major', 'Minor', 'Resolved', 'Abandoned', 'Success', 'Failure', 'Hide', 'BigQ']
 
     status = label.text
 
@@ -392,7 +392,7 @@ def OLDcycleThread(self, *args):
 def clearThread(self, *args):
 
     downList = ["Resolved", "Success", "Failure", "Past", "Abandoned"]
-    upList = ['Major', 'Current']
+    upList = ['Major', 'Current', 'BigQ']
 
     topList = []
     midList = []

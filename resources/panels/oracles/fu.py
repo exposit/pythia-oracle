@@ -569,6 +569,7 @@ def getPlotMove(*args):
     updateCenterDisplay(self, result, 'result')
 
 # http://www.random-generator.com/index.php?title=But_Cards
+# text is licensed under CC-BY 2.5
 def abulafiaButCards(*args):
     self = args[0].self
     subtype = args[0].subtype
@@ -595,3 +596,5 @@ def abulafiaButCards(*args):
     ]
 
     updateCenterDisplay(self, resultList[subtype], 'result' )
+
+# end Abulafia content & license
