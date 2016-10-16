@@ -9,7 +9,7 @@ import styles
 import os
 
 # set this to True to get lots of messaging
-debug = False
+debug = True
 # set this to true if you are manually editing your main file
 # then back to False when you're satisfied it loads properly
 # game will NOT save if this is True

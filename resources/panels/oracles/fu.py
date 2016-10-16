@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-##---------------------------------------------------------------------------------------------------# FU Oracle Panel
+##---------------------------------------------------------------------------------------------------
 #
+# FU Oracle Panel
 #
 ##---------------------------------------------------------------------------------------------------
 import imports
@@ -90,7 +91,7 @@ def initPanel(self):
 
     dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
-    self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07))
+    self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07, font_size=config.basefont90))
     self.fuDramaBox = GridLayout(cols=2, size_hint_y=.3)
 
     self.fuDramaBox.add_widget(Label(text="Good/Bad"))
@@ -127,7 +128,22 @@ def initPanel(self):
     button.bind(on_release=getPlotMove)
     self.fuMainBox.add_widget(button)
 
-    self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07))
+    self.fuMainBox.add_widget(Label(text="But/And Clarifier", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+
+    butCardBox = GridLayout(cols=4, size_hint=(1,.07))
+    butLabels = ['yes but', 'no and', 'no but', 'yes and']
+    for i in range(0,4):
+        button = Button(text=butLabels[i], background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button.self = self
+        button.subtype = i
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=abulafiaButCards)
+        butCardBox.add_widget(button)
+
+    self.fuMainBox.add_widget(butCardBox)
+
+    self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
     self.randomEventTypeSpinner = Spinner(
     text='Random',
@@ -551,3 +567,31 @@ def getPlotMove(*args):
     result = "[Plot Move] " + result
 
     updateCenterDisplay(self, result, 'result')
+
+# http://www.random-generator.com/index.php?title=But_Cards
+def abulafiaButCards(*args):
+    self = args[0].self
+    subtype = args[0].subtype
+    args[0].background_color = neutral
+
+    statementList = ["an inconvenient attraction is struck", "in order to do it, you’ll have to do something else first", "it breaks the alignment of things", "it costs someone you care about, something they care about", "it costs you something dear", "it means closing the door on a future opportunity", "it only provides a temporary solution. It won’t last that long", "it takes longer than you thought it would", "it works a little too well", "it’s quiet … too quiet", "what you want isn’t what you need", "you can’t do it by yourself", "you get seriously hurt", "YOU TOTALLY ALMOST DIE OMG", "you’re not even supposed to be here", "your beloved is lost",]
+    questionList = ["didn’t it seem a little too easy? What’s really going on, here", "is it not by the path you thought", "what does it mean for someone else", "what does it mean for the enemy", "what is that person doing over there", "what really made you want it", "why is that character acting so strangely", "why now", "why you"]
+    positiveList = ["a clue reveals itself", "something unrelated but useful also occurs", "you earn a reward", "you learn something about your enemies in the process", "you learn something about yourself in the process", "you make a fast friend", "your style and panache are duly noted"]
+
+    statement = random.choice(statementList)
+    positive = random.choice(positiveList)
+
+    coin = random.randint(1,2)
+    if coin == 1:
+        everything = random.choice(questionList) + "?"
+    else:
+        everything = random.choice(statementList) + "."
+
+    resultList = [
+        "But " + everything,
+        "And " + statement + ".",
+        "But " + positive + ".",
+        "And " + positive + ".",
+    ]
+
+    updateCenterDisplay(self, resultList[subtype], 'result' )

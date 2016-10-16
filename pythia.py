@@ -248,6 +248,8 @@ class TitleScreen(Screen):
         text.append("")
         text.append("The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).")
         text.append("")
+        text.append("The Conundrum and And/But Clarifier generators are from Abulafia (found at http://www.random-generator.com/) and licensed under the Creative Commons Attribution 2.5 Generic license (http://creativecommons.org/licenses/by/2.5/).")
+        text.append("")
         text.append("Pythia (this program) is licensed under MIT.\nGithub (user name exposit, repo pythia-oracle) for more information.")
         for entry in text:
             label = Label(text=entry)

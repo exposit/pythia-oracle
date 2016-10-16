@@ -166,6 +166,13 @@ There is a small (~5%) chance of a random event occurring.
 
 "How Much...?" returns a weighted response; the first part is empirical, the second in context of expected results. Choose the answer that makes the most sense for your question.
 
+__*But/And Clarifier*__
+
+From [Abulafia](http://www.random-generator.com/index.php?title=But_Cards). Having trouble thinking of a suitable 'and' or 'but'? Click on the appropriate button for inspiration.
+
+>[likely: 6 2 5 ] Yes, and...<br>
+>And you learn something about your enemies in the process.
+
 >__*"How much does it cost?"*__<br>
 >*[How Much?] A little or much less than expected.*
 
@@ -285,6 +292,12 @@ Immediate goals returns two goals that the actor wants to achieve, along with ho
 >[Driving] to learn how to socialize [hero's heritage]
 
 *This actor is a biologically engineered vampire soldier who worked for the chief villain making more vampires for his undead armies. She's defected and has to learn how to fit in again with her people if she wants to survive.*
+
+__*Conundrum*__
+
+From [Abulafia](http://www.random-generator.com/index.php?title=Conundrum). Provides a suitably agonizing dilemma to motivate your hero or for you to explore as the theme of an adventure.
+
+>[Conundrum] You survived moral depravity; can you survive a buried secret?
 
 __*Relationships*__
 

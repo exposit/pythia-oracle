@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-##-------------------------------------------------------------------------------------------------------------------------------------------
+##---------------------------------------------------------------------------------------------------
+#
 # Actor Generator Panel
 #
 # A set of tools to generate inspiring, interpretive (but not too interpretive) NPCs.
 #
-##-------------------------------------------------------------------------------------------------------------------------------------------
+##---------------------------------------------------------------------------------------------------
 
 import imports
 from imports import *
@@ -82,6 +83,12 @@ def initPanel(self):
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getDualMotives)
+    actorsMainBox.add_widget(button)
+
+    button = Button(text="Conundrum", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=abulafiaConundrum)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Relationship - Close", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
@@ -171,9 +178,9 @@ def initPanel(self):
 
     return self.actorsAItem
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 # actors & actor button functions
-#-------------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 
 def miscChartRoll(*args):
     args[0].background_color = neutral
@@ -675,3 +682,38 @@ adjectiveList = ["abandoned", "able", "absolute", "adorable", "adventurous", "ac
 ]
 
 traitList = ["Accessible", "Active", "Adaptable", "Admirable", "Adventurous", "Agreeable", "Alert", "Allocentric", "Amiable", "Anticipative", "Appreciative", "Articulate", "Aspiring", "Athletic", "Attractive", "Balanced", "Benevolent", "Brilliant", "Calm", "Capable", "Captivating", "Caring", "Challenging", "Charismatic", "Charming", "Cheerful", "Clean", "Clear-headed", "Clever", "Colorful", "Companionable", "Compassionate", "Conciliatory", "Confident", "Conscientious", "Considerate", "Constant", "Contemplative", "Cooperative", "Courageous", "Courteous", "Creative", "Cultured", "Curious", "Daring", "Debonair", "Decent", "Decisive", "Dedicated", "Deep", "Dignified", "Directed", "Disciplined", "Discreet", "Dramatic", "Dutiful", "Dynamic", "Earnest", "Ebullient", "Educated", "Efficient", "Elegant", "Eloquent", "Empathetic", "Energetic", "Enthusiastic", "Esthetic", "Exciting", "Extraordinary", "Fair", "Faithful", "Farsighted", "Felicific", "Firm", "Flexible", "Focused", "Forceful", "Forgiving", "Forthright", "Freethinking", "Friendly", "Fun-loving", "Gallant", "Generous", "Gentle", "Genuine", "Good-natured", "Gracious", "Hardworking", "Healthy", "Hearty", "Helpful", "Heroic", "High-minded", "Honest", "Honorable", "Humble", "Humorous", "Idealistic", "Imaginative", "Impressive", "Incisive", "Incorruptible", "Independent", "Individualistic", "Innovative", "Inoffensive", "Insightful", "Insouciant", "Intelligent", "Intuitive", "Invulnerable", "Kind", "Knowledge", "Leader", "Leisurely", "Liberal", "Logical", "Lovable", "Loyal", "Lyrical", "Magnanimous", "Many-sided", "Masculine", "Mature", "Methodical", "Meticulous", "Moderate", "Modest", "Multi-leveled", "Neat", "Non-authoritarian", "Objective", "Observant", "Open", "Optimistic", "Orderly", "Organized", "Original", "Painstaking", "Passionate", "Patient", "Patriotic", "Peaceful", "Perceptive", "Perfectionist", "Personable", "Persuasive", "Prepared", "Playful", "Polished", "Popular", "Practical", "Precise", "Principled", "Profound", "Protean", "Protective", "Providential", "Prudent", "Punctual", "Purposeful", "Rational", "Realistic", "Reflective", "Relaxed", "Reliable", "Resourceful", "Respectful", "Responsible", "Responsive", "Reverential", "Romantic", "Rustic", "Sage", "Sane", "Scholarly", "Scrupulous", "Secure", "Selfless", "Self-critical", "Self-defacing", "Self-denying", "Self-reliant", "Self-sufficient", "Sensitive", "Sentimental", "Seraphic", "Serious", "Sexy", "Sharing", "Shrewd", "Simple", "Skillful", "Sober", "Sociable", "Solid", "Sophisticated", "Spontaneous", "Sporting", "Stable", "Steadfast", "Steady", "Stoic", "Strong", "Studious", "Suave", "Subtle", "Sweet", "Sympathetic", "Systematic", "Tasteful", "Teacherly", "Thorough", "Tidy", "Tolerant", "Tractable", "Trusting", "Uncomplaining", "Understanding", "Undogmatic", "Unfoolable", "Upright", "Urbane", "Venturesome", "Vivacious", "Warm", "Well-bred", "Well-read", "Well-rounded", "Winning", "Wise", "Witty", "Youthful", "", "Absentminded", "Aggressive", "Ambitious", "Amusing", "Artful", "Ascetic", "Authoritarian", "Big-thinking", "Boyish", "Breezy", "Businesslike", "Busy", "Casual", "Cerebral", "Chummy", "Circumspect", "Competitive", "Complex", "Confidential", "Conservative", "Contradictory", "Crisp", "Cute", "Deceptive", "Determined", "Dominating", "Dreamy", "Driving", "Droll", "Dry", "Earthy", "Effeminate", "Emotional", "Enigmatic", "Experimental", "Familial", "Folksy", "Formal", "Freewheeling", "Frugal", "Glamorous", "Guileless", "High-spirited", "Hurried", "Hypnotic", "Iconoclastic", "Idiosyncratic", "Impassive", "Impersonal", "Impressionable", "Intense", "Invisible", "Irreligious", "Irreverent", "Maternal", "Mellow", "Modern", "Moralistic", "Mystical", "Neutral", "Noncommittal", "Noncompetitive", "Obedient", "Old-fashioned", "Ordinary", "Outspoken", "Paternalistic", "Physical", "Placid", "Political", "Predictable", "Preoccupied", "Private", "Progressive", "Proud", "Pure", "Questioning", "Quiet", "Religious", "Reserved", "Restrained", "Retiring", "Sarcastic", "Self-conscious", "Sensual", "Skeptical", "Smooth", "Soft", "Solemn", "Solitary", "Stern", "Stolid", "Strict", "Stubborn", "Stylish", "Subjective", "Surprising", "Soft", "Tough", "Unaggressive", "Unambitious", "Unceremonious", "Unchanging", "Undemanding", "Unfathomable", "Unhurried", "Uninhibited", "Unpatriotic", "Unpredictable", "Unreligious", "Unsentimental", "Whimsical", "", "Abrasive", "Abrupt", "Agonizing", "Aimless", "Airy", "Aloof", "Amoral", "Angry", "Anxious", "Apathetic", "Arbitrary", "Argumentative", "Arrogant", "Artificial", "Asocial", "Assertive", "Astigmatic", "Barbaric", "Bewildered", "Bizarre", "Bland", "Blunt", "Boisterous", "Brittle", "Brutal", "Calculating", "Callous", "Cantankerous", "Careless", "Cautious", "Charmless", "Childish", "Clumsy", "Coarse", "Cold", "Colorless", "Complacent", "Complaintive", "Compulsive", "Conceited", "Condemnatory", "Conformist", "Confused", "Contemptible", "Conventional", "Cowardly", "Crafty", "Crass", "Crazy", "Criminal", "Critical", "Crude", "Cruel", "Cynical", "Decadent", "Deceitful", "Delicate", "Demanding", "Dependent", "Desperate", "Destructive", "Devious", "Difficult", "Dirty", "Disconcerting", "Discontented", "Discouraging", "Discourteous", "Dishonest", "Disloyal", "Disobedient", "Disorderly", "Disorganized", "Disputatious", "Disrespectful", "Disruptive", "Dissolute", "Dissonant", "Distractible", "Disturbing", "Dogmatic", "Domineering", "Dull", "Easily Discouraged", "Egocentric", "Enervated", "Envious", "Erratic", "Escapist", "Excitable", "Expedient", "Extravagant", "Extreme", "Faithless", "False", "Fanatical", "Fanciful", "Fatalistic", "Fawning", "Fearful", "Fickle", "Fiery", "Fixed", "Flamboyant", "Foolish", "Forgetful", "Fraudulent", "Frightening", "Frivolous", "Gloomy", "Graceless", "Grand", "Greedy", "Grim", "Gullible", "Hateful", "Haughty", "Hedonistic", "Hesitant", "Hidebound", "High-handed", "Hostile", "Ignorant", "Imitative", "Impatient", "Impractical", "Imprudent", "Impulsive", "Inconsiderate", "Incurious", "Indecisive", "Indulgent", "Inert", "Inhibited", "Insecure", "Insensitive", "Insincere", "Insulting", "Intolerant", "Irascible", "Irrational", "Irresponsible", "Irritable", "Lazy", "Libidinous", "Loquacious", "Malicious", "Mannered", "Mannerless", "Mawkish", "Mealymouthed", "Mechanical", "Meddlesome", "Melancholic", "Meretricious", "Messy", "Miserable", "Miserly", "Misguided", "Mistaken", "Money-minded", "Monstrous", "Moody", "Morbid", "Muddle-headed", "Naive", "Narcissistic", "Narrow", "Narrow-minded", "Natty", "Negativistic", "Neglectful", "Neurotic", "Nihilistic", "Obnoxious", "Obsessive", "Obvious", "Odd", "Offhand", "One-dimensional", "One-sided", "Opinionated", "Opportunistic", "Oppressed", "Outrageous", "Over-imaginative", "Paranoid", "Passive", "Pedantic", "Perverse", "Petty", "Pharisaical", "Phlegmatic", "Plodding", "Pompous", "Possessive", "Power-hungry", "Predatory", "Prejudiced", "Presumptuous", "Pretentious", "Prim", "Procrastinating", "Profligate", "Provocative", "Pugnacious", "Puritanical", "Quirky", "Reactionary", "Reactive", "Regimental", "Regretful", "Repentant", "Repressed", "Resentful", "Ridiculous", "Rigid", "Ritualistic", "Rowdy", "Ruined", "Sadistic", "Sanctimonious", "Scheming", "Scornful", "Secretive", "Sedentary", "Selfish", "Self-indulgent", "Shallow", "Shortsighted", "Shy", "Silly", "Single-minded", "Sloppy", "Slow", "Sly", "Small-thinking", "Softheaded", "Sordid", "Steely", "Stiff", "Strong-willed", "Stupid", "Submissive", "Superficial", "Superstitious", "Suspicious", "Tactless", "Tasteless", "Tense", "Thievish", "Thoughtless", "Timid", "Transparent", "Treacherous", "Trendy", "Troublesome", "Unappreciative", "Uncaring", "Uncharitable", "Unconvincing", "Uncooperative", "Uncreative", "Uncritical", "Unctuous", "Undisciplined", "Unfriendly", "Ungrateful", "Unhealthy", "Unimaginative", "Unimpressive", "Unlovable", "Unpolished", "Unprincipled", "Unrealistic", "Unreflective", "Unreliable", "Unrestrained", "Unself-critical", "Unstable", "Vacuous", "Vague", "Venal", "Venomous", "Vindictive", "Vulnerable", "Weak", "Weak-willed", "Well-meaning", "Willful", "Wishful", "Zany", "Egocentric"]
+
+# http://www.random-generator.com/index.php?title=Conundrum
+def abulafiaConundrum(button, *args):
+    button.background_color = neutral
+    self = button.self
+
+    neutralList = ["a buried secret", "a command from a superior", "a high-stakes gamble", "a magnificent obsession", "a solemn promise", "an accident", "devotion to a cause", "doing the right thing", "fear of change", "letting someone go", "maintaining a reputation", "moving to a new town", "preserving social station", "religious conviction", "romantic attraction", "swallowing your pride", "wanting to be normal", "wanting to be popular", "what society expects",]
+    goodList = ["accepting who you really are", "acting honorably", "being free", "bestowing mercy", "discovering the truth", "finding true love", "following a dream", "forgiving someone", "helping those in need", "honoring tradition", "keeping your family together", "obeying the law", "preserving a shred of dignity", "protecting a loved one", "respecting your elders", "satisfying justice", "saving a friendship", "saving the life of a child", "saving your marriage", "searching for the Truth", "setting things right", "standing your ground", ]
+    badList = ["a dangerous impulse", "a family secret", "a loaded gun", "a natural disaster", "a physical impairment", "a single foolish night", "a suitcase full of drugs", "addiction", "an ill-advised promise", "an inner darkness", "an irrational fear", "deep-seated prejudice", "fear of commitment", "fear of death", "forbidden desire", "guilt over a past transgression", "mental illness", "moral depravity", "naked ambition", "narcissism", "racism", "selfish pride", "slow-burning rage", "social awkwardness", "the desire for revenge", "the desire for wealth", "the horrors of war", "the shame of your sin", "thirst for power",]
+
+    anyList = goodList + badList + neutralList
+
+    better = random.choice(['better', 'more important', 'stronger'])
+
+    question = [
+    "Is" + random.choice(anyList) + " " + better + " than " + random.choice(anyList),
+    "Is " + random.choice(anyList) + " " + better + " than " + random.choice(anyList),
+    "If it’s only " + random.choice(neutralList) + ", why are you so nervous",
+    "Is " + random.choice(neutralList) + " enough to keep you from " + random.choice(goodList),
+    "Is her " + random.choice(goodList) + " enough to stop " + random.choice(badList) + " from destroying you",
+    "Is it possible to overcome " + random.choice(badList) + " and still end up " + random.choice(goodList),
+    "Now it’s just a question of which will pull you down – " + random.choice(badList) + " or " + random.choice(badList),
+    "Once, " + random.choice(badList) + " nearly killed you – will " + random.choice(goodList) + " finish the job",
+    "What will you do when you must choose between " + random.choice(goodList) + " and " + random.choice(goodList),
+    "When " + random.choice(badList) + " interferes with " + random.choice(neutralList) + ", which will you follow",
+    "When it comes down to it, the choice is between " + random.choice(goodList) + " and " + random.choice(goodList) + ", isn’t it",
+    "Will " + random.choice(goodList) + " be enough to keep you from " + random.choice(badList),
+    "Will " + random.choice(neutralList) + " be enough to keep you from " + random.choice(badList),
+    "Will " + random.choice(neutralList) + " get in the way of " + random.choice(goodList),
+    "Will you give in to " + random.choice(badList) + " or is there still a chance of " + random.choice(goodList),
+    "Will you let " + random.choice(badList) + " keep you from " + random.choice(goodList),
+    "You survived " + random.choice(badList) + "; can you survive " + random.choice(anyList),
+    ]
+
+    updateCenterDisplay(self, "[Conundrum] " + random.choice(question) + "?", 'result' )

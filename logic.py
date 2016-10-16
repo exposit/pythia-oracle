@@ -798,7 +798,8 @@ def quickload(self, gamedir):
             with open(gamedir + 'main.txt', 'r') as mainfile:
                 tempArray = json.load(mainfile)
         except ValueError as err:
-            print(err)
+            if config.debug == True:
+                print(err)
 
         try:
             textArray = []
@@ -880,7 +881,8 @@ def quickload(self, gamedir):
                 threadStatusArray.append(tempArray[i][1])
 
         except:
-            print("opening single file failed")
+            if config.debug == True:
+                print("opening single file failed")
 
     try:
         for i in range(len(threadArray)):
@@ -911,7 +913,8 @@ def quickload(self, gamedir):
                 actorStatusArray.append(tempArray[i][1])
 
         except:
-            print("opening single file failed")
+            if config.debug == True:
+                print("opening single file failed")
 
     try:
         for i in range(len(actorArray)):
@@ -1490,9 +1493,15 @@ def jumpToIndex(self, index):
     # this could use some catching in case the curent label is not visible for some reason
 
     if edit_mode in fieldList:
-        self.centerDisplay.scroll_to(config.textFieldLabelArray[index])
+        if config.textFieldLabelArray[index].parent != None:
+            self.centerDisplay.scroll_to(config.textFieldLabelArray[index])
+        elif index == -1 or index == 0:
+            self.centerDisplay.scroll_to(self.centerDisplay.children[index])
     else:
-        self.centerDisplay.scroll_to(config.textLabelArray[index])
+        if config.textLabelArray[index].parent != None:
+            self.centerDisplay.scroll_to(config.textLabelArray[index])
+        elif index == -1 or index == 0:
+            self.centerDisplay.scroll_to(self.centerDisplay.children[index])
 
 # weighted choosers
 def chooseWeighted(value, text, form):
