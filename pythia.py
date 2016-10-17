@@ -458,14 +458,15 @@ class PythiaOracleApp(App):
 
     def on_start(self):
         #print("APP STARTING")
-        makeBackup()
-        pass
+        if "app_start" in config.backup_behavior:
+            makeBackup("s")
 
     def on_stop(self):
         #print("APP STOPPING")
         if self.screenmanager.current == 'mainscn':
             quicksave(self, config.curr_game_dir)
-        pass
+        if "app_exit" in config.backup_behavior:
+            makeBackup("e")
 
 if __name__ == '__main__':
     PythiaOracleApp().run()

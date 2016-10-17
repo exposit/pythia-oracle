@@ -980,15 +980,28 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Maps] Unexpected error:", sys.exc_info())
 
-def makeBackup():
-    saveFiles = '.' + os.sep + 'saves' + os.sep
-    timestamp =  'save_{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
-    backupZip = zipfile.ZipFile('.' + os.sep + 'backups' + os.sep + timestamp + '.zip', 'w')
-    for dirname, subdirs, files in os.walk(saveFiles):
-        backupZip.write(dirname)
-        for filename in files:
-            backupZip.write(os.path.join(dirname, filename))
-    backupZip.close()
+def makeBackup(subtype):
+
+    if config.backup_limit >= 1:
+        path = '.' + os.sep + 'backups'
+        files = os.listdir(path)
+        zipfiles = [f for f in files if f[-3:] == "zip"]
+        for i in range(len(zipfiles)):
+            zipfiles[i] = os.path.join(path, zipfiles[i])
+        if len(zipfiles) >= config.backup_limit:
+            zipfiles = sorted(zipfiles, key=os.path.getctime)
+            oldest = zipfiles[0]
+            os.remove(oldest)
+
+    if config.backup_limit >= 0:
+        saveFiles = '.' + os.sep + 'saves' + os.sep
+        timestamp =  '{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
+        backupZip = zipfile.ZipFile('.' + os.sep + 'backups' + os.sep + timestamp + "_" + subtype + '.zip', 'w')
+        for dirname, subdirs, files in os.walk(saveFiles):
+            backupZip.write(dirname)
+            for filename in files:
+                backupZip.write(os.path.join(dirname, filename))
+        backupZip.close()
 
 def storeBookmarkLabel(label):
     try:

@@ -37,6 +37,10 @@ If 'manual_edit_mode' is set to True, the game will no longer overwrite a failed
 
 If 'debug' is set to True, you'll get a lot more messaging than default. Some of it might even be useful if you're having an issue. Most of it is simple notifications and should be ignored.
 
+If there are entries in the "backup_behavior" list, specifically "app_start" and/or "app_exit", Pythia will zip up your save folder when one of those events occurs. If this list is empty, no backups will be made at all.
+
+If the backup_limit is set to 0, Pythia will keep all backups. If it's set to a negative number, no backups at all will be made (regardless of backup_behavior). If it's set to a positive number, only up to that number of backups will be made, and older ones will be deleted when a new one is made.
+
 ##Title Screen
 
 When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
@@ -223,23 +227,33 @@ This panel is all about surprises.
 
 __*Preset Triggers*__
 
-The first section adds random triggers that will fire after a certain number of fiction blocks have been created. Click on the interval that seems appropriate, based on the current chaos/excitement level in your game, then continue playing as normal. When you see the event fire, hit the generator button it directs you to or make the check as instructed. If you are asked to roll a check, do so, then use a custom trigger to see whether or not something really was there -- or if the dm is just messing with you!
+The first section adds random triggers that will fire after a certain number of fiction blocks have been created. Click on the interval that seems appropriate, based on the current chaos/excitement level in your game, then continue playing as normal. When you see the event fire, hit the generator button it directs you to or make the check as instructed.
 
-Keep a few at "random" duration active any time something interesting might happen.
+If you are asked to roll a check, do so, then use a custom trigger to see whether or not something really was there -- or if the dm is just messing with you!
+
+The difficulties correspond to Scarlet Heroes' difficulties but shouldn't be too hard to translate to whatever system. "Expected" is a subjective target, meant to be used with Scarlet Heroes' threat adjustment system. It's essentially "as appropriate to this particular adventure" and can be interpreted as "average" or "simple" difficulty if you aren't using Threat.
+
+Remember that the difficulty indicates the challenge, just as if a GM were calling for the check. So if you get a trigger for a Perception check, at "hard" difficulty, you should interpret that as (assuming it's not a false alarm) the bad guy is pretty good at sneaking around (or well-hidden). For an intelligence check, a "hard" difficulty might mean the fact is obscure, while an "easy" difficulty might mean it's almost common knowledge.
+
+Keep a few at "random" duration active any time something interesting might happen!
 
 __*Custom Triggers*__
 
-If you think something might be present -- an ambush, a hidden treasure, a clue -- make an appropriate check as if a GM has called for it. Then create a custom trigger.
+If you think something might be present -- an ambush, a hidden treasure, a clue -- make an appropriate check as if a GM has called for it. You can use the 'How Difficult Is It' generator on the World panel in the Generator stack to get a DC if needed.
 
-"Name" is a short, descriptive phrase describing the trigger. For example, "perc check at cave".
+Then create a custom trigger based on the results of your check.
 
-"Interval" is a rough estimate of, if something is there, when it should fire. If you've just entered a new area and think an ambush is likely, pick 'now', for example.
+"Name" is a short, descriptive phrase describing the trigger. For example, "perc check at cave". This is displayed when the trigger fires, so you can determine the effects (or if it should be ignored).
 
-"Succeed/Fail" is if you succeeded or failed at your check. Success returns an immediate response, while a failure is delayed.
+"Interval" is a rough estimate of, if something is there, when it should come into play. If you've just entered a new area and think an ambush is likely, pick 'now', for example. If you're moving between rooms fairly quickly, you should generally use 'now' or 'soon'; otherwise, use whatever seems appropriate or 'random'.
+
+"Succeed/Fail" is if you succeeded or failed at your check. Success returns an immediate response, while a failure is delayed between 1 and 20 blocks, depending on the interval.
 
 "Odds" are the odds something might be there to be missed. In an area frequented by bandits? Maybe it's "likely". Just wandering around town? "Even odds" or "Doubtful" or "Unlikely".
 
-When or if the trigger fires, it will tell you you missed something but now it has come to light. Ask oracle questions or draw a seed to determine what 'it' is, as usual.
+When (or if) the trigger fires, it will tell you you missed something but now it has come to light. Ask oracle questions or draw a seed to determine what 'it' is, as usual, and apply penalties and drawbacks to the situation as expected from a surprise of that type, based on the original difficulty. For example, if you've missed a 'hard' Perception check, the enemy who leaps out to ambush you a few rounds later might be higher level than one who was hiding with an 'easy' Perception check.
+
+If it doesn't make sense for the hidden thing to come to light at this point -- maybe you determine it's treasure you missed two rooms ago or an important fact is remembered that is no longer relevant -- just treat it as player knowledge and move on.
 
 ####Generators Stack
 

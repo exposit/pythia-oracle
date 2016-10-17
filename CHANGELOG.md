@@ -6,11 +6,13 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.1.0 (WIP)
 
-* added a new status to the threads panel for Perilous Intersections compatibility
+* added a new user variable, 'trigger_tests', so you can set your own trigger checks
+* added more backup options, including cap on total saves and more options for when to save
+* added a new status ("BigQ") to the threads panel for Perilous Intersections compatibility
 * added some error catching to the top/bottom jump button
 * tweaked a few other generators to give more sensible and usable results
-* added a couple new generators, one for clarifying 'and' and 'but' results, one for character development, both from [Abulafia](http://www.random-generator.com/index.php?title=Main_Page) under CC-BY
-* added 'secrets & triggers' panel for adding some surprise to your games
+* added a couple of new generators, one for clarifying 'and' and 'but' results, one for character development, both from [Abulafia](http://www.random-generator.com/index.php?title=Main_Page) under CC-BY
+* added 'secrets & triggers' panel for adding some surprises to your games
 * moved the save for images to the config.user variable, just to eliminate the extra file
 * updated help pretty thoroughly
 * added a manual edit flag to config to help protect against manual editing overwrites

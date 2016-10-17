@@ -155,12 +155,18 @@ def addPresetTrigger(button, *args):
     for i in range(len(typeList)):
         eventsList.append("Random Event, " + typeList[i])
 
-    testList = ['Perception', 'Wisdom', 'Knowledge', 'Search', 'Listen', 'Intelligence', 'Awareness', 'Spot']
-    degreeList = ['hard', 'easy', 'standard']
+    try:
+        if len(config.user['trigger_tests']) > 0:
+            testList = config.user['trigger_tests']
+    except:
+        testList = ['Perception', 'Wisdom', 'Knowledge', 'Search', 'Listen', 'Intelligence', 'Awareness', 'Spot', 'Specialist']
+
+    # average/expected 50%, hard 20%, extreme or simple or heroic 10% each
+    degreeList = ['average', 'average', 'expected', 'expected', 'expected', 'hard', 'hard', 'extreme', 'simple', 'heroic']
 
     for i in range(len(testList)):
         for item in degreeList:
-            testsList.append("Test of " + testList[i] + ", difficulty, " + item)
+            testsList.append(testList[i] + " Test, difficulty, " + item)
 
     extrasList = ["Actor Move", "Plot Move"]
 
