@@ -64,8 +64,8 @@ def initPanel(self):
 
     self.secretBaseBox.add_widget(Label(text="Check Result: ", size_hint=(1,.10), font_size=config.basefont75))
     self.secretSuccessSpinner = Spinner(
-    text='Fail',
-    values=['Succeed', 'Fail'],
+    text='Failure',
+    values=['Success', 'Failure'],
     background_normal='',
     background_color=accent1,
     background_down='',
@@ -199,6 +199,9 @@ def addCustomTrigger(button, *args):
     time = self.secretIntervalSpinner.text
     likely = self.secretTextSpinner.text
     success = self.secretSuccessSpinner.text
+    name = self.secretNameField.text
+
+    self.secretNameField.text = ""
 
     # parse the values to get our limiter, and if there's anything really there
     secretTextList = [
@@ -224,16 +227,16 @@ def addCustomTrigger(button, *args):
     odds = secretOddsList[index]
 
     if roll <= odds:
-        if success == "Succeed":
+        if success == "Success":
             result = "There's something there!"
         else:
-            result = "There was something there and it suddenly comes into play!"
+            result = "There was something there!"
     else:
         result = "Nothing."
 
-    entry = [interval, self.secretNameField.text, result]
+    entry = [interval, name, result]
 
-    if success == "Succeed":
+    if success == "Success":
         # you succeeded on your check, return info now
         updateCenterDisplay(self, "[" + self.secretNameField.text + "] " + result, 'result')
 

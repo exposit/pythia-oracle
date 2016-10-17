@@ -857,7 +857,7 @@ def quickload(self, gamedir):
             updateCenterDisplay(self, "The adventure begins...", 'italic')
 
     if config.manual_edit_mode == True:
-        updateCenterDisplay(self, "WARNING: MANUAL EDIT MODE is ON and text will not be saved.", 'ephemeral')
+        updateCenterDisplay(self, "WARNING: MANUAL EDIT MODE is ON and text will not be saved.", 'color3')
 
     # THREADS
     success = False
