@@ -8,7 +8,20 @@
 import styles
 import os
 
+# set this to True to get lots of messaging
 debug = True
+
+# set this to true if you are manually editing your main file
+# then back to False when you're satisfied it loads properly
+# game will NOT save if this is True
+manual_edit_mode = False
+
+# this controls how often full zip backups are made
+# options are 'app_exit' and 'app_start', and you can use both
+backup_behavior = ['app_exit']
+# backup_limit should be 0 (for unlimited) or a positive number
+# if set to a negative, no backups will be made
+backup_limit = 7
 
 #------------------------------------------------------------------------
 # Changes to the following are stored in save games
@@ -36,6 +49,7 @@ general = dict(
     findList = [],
     findIndex = 0,
     merge = True,
+    secrets = [],
 )
 
 formats = dict(
@@ -77,6 +91,7 @@ scenario = dict(
 
 user = dict(
     temp = 0,
+    # trigger_tests = ['Spot', 'Listen', 'Search']
 )
 
 #------------------------------------------------------------------------
@@ -143,4 +158,4 @@ tempGmapArray = []
 gmapArray = {}
 
 imgLabelArray = []
-imgTextArray = []
+#imgTextArray = []
