@@ -33,7 +33,9 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click 
 
 __*Config Flags*__
 
-If 'manual_edit_mode' is set to True, the game will no longer overwrite a failed save game load with "the adventure begins". It will also no longer save any changes made in Pythia itself until the manual_edit_mode flag is set back to False. This is so, if you're making manual edits, you have a bit of protection against missed commas or other json formatting issues in the main text file.
+If 'manual_edit_mode' is set to True, the game will no longer overwrite the main.txt with "the adventure begins" on a failed save game load.
+
+__It will also no longer save any changes made in Pythia itself until the manual_edit_mode flag is set back to False.__
 
 If 'debug' is set to True, you'll get a lot more messaging than default. Some of it might even be useful if you're having an issue. Most of it is simple notifications and should be ignored.
 

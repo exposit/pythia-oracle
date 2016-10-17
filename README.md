@@ -1,5 +1,5 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
-### MAPPING is still a work in progress, especially the random generator. Expect issues, save frequently. Remember pythia makes a backup zip in backups every time you run the program.
+### MAPPING is still a work in progress. Expect issues.
 
 ### Pythia-Oracle 1.0.0
 
@@ -25,7 +25,7 @@ Run pythia with
 
 `python pythia.py --size 1280x725`
 
-You should see a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
+You might see (if debug is on) a bunch of messages scroll by, largely complaining that the layout is too small, and then the program will appear.
 
 **More Detailed:**
 
@@ -33,7 +33,7 @@ Open up a terminal (command prompt) and type "python --version". If you get a "n
 
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again. If necessary, set the environment path and reboot again.
 
-Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary. Read any errors carefully.
+Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and copy-paste the given lines as directed, waiting in between each as necessary. Read any errors carefully and address them.
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder).
 
@@ -45,19 +45,25 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 ### Upgrading from 0.9.0 & earlier
 
-Save games will still load without issues. However, after they've been loaded and saved the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file. Please still back up your save game before making manual edits and consider using the new "manual edit mode" flag in the config file.
+Save games will still load without issues, but you will need to replace your old config.py with a new one from a new game made with 1.0.0.
+
+However, after they've been loaded and saved at least once, the separate status file will be deleted. This will hopefully make manual edits much easier because the text and status will be linked in a single file. When making manual edits, remember to make a backup and to use the 'manual_edit_mode' flag in config.py.
 
 To use images, you need to create a folder named 'images' in your save directory. Put any pictures in the images folder (it takes any kind kivy supports but will choke if there's a non-image in there).
 
 ### Upgrading from 0.7.0 & earlier
 
-Your save game will still work fine, but you may experience some formatting issues. You can either set the format on errant blocks in Pythia one at a time, or (MAKE A BACKUP FIRST) open the main_status.txt and do some find and replaces.
+Your save game will still work fine, but you may experience some formatting issues. You can either set the format on mis-tagged blocks in Pythia one at a time, or open the main_status.txt and do some find and replaces.
 
-First, replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Replace 'no_format' with 'plain'. Finally, replace any 'don't show' entries with 'ephemeral'.
+First, back up your save folder. Then, set the "manual_edit_mode" flag in config.py to True.
+
+Now, open the affected main.txt file. Replace all 'bold_italic' with 'result'. Then replace 'italic' with 'aside'. Replace 'no_format' with 'plain'. Finally, replace any 'don't show' entries with 'ephemeral'.
+
+Now save and close your file, and load it up in Pythia. If everything loads correctly, close Pythia down, change the "manual_edit_mode" flag back to "False", and you're ready to start playing again.
 
 From this point forward, fiction will be tagged 'plain', 'color1', or 'color2'. For your mechanics you can choose from 'aside', 'mechanic1', or 'mechanic2'. You can also use standard markdown to tag individual words or phrases inside each block.
 
-You will need to replace your old config file with a fresh one from the quicksave or a new game.
+You will need to replace your old config file with a fresh one from the quicksave or from a new game.
 
 Read the other sections on upgrading as well!
 
