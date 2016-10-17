@@ -298,7 +298,7 @@ def checkForTrigger(self):
         if config.general['secrets'][i][0] <= 0 and fired == False:
             # this trigger should Fire
             if config.general['secrets'][i][2] != 'Nothing.':
-                updateCenterDisplay(self, "[" + config.general['secrets'][i][1] + "] " + config.general['secrets'][i][2], 'result')
+                updateCenterDisplay(self, "[Trigger (" + config.general['secrets'][i][1] + ")] " + config.general['secrets'][i][2], 'result')
 
             # remove the widget
             index.append(i)
