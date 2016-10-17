@@ -1489,14 +1489,17 @@ def findText(self, search_string):
 
 def jumpToNext(self):
 
-    if config.general['findIndex'] == len(config.general['findList'])-1:
-        config.general['findIndex'] = 0
-    else:
-        config.general['findIndex'] = config.general['findIndex'] + 1
+    try:
+        if config.general['findIndex'] == len(config.general['findList'])-1:
+            config.general['findIndex'] = 0
+        else:
+            config.general['findIndex'] = config.general['findIndex'] + 1
 
-    element = config.general['findList'][config.general['findIndex']]
-    index = config.textArray.index(element)
-    jumpToIndex(self, index)
+        element = config.general['findList'][config.general['findIndex']]
+        index = config.textArray.index(element)
+        jumpToIndex(self, index)
+    except:
+        pass
 
 def jumpToIndex(self, index):
 
