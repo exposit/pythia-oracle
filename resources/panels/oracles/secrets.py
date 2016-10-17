@@ -218,7 +218,10 @@ def addCustomTrigger(button, *args):
     odds = secretOddsList[index]
 
     if roll <= odds:
-        result = "You missed something and it suddenly comes into play!"
+        if success == "Succeed":
+            result = "There's something there!"
+        else:
+            result = "There was something there and it suddenly comes into play!"
     else:
         result = "Nothing."
 

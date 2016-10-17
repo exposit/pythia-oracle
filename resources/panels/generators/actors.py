@@ -321,7 +321,7 @@ def actorRelationshipGroup(npc1="The first actor", group1="the target group"):
 def actorRelationshipGeneral(npc1="The actor", object="the target"):
 
     generalChart =[
-    "hates and fears", "is enraged by", "is happy with", "is thrilled by", "wants to avoid", "prefers to deal with", "wants to destroy", "wants to preserve", "wants to fight", "wants to make peace with", "wants to use", "wants to prevent others from using", "wants to hide", "wants to reveal"
+    "hates and fears", "is enraged by", "is happy with", "is thrilled by", "wants to avoid", "prefers to deal with", "wants to destroy", "wants to preserve", "wants to fight", "wants to make peace with", "wants to use", "wants to prevent others from using", "wants to hide", "wants to reveal", "wants to own", "wants to get rid of", "needs but doesn't want", "wants but doesn't need", "cares about but fears", "sees only danger from", "sees safety in", "sees the potential of",
     ]
 
     result = npc1 + " " + random.choice(generalChart) + " " + object + "."

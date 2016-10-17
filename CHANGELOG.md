@@ -6,7 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.1.0 (WIP)
 
-* added some new statuses to the threads panel for Perilous Intersections compatibility
+* added a new status to the threads panel for Perilous Intersections compatibility
 * added some error catching to the top/bottom jump button
 * tweaked a few other generators to give more sensible and usable results
 * added a couple new generators, one for clarifying 'and' and 'but' results, one for character development, both from [Abulafia](http://www.random-generator.com/index.php?title=Main_Page) under CC-BY

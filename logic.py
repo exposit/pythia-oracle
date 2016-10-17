@@ -319,11 +319,11 @@ def updateThreadDisplay(self, text, status):
     config.threadArray.append(text)
     config.threadStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.90, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=.88, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
 
-    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=.10, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=.12, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
