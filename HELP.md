@@ -164,7 +164,9 @@ The left stack contains oracles, random generators, and maps. User-created panel
 
 ####FU & How's It Going
 
-The FU oracle is based on rolling d6s and counting the number of odd versus even results. When asking a question of the oracle, press the text (or percentage) that matches how likely the answer is a "yes".
+*The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).*
+
+The FU oracle uses d6s and counts the number of odd versus even results to determine the answer. When asking a question of the oracle, press the text (or percentage) that matches how likely the answer is a "yes". The default "???" button maps to FU0, or "even odds".
 
 Answers can be "Yes" or "No", either unqualified or with an "And" (an intensifier) or "But" (a complication or drawback). Extra modifiers occur if doubles are rolled.
 
