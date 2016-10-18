@@ -180,14 +180,9 @@ A useful scale is 1, a bit, 2, fairly, 3, very, 4, extremely, 5, overwhelmingly.
 
 *Reil is an expert wrestler (+3) and fairly strong (+2) but the town rowdy he's facing must have ogre heritage (-5). It's "even odds" if he can avoid being tossed out the window.*
 
-"How Much...?" returns a weighted response; the first part is empirical, the second in context of expected results. Choose the answer that makes the most sense for your question.
+The "Show the odds" button just reveals the odds of each FU option returning a "yes".
 
-__*But/And Clarifier*__
-
-From [Abulafia](http://www.random-generator.com/index.php?title=But_Cards). Having trouble thinking of a suitable 'and' or 'but'? Click on the appropriate button for inspiration.
-
->[likely: 6 2 5 ] Yes, and...<br>
->And you learn something about your enemies in the process.
+The "How Much" button returns a weighted response; the first part is empirical, the second in context of expected results. Choose the answer that makes the most sense for your question.
 
 >__*"How much does it cost?"*__<br>
 >*[How Much?] A little or much less than expected.*
@@ -206,13 +201,21 @@ The "Chaos Oracle" returns a response weighted heavily towards random events and
 
 >*[Plot Move] Add or remove an NPC from the current scene or area.*
 
+__*But/And Clarifier*__
+
+From [Abulafia](http://www.random-generator.com/index.php?title=But_Cards). Having trouble thinking of a suitable 'and' or 'but'? Click on the appropriate button for inspiration.
+
+>[likely: 6 2 5 ] Yes, and...<br>
+>And you learn something about your enemies in the process.
+
+__*Random Events*__
+
 The Random Events section is used when events indicate a random event should occur. It has two parts. First, a spinner that can be used to select the subtype of events if desired or appropriate (you can use "Pick List" to pick which to use if you wish). "Random" will draw from all potential events.
 
 To get a random event, once you've set the spinner (or left it at Random), choose how the scene is going so far or press "random", following the same principles as the "How's It Going" roll.
 
 Results state the context, the effect, and if it's good or bad (and how good or bad it is). Draw a Seed if needed to help flesh out the answer.
 
-> *Random, random*<br>
 > *[Random Event] Context: Plot! New thread. This is good.*
 
 #### Seeds & Complex Answers
