@@ -674,8 +674,9 @@ class MainScreen(Screen):
                     if config.general['enter_behavior'] == 'plain':
                         checkForTrigger(self)
                     return True
-        elif args[1] == 13 and config.debug == True:   # really sloppy screenshot taker
-            Window.screenshot(name='./screenshot_' + str(time.time()) + '.png')
+        elif args[1] == 96 and config.debug == True:   # really sloppy screenshot taker
+            timestamp =  '{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
+            Window.screenshot(name=config.curr_game_dir + 'screenshot_' + timestamp + '.png')
 
     def pressGenericButton(self, button):
         button.background_color = accent2
