@@ -579,7 +579,7 @@ Finally, there are a number of tools on the World Panel in the Generators Stack 
 
 ####Grid Map
 
-This is exactly like a sheet of graph paper. Click once to change the background color, click again to return it to base. You can enter a single digit or letter into any square.
+This works like a sheet of graph paper. Click once to change the background color, click again to return it to base. You can enter a single digit or letter into any square.
 
 ####Diagram Map
 
@@ -587,6 +587,6 @@ The black squares are "rooms" or "blocks" and can be labeled, and the areas betw
 
 ####Images
 
-To use this panel, you need a subdirectory in your save folder named 'images' and a blank text file named 'imgs.txt' in your save directory. Any images in the images folder will be displayed in the images panel, along with simple fields to label or store notes about each picture.
+To use this panel, you need a subdirectory in your save folder named 'images'. Any images in the images folder will be displayed in the images panel, along with a couple of fields each to label or store notes about each picture.
 
-Note that the images directory and file are not created by default with a new game!
+Note that the images directory is not created by default with a new game!
