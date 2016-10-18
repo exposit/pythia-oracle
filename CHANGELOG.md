@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.1.0 (WIP)
 
+* took out the 'show odds' button on the FU panel; space is at a premium!
 * added a new user variable, 'trigger_tests', so you can set your own trigger checks
 * added more backup options, including cap on total saves and more options for when to save
 * added a new status ("BigQ") to the threads panel for Perilous Intersections compatibility

@@ -172,15 +172,13 @@ Answers can be "Yes" or "No", either unqualified or with an "And" (an intensifie
 
 There is a small (~5%) chance of a random event occurring.
 
-You can also use this to quickly determining how an actor performs on a check. Just add up the number of penalties and the number of bonuses an actor has, on a scale of 1 to 5, and press that number. It can also be used for rough opposed checks as well.
+You can also use this to quickly determine how an actor performs on a check. Just add up the number of penalties and the number of bonuses an actor has, on a scale of 1 to 5, and press that number. It can also be used for opposed checks as well.
 
 A useful scale is 1, a bit, 2, fairly, 3, very, 4, extremely, 5, overwhelmingly. You can use the 'How Difficult Is It' generator on the World panel in the Generator stack to get a random modifier, too.
 
 *Reil is fairly strong (+2) but the stone is very heavy (-3), for a net of -1. If I want to know if he can move the stone,  I click on the -1, or "Doubtful".*
 
 *Reil is an expert wrestler (+3) and fairly strong (+2) but the town rowdy he's facing must have ogre heritage (-5). It's "even odds" if he can avoid being tossed out the window.*
-
-The "Show the odds" button just reveals the odds of each FU option returning a "yes".
 
 The "How Much" button returns a weighted response; the first part is empirical, the second in context of expected results. Choose the answer that makes the most sense for your question.
 

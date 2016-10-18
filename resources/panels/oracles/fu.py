@@ -80,7 +80,7 @@ def initPanel(self):
     self.oddsButton.self = self
     self.oddsButton.bind(on_press=self.pressGenericButton)
     self.oddsButton.bind(on_release=toggleOdds)
-    self.fuMainBox.add_widget(self.oddsButton)
+    #self.fuMainBox.add_widget(self.oddsButton)
 
     button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.07)
     button.function = "howMuchWeighted"
