@@ -113,7 +113,7 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 __*System*__
 
-The System section has a "Save" button that saves the current state of the program to disk, a "Merge" flag that determines if blocks are merged or not.
+The System section has a "Save" button that saves the current state of the program to disk, and a "Merge" flag that determines if blocks are merged or not.
 
 __*Add*__
 
@@ -152,7 +152,7 @@ The Actor Index panel can be opened/closed by clicking on the title.
 
 Displays between 1 and 10 character sheets (depending on config setting).
 
-If the sheet has a "Name" or "NN" tagged field, that field will be used for the title of the sheet, with "NN" having precedence.
+If the sheet has a Nick", "NN", or "Name" tagged field, that field will be used for the title of the sheet.
 
 "Random Major" defaults to looking at all "Name" tagged fields across all character sheets and returning one.
 
