@@ -16,7 +16,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-    self.fuAItem = AccordionItem(title='FU & How\'s It Going', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+    self.fuAItem = AccordionItem(title='FU Oracle & How\'s It Going', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
     self.fuMainBox = BoxLayout(orientation='vertical')
 
