@@ -72,18 +72,6 @@ palette = {
     "black" : "000000"
 },
 
-"black_cat_inverted" : {
-    "name" : "black cat inverted",
-    "neutral" : "abaaaa",           # dark gray
-    "accent1" : "ededed",         # white gray
-    "accent2" : "424144",           # very dark gray
-    "secondary" : "dddddd",           # light gray
-    "primary" : "252525",           # almost black gray
-    "text" : "000000",
-    "black" : "f2f2f6",
-    "white" : "000000"
-},
-
 "sin_city" : {
     "name" : "sin city",
     "primary" : "abaaaa",           # dark gray
@@ -107,6 +95,19 @@ palette = {
     "white" : "f2f2f6",
     "black" : "000000"
 },
+
+"gruvbox_dark" : {
+    "name" : "gruvbox dark",
+    "primary" : "ebdbb2",         # gruvbox cream
+    "secondary" : "a89984",       # gruvbox gray
+    "accent1" : "83a598",         # gruvbox red
+    "accent2" : "cc241d",         # gruvbox blue
+    "neutral" : "282828",         # gruvbox brown
+    "text" : "FFFFFF",
+    "white" : "FFFFFF",
+    "black" : "000000"
+},
+
 }
 
 def setColors(palette):
