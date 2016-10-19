@@ -191,7 +191,7 @@ threadfont = str(formats['basefontsize']*.90) + "dp"
 actortagheight = str((formats['basefontsize']*.90)+20) + "dp"
 threadheight = str((formats['basefontsize']*.90)+15) + "dp"
 
-maintextinputfont = str(formats['basefontsize']*.90) + "dp"
+maintextinputfont = str(formats['basefontsize']*.95) + "dp"
 
 #------------------------------------------------------------------------
 # Don't mess with anything below this line
