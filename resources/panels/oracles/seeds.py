@@ -60,7 +60,7 @@ def initPanel(self):
         checkbox.bind(active=setDefaultSeed)
         self.seedsTwoPartGrid.add_widget(checkbox)
 
-        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
@@ -89,7 +89,7 @@ def initPanel(self):
         checkbox.bind(active=setDefaultSeed)
         self.seedsThreePartGrid.add_widget(checkbox)
 
-        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
+        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80)
         button.self = self
         button.subtype = "adjective"
         button.pack = seedpack
@@ -97,7 +97,7 @@ def initPanel(self):
         button.bind(on_release=useThreePartSeed)
         self.seedsThreePartGrid.add_widget(button)
 
-        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80)
+        button = Button(text=self.displayArray[index], size_hint=(.45,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80)
         button.self = self
         button.subtype = "verb"
         button.pack = seedpack
@@ -122,7 +122,7 @@ def initPanel(self):
         checkbox.bind(active=setDefaultSeed)
         self.seedsAllGrid.add_widget(checkbox)
 
-        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)
@@ -146,7 +146,7 @@ def initPanel(self):
         checkbox.bind(active=setDefaultSeed)
         self.seedsWhatGrid.add_widget(checkbox)
 
-        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+        button = Button(text=self.displayArray[index], size_hint=(.90,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.pack = seedpack
         button.bind(on_press=self.pressGenericButton)

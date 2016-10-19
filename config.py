@@ -77,6 +77,67 @@ formats = dict(
     # scenario/in block links
     link_color = styles.curr_palette['accent2'],
     visited_link_color = styles.curr_palette['accent1'],
+    # fonts; rename the one you want 'fonts' or make your own
+    fonts = [
+            {
+                "name": "titlefancyfont",
+                "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
+            },
+            {
+                "name": "maintextfont",
+                "fn_regular": "resources/fonts/Open_Sans/OpenSans-Regular.ttf",
+                "fn_bold": "resources/fonts/Open_Sans/OpenSans-Bold.ttf",
+                "fn_italic": "resources/fonts/Open_Sans/OpenSans-Italic.ttf",
+                "fn_bolditalic": "resources/fonts/Open_Sans/OpenSans-BoldItalic.ttf",
+            },
+            {
+                "name": "titlefont",
+                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
+                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
+                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
+                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
+            },
+        ],
+    bookfonts = [
+            {
+                "name": "titlefancyfont",
+                "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
+            },
+            {
+                "name": "maintextfont",
+                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
+                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
+                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
+                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf",
+            },
+            {
+                "name": "titlefont",
+                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
+                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
+                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
+                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
+            },
+        ],
+    defaultfonts = [
+        {
+            "name": "titlefancyfont",
+            "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
+        },
+        {
+            "name": "maintextfont",
+            "fn_regular": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Regular.ttf",
+            "fn_bold": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Bold.ttf",
+            "fn_italic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Italic.ttf",
+            "fn_bolditalic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-BoldItalic.ttf"
+        },
+        {
+            "name": "titlefont",
+            "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
+            "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
+            "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
+            "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
+        },
+    ],
 )
 
 scenario = dict(
@@ -104,19 +165,33 @@ curr_title = "replace me"
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
 dice_spinner_list = ["4", "6", "8", "20"]
 
-# font sizes
-basefont = str(formats['basefontsize']) + "dp"
+# font sizes -- some of these may be deprecated
+basefont = str(formats['basefontsize']*.90) + "dp"
 basefont60 = str(formats['basefontsize']*.70) + "dp"
 basefont75 = str(formats['basefontsize']*.80) + "dp"
 basefont80 = str(formats['basefontsize']*.85) + "dp"
 basefont90 = str(formats['basefontsize']*.95) + "dp"
 baseheight = str(formats['basefontsize']+10) + "dp"
 tallheight = str(formats['basefontsize']+15) + "dp"
-tripleheight = str(formats['basefontsize']*3+10) + "dp"
+tripleheight = str(formats['basefontsize']*3+20) + "dp"
 quintupleheight = str(formats['basefontsize']*5+10) + "dp"
 octupleheight = str(formats['basefontsize']*8+10) + "dp"
 maintextfont = str(formats['basefontsize']*1) + "dp"
 aiheight = baseheight
+
+# font sizes that actually indicate what they do
+actortagfont = str(formats['basefontsize']*.90) + "dp"
+actorfont = str(formats['basefontsize']*.90) + "dp"
+actorstatusfont = str(formats['basefontsize']*.90) + "dp"
+blockstatusfont = str(formats['basefontsize']*.90) + "dp"
+blockfont = str(formats['basefontsize']*.95) + "dp"
+threadstatusfont = str(formats['basefontsize']*.90) + "dp"
+threadfont = str(formats['basefontsize']*.90) + "dp"
+
+actortagheight = str((formats['basefontsize']*.90)+20) + "dp"
+threadheight = str((formats['basefontsize']*.90)+15) + "dp"
+
+maintextinputfont = str(formats['basefontsize']*.90) + "dp"
 
 #------------------------------------------------------------------------
 # Don't mess with anything below this line

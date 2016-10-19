@@ -25,13 +25,13 @@ def initPanel(self):
 
         sizeBox = GridLayout(cols=2, size_hint=(1,.10))
 
-        button = Button(text="Modern", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Modern", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomSize)
         sizeBox.add_widget(button)
 
-        button = Button(text="Medieval", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Medieval", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomSize)
@@ -39,7 +39,7 @@ def initPanel(self):
 
         hexMainBox.add_widget(sizeBox)
 
-        button = Button(text="Power Structure", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,.10))
+        button = Button(text="Power Structure", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint=(1,.10))
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomPowerStructure)
@@ -47,40 +47,40 @@ def initPanel(self):
 
         kingdomBox = GridLayout(cols=2, size_hint=(1,.30))
 
-        button = Button(text="Known Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Known Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomKnownQuirk)
         kingdomBox.add_widget(button)
 
-        button = Button(text="Secret Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Secret Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomSecretQuirk)
         kingdomBox.add_widget(button)
 
-        button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.function = "mathVillagePop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         kingdomBox.add_widget(button)
 
-        button = Button(text="Town Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Town Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.function = "mathTownPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         kingdomBox.add_widget(button)
 
-        button = Button(text="City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.function = "mathCityPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         kingdomBox.add_widget(button)
 
-        button = Button(text="Big City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Big City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.function = "mathBigCityPop"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
@@ -104,7 +104,7 @@ def initPanel(self):
         regionTypeSpinner.self = self
         hexMainBox.add_widget(regionTypeSpinner)
 
-        button = Button(text="Make a Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Make a Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.value = 9
         button.self = self
         button.link = regionTypeSpinner
@@ -115,7 +115,7 @@ def initPanel(self):
 
         hexPointABox = GridLayout(cols=9, size_hint=(1,.2))
         for i in range(0,9):
-            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
             button.value = i
             button.link = regionTypeSpinner
             button.self = self
@@ -130,7 +130,7 @@ def initPanel(self):
 
         hexPointCBox = GridLayout(cols=9, size_hint=(1,.2))
         for i in range(0,9):
-            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
             button.value = i
             button.self = self
             button.bind(on_press=self.pressGenericButton)
@@ -139,7 +139,7 @@ def initPanel(self):
 
         hexMainBox.add_widget(hexPointCBox)
 
-        button = Button(text="Distance to Next Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Distance to Next Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getNextRegionDistance)
@@ -147,20 +147,20 @@ def initPanel(self):
 
         hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.function = "weatherWeighted"
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        button = Button(text="More or Less Than Expected?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="More or Less Than Expected?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=moreOrLessRoll)
         hexMainBox.add_widget(button)
 
-        button = Button(text="How Difficult Is it?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="How Difficult Is it?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'howDifficultWeighted'
         button.bind(on_press=self.pressGenericButton)
@@ -172,7 +172,7 @@ def initPanel(self):
         hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
         howFarList = ['same room', 'same area', 'same region', 'anywhere']
         for item in howFarList:
-            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
             button.self = self
             button.bind(on_press=self.pressGenericButton)
             button.bind(on_release=pressHowFar)
@@ -182,21 +182,21 @@ def initPanel(self):
 
         hexMainBox.add_widget(Label(text='Diagram Mapping', size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'whatDirection'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        button = Button(text="What Is The Room Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="What Is The Room Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'roomLike'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
 
-        button = Button(text="What Is The Passage like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="What Is The Passage like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'passageLike'
         button.bind(on_press=self.pressGenericButton)
@@ -205,19 +205,19 @@ def initPanel(self):
 
         hexMainBox.add_widget(Label(text="Grid Mapping", size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="Get Grid Room Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Get Grid Room Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getGridRoomPattern)
         hexMainBox.add_widget(button)
 
-        button = Button(text="Get Grid Corridor Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Get Grid Corridor Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getGridCorridorPattern)
         hexMainBox.add_widget(button)
 
-        button = Button(text="Get Grid Exits", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text="Get Grid Exits", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getGridExits)

@@ -20,7 +20,7 @@ def onEnter(self):
     if os.path.exists(config.curr_game_dir + "images"):
         images = glob.glob(config.curr_game_dir + "images" + os.sep + "*")
         for img in images:
-            config.imgLabelArray.append( TextInput(text="", multiline=False, size_hint=(None, None), height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor) )
+            config.imgLabelArray.append( TextInput(text="", multiline=False, size_hint=(None, None), height=config.tallheight, font_size=config.basefont, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor) )
             self.imgGrid.add_widget(config.imgLabelArray[-1])
 
             pic = Image(source=img, size_hint=(None, None))
@@ -34,7 +34,7 @@ def onEnter(self):
             pic.width = pic.width - 50
             self.imgGrid.add_widget(pic)
 
-            config.imgLabelArray.append( TextInput(text="", multiline=False, size_hint=(None, None), height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor) )
+            config.imgLabelArray.append( TextInput(text="", multiline=False, size_hint=(None, None), height=config.tallheight, font_size=config.basefont, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor) )
             self.imgGrid.add_widget(config.imgLabelArray[-1])
 
             self.imgGrid.add_widget(Label(text="", size_hint=(None, None), height=config.tallheight))
@@ -46,7 +46,7 @@ def onEnter(self):
                         config.imgLabelArray[i].text = config.user['image_labels'][i]
         except:
             pass
-            
+
     else:
         self.imgAItem.parent.remove_widget(self.imgAItem)
 

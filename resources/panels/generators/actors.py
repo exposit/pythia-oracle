@@ -113,42 +113,42 @@ def initPanel(self):
     actorsMainBox.add_widget(button)
 
     button = Button(text="Actor's Next Move", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getActorMove)
     actorsMainBox.add_widget(button)
 
     button = Button(text="One Line Motive", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getWhyMotive)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Get Character Trait", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getCharacterTrait)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Trait-Based Character Event", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getTraitBasedCharacter)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Defining Attribute", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getDefiningAttribute)
     actorsMainBox.add_widget(button)
 
     button = Button(text="Defining Characteristic", size_hint=(1,1), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getDefiningCharacteristic)

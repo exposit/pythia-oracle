@@ -180,7 +180,7 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    label = ButtonBehaviorLabel(text=text, size_hint=(.85, None), font_size=config.maintextfont, font_name='Fantasque-Sans', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label = ButtonBehaviorLabel(text=text, size_hint=(.85, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
@@ -192,7 +192,9 @@ def makeItemLabels(self, text, status='result'):
     label.index = len(config.textArray)-1
     config.textLabelArray.append(label)
 
-    label = ButtonLabel(text=status, size_hint=(.15, None), height='12dp', font_size=config.basefont60, font_name='Fantasque-Sans')
+    label = ButtonLabel(text=status, size_hint=(.15, None), font_size=config.blockstatusfont, font_name='maintextfont')
+    label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -201,7 +203,7 @@ def makeItemLabels(self, text, status='result'):
     config.textStatusLabelArray.append(label)
     label.index = len(config.textArray)-1
 
-    label = TextInput(text="", size_hint=(.85, None), font_size=config.maintextfont)
+    label = TextInput(text="", size_hint=(.85, None), font_size=config.blockfont)
     label.bind(focus=focusChangeText)
     label.background_color=neutral
     label.foreground_color=(1,1,1,1)
@@ -319,11 +321,13 @@ def updateThreadDisplay(self, text, status):
     config.threadArray.append(text)
     config.threadStatusArray.append(status)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=.88, multiline=False, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=.88, multiline=False, font_size=config.threadfont, font_name='maintextfont', background_color=(0,0,0,0), foreground_color=styles.textcolor, height=config.threadheight)
     label.bind(focus=focusChangeThread)
     config.threadLabelArray.append(label)
 
-    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=.12, height=config.baseheight, font_size=config.basefont75, font_name='Fantasque-Sans')
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=.15, font_size=config.threadstatusfont, font_name='maintextfont', height=config.threadheight)
+    #label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
     label.background_normal=''
     label.background_color=accent1
     label.background_down=''
@@ -441,13 +445,13 @@ def updateActorDisplay(self, text, status):
 
     tag, text, sep = getActorTag(text)
 
-    label = TextInput(text=tag, size_hint_y=None, size_hint_x=1, height=config.baseheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=tag, size_hint_y=None, size_hint_x=1, font_size=config.actortagfont, font_name='maintextfont', background_color=(0,0,0,0), foreground_color=styles.textcolor, multiline=False, height=config.actortagheight)
     label.bind(focus=focusChangeActorTitle)
     label.self = self
     self.actorDisplayGrid.add_widget(label)
     label.index = len(config.actorLabelArray)
 
-    label = TextInput(text=text, size_hint_y=None, size_hint_x=1, height=config.quintupleheight, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=(0,0,0,0), foreground_color=styles.textcolor)
+    label = TextInput(text=text, size_hint_y=None, size_hint_x=1, font_size=config.actorfont, font_name='maintextfont', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
     label.tag = tag
     label.sep = sep
@@ -456,7 +460,9 @@ def updateActorDisplay(self, text, status):
 
     self.actorDisplayGrid.add_widget(config.actorLabelArray[-1])
 
-    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.basefont80, height=config.tallheight, font_name='Fantasque-Sans',)
+    label = ButtonLabel(text=status, size_hint_y=None, size_hint_x=1, font_size=config.actorstatusfont, font_name='maintextfont',)
+    label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+    #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
     label.bind(on_press=cycleActor)
     label.background_normal=''
     label.background_color=accent1
@@ -614,7 +620,7 @@ def updateActorIndex(self):
 
         item = tagDict[tag]
 
-        button = Button(text=tag, size_hint=(1,None), halign='center', background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans', font_size=config.basefont80, height=config.tallheight)
+        button = Button(text=tag, size_hint=(1,None), halign='center', background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='maintextfont', font_size=config.actortagfont, multiline=False, height=config.actortagheight)
         button.value = config.actorArray.index(item)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=self.jumpToActor)
@@ -707,30 +713,6 @@ def quicksave(self, gamedir):
 
     if os.path.isfile(gamedir + 'actors_status.txt'):
         os.remove(gamedir + 'actors_status.txt')
-
-    #f = open(gamedir + 'main.txt', 'w')
-    #json.dump(config.textArray, f)
-    #f.close()
-
-    #f = open(gamedir + 'main_status.txt', 'w')
-    #json.dump(config.textStatusArray, f)
-    #f.close()
-
-    #f = open(gamedir + 'threads.txt', 'w')
-    #json.dump(config.threadArray, f)
-    #f.close()
-
-    #f = open(gamedir + 'threads_status.txt', 'w')
-    #json.dump(config.threadStatusArray, f)
-    #f.close()
-
-    #f = open(gamedir + 'actors.txt', 'w')
-    #json.dump(config.actorArray, f)
-    #f.close()
-
-    #f = open(gamedir + 'actors_status.txt', 'w')
-    #json.dump(config.actorStatusArray, f)
-    #f.close()
 
     f = open(gamedir + 'tracks.txt', 'w')
     tempArray = []

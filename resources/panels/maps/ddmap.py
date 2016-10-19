@@ -32,7 +32,7 @@ def initPanel(self):
     self.mapTitle.self = self
     self.mapTitleBox.add_widget(self.mapTitle)
 
-    button = Button(text="Save", size_hint=(.25,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Save", size_hint=(.25,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=saveMap)
@@ -81,7 +81,7 @@ def initPanel(self):
 
     self.mapNavGrid = GridLayout(cols=3, size_hint=(.25,1))
     for i in range(9):
-        button = Button(text=navList[i][0], size=(10,10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+        button = Button(text=navList[i][0], size=(10,10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.adjx = navList[i][1]
         button.adjy = navList[i][2]
@@ -93,19 +93,19 @@ def initPanel(self):
 
     self.mapMainBox.add_widget(self.mapNavBox)
 
-    button = Button(text="New Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="New Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=makeNewMap)
     self.mapMainBox.add_widget(button)
 
-    button = Button(text="Full Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Full Map", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=fullMapPopup)
     self.mapMainBox.add_widget(button)
 
-    self.miniMapButton = Button(text="Show Minimap", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    self.miniMapButton = Button(text="Show Minimap", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     self.miniMapButton.self = self
     self.miniMapButton.bind(on_press=self.pressGenericButton)
     self.miniMapButton.bind(on_release=toggleMiniMap)

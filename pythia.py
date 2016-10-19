@@ -36,6 +36,10 @@ kivy.config.Config.set ( 'graphics', 'resizable', 0)
 from imports import *
 from main import MainScreen
 
+# and a font register for any user defined fonts
+for font in config.formats['fonts']:
+    LabelBase.register(**font)
+
 class TitleScreen(Screen):
 
     def __init__ (self,**kwargs):
@@ -85,13 +89,13 @@ class TitleScreen(Screen):
 
         self.mainBox = BoxLayout(orientation='vertical', size_hint_x=.8, size_hint_y=.6, spacing=20)
 
-        self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
+        self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
 
-        self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='Cormorant', halign="center")
+        self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='titlefont', halign="center")
 
-        self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='Miamanueva', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
+        self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
 
-        self.startButton = Button(text="Start", font_name='Cormorant', font_size="20dp")
+        self.startButton = Button(text="Start", font_name='titlefont', font_size="20dp")
         self.startButton.bind(on_press=self.pressGenericButton)
         self.startButton.bind(on_release=self.releaseStart)
 
@@ -108,25 +112,25 @@ class TitleScreen(Screen):
             background_down='',
             background_color_down=accent2,
             size_hint=(.5, 1),
-            font_name='Cormorant',
+            font_name='titlefont',
             font_size="14dp",
             )
 
         self.paletteSpinner.bind(text=self.changePalette)
 
-        self.loadButton = Button(text="Load", font_name='Cormorant', font_size="16dp")
+        self.loadButton = Button(text="Load", font_name='titlefont', font_size="16dp")
         self.loadButton.bind(on_press=self.pressGenericButton)
         self.loadButton.bind(on_release=self.releaseLoad)
 
-        self.newButton = Button(text="New Game", font_name='Cormorant', font_size="16dp")
+        self.newButton = Button(text="New Game", font_name='titlefont', font_size="16dp")
         self.newButton.bind(on_press=self.pressGenericButton)
         self.newButton.bind(on_release=self.newGame)
 
-        self.newScenarioButton = Button(text="New Game", font_name='Cormorant', font_size="16dp")
+        self.newScenarioButton = Button(text="New Game", font_name='titlefont', font_size="16dp")
         self.newScenarioButton.bind(on_press=self.pressGenericButton)
         self.newScenarioButton.bind(on_release=self.newGameScenario)
 
-        self.aboutButton = Button(text="About", font_name='Cormorant', font_size="16dp")
+        self.aboutButton = Button(text="About", font_name='titlefont', font_size="16dp")
         self.aboutButton.bind(on_press=self.pressGenericButton)
         self.aboutButton.bind(on_release=self.showAbout)
 

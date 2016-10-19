@@ -39,21 +39,21 @@ def initPanel(self):
     self.sampleMainBox.add_widget(self.tempLabel)
 
     # this button piggybacks on an existing function, in this case, rolling dice
-    button = Button(text="1d1000", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="1d1000", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunction)
     self.sampleMainBox.add_widget(button)
 
     # this button does its own thing and but updates the center display as normal
-    button = Button(text="Choice", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Choice", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunctionTwo)
     self.sampleMainBox.add_widget(button)
 
     # this button just prints hello
-    button = Button(text="Hello", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans')
+    button = Button(text="Hello", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=testFunctionThree)

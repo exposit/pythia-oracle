@@ -45,7 +45,7 @@ def initPanel(self):
         else:
             modifier = "negative"
 
-        button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,1))
+        button = Button(text=fuTextList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90, size_hint=(1,1))
         button.count = count
         button.modifier = modifier
         button.self = self
@@ -53,7 +53,7 @@ def initPanel(self):
         button.bind(on_release=fuRoll)
         self.fuTextSubBox.add_widget(button)
 
-        button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
+        button = Button(text=str(count), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint=(1,1))
         button.modifier = modifier
         button.count = count
         button.self = self
@@ -61,7 +61,7 @@ def initPanel(self):
         button.bind(on_release=fuRoll)
         self.fuModSubBox.add_widget(button)
 
-        button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint=(1,1))
+        button = Button(text=fuOddsList[i], background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint=(1,1))
         button.modifier = modifier
         button.count = count
         button.self = self
@@ -76,13 +76,13 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuSubBox)
 
-    self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont75, size_hint_y=0.05)
+    self.oddsButton = Button(text="show the odds", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont75, size_hint_y=0.05)
     self.oddsButton.self = self
     self.oddsButton.bind(on_press=self.pressGenericButton)
     self.oddsButton.bind(on_release=toggleOdds)
     #self.fuMainBox.add_widget(self.oddsButton)
 
-    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', size_hint_y=0.07)
+    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint_y=0.07)
     button.function = "howMuchWeighted"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
@@ -98,14 +98,14 @@ def initPanel(self):
     self.fuDramaBox.add_widget(Label(text="Yes/No"))
 
     for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=dramaChartRoll)
         button.subtype="Good/Bad"
         button.self = self
         self.fuDramaBox.add_widget(button)
 
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90,)
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=dramaChartRoll)
         button.subtype="Yes/No"
@@ -114,7 +114,7 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuDramaBox)
 
-    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90, size_hint=(1,.07))
+    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90, size_hint=(1,.07))
     button.function = "getChaosOracle"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
@@ -122,7 +122,7 @@ def initPanel(self):
     self.fuMainBox.add_widget(button)
 
     button = Button(text="Plot Move", size_hint=(1,.07), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getPlotMove)
@@ -134,7 +134,7 @@ def initPanel(self):
     butLabels = ['yes but', 'no and', 'no but', 'yes and']
     for i in range(0,4):
         button = Button(text=butLabels[i], background_normal='',
-         background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont90)
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.subtype = i
         button.bind(on_press=self.pressGenericButton)
@@ -161,7 +161,7 @@ def initPanel(self):
 
     self.fuRandomEventBox = GridLayout(cols=2, size_hint=(1,.20))
 
-    button = Button(text='random', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80, size_hint=(1,.07))
+    button = Button(text='random', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80, size_hint=(1,.07))
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=randomChartRoll)
     button.subtype="Random Event"
@@ -170,7 +170,7 @@ def initPanel(self):
     self.fuMainBox.add_widget(button)
 
     for i in dramaRollList:
-        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Fantasque-Sans', font_size=config.basefont80,)
+        button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80,)
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=randomChartRoll)
         button.subtype="Random Event"

@@ -71,13 +71,13 @@ class MainScreen(Screen):
 
         self.bookmarkBox = BoxLayout(orientation="horizontal", size_hint=(.75,1))
         for i in range(0,5):
-            btn = ToggleButton(text="-", group='bookmarks', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+            btn = ToggleButton(text="-", group='bookmarks', font_size=config.basefont, size_hint=(1,1), background_color=neutral, font_name='maintextfont', allow_no_selection=True)
             btn.bind(on_press=self.toggledBookmark)
             btn.value = i
             btn.index = -9
             self.bookmarkBox.add_widget(btn)
 
-        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont90, size_hint=(1,1), background_color=neutral, font_name='Fantasque-Sans', allow_no_selection=True)
+        self.clearBookmarkButton = ToggleButton(text="Clear", group='clear', font_size=config.basefont90, size_hint=(1,1), background_color=neutral, font_name='maintextfont', allow_no_selection=True)
         self.bookmarkBox.add_widget(self.clearBookmarkButton)
         self.clearBookmarkButton.bind(on_press=self.pressGenericButton)
 
@@ -125,7 +125,7 @@ class MainScreen(Screen):
 #  Center text display
 ##---------------------------------------------------------------------------------------
 
-        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="maintextfont", font_size=config.basefont ))
 
         self.threadButtonBox = GridLayout(cols=2, spacing=5, size_hint=(1,.05))
 
@@ -150,7 +150,7 @@ class MainScreen(Screen):
 
         self.centerBox.add_widget(self.threadDisplay)
 
-        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="Fantasque-Sans", font_size=config.basefont ))
+        #self.centerBox.add_widget(Label(text="---------------------", color=styles.textcolor, size_hint=(1,.04), font_name="maintextfont", font_size=config.basefont ))
 
         self.titleBarBox = BoxLayout(orientation='horizontal', size_hint=(1,.05))
 
@@ -188,7 +188,7 @@ class MainScreen(Screen):
 
         self.textInputMainBox = BoxLayout(orientation='vertical')
 
-        self.textInput = TextInput(text='', hint_text="", size_hint=(1,1))
+        self.textInput = TextInput(text='', hint_text="", size_hint=(1,1), font_size=config.maintextinputfont)
         #self.textInput.bind(on_text_validate=self.text_entered)
         self.textInputMainBox.add_widget(self.textInput)
 
@@ -444,13 +444,13 @@ class MainScreen(Screen):
                 else:
                     xhint = .15
 
-                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=xhint, height=ht, font_size=fs, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
                 label.self = self
                 label.value = x
                 config.pcKeyLabelArray[i].append(label)
                 label.bind(focus=focusChangePC)
 
-                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=2.0-xhint, height=ht, font_size=fs, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
                 label.text_size = (self.displaygrid.width, None)
                 label.self = self
                 label.value = x
@@ -548,10 +548,10 @@ class MainScreen(Screen):
 
         self.trackTitleGrid = GridLayout(cols=2, spacing=5, size_hint=(1,.10))
 
-        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+        label = Label(text="Status/Condition/Track", size_hint_x=.90, font_size=config.basefont90, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
         self.trackTitleGrid.add_widget(label)
-        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont90, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+        label = Label(text="On?", size_hint_x=.10, font_size=config.basefont90, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
         self.trackTitleGrid.add_widget(label)
 
         self.tracksMainBox.add_widget(self.trackTitleGrid)
@@ -562,7 +562,7 @@ class MainScreen(Screen):
 
         for i in range(1,30):
 
-            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont, font_name='Fantasque-Sans', background_color=neutral, foreground_color=styles.textcolor)
+            label = TextInput(text="", multiline=False, size_hint_y=None, size_hint_x=.90, height=config.tallheight, font_size=config.basefont90, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
             config.trackLabelArray.append(label)
 
             self.trackDisplayGrid.add_widget(config.trackLabelArray[-1])
@@ -1096,7 +1096,9 @@ class MainScreen(Screen):
                     ht = config.tripleheight
                     fs = config.basefont90
 
-                if x >= 4 and x <= limiter:
+                if x < 4:
+                    xhint = .35
+                elif x >= 4 and x <= limiter:
                     xhint = .25
                 else:
                     xhint = .15
