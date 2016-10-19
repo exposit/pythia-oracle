@@ -213,7 +213,7 @@ def dramaChartRoll(*args):
         updateCenterDisplay(self, self.textInput.text, 'query')
     result = dramaRoll(args[0].text, args[0].subtype)
     if random.randint(1,10) == 1:
-        result = result + "\n" + randomEventRoll("Random", "Random")
+        result = result + "\n" + randomEventRoll("random", "Random")
     updateCenterDisplay(self, result)
     self.textInput.text = ""
 
