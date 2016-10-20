@@ -139,7 +139,7 @@ def makeGrid(self, holder):
 
         if count % 2 == 0:
             subtype = "arrow"
-            button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
+            button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='titlefont', font_size=config.tallheight)
             button.self = self
             button.subtype = subtype
             button.bind(on_press=self.pressGenericButton)
@@ -153,7 +153,7 @@ def makeGrid(self, holder):
                 #roomArray.append(button)
             else:
                 subtype = "arrow"
-                button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='Cormorant', font_size=config.tallheight)
+                button = Button(text="", size_hint=(None,None), size=('20dp', '20dp'), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='titlefont', font_size=config.tallheight)
                 button.self = self
                 button.subtype = subtype
                 button.bind(on_press=self.pressGenericButton)
@@ -295,7 +295,7 @@ def genMiniMap(self):
                 text = button.text
             else:
                 text = button.text[:1]
-        label = Label(text=text, font_name='Cormorant', font_size=config.basefont90)
+        label = Label(text=text, font_name='titlefont', font_size=config.basefont90)
         self.miniMapGrid.add_widget(label)
 
 def fullMapPopup(button, *args):

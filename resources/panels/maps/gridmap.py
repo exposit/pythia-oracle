@@ -267,7 +267,7 @@ def genMiniMap(self):
         fgcolor = field.foreground_color
         bgcolor = field.background_color
 
-        button = Button(text=text, font_name='Cormorant', font_size=config.basefont90, background_color=bgcolor, color=fgcolor, size=(10,10))
+        button = Button(text=text, font_name='titlefont', font_size=config.basefont90, background_color=bgcolor, color=fgcolor, size=(10,10))
 
         self.miniMapGrid.add_widget(button)
 

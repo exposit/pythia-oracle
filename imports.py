@@ -117,5 +117,5 @@ for panel in userpanels:
 
 random.seed()
 
-for font in KIVY_FONTS:
-    LabelBase.register(**font)
+#for font in KIVY_FONTS:
+#    LabelBase.register(**font)

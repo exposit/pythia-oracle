@@ -150,25 +150,3 @@ except:
     curr_palette = palette[random.choice(palette.keys())]
 
 primary, secondary, accent1, accent2, neutral, textcolor, black, white = setColors(curr_palette)
-
-# >> FONTS
-KIVY_FONTS = [
-    {
-        "name": "Miamanueva",
-        "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
-    },
-    {
-        "name": "Fantasque-Sans",
-        "fn_regular": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Regular.ttf",
-        "fn_bold": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Bold.ttf",
-        "fn_italic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Italic.ttf",
-        "fn_bolditalic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-BoldItalic.ttf"
-    },
-    {
-        "name": "Cormorant",
-        "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
-        "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
-        "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
-        "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
-    },
-]

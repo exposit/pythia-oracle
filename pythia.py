@@ -37,7 +37,7 @@ from imports import *
 from main import MainScreen
 
 # and a font register for any user defined fonts
-for font in config.formats['fonts']:
+for font in config.fonts:
     LabelBase.register(**font)
 
 class TitleScreen(Screen):
@@ -174,7 +174,7 @@ class TitleScreen(Screen):
                     pre = ""
                     post = ""
                 gamename = pre + " " + title + " " + post + timestamp
-            btn = Button(text=gamename, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='Fantasque-Sans')
+            btn = Button(text=gamename, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='titlefont')
             btn.game = savefolder
             self.savesBox.add_widget(btn)
             btn.bind(on_release=self.choseGameToLoad)
@@ -192,7 +192,7 @@ class TitleScreen(Screen):
         self.newGameStatus = Label(text="Enter a new name.")
         self.newGameBox.add_widget(self.newGameStatus)
 
-        btn = Button(text="Confirm", size_hint=(1,1), font_name='Fantasque-Sans')
+        btn = Button(text="Confirm", size_hint=(1,1), font_name='titlefont')
         self.newGameBox.add_widget(btn)
         btn.bind(on_release=self.makeNewGame)
         btn.bind(on_press=self.pressGenericButton)

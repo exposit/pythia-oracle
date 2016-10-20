@@ -77,67 +77,6 @@ formats = dict(
     # scenario/in block links
     link_color = styles.curr_palette['accent2'],
     visited_link_color = styles.curr_palette['accent1'],
-    # fonts; rename the one you want 'fonts' or make your own
-    fonts = [
-            {
-                "name": "titlefancyfont",
-                "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
-            },
-            {
-                "name": "maintextfont",
-                "fn_regular": "resources/fonts/Open_Sans/OpenSans-Regular.ttf",
-                "fn_bold": "resources/fonts/Open_Sans/OpenSans-Bold.ttf",
-                "fn_italic": "resources/fonts/Open_Sans/OpenSans-Italic.ttf",
-                "fn_bolditalic": "resources/fonts/Open_Sans/OpenSans-BoldItalic.ttf",
-            },
-            {
-                "name": "titlefont",
-                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
-                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
-                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
-                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
-            },
-        ],
-    bookfonts = [
-            {
-                "name": "titlefancyfont",
-                "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
-            },
-            {
-                "name": "maintextfont",
-                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
-                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
-                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
-                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf",
-            },
-            {
-                "name": "titlefont",
-                "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
-                "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
-                "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
-                "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
-            },
-        ],
-    defaultfonts = [
-        {
-            "name": "titlefancyfont",
-            "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
-        },
-        {
-            "name": "maintextfont",
-            "fn_regular": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Regular.ttf",
-            "fn_bold": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Bold.ttf",
-            "fn_italic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-Italic.ttf",
-            "fn_bolditalic": "resources/fonts/fantasque-sans-mono/FantasqueSansMono-BoldItalic.ttf"
-        },
-        {
-            "name": "titlefont",
-            "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
-            "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
-            "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
-            "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
-        },
-    ],
 )
 
 scenario = dict(
@@ -192,6 +131,27 @@ actortagheight = str((formats['basefontsize']*.90)+20) + "dp"
 threadheight = str((formats['basefontsize']*.90)+15) + "dp"
 
 maintextinputfont = str(formats['basefontsize']*.95) + "dp"
+
+fonts = [
+    {
+        "name": "titlefancyfont",
+        "fn_regular": "resources/fonts/miamanueva/miamanueva.ttf",
+    },
+    {
+        "name": "titlefont",
+        "fn_regular": "resources/fonts/Cormorant/Cormorant-Regular.ttf",
+        "fn_bold": "resources/fonts/Cormorant/Cormorant-Bold.ttf",
+        "fn_italic": "resources/fonts/Cormorant/Cormorant-Italic.ttf",
+        "fn_bolditalic": "resources/fonts/Cormorant/Cormorant-BoldItalic.ttf"
+    },
+    {
+        "name": "maintextfont",
+        "fn_regular": "resources/fonts/Open_Sans/OpenSans-Regular.ttf",
+        "fn_bold": "resources/fonts/Open_Sans/OpenSans-Bold.ttf",
+        "fn_italic": "resources/fonts/Open_Sans/OpenSans-Italic.ttf",
+        "fn_bolditalic": "resources/fonts/Open_Sans/OpenSans-BoldItalic.ttf",
+    },
+]
 
 #------------------------------------------------------------------------
 # Don't mess with anything below this line
