@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.1.0 (WIP)
 
+* set random event chance on the fu panel (and set the possible options in config)
 * tidied up font formats and heights; now more user customizable
 * took out the 'show odds' button on the FU panel; space is at a premium!
 * added a new user variable, 'trigger_tests', so you can set your own trigger checks

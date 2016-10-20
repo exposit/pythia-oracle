@@ -50,7 +50,7 @@ general = dict(
     findIndex = 0,
     merge = True,
     secrets = [],
-    random_chance_list = [0,1,3,5,10,13,15,20,25,50,75,99,100],
+    random_chance_list = [0,1,3,5,10,15,20,25,50,75,99,100],
     random_event_chance = 5,
 )
 
