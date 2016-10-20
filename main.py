@@ -1076,54 +1076,54 @@ class MainScreen(Screen):
                 print("[Main on enter pc names] Unexpected error:", sys.exc_info())
 
         # now update PC panel to the right sizes
-        #try:
-        for i in range(config.general['max_character_sheets']):
+        try:
+            for i in range(config.general['max_character_sheets']):
 
-            self.halfgrid[i].clear_widgets()
-            self.topgrid[i].clear_widgets()
-            self.bottomgrid[i].clear_widgets()
+                self.halfgrid[i].clear_widgets()
+                self.topgrid[i].clear_widgets()
+                self.bottomgrid[i].clear_widgets()
 
-            limiter = config.general['half_size_rows']
+                limiter = config.general['half_size_rows']
 
-            for x in range(0,39):
+                for x in range(0,39):
 
-                if x <= limiter:
-                    ml = False
-                    ht = config.tallheight
-                    fs = config.basefont90
-                else:
-                    ml = True
-                    ht = config.tripleheight
-                    fs = config.basefont90
+                    if x <= limiter:
+                        ml = False
+                        ht = config.tallheight
+                        fs = config.basefont90
+                    else:
+                        ml = True
+                        ht = config.tripleheight
+                        fs = config.basefont90
 
-                if x < 4:
-                    xhint = .30
-                elif x >= 4 and x <= limiter:
-                    xhint = .25
-                else:
-                    xhint = .15
+                    if x < 4:
+                        xhint = .30
+                    elif x >= 4 and x <= limiter:
+                        xhint = .25
+                    else:
+                        xhint = .15
 
-                config.pcKeyLabelArray[i][x].multiline = ml
-                config.pcKeyLabelArray[i][x].size_hint_x = xhint
-                config.pcKeyLabelArray[i][x].height = ht
-                config.pcKeyLabelArray[i][x].font_size = fs
+                    config.pcKeyLabelArray[i][x].multiline = ml
+                    config.pcKeyLabelArray[i][x].size_hint_x = xhint
+                    config.pcKeyLabelArray[i][x].height = ht
+                    config.pcKeyLabelArray[i][x].font_size = fs
 
-                config.pcValueLabelArray[i][x].multiline = ml
-                config.pcValueLabelArray[i][x].size_hint_x = 1.0-xhint
-                config.pcValueLabelArray[i][x].height = ht
-                config.pcValueLabelArray[i][x].font_size = fs
+                    config.pcValueLabelArray[i][x].multiline = ml
+                    config.pcValueLabelArray[i][x].size_hint_x = 1.0-xhint
+                    config.pcValueLabelArray[i][x].height = ht
+                    config.pcValueLabelArray[i][x].font_size = fs
 
-                if x >= 4 and x <= limiter:
-                    self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                    self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
-                elif x <= 3:
-                    self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                    self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
-                else:
-                    self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                    self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
-#        except:
-#            pass
+                    if x >= 4 and x <= limiter:
+                        self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                        self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                    elif x <= 3:
+                        self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                        self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                    else:
+                        self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                        self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
+        except:
+            pass
 
         # now actor index
         try:

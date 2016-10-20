@@ -12,7 +12,10 @@ def exclude():
     return False
 
 def onEnter(self):
-    pass
+    try:
+        self.randomEventChanceSpinner.text=str(config.general['random_event_chance']) + "%"
+    except:
+        config.general['random_event_chance'] = 5
 
 def initPanel(self):
 
@@ -92,7 +95,7 @@ def initPanel(self):
     dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
     self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07, font_size=config.basefont90))
-    self.fuDramaBox = GridLayout(cols=2, size_hint_y=.3)
+    self.fuDramaBox = GridLayout(cols=2, size_hint_y=.35)
 
     self.fuDramaBox.add_widget(Label(text="Good/Bad"))
     self.fuDramaBox.add_widget(Label(text="Yes/No"))
@@ -145,6 +148,8 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
+    self.reBox = GridLayout(cols=2, size_hint=(1, 0.07))
+
     self.randomEventTypeSpinner = Spinner(
     text='Random',
     values=['Action', 'Social', 'Weird', 'World', 'Plot', 'Random'],
@@ -152,10 +157,29 @@ def initPanel(self):
     background_color=accent1,
     background_down='',
     background_color_down=accent2,
-    size_hint_y=0.07
+    size_hint_x=0.75
     )
     self.randomEventTypeSpinner.self = self
-    self.fuMainBox.add_widget(self.randomEventTypeSpinner)
+    self.reBox.add_widget(self.randomEventTypeSpinner)
+
+    random_event_chance_list = []
+    for i in config.general['random_chance_list']:
+        random_event_chance_list.append(str(i) + "%")
+
+    self.randomEventChanceSpinner = Spinner(
+    text=str(config.general['random_event_chance']) + "%",
+    values=random_event_chance_list,
+    background_normal='',
+    background_color=accent1,
+    background_down='',
+    background_color_down=accent2,
+    size_hint_x=0.25
+    )
+    self.randomEventChanceSpinner.self = self
+    self.randomEventChanceSpinner.bind(text=changeRandomEventChance)
+    self.reBox.add_widget(self.randomEventChanceSpinner)
+
+    self.fuMainBox.add_widget(self.reBox)
 
     self.fuMainBox.add_widget(Label(text="How Is This Scene Going So Far?", halign="center", size_hint_y=0.06, font_size=config.basefont75))
 
@@ -212,7 +236,7 @@ def dramaChartRoll(*args):
     if len(self.textInput.text) > 0:
         updateCenterDisplay(self, self.textInput.text, 'query')
     result = dramaRoll(args[0].text, args[0].subtype)
-    if random.randint(1,10) == 1:
+    if random.randint(1,100) <= config.general['random_event_chance']:
         result = result + "\n" + randomEventRoll("random", "Random")
     updateCenterDisplay(self, result)
     self.textInput.text = ""
@@ -297,8 +321,7 @@ def fu(count=0, modifier="none", text="0"):
     }
 
     random_event = ""
-    rroll = random.randint(1,20)
-    if rroll == 1:
+    if random.randint(1,100) <= config.general['random_event_chance']:
         random_event = "\n... and something unexpected happens!"
 
     return "[" + text + ": " + roll_string + "] " + chart[roll_result] + ands + random_event
@@ -376,19 +399,22 @@ def randomEventRoll(text, event_type="Random"):
           "Someone dies or is very badly injured off-screen.",
           ]
 
-    roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
-    if roll == 3:
-        event = chart[0]
-    elif roll <= 6:
-        event = chart[1]
-    elif roll <= 10:
-        event = chart[2]
-    elif roll <= 14:
-        event = chart[3]
-    elif roll <= 17:
-        event = chart[4]
-    elif roll == 18:
-        event = chart[5]
+    event = random.choice(chart)
+
+    # this weights it towards the middle of each list
+    #roll = random.randint(1,6) + random.randint(1,6) + random.randint(1,6)
+    #if roll == 3:
+    #    event = chart[0]
+    #elif roll <= 6:
+    #    event = chart[1]
+    #elif roll <= 10:
+    #    event = chart[2]
+    #elif roll <= 14:
+    #    event = chart[3]
+    #elif roll <= 17:
+    #    event = chart[4]
+    #elif roll == 18:
+    #    event = chart[5]
 
     chart = ["disastrously bad.", "bad.", "bad with some good.", "good with some bad.", "good.", "spectacularly good."]
     if text == "chaotic":
@@ -541,6 +567,9 @@ def getChaosOracle(*args):
 
     result = "[Chaos " + str(roll) + "] " + result
 
+    if random.randint(1,100) <= config.general['random_event_chance']:
+        result = result + "\n... and something unexpected happens! " + randomEventRoll(text, event_type="Random")
+
     return result
 
 # inspired by Apocalypse World & Simple World
@@ -598,3 +627,6 @@ def abulafiaButCards(*args):
     updateCenterDisplay(self, resultList[subtype], 'result' )
 
 # end Abulafia content & license
+
+def changeRandomEventChance(spinner, text):
+    config.general['random_event_chance'] = int(text[:-1])
