@@ -115,7 +115,7 @@ tallheight = str(formats['basefontsize']+15) + "dp"
 tripleheight = str(formats['basefontsize']*3+20) + "dp"
 quintupleheight = str(formats['basefontsize']*5+10) + "dp"
 octupleheight = str(formats['basefontsize']*8+10) + "dp"
-maintextfont = str(formats['basefontsize']*1) + "dp"
+#maintextfont = str(formats['basefontsize']*1) + "dp"
 aiheight = baseheight
 
 # font sizes that actually indicate what they do

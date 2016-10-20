@@ -174,7 +174,7 @@ class TitleScreen(Screen):
                     pre = ""
                     post = ""
                 gamename = pre + " " + title + " " + post + timestamp
-            btn = Button(text=gamename, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='titlefont')
+            btn = Button(text=gamename, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=accent2, font_name='maintextfont')
             btn.game = savefolder
             self.savesBox.add_widget(btn)
             btn.bind(on_release=self.choseGameToLoad)
@@ -182,7 +182,7 @@ class TitleScreen(Screen):
 
         self.savesPopup = Popup(title='Saves',
             content=self.savesBox,
-            size_hint=(None, None), size=("800dp", "530dp"),
+            size_hint=(.5, .5),
             auto_dismiss=True)
 
         self.newGameBox = BoxLayout(orientation="vertical")
@@ -222,7 +222,7 @@ class TitleScreen(Screen):
 
         self.scenariosPopup = Popup(title='Scenarios',
             content=self.scenariosBox,
-            size_hint=(None, None), size=("800dp", "530dp"),
+            size_hint=(.5, .5),
             auto_dismiss=False)
 
         self.newModGameBox = BoxLayout(orientation="vertical")
@@ -239,7 +239,7 @@ class TitleScreen(Screen):
 
         self.newModGamePopup = Popup(title='New Game with Scenario',
             content=self.newModGameBox,
-            size_hint=(None, None), size=("400dp", "400dp"),
+            size_hint=(.3, .3),
             auto_dismiss=True)
 
         # aboutBox popup
