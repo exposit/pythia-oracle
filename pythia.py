@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 
 import kivy
-from kivy.properties import NumericProperty, ListProperty
+#from kivy.properties import NumericProperty, ListProperty
 kivy.require('1.8.0')
 
 import config
@@ -39,6 +39,9 @@ from main import MainScreen
 # and a font register for any user defined fonts
 for font in config.fonts:
     LabelBase.register(**font)
+
+# and set the clock iterations high because we're making a LOT of widgets
+Clock.max_iteration = 80
 
 class TitleScreen(Screen):
 
