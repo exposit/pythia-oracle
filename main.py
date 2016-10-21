@@ -273,6 +273,12 @@ class MainScreen(Screen):
             self.spinner.bind(text=self.releasePresetDice)
             diceSpinnersList.append(self.spinner)
 
+        diceAltButtonsList = []
+        self.button = Button(text="ORE")
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.releaseORERoll)
+        diceAltButtonsList.append(self.button)
+
         self.systemBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.systemBox.add_widget(self.saveButton)
         self.systemBox.add_widget(self.mergeButton)
@@ -292,16 +298,21 @@ class MainScreen(Screen):
         for dice in self.diceButtonsList:
             self.dicePresetsBox.add_widget(dice)
 
-        self.diceSpinnersBox = GridLayout(cols=2, size_hint=(.2,1))
+        self.diceSpinnersBox = GridLayout(cols=1, size_hint=(.1,1))
 
         for spinner in diceSpinnersList:
             self.diceSpinnersBox.add_widget(spinner)
+
+        self.diceAltBox = GridLayout(cols=2, size_hint=(.1,1))
+        for alt in diceAltButtonsList:
+            self.diceAltBox.add_widget(alt)
 
         self.footerBox.add_widget(self.systemBox)
         self.footerBox.add_widget(self.threadBox)
         self.footerBox.add_widget(self.weightedBox)
         self.footerBox.add_widget(self.dicePresetsBox)
         self.footerBox.add_widget(self.diceSpinnersBox)
+        self.footerBox.add_widget(self.diceAltBox)
 
         self.textInputMainBox.add_widget(self.footerBox)
 
@@ -1006,6 +1017,13 @@ class MainScreen(Screen):
                 updateCenterDisplay(self, "[" + roll + "] " + result, form)
             else:
                 updateCenterDisplay(self, "Please enter a comma-separated list in one line that has at least as many options as needed.", 'ephemeral')
+        self.textInput.text = ""
+
+    def releaseORERoll(self, *args):
+        args[0].background_color = neutral
+
+        updateCenterDisplay(self, rollOREDice(self.textInput.text), 'result')
+        quicksave(self, config.curr_game_dir)
         self.textInput.text = ""
 
 #---------------------------------------------------------------------------------------

@@ -102,9 +102,9 @@ user = dict(
 
 curr_title = "replace me"
 
-# dice presets
+# dice presets; first should be 10 items, the second 2
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
-dice_spinner_list = ["4", "6", "8", "20"]
+dice_spinner_list = ["6", "10"]
 
 # font sizes -- some of these may be deprecated
 basefont = str(formats['basefontsize']*.90) + "dp"

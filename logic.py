@@ -1361,6 +1361,42 @@ def rollDice(text):
 
     return results
 
+def rollOREDice(text):
+
+    try:
+        uplim = int(text)
+    except:
+        return "Please enter a number in the main text input for your dice pool."
+
+    resultList = []
+    rawList = []
+    matchList = []
+    waste = ""
+    match_string = ""
+
+    for x in range(0, 11):
+        resultList.append(0)
+
+    for x in range(0, uplim):
+        resultList.append(0)
+        result = random.randint(1,10)
+        rawList.append(result)
+        resultList[result] = resultList[result] + 1
+
+    result_string = "[" + ', '.join(str(x) for x in rawList) + "] Matches: "
+
+    for x in range(0, len(resultList)):
+        if resultList[x] > 1:
+            match_string = match_string + " %d x %d  " % (resultList[x], x)
+        if resultList[x] == 1:
+            waste = waste + str(x) + ", "
+
+    if len(match_string) == 0:
+        match_string = "NONE"
+
+    result_string = result_string + match_string + " Waste: %s" % (waste)
+
+    return result_string
 
 #---------------------------------------------------------------------------------------------------
 # --> Random choosers from player defined lists

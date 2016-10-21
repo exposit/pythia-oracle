@@ -130,7 +130,15 @@ The Pick section has four buttons, each of which takes a comma-separated list ("
 
 __*Dice Presets*__
 
-The Dice Presets section lets you click a button to roll that quantity and sides of dice, quickly. It can be configured in the config file. The right most four buttons are spinners that let you roll up to 10x quickly.
+The Dice Presets section lets you click a button to roll that quantity and sides of dice, quickly. It can be configured in the config file. The right most two buttons are spinners that let you roll up to 10x quickly.
+
+__*Dice Parsing Presets*__
+
+This is a section for dice rolling mechanics that require more complicated parsing than just rolling plain dice. Parsing that can be off-loaded to the program.
+
+The "ORE" button is for "ORE" style result parsing -- you roll a pool of dice and sort out the matching sets and waste dice. 
+
+There's room for one more scheme if anybody can suggest a good one!
 
 ###Right Stack
 
