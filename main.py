@@ -436,7 +436,7 @@ class MainScreen(Screen):
                     fs = config.basefont90
                 else:
                     ml = True
-                    ht = config.tripleheight
+                    ht = config.doubleheight
                     fs = config.basefont90
 
                 if x >= 4 and x <= 26:
@@ -1093,7 +1093,7 @@ class MainScreen(Screen):
                         fs = config.basefont90
                     else:
                         ml = True
-                        ht = config.tripleheight
+                        ht = config.doubleheight
                         fs = config.basefont90
 
                     if x < 4:
