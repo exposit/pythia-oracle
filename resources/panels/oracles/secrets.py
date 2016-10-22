@@ -238,7 +238,7 @@ def addCustomTrigger(button, *args):
 
     if success == "Success":
         # you succeeded on your check, return info now
-        updateCenterDisplay(self, "[Trigger (" + self.secretNameField.text + ")] " + result, 'result')
+        updateCenterDisplay(self, "[Trigger (" + name + ")] " + result, 'result')
 
     else:
         # make a new entry in the config.general list
