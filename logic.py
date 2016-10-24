@@ -1001,45 +1001,50 @@ def storeBookmarkLabel(label):
 
 def updateRawMarkdown():
     try:
+        result = "\n"
+        for item in config.textArray:
+            ti = config.textArray.index(item)
+            item = item.strip()
+            if config.textStatusArray[ti] != "ephemeral":
+                if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result" or config.textStatusArray[ti] == "aside":
+                    item = item.replace('\n', '*\n*')
+                    result = result + "\n*" + item + "*"
+                elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
+                    item = item.replace('\n', '**\n**')
+                    result = result + "\n**" + item + "**"
+                elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
+                    item = item.replace('\n', '_**\n**_')
+                    result = result + "\n**_" + item + "_**"
+                elif config.textStatusArray[ti] == "color1" or config.textStatusArray[ti] == "mechanic1":
+                    item = item.replace('\n', '`\n`')
+                    result = result + "\n`" + item + "`"
+                elif config.textStatusArray[ti] == "color2" or config.textStatusArray[ti] == "mechanic2":
+                    item = item.replace('\n', '`\n`')
+                    result = result + "\n`" + item + "`"
+                else:
+                    result = result + "\n" + item
+
+        # now any in block tags
+        result = result.replace('[i]', '_')
+        result = result.replace('[/i]', '_')
+        result = result.replace('[b]', '**')
+        result = result.replace('[/b]', '**')
+        result = result.replace('[u]', '<u>')
+        result = result.replace('[/u]', '</u>')
+        result = result.replace('[s]', '<s>')
+        result = result.replace('[/s]', '</s>')
+        result = result.replace('[sub]', '<sub>')
+        result = result.replace('[/sub]', '</sub>')
+        result = result.replace('[sup]', '<sup>')
+        result = result.replace('[/sup]', '</sup>')
+        result = result.replace('---', '\n***\n')
+
+        # this is a YAML for LaTex
+        header = "---\ntitle:  Play Log\nauthor: your name\nmainfont: Lora\nsansfont: Ubuntu Mono\nmonofont: Ubuntu Mono\nfontsize: 10pt\n---"
+
         with open(config.curr_game_dir + "logs" + os.sep + "log_raw.md", "w") as log_file:
-            result = "\n"
-            for item in config.textArray:
-                ti = config.textArray.index(item)
-                item = item.strip()
-                if config.textStatusArray[ti] != "ephemeral":
-                    if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result" or config.textStatusArray[ti] == "aside":
-                        item = item.replace('\n', '*\n*')
-                        result = result + "\n*" + item + "*"
-                    elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
-                        item = item.replace('\n', '**\n**')
-                        result = result + "\n**" + item + "**"
-                    elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
-                        item = item.replace('\n', '_**\n**_')
-                        result = result + "\n**_" + item + "_**"
-                    elif config.textStatusArray[ti] == "color1" or config.textStatusArray[ti] == "mechanic1":
-                        item = item.replace('\n', '`\n`')
-                        result = result + "\n`" + item + "`"
-                    elif config.textStatusArray[ti] == "color2" or config.textStatusArray[ti] == "mechanic2":
-                        item = item.replace('\n', '`\n`')
-                        result = result + "\n`" + item + "`"
-                    else:
-                        result = result + "\n" + item
+            log_file.write(header + result)
 
-            # now any in block tags
-            result = result.replace('[i]', '_')
-            result = result.replace('[/i]', '_')
-            result = result.replace('[b]', '**')
-            result = result.replace('[/b]', '**')
-            result = result.replace('[u]', '<u>')
-            result = result.replace('[/u]', '</u>')
-            result = result.replace('[s]', '<s>')
-            result = result.replace('[/s]', '</s>')
-            result = result.replace('[sub]', '<sub>')
-            result = result.replace('[/sub]', '</sub>')
-            result = result.replace('[sup]', '<sup>')
-            result = result.replace('[/sup]', '</sup>')
-
-            log_file.write(result)
     except:
         pass
 
@@ -1236,45 +1241,49 @@ def updateCollapseHTML():
 def updateFictionMarkdown():
     try:
         fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+        result = "\n"
+        for item in config.textArray:
+            ti = config.textArray.index(item)
+            item = item.rstrip()
+            if config.textStatusArray[ti] in fictionStatusList:
+                if config.textStatusArray[ti] == "italic":
+                    item = item.replace('\n', '*\n*')
+                    result = result + "\n*" + item + "*"
+                elif config.textStatusArray[ti] == "bold":
+                    item = item.replace('\n', '**\n**')
+                    result = result + "\n**" + item + "**"
+                elif config.textStatusArray[ti] == "bold_italic":
+                    item = item.replace('\n', '_**\n**_')
+                    result = result + "\n**_" + item + "_**"
+                elif config.textStatusArray[ti] == "color1":
+                    item = item.replace('\n', '`\n`')
+                    result = result + "\n`" + item + "`"
+                elif config.textStatusArray[ti] == "color2":
+                    item = item.replace('\n', '`\n`')
+                    result = result + "\n`" + item + "`"
+                else:
+                    result = result + "\n" + item
+
+        # now replace any in block tags
+        result = result.replace('[i]', '_')
+        result = result.replace('[/i]', '_')
+        result = result.replace('[b]', '**')
+        result = result.replace('[/b]', '**')
+        result = result.replace('[u]', '<u>')
+        result = result.replace('[/u]', '</u>')
+        result = result.replace('[s]', '<s>')
+        result = result.replace('[/s]', '</s>')
+        result = result.replace('[sub]', '<sub>')
+        result = result.replace('[/sub]', '</sub>')
+        result = result.replace('[sup]', '<sup>')
+        result = result.replace('[/sup]', '</sup>')
+        result = result.replace('---', '\n***\n')
+
+        # this is a YAML for LaTex
+        header = "---\ntitle: Play Log\nauthor: your name\nmainfont: Lora\nsansfont: Ubuntu Mono\nmonofont: Ubuntu Mono\nfontsize: 10pt\n---"
+
         with open(config.curr_game_dir + "logs" + os.sep + "log_fiction.md", "w") as log_file:
-            result = "\n"
-            for item in config.textArray:
-                ti = config.textArray.index(item)
-                item = item.rstrip()
-                if config.textStatusArray[ti] in fictionStatusList:
-                    if config.textStatusArray[ti] == "italic":
-                        item = item.replace('\n', '*\n*')
-                        result = result + "\n*" + item + "*"
-                    elif config.textStatusArray[ti] == "bold":
-                        item = item.replace('\n', '**\n**')
-                        result = result + "\n**" + item + "**"
-                    elif config.textStatusArray[ti] == "bold_italic":
-                        item = item.replace('\n', '_**\n**_')
-                        result = result + "\n**_" + item + "_**"
-                    elif config.textStatusArray[ti] == "color1":
-                        item = item.replace('\n', '`\n`')
-                        result = result + "\n`" + item + "`"
-                    elif config.textStatusArray[ti] == "color2":
-                        item = item.replace('\n', '`\n`')
-                        result = result + "\n`" + item + "`"
-                    else:
-                        result = result + "\n" + item
-
-            # now replace any in block tags
-            result = result.replace('[i]', '_')
-            result = result.replace('[/i]', '_')
-            result = result.replace('[b]', '**')
-            result = result.replace('[/b]', '**')
-            result = result.replace('[u]', '<u>')
-            result = result.replace('[/u]', '</u>')
-            result = result.replace('[s]', '<s>')
-            result = result.replace('[/s]', '</s>')
-            result = result.replace('[sub]', '<sub>')
-            result = result.replace('[/sub]', '</sub>')
-            result = result.replace('[sup]', '<sup>')
-            result = result.replace('[/sup]', '</sup>')
-
-            log_file.write(result)
+            log_file.write(header + result)
     except:
         pass
 
