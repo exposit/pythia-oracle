@@ -1006,23 +1006,24 @@ def updateRawMarkdown():
             ti = config.textArray.index(item)
             item = item.strip()
             if config.textStatusArray[ti] != "ephemeral":
+                result = result + "\n"
                 if config.textStatusArray[ti] == "italic" or config.textStatusArray[ti] == "result" or config.textStatusArray[ti] == "aside":
-                    item = item.replace('\n', '*\n*')
+                    item = item.replace('\n', '*\n\n*')
                     result = result + "\n*" + item + "*"
                 elif config.textStatusArray[ti] == "bold" or config.textStatusArray[ti] == "query":
-                    item = item.replace('\n', '**\n**')
+                    item = item.replace('\n', '**\n\n**')
                     result = result + "\n**" + item + "**"
                 elif config.textStatusArray[ti] == "bold_italic" or config.textStatusArray[ti] == "oracle":
-                    item = item.replace('\n', '_**\n**_')
+                    item = item.replace('\n', '_**\n\n**_')
                     result = result + "\n**_" + item + "_**"
                 elif config.textStatusArray[ti] == "color1" or config.textStatusArray[ti] == "mechanic1":
-                    item = item.replace('\n', '`\n`')
+                    item = item.replace('\n', '`\n\n`')
                     result = result + "\n`" + item + "`"
                 elif config.textStatusArray[ti] == "color2" or config.textStatusArray[ti] == "mechanic2":
-                    item = item.replace('\n', '`\n`')
+                    item = item.replace('\n', '`\n\n`')
                     result = result + "\n`" + item + "`"
                 else:
-                    result = result + "\n\n" + item
+                    result = result + "\n" + item
 
         # now any in block tags
         result = result.replace('[i]', '_')
@@ -1246,23 +1247,24 @@ def updateFictionMarkdown():
             ti = config.textArray.index(item)
             item = item.rstrip()
             if config.textStatusArray[ti] in fictionStatusList:
+                result = result + "\n"
                 if config.textStatusArray[ti] == "italic":
-                    item = item.replace('\n', '*\n*')
+                    item = item.replace('\n', '*\n\n*')
                     result = result + "\n*" + item + "*"
                 elif config.textStatusArray[ti] == "bold":
-                    item = item.replace('\n', '**\n**')
+                    item = item.replace('\n', '**\n\n**')
                     result = result + "\n**" + item + "**"
                 elif config.textStatusArray[ti] == "bold_italic":
-                    item = item.replace('\n', '_**\n**_')
+                    item = item.replace('\n', '_**\n\n**_')
                     result = result + "\n**_" + item + "_**"
                 elif config.textStatusArray[ti] == "color1":
-                    item = item.replace('\n', '`\n`')
+                    item = item.replace('\n', '`\n\n`')
                     result = result + "\n`" + item + "`"
                 elif config.textStatusArray[ti] == "color2":
-                    item = item.replace('\n', '`\n`')
+                    item = item.replace('\n', '`\n\n`')
                     result = result + "\n`" + item + "`"
                 else:
-                    result = result + "\n\n" + item
+                    result = result + "\n" + item
 
         # now replace any in block tags
         result = result.replace('[i]', '_')
