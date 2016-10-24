@@ -1022,7 +1022,7 @@ def updateRawMarkdown():
                     item = item.replace('\n', '`\n`')
                     result = result + "\n`" + item + "`"
                 else:
-                    result = result + "\n" + item
+                    result = result + "\n\n" + item
 
         # now any in block tags
         result = result.replace('[i]', '_')
@@ -1262,7 +1262,7 @@ def updateFictionMarkdown():
                     item = item.replace('\n', '`\n`')
                     result = result + "\n`" + item + "`"
                 else:
-                    result = result + "\n" + item
+                    result = result + "\n\n" + item
 
         # now replace any in block tags
         result = result.replace('[i]', '_')
