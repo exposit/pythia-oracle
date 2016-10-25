@@ -633,8 +633,12 @@ def focusChangePC(field, value):
         for pc in range(len(config.pcKeyLabelArray)):
             name = [i for i in config.pcKeyLabelArray[pc] if i.text=="Name"]
             nn = [i for i in config.pcKeyLabelArray[pc] if i.text=="NN"]
+            nick = [i for i in config.pcKeyLabelArray[pc] if i.text=="Nick"]
 
-            if nn:
+            if nick:
+                index = config.pcKeyLabelArray[pc].index(nick[0])
+                nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
+            elif nn:
                 index = config.pcKeyLabelArray[pc].index(nn[0])
                 nameList.append(config.pcValueLabelArray[pc][index].text.strip("\""))
             elif name:
