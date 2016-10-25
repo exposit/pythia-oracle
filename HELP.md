@@ -1,4 +1,4 @@
-#Documentation -- Pythia 1.0.0
+#Documentation -- Pythia 1.1.0
 
 ##Configuration
 
@@ -42,6 +42,22 @@ If 'debug' is set to True, you'll get a lot more messaging than default. Some of
 If there are entries in the "backup_behavior" list, specifically "app_start" and/or "app_exit", Pythia will zip up your save folder when one of those events occurs. If this list is empty, no backups will be made at all.
 
 If the backup_limit is set to 0, Pythia will keep all backups. If it's set to a negative number, no backups at all will be made (regardless of backup_behavior). If it's set to a positive number, only up to that number of backups will be made, and older ones will be deleted when a new one is made.
+
+### Output Log Files & Templates
+
+Output log file templates are stored in "resources/logforms".
+
+Current templates are html with javascript, html fiction only, html complete, markdown fiction only, markdown complete, and markdown versions with YAML headers pulled from config.py.
+
+By default, all log files are enabled. To disable a log template, change "False" under "exclude()" to "True".
+
+To make a new template, duplicate an existing one and change the "makeLogFile" routine.
+
+### Configuring Panels
+
+By default, all Pythia core panels (in "resources/panels") are enabled. To disable a panel, change "False" under "exclude()" to "True". You may experience odd results if you disable a panel other widgets rely on, so proceed with caution.
+
+For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
 
 ##Title Screen
 
@@ -113,7 +129,11 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 __*System*__
 
-The System section has a "Save" button that saves the current state of the program to disk, and a "Merge" flag that determines if blocks are merged or not.
+The System section has a "Save" button that saves the current state of the program, and a "Merge" flag that determines if blocks are merged or not.
+
+Note that "Merge" mode is really only useful if you have a very, very long file with lots of blocks and are running into lag. It's usually better to just start a new save at that point.
+
+If Merge mode is turned on, all timestamp information for merged blocks, other than the first, will be overwritten.
 
 __*Add*__
 
@@ -136,7 +156,7 @@ __*Dice Parsing Presets*__
 
 This is a section for dice rolling mechanics that require more complicated parsing than just rolling plain dice. Parsing that can be off-loaded to the program.
 
-The "ORE" button is for "ORE" style result parsing -- you roll a pool of dice and sort out the matching sets and waste dice. 
+The "ORE" button is for "ORE" style result parsing -- you roll a pool of dice and sort out the matching sets and waste dice.
 
 There's room for one more scheme if anybody can suggest a good one!
 

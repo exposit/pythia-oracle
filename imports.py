@@ -82,7 +82,7 @@ gen_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]
     pyfile = filename.split('.')[0]
-    potential = imp.load_source( pyfile, panel)
+    potential = imp.load_source( pyfile, panel )
     if potential.exclude() == False:
         gen_module.append(potential)
 #except:
@@ -95,7 +95,7 @@ oracle_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]
     pyfile = filename.split('.')[0]
-    potential = imp.load_source( pyfile, panel)
+    potential = imp.load_source( pyfile, panel )
     if potential.exclude() == False:
         oracle_module.append(potential)
 
@@ -109,11 +109,20 @@ map_module = []
 for panel in userpanels:
     filename = panel.split(os.sep)[-1]
     pyfile = filename.split('.')[0]
-    potential = imp.load_source( pyfile, panel)
+    potential = imp.load_source( pyfile, panel )
     if potential.exclude() == False:
         map_module.append(potential)
 #except:
 #    pass
+
+logforms = glob.glob("." + os.sep + "resources" + os.sep + "logforms" + os.sep + "*.py")
+log_template = []
+for template in logforms:
+    filename = template.split(os.sep)[-1]
+    pyfile = filename.split('.')[0]
+    potential = imp.load_source( pyfile, template )
+    if potential.exclude() == False:
+        log_template.append(potential)
 
 random.seed()
 

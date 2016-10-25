@@ -28,6 +28,7 @@ backup_limit = 7
 #------------------------------------------------------------------------
 
 general = dict(
+    version = '1.1.0',
     pretitle = '------------------------------------------',
     posttitle = '------------------------------------------',
     enter_behavior = "plain",
@@ -100,7 +101,25 @@ user = dict(
 # Changes to the following are game-wide and not stored in save games
 #------------------------------------------------------------------------
 
-curr_title = "replace me"
+# do you want spinners or cycling text buttons?
+use_spinner_status = True
+
+# if this is true the game name will be used for the title in logs
+use_autotitle_in_logs = True
+
+# this just sets how timestamps are formed; it's not retroactive
+timestamp_format = "%m.%d.%Y@%H:%M:%S"
+
+# this will be copied in as a YAML into log templates calling for it
+# 'title' is also used for html play logs
+yaml = dict(
+    title = "Play Log",
+    author = "your name",
+    mainfont = "Lora",
+    sansfont = "Ubuntu Mono",
+    monofont = "Ubuntu Mono",
+    fontsize = "10pt",
+)
 
 # dice presets; first should be 10 items, the second 2
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
@@ -179,6 +198,7 @@ threadStatusLabelArray = []
 
 textArray = []
 textStatusArray = []
+textTimeStampArray = []
 textLabelArray = []
 textFieldLabelArray = []
 textStatusLabelArray = []

@@ -461,7 +461,7 @@ class MainScreen(Screen):
                 config.pcKeyLabelArray[i].append(label)
                 label.bind(focus=focusChangePC)
 
-                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=2.0-xhint, height=ht, font_size=fs, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
+                label = TextInput(text="", multiline=ml, size_hint_y=None, size_hint_x=1.0-xhint, height=ht, font_size=fs, font_name='maintextfont', background_color=neutral, foreground_color=styles.textcolor)
                 label.text_size = (self.displaygrid.width, None)
                 label.self = self
                 label.value = x
@@ -696,6 +696,12 @@ class MainScreen(Screen):
         args[0].background_color = neutral
         quicksave(self, config.curr_game_dir)
         saveconfig(self, config.curr_game_dir)
+        if config.use_autotitle_in_logs == True:
+            config.yaml['title'] = config.curr_game_dir.split(os.sep)[-2]
+        # make logs
+        for i in imports.log_template:
+            methodToCall = getattr( i, 'makeLogFile' )
+            methodToCall(self)
         updateCenterDisplay(self, "Content and configuration saved.", 'ephemeral')
         clearActor(self, *args)
         clearThread(self, *args)
@@ -852,9 +858,11 @@ class MainScreen(Screen):
 
     def releaseRoll(self, *args):
         self.rollSubmitButton.background_color = neutral
-        updateCenterDisplay(self, rollDice(self.textInput.text), 'result')
+        result = rollDice(self.textInput.text)
+        updateCenterDisplay(self, result, 'result')
         quicksave(self, config.curr_game_dir)
-        self.textInput.text = ""
+        if result != "Please use standard dice notation, ie, 1d10 or 2d6x3.":
+            self.textInput.text = ""
 
     def releasePlayer(self, *args):
         self.playerSubmitButton.background_color = neutral
@@ -1021,10 +1029,11 @@ class MainScreen(Screen):
 
     def releaseORERoll(self, *args):
         args[0].background_color = neutral
-
-        updateCenterDisplay(self, rollOREDice(self.textInput.text), 'result')
+        result = rollOREDice(self.textInput.text)
+        updateCenterDisplay(self, result, 'result')
         quicksave(self, config.curr_game_dir)
-        self.textInput.text = ""
+        if result != "Please enter a number in the main text input for your dice pool.":
+            self.textInput.text = ""
 
 #---------------------------------------------------------------------------------------
 # heartbeat functions
@@ -1114,9 +1123,7 @@ class MainScreen(Screen):
                         ht = config.doubleheight
                         fs = config.basefont90
 
-                    if x < 4:
-                        xhint = .25
-                    elif x >= 4 and x <= limiter:
+                    if x >= 4 and x <= limiter:
                         xhint = .25
                     else:
                         xhint = .15
@@ -1243,10 +1250,3 @@ class MainScreen(Screen):
                 config.advDict[block]['shown'] == 99
                 showCurrentBlock(self)
                 saveconfig(self, config.curr_game_dir)
-
-        # finally, update logs
-        updateRawHTML()
-        updateRawMarkdown()
-        updateCollapseHTML()
-        updateFictionMarkdown()
-        updateFictionHTML()

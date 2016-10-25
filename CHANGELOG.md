@@ -4,8 +4,11 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version 1.1.0 (WIP)
+Version 1.1.0
 
+* overhaul on log files: pick/choose/make your own templates, yaml, cleaner results
+* clean up on merge mode (still feels a bit rickety)
+* added timestamps per block; note in merge mode you will lose merged timestamp data
 * reduced dice preset spinners to two since I'm not finding I use them at all
 * added a new section in the footer for dice that need parsing, like ORE
 * set random event chance on the fu panel (and set the possible options in config)

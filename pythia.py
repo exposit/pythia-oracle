@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle 1.0.0
+Pythia-Oracle 1.1.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit
@@ -471,7 +471,14 @@ class PythiaOracleApp(App):
     def on_stop(self):
         #print("APP STOPPING")
         if self.screenmanager.current == 'mainscn':
+            # save things
             quicksave(self, config.curr_game_dir)
+            if config.use_autotitle_in_logs == True:
+                config.yaml['title'] = config.curr_game_dir.split(os.sep)[-2]
+            # make logs
+            for i in imports.log_template:
+                methodToCall = getattr( i, 'makeLogFile' )
+                methodToCall(self)
         if "app_exit" in config.backup_behavior:
             makeBackup("e")
 
