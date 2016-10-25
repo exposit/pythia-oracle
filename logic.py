@@ -57,7 +57,7 @@ def updateCenterDisplay(self, text, status='result'):
             #    field.height = new_height
 
         else:
-            
+
             config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
             makeItemLabels(self, text, status)
             addToCenterDisplay(self, text, status)
@@ -634,6 +634,11 @@ def quicksave(self, gamedir):
 
     tempArray = []
 
+    # update old files without timestamps
+    if len(config.textTimeStampArray) == 0:
+        for i in range(len(config.textArray)):
+            config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
+
     for i in range(len(config.textArray)):
         if "\n\n" in config.textArray[i]:
             paragraphs = config.textArray[i].split('\n\n')
@@ -748,12 +753,6 @@ def quickload(self, gamedir):
         except:
             if config.debug == True:
                 traceback.print_exc()
-
-        # if no timestamps, just set them all to now
-        if len(config.textTimeStampArray) == 0:
-            for i in range(len(textArray)):
-                #config.textTimeStampArray.append('{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now()))
-                config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
 
     try:
 
