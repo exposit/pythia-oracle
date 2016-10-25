@@ -1115,7 +1115,7 @@ class MainScreen(Screen):
                         fs = config.basefont90
 
                     if x < 4:
-                        xhint = .27
+                        xhint = .25
                     elif x >= 4 and x <= limiter:
                         xhint = .25
                     else:
