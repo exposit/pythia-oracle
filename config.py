@@ -107,9 +107,6 @@ use_spinner_status = True
 # if this is true the game name will be used for the title in logs
 use_autotitle_in_logs = True
 
-# this just sets how timestamps are formed; it's not retroactive
-timestamp_format = "%m.%d.%Y@%H:%M:%S"
-
 # this will be copied in as a YAML into log templates calling for it
 # 'title' is also used for html play logs
 yaml = dict(
@@ -198,7 +195,6 @@ threadStatusLabelArray = []
 
 textArray = []
 textStatusArray = []
-textTimeStampArray = []
 textLabelArray = []
 textFieldLabelArray = []
 textStatusLabelArray = []

@@ -58,13 +58,11 @@ def updateCenterDisplay(self, text, status='result'):
 
         else:
 
-            config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
             makeItemLabels(self, text, status)
             addToCenterDisplay(self, text, status)
 
     else:
 
-        config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
         makeItemLabels(self, text, status)
         addToCenterDisplay(self, text, status)
 
@@ -634,18 +632,13 @@ def quicksave(self, gamedir):
 
     tempArray = []
 
-    # update old files without timestamps
-    if len(config.textTimeStampArray) == 0:
-        for i in range(len(config.textArray)):
-            config.textTimeStampArray.append(datetime.datetime.now().strftime(config.timestamp_format))
-
     for i in range(len(config.textArray)):
         if "\n\n" in config.textArray[i]:
             paragraphs = config.textArray[i].split('\n\n')
             for block in paragraphs:
-                tempArray.append([block, config.textStatusArray[i], config.textTimeStampArray[i]])
+                tempArray.append([block, config.textStatusArray[i]])
         else:
-            tempArray.append([config.textArray[i], config.textStatusArray[i], config.textTimeStampArray[i]])
+            tempArray.append([config.textArray[i], config.textStatusArray[i]])
 
     with open(gamedir + 'main.txt', 'w') as mainfile:
         json.dump(tempArray, mainfile)
@@ -743,13 +736,6 @@ def quickload(self, gamedir):
             for i in range(len(tempArray)):
                 textArray.append(tempArray[i][0])
                 textStatusArray.append(tempArray[i][1])
-        except:
-            if config.debug == True:
-                traceback.print_exc()
-
-        try:
-            for i in range(len(tempArray)):
-                config.textTimeStampArray.append(tempArray[i][2])
         except:
             if config.debug == True:
                 traceback.print_exc()
