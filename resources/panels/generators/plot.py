@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------------------
-#  world & dungeon panel
+#  plot panel
 #
 #
 ##---------------------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ from imports import *
 import config
 
 def exclude():
-    return False
+    return True
 
 def onEnter(self):
     #print("update my own widgets")
@@ -18,7 +18,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-        self.hexAItem = AccordionItem(title='World & Dungeon', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+        self.hexAItem = AccordionItem(title='Plot', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
         hexMainBox = BoxLayout(orientation='vertical')
 
         hexMainBox.add_widget(Label(text="Make Kingdom", size_hint=(1,.10)))
