@@ -980,11 +980,18 @@ def rollDice(text):
             result = 0
             resultstring = " "
             if int(count) and int(sides):
+                if config.general['use_dice_qualities'] == True:
+                    qualifiers = random.sample(config.resolution_qualifiers, min(int(count), len(config.resolution_qualifiers)))
                 for i in range(int(count)):
                     x = random.randint(1,int(sides))
                     resultArray.append(x)
                     result = result + x
                     resultstring = resultstring + " " + str(x)
+                    if config.general['use_dice_qualities'] == True:
+                        try:
+                            resultstring = resultstring + " (" + qualifiers[i] + ")"
+                        except:
+                            resultstring = resultstring + " (" + random.choice(config.resolution_qualifiers) + ")"
             results = results + "\n[" + resultstring + "  ] " + str(result)
 
     return results

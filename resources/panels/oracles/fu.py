@@ -124,13 +124,6 @@ def initPanel(self):
     button.bind(on_release=chaosOracleRoll)
     self.fuMainBox.add_widget(button)
 
-    button = Button(text="Plot Move", size_hint=(1,.07), background_normal='',
-     background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=getPlotMove)
-    self.fuMainBox.add_widget(button)
-
     self.fuMainBox.add_widget(Label(text="But/And Clarifier", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
     butCardBox = GridLayout(cols=4, size_hint=(1,.07))
@@ -145,6 +138,34 @@ def initPanel(self):
         butCardBox.add_widget(button)
 
     self.fuMainBox.add_widget(butCardBox)
+
+    self.fuMainBox.add_widget(Label(text="Resolution Clarifier", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+
+    resBox = GridLayout(cols=8, size_hint=(1,.07))
+    for i in range(1,9):
+        button = Button(text=str(i), background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+        button.self = self
+        button.subtype = i
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getResolutionClarifier)
+        resBox.add_widget(button)
+
+    self.fuMainBox.add_widget(resBox)
+
+    self.fuMainBox.add_widget(Label(text="Hit Locations", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+
+    hitBox = GridLayout(cols=8, size_hint=(1,.07))
+    for i in range(1,9):
+        button = Button(text=str(i), background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+        button.self = self
+        button.subtype = i
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getHitLocation)
+        hitBox.add_widget(button)
+
+    self.fuMainBox.add_widget(hitBox)
 
     self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
@@ -568,34 +589,9 @@ def getChaosOracle(*args):
     result = "[Chaos " + str(roll) + "] " + result
 
     if random.randint(1,100) <= config.general['random_event_chance']:
-        result = result + "\n... and something unexpected happens! " + randomEventRoll(text, event_type="Random")
+        result = result + "\n... and something unexpected happens!"
 
     return result
-
-# inspired by Apocalypse World & Simple World
-def getPlotMove(*args):
-    self = args[0].self
-    args[0].background_color = neutral
-    chart = {
-       2 : "Deal harm.",
-       3 : "Trade harm for harm.",
-       4 : "Put someone in a high-stakes situation.",
-       5 : "Turn their move back on them.",
-       6 : "Change the world away from the expected in a subtle way.",
-       7 : "Add or remove an NPC from the current scene or area.",
-       8 : "Use one of their prized things, skills, or traits against them.",
-       9 : "Change something off-screen or in the future.",
-      10 : "Give them a difficult decision to make or present a dilemma.",
-      11 : "Manipulate, alter, rescue, or reveal someone physically, emotionally, or mentally.",
-      12 : "Place an emotional, physical, mental, or other type of barrier in the way.",
-    }
-
-    roll = random.randint(1,6) + random.randint(1,6)
-    result = chart[roll]
-
-    result = "[Plot Move] " + result
-
-    updateCenterDisplay(self, result, 'result')
 
 # http://www.random-generator.com/index.php?title=But_Cards
 # text is licensed under CC-BY 2.5
@@ -627,6 +623,45 @@ def abulafiaButCards(*args):
     updateCenterDisplay(self, resultList[subtype], 'result' )
 
 # end Abulafia content & license
+
+# Inspired by
+# http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny
+def getResolutionClarifier(button, *args):
+    self = button.self
+    button.background_color = neutral
+    count = int(button.subtype)
+
+    chart = config.resolution_qualifiers
+    if len(chart) == 0:
+        chart = ["Time Required", "Outside Influences", "Knowledge", "Skill", "Luck", "Style", "Power", "Finesse"]
+
+    if count > len(chart):
+        count = len(chart)
+
+    qualities = random.sample(chart, count)
+
+    updateCenterDisplay(self, "[Dice Qualities] " + ", ".join(qualities), 'result' )
+
+def getHitLocation(button, *args):
+    self = button.self
+    button.background_color = neutral
+    count = int(button.subtype)
+
+    chart = config.hit_locations
+    if len(chart) == 0:
+        bpu = ["Head", "Face", "Upper Torso", "Mid Torso", "Lower Torso", "Back"]
+        bpd = ["Shoulder", "Arm", "Leg", "Hand", "Foot"]
+        lr = ["Left", "Right"]
+        chart = bpu + [x + " " + y for x in lr for y in bpd ]
+
+    if count > len(chart):
+        count = len(chart)
+
+    locations = random.sample(chart, count)
+
+    updateCenterDisplay(self, "[Hit Locs] " + ", ".join(locations), 'result' )
+
+# end dice qualities
 
 def changeRandomEventChance(spinner, text):
     config.general['random_event_chance'] = int(text[:-1])

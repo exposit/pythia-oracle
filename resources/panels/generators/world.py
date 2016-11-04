@@ -73,20 +73,6 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         kingdomBox.add_widget(button)
 
-        button = Button(text="City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathCityPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
-
-        button = Button(text="Big City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathBigCityPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
-
         hexMainBox.add_widget(kingdomBox)
 
         hexMainBox.add_widget(Label(text="Region Diagram Dungeon", size_hint=(1,.1), font_size=config.basefont90))
@@ -163,6 +149,13 @@ def initPanel(self):
         button = Button(text="How Difficult Is it?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'howDifficultWeighted'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        hexMainBox.add_widget(button)
+
+        button = Button(text="What's In This Room?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.function = 'roomContents'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
@@ -692,6 +685,26 @@ def passageLike():
 
     result = "[Passage] " + veer + " [Special] " + extras
     return result
+
+def roomContents():
+
+    troll = random.randint(1,6)
+
+    chart = { "Monster": 2, "Trap": 1, "Special": 1, "Empty" : 2 }
+    contents = random.choice([k for k in chart for dummy in range(chart[k])])
+
+    treasure = ""
+    if contents == "Monster" and troll <= 3:
+        treasure = "Treasure!"
+    elif contents == "Trap" and troll <= 2:
+        treasure = "Treasure!"
+    elif contents == "Empty" and troll == 1:
+        treasure = "Treasure!"
+    else:
+        treasure = "No Treasure!"
+
+    return "[Room Contents] " + contents + " " + treasure
+
 
 def howFarIsIt(subtype='same room'):
 

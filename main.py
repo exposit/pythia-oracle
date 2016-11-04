@@ -206,6 +206,9 @@ class MainScreen(Screen):
         self.mergeButton = ToggleButton(text="Merge")
         self.mergeButton.bind(on_release=self.toggleMerge)
 
+        self.qualitiesButton = ToggleButton(text="RQ")
+        self.qualitiesButton.bind(on_release=self.toggleResolutionMode)
+
         #self.box for adding threads & actors
         self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
         self.threadSubmitButton.bind(on_press=self.pressGenericButton)
@@ -282,6 +285,7 @@ class MainScreen(Screen):
         self.systemBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.systemBox.add_widget(self.saveButton)
         self.systemBox.add_widget(self.mergeButton)
+        self.systemBox.add_widget(self.qualitiesButton)
 
         self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.threadBox.add_widget(self.threadSubmitButton)
@@ -303,7 +307,7 @@ class MainScreen(Screen):
         for spinner in diceSpinnersList:
             self.diceSpinnersBox.add_widget(spinner)
 
-        self.diceAltBox = GridLayout(cols=2, size_hint=(.1,1))
+        self.diceAltBox = GridLayout(cols=1, size_hint=(.1,1))
         for alt in diceAltButtonsList:
             self.diceAltBox.add_widget(alt)
 
@@ -968,6 +972,14 @@ class MainScreen(Screen):
             button.background_color = neutral
             config.general['merge'] = False
 
+    def toggleResolutionMode(self, button):
+        if button.state == "down":
+            button.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
+            config.general['use_dice_qualities'] = True
+        else:
+            button.background_color = neutral
+            config.general['use_dice_qualities'] = False
+
     def releaseRandomThread(self, *args):
         args[0].background_color = neutral
         text = self.textInput.text.capitalize()
@@ -1065,6 +1077,11 @@ class MainScreen(Screen):
                 self.mergeButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
             else:
                 self.mergeButton.background_color = neutral
+
+            if config.general['use_dice_qualities'] == True:
+                self.qualitiesButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
+            else:
+                self.qualitiesButton.background_color = neutral
 
         except:
             if config.debug == True:

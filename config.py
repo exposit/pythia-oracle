@@ -50,9 +50,13 @@ general = dict(
     findList = [],
     findIndex = 0,
     merge = False,
+    use_dice_qualities = False,
     secrets = [],
     random_chance_list = [0,1,3,5,10,15,20,25,50,75,99,100],
     random_event_chance = 5,
+    monsters=["","","","","","",],
+    current_sequence="Status Quo",
+    resolve=0,
 )
 
 formats = dict(
@@ -121,6 +125,12 @@ yaml = dict(
 # dice presets; first should be 10 items, the second 2
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
 dice_spinner_list = ["6", "10"]
+
+# resolution qualifiers; if empty list will use a pretty standard built in one
+resolution_qualifiers = ["Time Required", "Outside Influences", "Knowledge", "Skill", "Luck", "Style", "Power", "Finesse"]
+
+# hit locations; if empty list will use a pretty standard built in one
+hit_locations = []
 
 # font sizes -- some of these may be deprecated
 basefont = str(formats['basefontsize']*.90) + "dp"

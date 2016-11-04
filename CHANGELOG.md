@@ -4,6 +4,13 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+Version WIP
+
+* added a room contents (based on B/X) generator to world panel
+* option to use dice qualities as discussed in this article on [The Alexandrian](http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny)
+* new plot panel for generating story premises, plot moves
+* bugfixes, as always
+
 Version 1.1.0
 
 * overhaul on log files: pick/choose/make your own templates, yaml, cleaner results

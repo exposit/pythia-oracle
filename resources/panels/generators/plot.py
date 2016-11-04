@@ -10,247 +10,171 @@ from imports import *
 import config
 
 def exclude():
-    return True
+    return False
 
 def onEnter(self):
-    #print("update my own widgets")
-    pass
+    try:
+        for i in range(len(config.general['monsters'])):
+            self.monsterFields[i].text = config.general['monsters'][i]
+    except:
+        config.general['monsters'] = ["","","","","",""]
+
+    try:
+        self.actSpinner.text = config.general['current_sequence']
+    except:
+        pass
+
+    try:
+        self.resolveLabel.text = str(config.general['resolve'])
+    except:
+        config.general['resolve'] = 0
 
 def initPanel(self):
 
-        self.hexAItem = AccordionItem(title='Plot', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
-        hexMainBox = BoxLayout(orientation='vertical')
+        self.plotAItem = AccordionItem(title='Plot & Monsters', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
-        hexMainBox.add_widget(Label(text="Make Kingdom", size_hint=(1,.10)))
+        plotMainBox = BoxLayout(orientation='vertical')
 
-        sizeBox = GridLayout(cols=2, size_hint=(1,.10))
+        plotMainBox.add_widget(Label(text="General Plotting", size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="Modern", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        #story seed
+        self.premiseList = ["Somebody wants something but can't...", "The decision to do something...", "When someone moves to...", "Can someone who just wants...", "Two rivals...", "Two separate people, two separate agends.", "Obsession!", "Plan complete...", "The story is about..", "The hero is..."]
+
+        self.premiseSpinner = Spinner(
+        text='Plot Premise',
+        values=self.premiseList,
+        background_normal='',
+        background_color=accent1,
+        background_down='',
+        background_color_down=accent2,
+        size_hint=(1,.25),
+        )
+        self.premiseSpinner.self = self
+        self.premiseSpinner.bind(text=getPlotPrompt)
+        plotMainBox.add_widget(self.premiseSpinner)
+
+        button = Button(text="Plot Web", size_hint=(1,.25), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getKingdomSize)
-        sizeBox.add_widget(button)
+        button.bind(on_release=getPlotWeb)
+        plotMainBox.add_widget(button)
 
-        button = Button(text="Medieval", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button = Button(text="Plot Move", size_hint=(1,.15), background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getKingdomSize)
-        sizeBox.add_widget(button)
+        button.bind(on_release=getPlotMove)
+        plotMainBox.add_widget(button)
 
-        hexMainBox.add_widget(sizeBox)
+        # scriptwriting system
+        plotMainBox.add_widget(Label(text="Scriptwriting Framework", size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="Power Structure", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint=(1,.10))
+        plotPlayBox = BoxLayout(orientation='horizontal', size_hint=(1,.2))
+
+        # current scene spinner
+        self.actList = ['Status Quo', 'Plot Point: Inciting Incident', 'Predicament', 'Plot Point: Lock In', 'First Obstacle', 'Higher Obstacle', 'Plot Point: First Culmination', 'Subplot', 'Highest Obstacle', 'Plot Point: Main Culmination', 'New Tension', 'Plot Point: Twist', 'Resolution', 'Epilogue']
+
+        self.actSpinner = Spinner(
+        text='Status Quo',
+        values=self.actList,
+        background_normal='',
+        background_color=accent1,
+        background_down='',
+        background_color_down=accent2,
+        size_hint=(.6,1),
+        )
+        self.actSpinner.self = self
+        self.actSpinner.bind(text=updateConfig)
+        plotPlayBox.add_widget(self.actSpinner)
+
+        # Resolve tracker
+        button = Button(text="-", size_hint=(.1,1))
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=releaseResolveDown)
+        button.self = self
+        plotPlayBox.add_widget(button)
+
+        self.resolveLabel = Label(text="0", size_hint=(.2,1))
+        plotPlayBox.add_widget(self.resolveLabel)
+
+        button = Button(text="+", size_hint=(.1,1))
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=releaseResolveUp)
+        button.self = self
+        plotPlayBox.add_widget(button)
+
+        plotMainBox.add_widget(plotPlayBox)
+
+        button = Button(text="Get A Scene", size_hint=(1,.15), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getKingdomPowerStructure)
-        hexMainBox.add_widget(button)
+        button.bind(on_release=getPlayScene)
+        plotMainBox.add_widget(button)
 
-        kingdomBox = GridLayout(cols=2, size_hint=(1,.30))
+        #multipart scene list
+        plotMainBox.add_widget(Label(text="Scene List", size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="Known Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        plotSceneBox = BoxLayout(orientation='horizontal', size_hint=(1,.15))
+
+        button = Button(text="Make List", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getKingdomKnownQuirk)
-        kingdomBox.add_widget(button)
+        button.bind(on_release=makeSceneList)
+        plotSceneBox.add_widget(button)
 
-        button = Button(text="Secret Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button = Button(text="Get Element", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getKingdomSecretQuirk)
-        kingdomBox.add_widget(button)
+        button.bind(on_release=getSceneElement)
+        plotSceneBox.add_widget(button)
 
-        button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathVillagePop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
+        plotMainBox.add_widget(plotSceneBox)
 
-        button = Button(text="Town Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathTownPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
+        plotMainBox.add_widget(Label(text="Monsters", size_hint=(1,.10), font_size=config.basefont90))
 
-        button = Button(text="City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathCityPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
+        plotMonsterBox = GridLayout(cols=2, size_hint=(1,2))
 
-        button = Button(text="Big City Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathBigCityPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
+        self.monsterFields = []
 
-        hexMainBox.add_widget(kingdomBox)
+        for i in range(0,6):
+            field = TextInput(text="", size_hint=(.90, None), font_size=config.basefont80)
+            field.background_color=neutral
+            field.foreground_color=(1,1,1,1)
+            field.self = self
+            field.bind(focus=focusChangeMonster)
+            self.monsterFields.append(field)
+            plotMonsterBox.add_widget(field)
 
-        hexMainBox.add_widget(Label(text="Region Diagram Dungeon", size_hint=(1,.1), font_size=config.basefont90))
-
-        regionTypeSpinner = Spinner(
-            text='Random',
-            values=["Random", "Scattered", "Dense", "Unsettled", "Frontier", "Desolate"],
-            size_hint=(1,.10),
-            background_normal='',
-            background_color=accent1,
-            background_down='',
-            background_color_down=accent2,
-            )
-
-        regionTypeSpinner.self = self
-        hexMainBox.add_widget(regionTypeSpinner)
-
-        button = Button(text="Make a Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.value = 9
-        button.self = self
-        button.link = regionTypeSpinner
-        button.randomnext = True
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getNewRegion)
-        hexMainBox.add_widget(button)
-
-        hexPointABox = GridLayout(cols=9, size_hint=(1,.2))
-        for i in range(0,9):
-            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-            button.value = i
-            button.link = regionTypeSpinner
-            button.self = self
-            button.randomnext = False
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=getNewRegion)
-            hexPointABox.add_widget(button)
-
-        hexMainBox.add_widget(hexPointABox)
-
-        hexMainBox.add_widget(Label(text="Upcoming Terrain", size_hint=(1,.1), font_size=config.basefont90))
-
-        hexPointCBox = GridLayout(cols=9, size_hint=(1,.2))
-        for i in range(0,9):
-            button = Button(text=str(i), size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-            button.value = i
-            button.self = self
-            button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=getUpcomingTerrain)
-            hexPointCBox.add_widget(button)
-
-        hexMainBox.add_widget(hexPointCBox)
-
-        button = Button(text="Distance to Next Region", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getNextRegionDistance)
-        hexMainBox.add_widget(button)
-
-        hexMainBox.add_widget(Label(text='Miscellaneous Questions', size_hint=(1,.10), font_size=config.basefont90))
-
-        button = Button(text="What's the Weather Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "weatherWeighted"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
-
-        button = Button(text="More or Less Than Expected?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=moreOrLessRoll)
-        hexMainBox.add_widget(button)
-
-        button = Button(text="How Difficult Is it?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.function = 'howDifficultWeighted'
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
-
-        hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.10), font_size=config.basefont90))
-
-        hexFarBox = GridLayout(cols=2, size_hint=(1,.25))
-        howFarList = ['same room', 'same area', 'same region', 'anywhere']
-        for item in howFarList:
-            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+            button = Button(text="New", size_hint=(.10, None), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+            button.field = field
             button.self = self
             button.bind(on_press=self.pressGenericButton)
-            button.bind(on_release=pressHowFar)
-            hexFarBox.add_widget(button)
+            button.bind(on_release=getMonster)
+            plotMonsterBox.add_widget(button)
 
-        hexMainBox.add_widget(hexFarBox)
+        plotMainBox.add_widget(plotMonsterBox)
 
-        hexMainBox.add_widget(Label(text='Diagram Mapping', size_hint=(1,.10), font_size=config.basefont90))
-
-        button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.function = 'whatDirection'
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
-
-        button = Button(text="What Is The Room Like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.function = 'roomLike'
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
-
-        button = Button(text="What Is The Passage like?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.function = 'passageLike'
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        hexMainBox.add_widget(button)
-
-        hexMainBox.add_widget(Label(text="Grid Mapping", size_hint=(1,.10), font_size=config.basefont90))
-
-        button = Button(text="Get Grid Room Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button = Button(text="Copy Monsters To Main", size_hint=(1,.15), background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getGridRoomPattern)
-        hexMainBox.add_widget(button)
+        button.bind(on_release=copyMonstersToMain)
+        plotMainBox.add_widget(button)
 
-        button = Button(text="Get Grid Corridor Pattern", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button = Button(text="Clear Monsters", size_hint=(1,.15), background_normal='',
+         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getGridCorridorPattern)
-        hexMainBox.add_widget(button)
+        button.bind(on_release=clearMonsters)
+        plotMainBox.add_widget(button)
 
-        button = Button(text="Get Grid Exits", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getGridExits)
-        hexMainBox.add_widget(button)
+        self.plotAItem.add_widget(plotMainBox)
 
-        self.hexAItem.add_widget(hexMainBox)
-
-        return self.hexAItem
+        return self.plotAItem
 
 #---------------------------------------------------------------------------------------------------
-# hexcrawl & wilderness panel button functions
+# plotcrawl & wilderness panel button functions
 #---------------------------------------------------------------------------------------------------
-
-def getNextRegionDistance(*args):
-    args[0].background_color = neutral
-    self = args[0].self
-    result = getDistance()
-    updateCenterDisplay(self, result)
-
-def getNewRegion(*args):
-    self = args[0].self
-    link = args[0].link
-    density = link.text
-    randomnext = args[0].randomnext
-    args[0].background_color = neutral
-    result = makeRegion(args[0].value, density, randomnext)
-    updateCenterDisplay(self, result)
-
-def getUpcomingTerrain(*args):
-    args[0].background_color = neutral
-    self = args[0].self
-    result = upcomingTerrain(args[0].value)
-    updateCenterDisplay(self, result)
 
 def miscChartRoll(*args):
     args[0].background_color = neutral
@@ -258,611 +182,337 @@ def miscChartRoll(*args):
     result = eval(args[0].function)()
     updateCenterDisplay(self, result)
 
-def pressHowFar(*args):
-    args[0].background_color = neutral
-    self = args[0].self
-    result = howFarIsIt(args[0].text)
-    updateCenterDisplay(self, result)
-
-def moreOrLessRoll(*args):
-    args[0].background_color = neutral
-    self = args[0].self
-    text = "expected"
-    if len(self.textInput.text) > 0:
-        text = self.textInput.text
-
-    result = morelessWeighted(text)
-    updateCenterDisplay(self, result)
-    self.textInput.text = ""
-
-#---------------------------------------------------------------------------------------------------
-# --> Kingdom
-#
-#---------------------------------------------------------------------------------------------------
-
-def getKingdomSize(button):
-
+def getSceneElement(button, *args):
     button.background_color = neutral
     self = button.self
-
-    if button.text == "Modern":
-        mod = 2
-    else:
-        mod = 0
-
-    chart = [
-        ("vast", "Russia", "Russia", "Russia"),
-        ("massive", "China", "United States", "Canada"),
-        ("great", "Australia", "India", "Kazakhstan"),
-        ("major", "Mexico", "Indonesia", "Libya"),
-        ("large", "Peru", "Mongolia", "South Africa"),
-        ("medium", "Turkey", "Chile", "Morocco"),
-        ("small", "France", "Sweden", "Germany"),
-        ("small", "France", "Sweden", "Germany"),
-        ("minor", "United Kingdom", "New Zealand", "Italy"),
-        ("modest", "Greece", "North Korea", "Iceland"),
-        ("minor", "Denmark", "Switzerland", "Slovakia"),
-        ("petty", "The Bahamas", "Montenegro", "Slovenia"),
-        ("city-state", "Hong Kong", "Samoa", "Barbados"),
-    ]
-
-    # result of 0 to 12
-    roll = random.randint(1, 7) + random.randint(1, 7) - mod
-    if roll > 12:
-        roll = 11
-
-    option = chart[roll]
-
-    comp = random.choice([option[1], option[2], option[3]])
-
-    result = "[Kingdom Size] " + option[0] + " (" + comp + ")"
-
-    updateCenterDisplay(self, result)
-
-def getKingdomPowerStructure(button):
-
-    button.background_color = neutral
-    self = button.self
-
-    powertype = ["a democracy", "a republic", "a monarchy", "a dictatorship", "a democratic republic", "a collection of city-states", "made up of those who serve the guilds and banks", "made up of thieves", "authoritarian", "totalitarian", "in anarchy", "libertarian", "bureaucratic", "tribalism", "feudalism", "a loose collection of clans", "in service to those with wealth and trade connections", "infested with criminals at all levels", "ruled with an iron fist", "guided by enlightened self-interest", "a meritocracy", "guided by a noble class decided by birth", "guided by a citizen class decided by service"]
-
-    primaryleader = ["the sorcerer-king", "a cabal of sorcerers", "a king", "a usurper", "a ruling council of seven", "a body of ex-soldiers", "the high king", "a gathering of clan leaders", "a war chief in war and a peace chief in peace", "a leader", "a group of noble houses", "the head of the church", "a cult leader", "a holy person", "a normally stigmatized group", "a charismatic leader", "a warlord", "a tyrant", "a dictator", "a tribunal of miltary leaders", "a tribunal of craftsmen", "an incestuous pack of feuding noble houses", "a seer", "a wizard", "a regent"]
-
-    powergroups = ["the church", "the nobles", "the aristocracy", "the working class", "the slaves", "the serfs", "the common man", "everyone", "no one", "the nearest kingdom", "the criminal element", "the military", "a powerful guild", "a weak guild", "a powerful trade partner", "a weak trader partner", "a powerful moneylender", "the wealthy", "the honorable", "the dutiful", "those who have inherited power", "those who have earned power", "those who have taken power by force", "those who have schemed for power", "the educated", "the ill-educated", "the powerful", "the meek", "the most skilled craftsmen", "the less skilled craftsmen", "the movers and shakers", "the ruler's advisors", "a normally stigmatized class"]
-
-    methodstopower = ["elected by peers", "elepublic acclaim", "usurping", "hereditary", "de facto", "feared", "unopposed", "ruthlessly disposed of rivals", "a loophole in the law", "the only option", "the best hope", "a figurehead", "a wildcard", "unstable", "weak", "strong", "stable", "dependent", "independent", "assassination", "scheming", "slander and lies", "betrayal", "seduction", "vast wealth", "the last survivor", "the last of the line", "the last of the blood"]
-
-    roll = random.randint(1,100)
-    if roll <= 50:
-        ptype = random.sample(powertype,2)
-        ptype = ", and ".join(ptype)
-    else:
-        ptype = random.choice(powertype)
-
-    powergroup = random.sample(powergroups, 2)
-
-    result = "[Power] The government is " + ptype + ". The highest authority is " + random.choice(primaryleader) + " (" + random.choice(methodstopower) + ") with the support of " + powergroup[0] + " and the enmity of " + powergroup[1]  + "."
-
-    updateCenterDisplay(self, result)
-
-def getKingdomKnownQuirk(button):
-    button.background_color = neutral
-    self = button.self
-
-    subject = ["The majority", "A minority", "The common folk", "The nobles", "The elite", "The rulers", "The church leaders", "The poor", "The wealthy", "The working people", "The craftspeople", "Criminals", "The servant or slave class", "The ruler's advisors", "The ruler's family and hanger-ons", "A particular noble house's members", "The ruler's most trusted allies"]
-
-    adjective = ["ill-educated", "ill-fed", "very poor", "prosperous", "greedy", "greedy and rapacious", "frugal", "law-abiding", "[roll up a \"Defining Characteristic\" from the Actor Panel]", "feuding and belligerent", "subdued", "repressed", "imprisoned", "very traditional", "very untraditional", "proud of a local feature like a waterfall, forest, or building", "proud of a local ability like sailing, fishing, or navigating swamps", "proud of a local product like ale, wine, or wool", "proud of a local tradition like a festival, ceremony, or religious rite", "proud of a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", ]
-
-    general = [ "Many thieves among the populace", "The land is very rocky and inhospitable", "Arable land is plentiful", "The land is rich in some valuable resource", "The land is rich in a ridiculously valuable, ridiculously rare resource", "The land is very dangerous and inhospitable"]
-
-    for group in subject:
-        for obj in adjective:
-            general.append(group + " are " + obj + ".")
-
-    result = "[Known Quirk] " + random.choice(general)
-
-    updateCenterDisplay(self, result)
-
-def getKingdomSecretQuirk(button):
-    button.background_color = neutral
-    self = button.self
-
-    subject = ["The majority", "A minority", "The common folk", "The nobles", "The elite", "The rulers", "The church leaders", "The poor", "The wealthy", "The working people", "The craftspeople", "Thieves", "Assassins", "Criminals", "The servant or slave class", "The ruler's advisors", "The ruler's family and hanger-ons", "A particular noble house's members", "The ruler's most trusted allies"]
-
-    adjective = ["serving dark masters", "licentious", "feuding", "in league with a neighboring kingdom", "fomenting rebellion", "seeking a replacement leader", "very untraditional", "very traditional", "hiding a magical (spiritual) power only they possess", "subject to a magical (spiritual) curse", "cursed with ill-luck", "blessed with good luck", "[roll up a \"Defining Characteristic\" from the Actor Panel]"]
-
-    general = ["Dark magic permeates the country", "Powerful thieves' guild or mafia runs things", "The land is rich in some valuable resource", "The land is rich in a ridiculously valuable, ridiculously rare resource", "Monsters stalk the realm at night", "People go missing far more commonly than might be expected"]
-
-    for group in subject:
-        for obj in adjective:
-            general.append(group + " are " + obj + ".")
-
-    result = "[Secret Quirk] " + random.choice(general)
-
-    updateCenterDisplay(self, result)
-
-#---------------------------------------------------------------------------------------------------
-# --> Math based town sizes
-# inspired by http://www222.pair.com/sjohn/blueroom/demog.htm
-# all dumb math errors, wildly inaccurate extrapolations, and lazy fudges are my fault
-#---------------------------------------------------------------------------------------------------
-
-def mathBigCityPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(12,100)
-    else:
-        roll = random.randint(50,80)
-
-    return "[Big City Pop.] " + str(roll * 1000)
-
-def mathCityPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(8,12)
-    else:
-        roll = 10
-
-    return "[City Pop.] " + str(roll * 1000)
-
-def mathTownPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(1,8)
-    else:
-        roll = 2.5
-
-    return "[Town Pop.] " + str(roll * 1000)
-
-def mathVillagePop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(2,100)
-    else:
-        roll = random.randint(5, 30)
-
-    return "[Village Pop.] " + str(roll * 10)
-
-# pointcrawl terrain generator
-# inspired by these posts on the subject
-#       http://hillcantons.blogspot.com/2014/11/reader-query-random-solo-wilderness.html
-#       http://mmmnm.blogspot.com/2014/11/random-solo-hexless-wilderness.html
-
-terrain = [
-    ["0", "coast (1)", "light forest (2)", "heavy forest (3)", "mountains (4)"],
-    ["1", "coast (1)", "swamp (2)", "light forest (3)", "heavy forest (4)"],
-    ["2", "heavy forest (1)", "light forest (2)", "plains (3)", "plains (4)"],
-    ["3", "plains (1)", "plains (2)", "light forest (3)", "swamp (4)"],
-    ["4", "plains (1)", "heavy forest", "light forest (3)", "hills (4)"],
-    ["5", "hills (1)", "heavy forest (2)", "light forest (3)", "plains (4)"],
-    ["6", "light forest (1)", "heavy forest (2)", "hills (3)", "mountains (4)"],
-    ["7", "mountains (1)", "hills (2)", "light forest (3)", "deserts (4)"],
-    ["8", "deserts (1)", "plains (2)", "hills (3)", "mountains (4)"],
-]
-
-def makeRegion(seed, settledlevel="Scattered", randomnext=False):
-
-    if seed == 9:
-        seed = random.randint(0,8)
-
-    if settledlevel == "Random":
-        settledlevel = random.choice(["Dense", "Scattered", "Frontier", "Unsettled", "Desolate"])
-
-    ruins = []
-    if settledlevel == "Dense":
-        target = 99
-        count = random.randint(3,6)
-        targetList = ["Town", "Town", "Village", "City", "City", "City"]
-        rcount = random.randint(1,3)
-        if random.randint(1,100) < 50:
-            ruins.append("sewer")
-        if random.randint(1,100) < 50:
-            ruins.append("habitation")
-    elif settledlevel == "Scattered":
-        target = 90
-        count = random.randint(1,5)
-        targetList = ["Town", "Town", "Village", "Village", "City"]
-        rcount = random.randint(1,3)
-        if random.randint(1,100) < 50:
-            ruins.append("fortress")
-        if random.randint(1,100) < 50:
-            ruins.append("habitation")
-    elif settledlevel == "Frontier":
-        target = 75
-        count = random.randint(1,4)
-        targetList = ["Town", "Town", "Town", "Village", "Village", "Village", "City"]
-        rcount = random.randint(1,6)
-        if random.randint(1,100) < 75:
-            ruins.append("fortress")
-    elif settledlevel == "Desolate":
-        target = 15
-        count = random.randint(1,2)
-        rcount = random.randint(4,8)
-        targetList = ["Town", "Village", "Village", "Village"]
-    else:
-        settledlevel = "Unsettled"
-        target = 50
-        count = random.randint(1,5)
-        targetList = ["Town", "Village", "City"]
-        rcount = random.randint(1,8)
-
-    settlements=[]
-    for i in range(count):
-        if random.randint(1,100) < target:
-            settlements.append(random.choice(targetList))
-            if settlements[-1] == "City":
-                if random.randint(1,100) > 75:
-                    settlements[-1] = "Capital City"
+    try:
+        if len(config.general['scenes']) == 0:
+            result = "No scenes found -- generate more!"
         else:
-            if settledlevel == "Dense":
-                settlements.append("Decayed City")
-            else:
-                settlements.append("Abandoned")
+            result = config.general['scenes'][0]
+            config.general['scenes'].remove(result)
+        updateCenterDisplay(self, "[Scene] " + result)
+    except:
+        pass
 
-    if randomnext == True:
-        next_choice = seed
-        if seed <= 8 and seed >= 0:
-            next_choice = seed + random.choice([-3,-2,-1,0,1,2,3])
+max_elements = 3
+max_subjects = 5
+active_subjects = []
 
-        if next_choice > 8:
-            next_choice = 8 - random.randint(0,4)
-        elif next_choice < 0:
-            next_choice = 0 + random.randint(0,3)
-    else:
-        next_choice = seed
+subject = ['a hero', 'the enemy', 'an ally', 'common folk', 'a fire', 'the strong', 'the weak', 'a castle', 'a spy', 'a reward', 'a punishment', 'a bargain', 'a promise', 'a disaster', 'a lover', 'a danger', 'a monster', 'magic', 'love', 'secret']
+object = ['progress', 'setback', 'destruction', 'creation', 'truth', 'falsity', 'love', 'hate', 'twist', 'awaken', 'a celebration', 'ruin', 'defilement', 'retreat']
+bridge = ['causes', 'is', 'is', 'is', 'regards', 'experience', 'of', 'against', 'undergoes', 'overcome', 'twists', 'to', 'ruins', 'makes']
+end = ['triumphs', 'lost', 'fails', 'overcomes', 'continues', 'endures', 'flees', 'destroyed']
 
-    curr_terrain = terrain[next_choice]
+def makeSceneList(button, *args):
+    button.background_color = neutral
+    self = button.self
 
-    for i in range(rcount):
-        ruins.append(random.choice(["cavern", "habitation", "fortress", "temple", "academy", "sewer"]))
+    output = []
+    plot = []
+    count = 0
 
-    beneath = random.choice(["Ruins", "Caves", "Solid", "Solid", "Solid", "River"])
+    plot = plot + activateNoun(plot)
 
-    terrain_string = curr_terrain[1] + " | " + curr_terrain[2] + " | " + curr_terrain[3] + " | " + curr_terrain[4]
-    return "[Settled Level] " + settledlevel + " [Seed] " + curr_terrain[0] + "\n[Terrain Type] " + terrain_string + "\n[Settlements] " + str(list(settlements)) + "\n[Beneath] " + beneath + "\n[Known Ruins] " + str(list(ruins))
+    final = map(None, *plot)
 
-def getDistance():
-    # empirical distance in time units; player will need to modify if necessary by terrain costs by system
-    distance = random.randint(1,6)
-    road = random.choice(["Yes", "No"])
+    output = []
+    for i in final:
+        for x in i:
+            if x not in output and x != None:
+                output.append(x)
 
-    return "[Time Units] " + str(distance) + " [Road?] " + road
+    config.general['scenes'] = output
 
-def upcomingTerrain(seed=0):
+def activateNoun(plot):
 
-    curr_terrain = terrain[seed]
-    roll = random.randint(1,100)
+    choice = random.choice(subject)
 
-    if roll <= 10:    # 10% of the terrain
-        result = curr_terrain[4]
-    elif roll <= 30:  # 20% of the terrain
-        result = curr_terrain[3]
-    elif roll <= 60:    # 30% of the terrain
-        result = curr_terrain[2]
-    else:             # 40% of the terrain
-        result = curr_terrain[1]
+    plot = getPlotList(choice, plot)
 
-    return "[Terrain] " + result
+    return plot
 
-def weatherWeighted():
-    chart = {
-        2 : "The opposite of yesterday.",
-        3 : "Much less comfortable than yesterday.",
-        4 : "Noticeably less comfortable than yesterday.",
-        5 : "The same as yesterday.",
-        6 : "Noticeably more comfortable than yesterday.",
-        7 : "Much more comfortable than yesterday",
-        8 : "The same as yesterday.",
-    }
+def getPlotList(choice, plot):
 
-    roll = random.randint(1,4) + random.randint(1,4)
+    active_subjects.append(choice)
+    matches = []
 
-    result = "[Weather] " + chart[roll]
-    return result
+    for item in subject + object:
+        for link in bridge:
+            matches.append(choice + " (" + link + ") " + item)
 
-def howDifficultWeighted():
+    rand_iter = random.randint(1,max(min(max_elements, len(matches)-1), 1))
+    rand_smpl = [ matches[i] for i in sorted(random.sample(xrange(len(matches)), rand_iter)) ]
 
-    rolls = [random.randint(1,4), random.randint(1,4)]
-    maxroll = max(rolls)
-    minroll = min(rolls)
+    rand_smpl.append(choice + " " + random.choice(end))
 
-    diff = rolls[0] - rolls[1]
-    chart = {
-        -3 : "Trivial.",
-        -2 : "Fairly easy.",
-        -1 : "A bit easy.",
-         0 : "On par with hero's abilities.",
-         1 : "A bit difficult.",
-         2 : "Fairly difficult.",
-         3 : "Overwhelming.",
-    }
+    plot.append(rand_smpl)
 
-    result = "[How Difficult?] " + chart[diff] + " [" + str(diff) + "]"
-    return result
+    new_words = [x for x in subject if x not in active_subjects]
 
-def morelessWeighted(text="expected"):
-
-    chart = {
-        2 : "Much less than ",
-        3 : "Less than ",
-        4 : "A bit less than ",
-        5 : "As ",
-        6 : "A bit more than ",
-        7 : "More than ",
-        8 : "Much more than ",
-    }
-
-    roll = random.randint(1,4) + random.randint(1,4)
-
-    result = "[More or Less] " + chart[roll] + text + "."
-    return result
-
-def whatDirection():
-
-    chart = {
-        1 : "North or Up",
-        2 : "Northeast",
-        3 : "East or Right",
-        4 : "Southeast",
-        5 : "South or Down",
-        6 : "Southwest",
-        7 : "West or Left",
-    }
-
-    roll = random.randint(1,7)
-
-    result = "[Direction] " + chart[roll] + ". If this direction won't work, use up or down."
-    return result
-
-def roomLike():
-
-    oppositesChart = [
-        ["rough", "smooth"],
-        ["gleaming", "dull"],
-        ["slick", "dry"],
-        ["crumbling", "intact"],
-        ["extreme", "mild"],
-        ["cared for", "disused"],
-        ["stone", "metal"],
-        ["wood", "brick"],
-        ["wood", "metal"],
-        ["stone", "brick"],
-        ["painted", "bare"],
-        ["finished", "unfinished"],
-        ["ostentatious", "spartan"],
-        ["bare", "stuffed"],
-        ["worn", "new-looking"],
-    ]
-    descChart = []
-    for pairList in oppositesChart:
-        descChart.append(random.choice(pairList))
-
-    roll = random.randint(1, 3)
-    descList = random.sample(descChart, roll)
-    desc = ', '.join(descList)
-
-    shapeChart = [
-        "round", "square", "oval", "elongated", "rectangular", "trapezoidal",
-    ]
-
-    roll = random.choice([1,1,1,2])
-    shapeList = random.sample(shapeChart, roll)
-    shape = ', '.join(shapeList)
-
-    sizeChart = [
-        "large", "small", "average", "cubby", "alcove", "cavern", "nook", "chamber", "vault", "great", "negligible", "brief", "vast", "expansive", "extensive",
-    ]
-    size = random.choice(sizeChart)
-
-    purposeChart = [
-        "sleeping", "eating", "bathing", "bodily functions", "imprisoning", "killing", "disposal", "studying", "reading", "working", "crafting", "disassembling", "assembling", "interrogating", "relaxing", "recuperating", "mending", "rending", "cooking", "exercise", "planning", "plotting", "communing", "praying", "keeping", "displaying", "storing",
-    ]
-
-    roll = random.choice([1,2])
-    purposeList = random.sample(purposeChart, roll)
-    purpose = ', '.join(purposeList)
-
-    result = "[Room] " + desc + " [Purpose] " + purpose + " [Size] " + size + " [Shape] " + shape
-    return result
-
-def passageLike():
-
-    veerChart = ["continues straight", "ends abruptly", "winds left", "winds right", "sharp bend left", "sharp bend right", "slopes up or passes stairs", "slopes down or passes stairs", "doubles back"]
-
-    veer = random.choice(veerChart)
-
-    extrasChart = {
-        2 : "nothing",
-        3 : "an intersection",
-        4 : "a side passage",
-        5 : "nothing",
-        6 : "a exit or arch or gap in the wall",
-        7 : "special",
-        8 : "nothing",
-    }
-
-    roll = random.randint(1,4) + random.randint(1,4)
-    extras = extrasChart[roll]
-
-    specialChart = [
-        "obstacle blocking path", "water", "pit", "chasm or stairs", "skylight or light source", "treasure", "useful item", "stairs", "shaft"
-    ]
-    if extras == "special":
-        extras = random.choice(specialChart)
-
-    result = "[Passage] " + veer + " [Special] " + extras
-    return result
-
-def howFarIsIt(subtype='same room'):
-
-    rolls = [random.randint(1,4), random.randint(1,4)]
-    if subtype == 'same room':
-        chart = {
-            -3 : "Touch.",
-            -2 : "Arm's reach.",
-            -1 : "A few steps away.",
-             0 : "Melee range.",
-             1 : "Throwing knife range.",
-             2 : "A normal move away.",
-             3 : "Other side of the room.",
-        }
-    elif subtype == 'same area':
-        chart = {
-            -3 : "Same room.",
-            -2 : "Next room/space.",
-            -1 : "Within a handful of rooms/spaces.",
-             0 : "Just past a handful of rooms/spaces.",
-             1 : "About half the area away.",
-             2 : "More than half the area away.",
-             3 : "As far as it's possible to go and still be in this area.",
-        }
-    elif subtype == 'same region':
-        chart = {
-            -3 : "Same room.",
-            -2 : "Two weeks' travel.",
-            -1 : "Within a week's travel.",
-             0 : "Within " + random.choice(['two', 'three', 'four']) + " days of travel.",
-             1 : "Within " + random.choice(['two', 'three']) + " weeks of travel.",
-             2 : "Within " + random.choice(['two', 'three', 'four']) + " months of travel.",
-             3 : "Same area.",
-        }
-    else:
-        chart = {
-            -3 : "Impossibly close.",
-            -2 : "Same area",
-            -1 : "Same region.",
-             0 : "Close.",
-             1 : "Close.",
-             2 : "Impossibly far.",
-             3 : "Distance is irrelevant or meaningless.",
-        }
-
-    diff = rolls[0] - rolls[1]
-
-    result = "[How Far?] " + chart[diff]
-    return result
-
-def getGridRoomPattern(*args):
-
-    args[0].background_color = neutral
-    self = args[0].self
-
-    result = ""
-    pattern = 0
-    start = 1
-    end = 0
-    exits = []
-    group = []
-    graphic = "\n\n"
-    lines = random.randint(1,6) + random.randint(1,6)
-
-    for depth in range(1, lines):
-        if depth == 1:
-            maxwidth = random.randint(1,4) + random.randint(1,4)
-            end = maxwidth
-            graphic = graphic + ("* " *(maxwidth+2))
-
-        repeat = random.randint(1,100)
-
-        if pattern == 4 and repeat >= 10:
-            result = result + "\n" + str(depth) + ": " + ", ".join(mark)
-        elif pattern == 5 and repeat >= 50:
-            result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
-        elif pattern > 0 and repeat >= 50 and pattern != 4:
-            result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+    if len(active_subjects) < max_subjects:
+        if len(new_words) > 0:
+            new_word = random.sample(new_words,1)[0]
+            if new_word not in active_subjects:
+                plot = plot + getPlotList(new_word, plot)
         else:
-            pattern = random.randint(1,7)
-            if pattern <= 3:
-                end = random.randint(start, maxwidth)
-                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
-            elif pattern == 4:
-                mark = []
-                group = random.sample(range(maxwidth), random.randint(start,maxwidth))
-                group.sort()
-                end = -9
-                start = 1
-                for item in group:
-                    if item > 0:
-                        mark.append(str(item))
-                result = result + "\n" + str(depth) + ": " + ", ".join(mark)
-            elif pattern == 5:
-                roll1 = random.randint(start,maxwidth)
-                roll2 = random.randint(start,maxwidth)
-                if roll1 == roll2:
-                    roll2 = roll2 + 1
-                end = max(roll1, roll2)
-                start = min(roll1, roll2)
-                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
-            else:
-                start = 1
-                end = maxwidth
-                result = result + "\n" + str(depth) + ": " + str(start) + " to " + str(end)
+            new_word = random.sample(subject, 1)[0]
+            if new_word not in active_subjects:
+                plot = plot + getPlotList(new_word, plot)
 
-        gline = ""
-        for i in range(maxwidth+2):
-            if end != -9:
-                if i < start or i > end:
-                    gline = gline + "* "
-                else:
-                    gline = gline + "X "
-            else:
-                if i in group and i > 0:
-                    gline = gline + "X "
-                else:
-                    gline = gline + "* "
+    return plot
 
-        graphic = graphic + "\n" + gline
-
-    graphic = graphic + "\n" + ("* " *(maxwidth+2))
-
-    result = "[Grid Room] " + result + graphic
-
-    updateCenterDisplay(self, result)
-
-def getGridCorridorPattern(*args):
-
-    args[0].background_color = neutral
+# inspired by Apocalypse World & Simple World
+def getPlotMove(*args):
     self = args[0].self
-
-    pattern = []
-    intersection = []
-
-    for i in range(1,10):
-        pattern.append("1 by " + str(i))
-
-    for i in range(2, 10):
-        for x in range(1,10):
-            intersection.append(", 1 by " + str(x) + " intersection at " + str(i))
-
-    roll = random.randint(0, len(pattern)-1)
-    base = pattern[roll]
-
-    base = base + random.choice([", vertical", ", horizontal"])
-
-    if roll > 1 and random.randint(1,100) > 80:
-        base = base + random.choice(intersection)
-
-    result = "[Corridor] " + base
-
-    updateCenterDisplay(self, result)
-
-def getGridExits(*args):
-
     args[0].background_color = neutral
-    self = args[0].self
+    chart = {
+       2 : "Deal harm.",
+       3 : "Trade harm for harm.",
+       4 : "Put someone in a high-stakes situation.",
+       5 : "Turn their move back on them.",
+       6 : "Change the world away from the expected in a subtle way.",
+       7 : "Add or remove an NPC from the current scene or area.",
+       8 : "Use one of their prized things, skills, or traits against them.",
+       9 : "Change something off-screen or in the future.",
+      10 : "Give them a difficult decision to make or present a dilemma.",
+      11 : "Manipulate, alter, rescue, or reveal someone physically, emotionally, or mentally.",
+      12 : "Place an emotional, physical, mental, or other type of barrier in the way.",
+    }
+
+    roll = random.randint(1,6) + random.randint(1,6)
+    result = chart[roll]
+
+    result = "[Plot Move] " + result
+
+    updateCenterDisplay(self, result, 'result')
+
+def focusChangeMonster(field, value):
+    if value:
+        pass
+    else:
+        try:
+            self = field.self
+            index = self.monsterFields.index(field)
+            config.general['monsters'][index] = field.text
+        except:
+            pass
+
+def getMonster(button, *args):
+
+    self = button.self
+    button.background_color = neutral
+    field = button.field
 
     result = ""
 
-    roll = random.randint(0,5)
+    traits = random.sample(["rapacious", "violent", "depraved", "perverse", "hungry", "miserable", "insane", "degenerate", "incestuous/inbred", "obsessive", "magical", "superior", "chimeric", "mutated", "greedy", "generous", "hateful", "loving", "out of element", "fearful", "brave", "kind", "cruel", "vengeful"], 2)
 
-    chart = [ "North or Up", "East or Right", "South or Down", "West or Left",]
+    subtype =  random.sample(["vermin", "humanoid", "demihuman", "automaton or elemental", "magical beast", "plant", "mindless undead", "sentient undead", "insect", "demon ", "abomination", "beast"], 3)
 
-    exits = []
-    for i in range(roll):
-        exits.append(random.choice(chart))
+    intelligence = random.choice(["low ", "high ", ""]) + random.choice(["none", "animal", "animal", "intelligent", "intelligent"])
 
+    special_abilities = random.sample(["hits really hard", "has multiple attacks", "armored", "regenerates", "damage reduction", "spell-like ability resembling 1st level spell", "spell-like ability resembling 2nd level spell", "spell-like ability resembling 3rd level spell", "petrification attack", "poison attack", "ability to become insubstantial or incorporeal", "extremely stealthy", "breath attack", "immunity", "stunning attack", "paralyzing attack", "death attack", "draining attack", "telepathic"], 2)
 
+    hd = random.randint(1,12)
+    num = random.randint(1,12)
 
-    result = "[Exits] " + str(roll) + " " + ", ".join(exits)
+    # now parse stuff
+    if "superior" in traits:
+        traits[traits.index('superior')] = "superior (" + random.choice(["Str", "Dex", "Con", "Int", "Wis", "Cha"]) + ")"
 
-    updateCenterDisplay(self, result)
+    basetype = subtype[0]
+    if "chimeric" in traits:
+        basetype = subtype[0] + "-" + subtype[1]
+    if "mutated" in traits:
+        traits[traits.index('mutated')] = "mutated (" + subtype[2] + ")"
+
+    rroll = random.randint(1,6)
+    if rroll <= 2:
+        special_abilities = "None"
+    elif rroll == 6:
+        special_abilities = ', '.join(special_abilities)
+    else:
+        special_abilities = special_abilities[0]
+
+    if "mindless" in basetype:
+        intelligence = "None"
+
+    result = basetype + " (" + str(num) + ") Int: " + intelligence + " HD: " + str(hd) + " Traits: " + ", ".join(traits) + " SA: " + special_abilities
+
+    field.text = result
+
+    index = self.monsterFields.index(field)
+
+    config.general['monsters'][index] = result
+
+def copyMonstersToMain(button, *args):
+    self = button.self
+    button.background_color = neutral
+
+    count = 0
+    for item in config.general['monsters']:
+        count = count + 1
+        if len(item) > 0:
+            updateCenterDisplay(self, "[" + str(count) + "] " + item, 'result')
+
+def clearMonsters(button, *args):
+    self = button.self
+    button.background_color = neutral
+
+    config.general['monsters'] = ["","","","","",""]
+
+    for i in range(len(config.general['monsters'])):
+        self.monsterFields[i].text = config.general['monsters'][i]
+
+def getPlotPrompt(spinner, value):
+
+    self = spinner.self
+
+    result = []
+
+    descList = ['surly', 'attractive', 'beautiful', 'ugly', 'handsome', 'hideous', 'deformed', 'maimed', 'scarred', 'pleasant', 'kind', 'charming', 'unhappy', 'sensual', 'naive', 'friendly', 'unfriendly', 'wealthy', 'poor', 'profligate', 'miserly', 'miserable', 'pathetic', 'vicious', 'violent', 'excitable', 'greedy', 'compassionate', 'selfless', 'repressed', 'louche', 'dissipated', 'weak', 'strong', 'fearless', 'fearful', 'haunted', 'happy-go-lucky', 'capable', 'calm', 'insolent', 'regal', 'stern', 'tempermental', 'mercurial', 'enraged', 'angry', 'infuriated', 'sorrowful', 'grief-stricken', 'depressed', 'optimistic', 'passionate', 'free-spirited', 'intense', 'obsessive', 'choleric', 'stolid', 'complacent', 'arrogant', 'haughty', 'bold', 'reckless', 'determined', 'guarded', 'paranoid', 'trusting', 'untrustworthy', 'tactless', 'disillusioned', 'graceful', 'outspoken', 'taciturn', 'reclusive', 'withdrawn', 'traumatized', 'skillful']
+
+    subjList = ['mage', 'necromancer', 'sorcerer', 'wizard', 'diviner', 'seer', 'oracle', 'hunter', 'forester', 'poacher', 'ranger', 'outlaw', 'bandit', 'thief', 'rogue', 'burglar', 'jewel thief', 'assassin', 'thug', 'second story man', 'highwayman', 'grave robber', 'archaeologist', 'anatomist', 'doctor', 'scientist', 'academic', 'teacher', 'professor', 'sage', 'psychic', 'astrologer', 'vizier', 'chancellor', 'nobleman', 'gentleman', 'king', 'prince', 'queen', 'princess', 'gentewoman', 'lady', 'knight', 'spirit', 'ghost', 'phantom', 'vampire', 'werewolf', 'monster', 'fighter', 'warrior', 'soldier', 'demon hunter', 'wanderer', 'traveler', 'maiden', 'lad', 'merchant', 'shopkeeper', 'innkeeper', 'traitor', 'hermit', 'warlord', 'sorceress', 'shaman', 'healer', 'priest', 'acolyte', 'monk', 'baron', 'duke', 'serf', 'peasant', 'bartender', 'harlot', 'spy', 'adventurer', 'cleric', 'bard', 'entertainer', 'dancer', 'singer', 'musician', 'actor', 'actress', 'playwright', 'blacksmith', 'tinker', 'barbarian', 'alchemist', 'crafter', 'artisan', 'artist', 'butler', 'servant', 'enforcer', 'mercenary', 'pilgrim', 'arcane dabbler', 'mystic', 'beast tamer', 'youth', 'maid', 'virgin', 'innocent', 'libertine', 'rake', 'innocent victim of a curse', 'deserving victim of a curse', 'criminal', 'escapee', 'archer', 'madman', 'deserter', 'renegade', 'outcast', 'demon', 'devil']
+
+    objList = ['wealth', 'treasure', 'power', 'an artifact', 'love', 'a love interest', 'a person who hates them', 'youth', 'immortality', 'fame', 'a delicacy', 'a rarity', 'the downfall of a rival', 'the death of an enemy', 'the disposal of a henchman', 'the disposal of a blackmailer', 'the resolution of a private matter', 'a place to call home', 'a lover', 'carnal pleasures', 'a reason to live', 'a child', 'an heir', 'a prize in their field', 'a rival\'s treasure', 'peace', 'forgiveness', 'revenge', 'the revelation of a secret', 'the burying of a sin', 'the disposal of an enemy', 'the ruin of an enemy', 'the love of a friend', 'to know the truth', 'to build something of lasting value', 'to make the world a better place', 'to cure a terrible disease', 'to make their mark', 'transformation', 'to improve', 'to experience everything', 'to indulge', 'freedom', 'freedom for a loved one', 'freedom for all', 'freedom from oppression', 'hope', 'a light against encroaching darkness']
+
+    obsList = ['fame', 'infamy', 'poverty', 'wealth', 'death', 'reputation', 'distance', 'age', 'omens', 'rivalry', 'a foe', 'the owner', 'traps', 'infirmity', 'past crimes', 'hidden secrets', 'vile perversions', 'dark secrets', 'a noble burden', 'a duty', 'a sacred vow', 'a blood oath', 'a familial duty', 'a desperate bargain']
+
+    targetSub = ['foe', 'rival', 'prisoner', 'reluctant ally', 'willing accomplice', 'naive innocent', 'group of bystanders'] + subjList
+    actSub = ['seduce', 'betray', 'enslave', 'trick', 'impress', 'capture', 'entrap', 'coerce', 'murder', 'discard', 'poison', 'taint', 'transform', 'sacrifice', 'test the mettle of', 'test the faith of']
+
+    p = ' a '
+
+    acts = [x + p + y for x in actSub for y in targetSub ]
+
+    actList = ['hire a surrogate', 'hire a patsy', 'hire muscle', 'hire a scholar', 'set a trap', 'prepare an ambush', 'send for an ally', 'scheme spitefully', 'post a reward', 'strike quickly', 'wait it out', 'act under cloak of night', 'seize an advantage', 'research', 'investigate', 'drown sorrows', 'get lost in', 'go for an extended trip', 'weather the storm', 'make sacrifices', 'order reprisals', 'encourage a rival', 'destroy a powerful artifact', 'establish a center for learning', 'build something', 'answer a call to arms', 'fulfil a sacred duty', 'pursue vengeance', 'pursue love', 'make a desperate bargain', 'dispose of all witnesses', 'satisfy jaded tastes', 'survive at all costs']
+
+    ingList = ['fleeing', 'fighting', 'enduring', 'hiding from', 'hiding', 'seeking', 'pursuing', 'looking for', 'hunting', 'facing']
+    ing = random.choice(ingList)
+
+    eveList = ['someone taking a bath', 'a betrayal', 'a wedding', 'a murder', 'a confession' 'a funeral', 'a meal between enemies', 'a romantic assignation', 'a natural disaster', 'someone chasing someone else', 'someone scolding someone else', 'someone watching an event unfold', 'a dramatic reveal', 'a covert flirtation at a fancy event', 'a scandal breaking', 'a trial', 'a pleasant surprise', 'an unpleasant surprise', 'a vicious attack', 'a fight to the death', 'a fight for survival', 'a birthday preparation', 'the discovery of a long-lost relative', 'the discovery of a long-lost ruin', 'the discovery of a long-lost heir', 'the return of a black sheep', 'the loss of innocence', 'a secretive tryst', 'a bold move', 'the gleeful destruction of a foe', 'humiliation', 'gardening', 'tending to the wounded', 'a voyage']
+
+    objSub = ["to " + x for x in actList]
+
+    desc = random.sample(descList, 3)
+    subj = random.sample(subjList, 3)
+    eve = random.sample(eveList, 3)
+
+    obj = []
+    for i in range(3):
+        l = random.choice([objList, objList + objSub])
+        obj.append(random.choice(l))
+
+    obs = random.sample(obsList, 3)
+
+    act = random.sample(actList + acts, 1) + random.sample(actList, 1) + random.sample(actList + acts, 1)
+
+    actor = [ y + " " + x for y, x in zip(desc, subj)]
+
+    for i in range(len(actor)):
+        if actor[i][:1] in "a i e o u":
+            actor[i] = "an " + actor[i]
+        else:
+            actor[i] = "a " + actor[i]
+
+    result.append(actor[0].capitalize() + " wants " + obj[0] + " but can't have it because of " + obs[0] + ", so will " + act[0] + " in order to " + act[1] + ".")
+
+    result.append("The decision to " + act[0] + " by " + actor[0] + " sparks " + actor[1] + " to " + act[1] + ". This hurts " + actor[2] + " who is " + ing + " " + obj[0] + ".")
+
+    result.append("When " + actor[0] + " moves to " + act[0] + " " + ing + " " + obj[0] + ", " + actor[1] + " plans to " + act[1] + ".")
+
+    result.append("Can " + actor[0] + ", who just wants " + obj[0] + ", avoid " + obs[0] + " and " + act[0] + "?")
+
+    result.append("Two rivals, " + actor[0] + " and " + actor[1] + ", both seek " + obj[0] + ". " + actor[2].capitalize() + " caught in the middle is " + ing + " " + obj[1] + "-- and to " + act[0] + ".")
+
+    result.append(actor[0].capitalize() + ", " + ing + " " + obj[0] + ". " + actor[1].capitalize() + ", " + ing + " " + obj[1] + ". Who will overcome " + obs[0] + " and " + obs[1] + " first?")
+
+    result.append(actor[0].capitalize() + " is obsessed with " + actor[1] + ". Can " + actor[2] + " " + ing + " " + obj[1] + " overcome " + obs[0] + " and " + obs[1] + "?")
+
+    result.append(actor[0].capitalize() + " has completed a plan to " + act[0] + ". Now all that stands between them and " + obj[0] + " is " + actor[1] + " " + ing + " " + obj[1] + " and " + actor[2] + " who wants to " + act[1] + ".")
+
+    result.append("The story is about " + actor[0] + " " + ing + " " + obs[0] + " and " + actor[1] + " " + ing + " " + obs[1] + ". It starts with a plan to " + act[0] + " and ends with an attempt to " + act[2] + ". The theme is " + obs[2] + ".")
+
+    result.append("The hero is " + actor[0] + " who suffers from " + obs[0] + ". The story begins with" + eve[0] + " climaxes with " + eve[1] + ", and ends with " + eve[2] + ".")
+
+    index = self.premiseList.index(value)
+
+    result = result[index]
+    updateCenterDisplay(self, result, 'result')
+
+def getPlotWeb(button, *args):
+
+    self = button.self
+    button.background_color = neutral
+
+    result = []
+
+    descList = ['surly', 'attractive', 'beautiful', 'ugly', 'handsome', 'hideous', 'deformed', 'maimed', 'scarred', 'pleasant', 'kind', 'charming', 'unhappy', 'sensual', 'naive', 'friendly', 'unfriendly', 'wealthy', 'poor', 'profligate', 'miserly', 'miserable', 'pathetic', 'vicious', 'violent', 'excitable', 'greedy', 'compassionate', 'selfless', 'repressed', 'louche', 'dissipated', 'weak', 'strong', 'fearless', 'fearful', 'haunted', 'happy-go-lucky', 'capable', 'calm', 'insolent', 'regal', 'stern', 'tempermental', 'mercurial', 'enraged', 'angry', 'infuriated', 'sorrowful', 'grief-stricken', 'depressed', 'optimistic', 'passionate', 'free-spirited', 'intense', 'obsessive', 'choleric', 'stolid', 'complacent', 'arrogant', 'haughty', 'bold', 'reckless', 'determined', 'guarded', 'paranoid', 'trusting', 'untrustworthy', 'tactless', 'disillusioned', 'graceful', 'outspoken', 'taciturn', 'reclusive', 'withdrawn', 'traumatized', 'skillful']
+
+    subjList = ['mage', 'necromancer', 'sorcerer', 'wizard', 'diviner', 'seer', 'oracle', 'hunter', 'forester', 'poacher', 'ranger', 'outlaw', 'bandit', 'thief', 'rogue', 'burglar', 'jewel thief', 'assassin', 'thug', 'second story man', 'highwayman', 'grave robber', 'archaeologist', 'anatomist', 'doctor', 'scientist', 'academic', 'teacher', 'professor', 'sage', 'psychic', 'astrologer', 'vizier', 'chancellor', 'nobleman', 'gentleman', 'king', 'prince', 'queen', 'princess', 'gentewoman', 'lady', 'knight', 'spirit', 'ghost', 'phantom', 'vampire', 'werewolf', 'monster', 'fighter', 'warrior', 'soldier', 'demon hunter', 'wanderer', 'traveler', 'maiden', 'lad', 'merchant', 'shopkeeper', 'innkeeper', 'traitor', 'hermit', 'warlord', 'sorceress', 'shaman', 'healer', 'priest', 'acolyte', 'monk', 'baron', 'duke', 'serf', 'peasant', 'bartender', 'harlot', 'spy', 'adventurer', 'cleric', 'bard', 'entertainer', 'dancer', 'singer', 'musician', 'actor', 'actress', 'playwright', 'blacksmith', 'tinker', 'barbarian', 'alchemist', 'crafter', 'artisan', 'artist', 'butler', 'servant', 'enforcer', 'mercenary', 'pilgrim', 'arcane dabbler', 'mystic', 'beast tamer', 'youth', 'maid', 'virgin', 'naive innocent', 'libertine', 'rake', 'innocent victim of a curse', 'deserving victim of a curse', 'criminal', 'escapee', 'archer', 'madman', 'deserter', 'renegade', 'outcast', 'demon', 'devil']
+
+    conList = ['is sleeping with', 'is romancing', 'is seducing', 'is pursuing', 'is hunting', 'is working for', 'is conning', 'is bloodsworn to', 'is mortal enemies with', 'is rivals with', 'is afraid of', 'hates', 'loathes', 'loves', 'doesn\'t know of', 'knows a terrible secret about', 'is hiding a secret from', 'is partners in perversion with', 'is drinking buddies with', 'was beaten over an imagined slight by', 'was discarded by', 'is using', 'is tricking', 'is a client of', 'is chasing after', 'is trying to ruin', 'owes money to', 'fears replacement by', 'is attempting to convert']
+
+    desc = random.sample(descList, 4)
+    subj = random.sample(subjList, 4)
+    con = random.sample(conList, 5)
+
+    actor = [ y + " " + x for y, x in zip(desc, subj)]
+
+    for i in range(len(actor)):
+        if actor[i][:1] in "a i e o u":
+            actor[i] = "an " + actor[i]
+        else:
+            actor[i] = "a " + actor[i]
+
+    ractor = random.sample(actor[:3], 2)
+
+    result = actor[0].capitalize() + " " + con[0] + " " + actor[1] + ". " + actor[1].capitalize() + " " + con[1] + " " + actor[2] + ". " + actor[2].capitalize() + " " + con[2] + " " + actor[0] + ". " + " " + actor[3].capitalize() + " " + con[3] + " " + ractor[0] + ". " + " " + actor[3].capitalize() + " " + con[4] + " " + ractor[1] + ". "
+
+    updateCenterDisplay(self, result, 'result')
+
+def getPlayScene(button, *args):
+    button.background_color = neutral
+    self = button.self
+
+    sceneChart = ["Setting", "Atmosphere/Mood", "Introduction", "Exposition", "Transition", "Preparation", "Aftermath", "Investigation", "Revelation", "Recognition", "A Gift In Play", "Escape", "Pursuit", "Seduction", "Opposites Attract", "Reversal of Expectations", "Unexpected Visitor"]
+
+    rroll = random.randint(1,100)
+
+    if rroll <= 50:
+        scene = random.choice(sceneChart)
+    else:
+        scene = random.sample(sceneChart, 2)
+        scene = ' & '.join(scene)
+
+    sceneTypeChart = ['Dream sequence', 'Montage', 'Flashback', 'Interlude', 'Straight', 'Straight', 'Interrupt', 'Obligatory']
+
+    index = self.actList.index(self.actSpinner.text)
+    if index <= 3:
+        rroll = random.randint(0,7)
+    elif index <= 9:
+        rroll = max(random.randint(0,7), random.randint(0,7))
+    else:
+        rroll = max(random.randint(0,7), random.randint(0,7), random.randint(0,7))
+
+    scenetype = sceneTypeChart[rroll]
+
+    result = "[" + self.actSpinner.text + "] " + scene + ", " + scenetype + " (" + str(rroll+1) + ")"
+
+    updateCenterDisplay(self, result, 'result')
+
+def updateConfig(spinner, value):
+    config.general['current_sequence'] = value
+
+def releaseResolveUp(button, *args):
+    button.background_color = neutral
+    self = button.self
+    config.general['resolve'] = config.general['resolve'] + 1
+    self.resolveLabel.text = str(config.general['resolve'])
+
+def releaseResolveDown(button, *args):
+    button.background_color = neutral
+    self = button.self
+    config.general['resolve'] = config.general['resolve'] - 1
+    self.resolveLabel.text = str(config.general['resolve'])
