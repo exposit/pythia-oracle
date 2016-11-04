@@ -129,11 +129,11 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 __*System*__
 
-The System section has a "Save" button that saves the current state of the program, and a "Merge" flag that determines if blocks are merged or not.
+"Save" immediately runs the save routine, saving the game and the configuration file.
 
-Note that "Merge" mode is really only useful if you have a very, very long file with lots of blocks and are running into lag. It's usually better to just start a new save at that point.
+"Merge" is a toggle; if set (dark), blocks will be merged down if the prior block has the same formatting as the new one. This will persist when you reopen the game. Note that "Merge" mode is really only useful if you have a very, very long file with lots of blocks and are running into lag. It's usually better to just start a new save at that point!
 
-If Merge mode is turned on, all timestamp information for merged blocks, other than the first, will be overwritten.
+"DQ" is "dice qualities". When this is toggled on, all dice rolled will have a quality attached. See the section "Resolution Clarifiers" under "Oracle Panel" for more information or read the original [article](http://thealexandrian.net/?p=2781) here.
 
 __*Add*__
 
@@ -226,6 +226,24 @@ The "Chaos Oracle" returns a response weighted heavily towards random events and
 "Plot Move" chooses a potential GM-style move. Use to emulate a GM's actions or plot movement.
 
 >*[Plot Move] Add or remove an NPC from the current scene or area.*
+
+__*Resolution Clarifier*__
+
+Press the number corresponding to the dice you're about to throw, then roll as normal. Each qualifier result corresponds to one of the thrown dice, in order, left to right. If the roll succeeds, the higher of the two dice indicates why; if the roll fails, the lower of the two dice indicates why.
+
+This is useful for describing why a roll succeeds or fails.
+
+*Reil's player rolls 2d8 to evade the falling pillar, a DC of 13. The dice qualities are "Luck" and "Skill", in that order. Pythia returns (again in order) a 4 and a 6; not enough, so he fails! Matching qualities to the rolls means Luck was the lower and thus it was bad luck that he failed -- his foot slips or the pillar just happens to be falling in such a way he can't evade. If he'd succeeded, it would have been because of his skill -- his years of experience aided him or his intense physical training, perhaps.*
+
+Uses ideas and terminology from this [article](http://thealexandrian.net/?p=2781); you should read it if you want to understand how it works, get proper definitions for each term, and for much, much better examples and adaptations.
+
+You can set your own qualifiers in the config file. You can also toggle this to happen on every dice roll automatically using the "DQ" flag in the footer.
+
+__Hit Locations__
+
+Hit Locations works similarly to the Resolution Clarifier above, but returns one or more hit locations ("Head", "Left Arm", and so on). You can assign the results to each die you are about to throw or just grab one as needed. Useful for describing the outcome of a combat roll, or picking a body part if the question comes up.
+
+You can set your own hit locations list in the config file.
 
 __*But/And Clarifier*__
 

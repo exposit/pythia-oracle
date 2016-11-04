@@ -206,7 +206,7 @@ class MainScreen(Screen):
         self.mergeButton = ToggleButton(text="Merge")
         self.mergeButton.bind(on_release=self.toggleMerge)
 
-        self.qualitiesButton = ToggleButton(text="RQ")
+        self.qualitiesButton = ToggleButton(text="DQ")
         self.qualitiesButton.bind(on_release=self.toggleResolutionMode)
 
         #self.box for adding threads & actors
