@@ -38,7 +38,7 @@ def initPanel(self):
         plotMainBox.add_widget(Label(text="General Plotting", size_hint=(1,.10), font_size=config.basefont90))
 
         #story seed
-        self.premiseList = ["Somebody wants something but can't...", "The decision to do something...", "When someone moves to...", "Can someone who just wants...", "Two rivals...", "Two separate people, two separate agends.", "Obsession!", "Plan complete...", "The story is about..", "The hero is..."]
+        self.premiseList = ["Somebody wants something but can't...", "The decision to do something...", "When someone moves to...", "Can someone who just wants...", "Two rivals...", "Two separate people, two separate agendas.", "Obsession!", "Plan complete...", "The story is about..", "The hero is..."]
 
         self.premiseSpinner = Spinner(
         text='Plot Premise',
@@ -195,14 +195,12 @@ def getSceneElement(button, *args):
     except:
         pass
 
-max_elements = 3
-max_subjects = 5
-active_subjects = []
+active_plot_subjects = []
 
-subject = ['a hero', 'the enemy', 'an ally', 'common folk', 'a fire', 'the strong', 'the weak', 'a castle', 'a spy', 'a reward', 'a punishment', 'a bargain', 'a promise', 'a disaster', 'a lover', 'a danger', 'a monster', 'magic', 'love', 'secret']
-object = ['progress', 'setback', 'destruction', 'creation', 'truth', 'falsity', 'love', 'hate', 'twist', 'awaken', 'a celebration', 'ruin', 'defilement', 'retreat']
-bridge = ['causes', 'is', 'is', 'is', 'regards', 'experience', 'of', 'against', 'undergoes', 'overcome', 'twists', 'to', 'ruins', 'makes']
-end = ['triumphs', 'lost', 'fails', 'overcomes', 'continues', 'endures', 'flees', 'destroyed']
+plot_subject = ['a hero', 'the enemy', 'an ally', 'common folk', 'a fire', 'the strong', 'the weak', 'a castle', 'a spy', 'a reward', 'a punishment', 'a bargain', 'a promise', 'a disaster', 'a lover', 'a danger', 'a monster', 'magic', 'love', 'secret']
+plot_object = ['progress', 'setback', 'destruction', 'creation', 'truth', 'falsity', 'love', 'hate', 'twist', 'awaken', 'a celebration', 'ruin', 'defilement', 'retreat']
+plot_bridge = ['causes', 'is', 'is', 'is', 'regards', 'experience', 'of', 'against', 'undergoes', 'overcome', 'twists', 'to', 'ruins', 'makes']
+plot_end = ['triumphs', 'lost', 'fails', 'overcomes', 'wins', 'continues unchanged', 'endures', 'flees', 'defeated', 'undefeated', 'destroyed']
 
 def makeSceneList(button, *args):
     button.background_color = neutral
@@ -226,7 +224,7 @@ def makeSceneList(button, *args):
 
 def activateNoun(plot):
 
-    choice = random.choice(subject)
+    choice = random.choice(plot_subject)
 
     plot = getPlotList(choice, plot)
 
@@ -234,30 +232,30 @@ def activateNoun(plot):
 
 def getPlotList(choice, plot):
 
-    active_subjects.append(choice)
+    active_plot_subjects.append(choice)
     matches = []
 
-    for item in subject + object:
-        for link in bridge:
+    for item in plot_subject + plot_object:
+        for link in plot_bridge:
             matches.append(choice + " (" + link + ") " + item)
 
-    rand_iter = random.randint(1,max(min(max_elements, len(matches)-1), 1))
+    rand_iter = random.randint(1,max(min(config.max_plot_elements, len(matches)-1), 1))
     rand_smpl = [ matches[i] for i in sorted(random.sample(xrange(len(matches)), rand_iter)) ]
 
-    rand_smpl.append(choice + " " + random.choice(end))
+    rand_smpl.append(choice + " " + random.choice(plot_end))
 
     plot.append(rand_smpl)
 
-    new_words = [x for x in subject if x not in active_subjects]
+    new_words = [x for x in plot_subject if x not in active_plot_subjects]
 
-    if len(active_subjects) < max_subjects:
+    if len(active_plot_subjects) < config.max_plot_subjects:
         if len(new_words) > 0:
             new_word = random.sample(new_words,1)[0]
-            if new_word not in active_subjects:
+            if new_word not in active_plot_subjects:
                 plot = plot + getPlotList(new_word, plot)
         else:
-            new_word = random.sample(subject, 1)[0]
-            if new_word not in active_subjects:
+            new_word = random.sample(plot_subject, 1)[0]
+            if new_word not in active_plot_subjects:
                 plot = plot + getPlotList(new_word, plot)
 
     return plot
@@ -388,8 +386,8 @@ def getPlotPrompt(spinner, value):
 
     actList = ['hire a surrogate', 'hire a patsy', 'hire muscle', 'hire a scholar', 'set a trap', 'prepare an ambush', 'send for an ally', 'scheme spitefully', 'post a reward', 'strike quickly', 'wait it out', 'act under cloak of night', 'seize an advantage', 'research', 'investigate', 'drown sorrows', 'get lost in', 'go for an extended trip', 'weather the storm', 'make sacrifices', 'order reprisals', 'encourage a rival', 'destroy a powerful artifact', 'establish a center for learning', 'build something', 'answer a call to arms', 'fulfil a sacred duty', 'pursue vengeance', 'pursue love', 'make a desperate bargain', 'dispose of all witnesses', 'satisfy jaded tastes', 'survive at all costs']
 
-    ingList = ['fleeing', 'fighting', 'enduring', 'hiding from', 'hiding', 'seeking', 'pursuing', 'looking for', 'hunting', 'facing']
-    ing = random.choice(ingList)
+    ingList = ['fleeing', 'fighting', 'enduring', 'hiding', 'resisting', 'seeking', 'pursuing', 'looking for', 'hunting', 'facing']
+    ing = random.sample(ingList, 2)
 
     eveList = ['someone taking a bath', 'a betrayal', 'a wedding', 'a murder', 'a confession' 'a funeral', 'a meal between enemies', 'a romantic assignation', 'a natural disaster', 'someone chasing someone else', 'someone scolding someone else', 'someone watching an event unfold', 'a dramatic reveal', 'a covert flirtation at a fancy event', 'a scandal breaking', 'a trial', 'a pleasant surprise', 'an unpleasant surprise', 'a vicious attack', 'a fight to the death', 'a fight for survival', 'a birthday preparation', 'the discovery of a long-lost relative', 'the discovery of a long-lost ruin', 'the discovery of a long-lost heir', 'the return of a black sheep', 'the loss of innocence', 'a secretive tryst', 'a bold move', 'the gleeful destruction of a foe', 'humiliation', 'gardening', 'tending to the wounded', 'a voyage']
 
@@ -418,23 +416,23 @@ def getPlotPrompt(spinner, value):
 
     result.append(actor[0].capitalize() + " wants " + obj[0] + " but can't have it because of " + obs[0] + ", so will " + act[0] + " in order to " + act[1] + ".")
 
-    result.append("The decision to " + act[0] + " by " + actor[0] + " sparks " + actor[1] + " to " + act[1] + ". This hurts " + actor[2] + " who is " + ing + " " + obj[0] + ".")
+    result.append("The decision to " + act[0] + " by " + actor[0] + " sparks " + actor[1] + " to " + act[1] + ". This hurts " + actor[2] + " who is " + ing[0] + " " + obj[0] + ".")
 
-    result.append("When " + actor[0] + " moves to " + act[0] + " " + ing + " " + obj[0] + ", " + actor[1] + " plans to " + act[1] + ".")
+    result.append("When " + actor[0] + " moves to " + act[0] + " " + ing[0] + " " + obj[0] + ", " + actor[1] + " plans to " + act[1] + ".")
 
     result.append("Can " + actor[0] + ", who just wants " + obj[0] + ", avoid " + obs[0] + " and " + act[0] + "?")
 
-    result.append("Two rivals, " + actor[0] + " and " + actor[1] + ", both seek " + obj[0] + ". " + actor[2].capitalize() + " caught in the middle is " + ing + " " + obj[1] + "-- and to " + act[0] + ".")
+    result.append("Two rivals, " + actor[0] + " and " + actor[1] + ", both seek " + obj[0] + ". " + actor[2].capitalize() + " caught in the middle is " + ing[1] + " " + obj[1] + "-- and to " + act[0] + ".")
 
-    result.append(actor[0].capitalize() + ", " + ing + " " + obj[0] + ". " + actor[1].capitalize() + ", " + ing + " " + obj[1] + ". Who will overcome " + obs[0] + " and " + obs[1] + " first?")
+    result.append(actor[0].capitalize() + ", " + ing[0] + " " + obj[0] + ". " + actor[1].capitalize() + ", " + ing[1] + " " + obj[1] + ". Who will overcome " + obs[0] + " and " + obs[1] + " first?")
 
-    result.append(actor[0].capitalize() + " is obsessed with " + actor[1] + ". Can " + actor[2] + " " + ing + " " + obj[1] + " overcome " + obs[0] + " and " + obs[1] + "?")
+    result.append(actor[0].capitalize() + " is obsessed with " + actor[1] + ". Can " + actor[2] + " " + ing[0] + " " + obs[2] + " overcome " + obs[0] + " and " + obs[1] + "?")
 
-    result.append(actor[0].capitalize() + " has completed a plan to " + act[0] + ". Now all that stands between them and " + obj[0] + " is " + actor[1] + " " + ing + " " + obj[1] + " and " + actor[2] + " who wants to " + act[1] + ".")
+    result.append(actor[0].capitalize() + " has completed a plan to " + act[0] + ". Now all that stands between them and " + obj[0] + " is " + actor[1] + " " + ing[1] + " " + obj[1] + " and " + actor[2] + " who wants to " + act[1] + ".")
 
-    result.append("The story is about " + actor[0] + " " + ing + " " + obs[0] + " and " + actor[1] + " " + ing + " " + obs[1] + ". It starts with a plan to " + act[0] + " and ends with an attempt to " + act[2] + ". The theme is " + obs[2] + ".")
+    result.append("The story is about " + actor[0] + " " + ing[0] + " " + obs[0] + " and " + actor[1] + " " + ing[1] + " " + obs[1] + ". It starts with a plan to " + act[0] + " and ends with an attempt to " + act[2] + ". The theme is " + obs[2] + ".")
 
-    result.append("The hero is " + actor[0] + " who suffers from " + obs[0] + ". The story begins with" + eve[0] + " climaxes with " + eve[1] + ", and ends with " + eve[2] + ".")
+    result.append("The hero is " + actor[0] + " who suffers from " + obs[0] + ". The story begins with " + eve[0] + ", climaxes with " + eve[1] + ", and ends with " + eve[2] + ".")
 
     index = self.premiseList.index(value)
 

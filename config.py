@@ -132,6 +132,10 @@ resolution_qualifiers = ["Time Required", "Outside Influences", "Knowledge", "Sk
 # hit locations; if empty list will use a pretty standard built in one
 hit_locations = []
 
+# these are used for plot generation
+max_plot_subjects = 3
+max_plot_elements = 3
+
 # font sizes -- some of these may be deprecated
 basefont = str(formats['basefontsize']*.90) + "dp"
 basefont60 = str(formats['basefontsize']*.70) + "dp"

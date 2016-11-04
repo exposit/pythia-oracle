@@ -223,10 +223,6 @@ The "Chaos Oracle" returns a response weighted heavily towards random events and
 > *[Chaos 11] Yes, and, but*<br>
 >__*Yes, and*__ *blind-folded,* __*but*__ *not gagged.*
 
-"Plot Move" chooses a potential GM-style move. Use to emulate a GM's actions or plot movement.
-
->*[Plot Move] Add or remove an NPC from the current scene or area.*
-
 __*Resolution Clarifier*__
 
 Press the number corresponding to the dice you're about to throw, then roll as normal. Each qualifier result corresponds to one of the thrown dice, in order, left to right. If the roll succeeds, the higher of the two dice indicates why; if the roll fails, the lower of the two dice indicates why.
@@ -239,7 +235,7 @@ Uses ideas and terminology from this [article](http://thealexandrian.net/?p=2781
 
 You can set your own qualifiers in the config file. You can also toggle this to happen on every dice roll automatically using the "DQ" flag in the footer.
 
-__Hit Locations__
+__*Hit Locations*__
 
 Hit Locations works similarly to the Resolution Clarifier above, but returns one or more hit locations ("Head", "Left Arm", and so on). You can assign the results to each die you are about to throw or just grab one as needed. Useful for describing the outcome of a combat roll, or picking a body part if the question comes up.
 
@@ -452,6 +448,64 @@ This tool is used to generate an emotion and degree of emotion from a negative o
 
 *The scout is relieved someone's here to assist him, and that relief drives him to be as helpful as he can be.*
 
+#####Plot & Monsters
+
+This panel is all about plots and monsters. Surprisingly?
+
+__General Plotting__
+
+"Plot Premise" is a dropdown list of different formats for a randomly generated premise. They of course need interpretation.
+
+> A taciturn bard wants to make the world a better place but can't have it because of dark secrets, so will sacrifice a rival in order to hire a scholar.<br>
+> The decision to betray a demon hunter by a reckless grave robber sparks an unhappy harlot to set a trap. This hurts a depressed baron who is fighting the disposal of a blackmailer.
+
+"Plot Web" will generate three actors, each of whom connects to another in a circle (the status quo). It then generates a fourth actor with two points of connection to the first three (the wildcard).
+
+> An angry king is sleeping with a pathetic shopkeeper. A pathetic shopkeeper is pursuing a haughty monk. A haughty monk is drinking buddies with an angry king.  A disillusioned vampire is chasing after an angry king.  A disillusioned vampire owes money to a pathetic shopkeeper.
+
+*The status quo involves the romantic entanglements of a king, a shopkeeper, and a monk. Into this heady mix comes a vampire who is chasing the king -- perhaps so that the shopkeeper he owes money to, once out of favor, can be disposed of?*
+
+"Plot Move" chooses a potential GM-style move. Use to emulate a GM's actions or plot movement.
+
+>*[Plot Move] Add or remove an NPC from the current scene or area.*
+
+__Script Framework__
+
+This is a simple tracker for a scriptwriting style plot. On the left is a dropdown menu for the current function of the scene (essentially an Act structure) and on the right is a tracker for whatever you'd like to track.
+
+"Get a Scene" takes the current stage from the spinner and returns a scene description and a scene type.
+
+>[Plot Point: Inciting Incident] Reversal of Expectations & Recognition, Dream sequence (1)
+
+*In this case, the scene will feature a reversal of expectations and the sudden recognition of something. It also has a good chance of being a dream sequence!*
+
+__Scene List__
+
+These two buttons work together to provide interpretive scene descriptions. "Make List" will create a list of scenes ('elements') around three randomly chosen topics. "Get Element" will pop the first element off the list and display it.
+
+> [Scene] common folk (overcome) secret
+> [Scene] magic triumphs
+
+You can use the word in parenthesis as a bridge between the two words, if it makes sense to do so, or simply look at each word as a separate element of the scene. The final scene for each topic will not have the bridge.
+
+__Monsters__
+
+Press the "new" button next to each field to generate a new monster in that field. Monsters are fairly abstract so they can be used with any system -- things like AC and attacks are left up to the GM's discretion. Press "new" again to replace the monster with a new one. You can edit your monsters directly in the fields, and they are persistent across sessions, but if you want to save a monster long term you should transfer it to a tracker slot or to an actor slot.
+
+The number in parenthesis is how many are around, either in this encounter or total. If the HD seems high, you can choose to divide it among the members of the group.
+
+> automaton or elemental (10) Int: none HD: 11 Traits: greedy, perverse SA: None
+
+*Since there are ten of them, the DM decides to divide the 11 HD among them, giving 9 with 1 HD each and one with 2 HD. They are mindless automatons, operating solely on their programming, which is to collect items to repair broken machinery. Perversely, they continue to do this even though their makers -- and the machinery -- are long gone.*
+
+> insect-humanoid (2) Int: high intelligent HD: 11 Traits: rapacious, chimeric SA: spell-like ability resembling 2nd level spell
+
+*A bizarre centaur-like hybrid of mindflayer and ant, these creatures display a rapacious intelligence but seem only interested in one-upping each other in petty schemes. Fortunately, there are only two of them, but each is a fearsome foe. Notably, if one touches a victim in melee, the victim takes a d6 penalty to Intelligence, Wisdom, and Charisma (down to a minimum of 1) that lasts until their next full rest.*
+
+"Copy Monsters To Main" copies your monsters into your main log.
+
+"Clear Monsters" erases all of the fields.
+
 #####World & Dungeon
 
 These generators help flesh the world out when a simple "Yes/No" question doesn't seem sufficient.
@@ -546,6 +600,8 @@ __Miscellaneous Questions__
 > [More or Less] Less than a few hours.
 
 "How Difficult is It?" returns a statement on how hard the task or feat is, along with a suggested modifier to the DC.
+
+"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.) directly from old school D&D. It's pretty rudimentary right now and will be expanded eventually.
 
 __Diagram Mapping__
 

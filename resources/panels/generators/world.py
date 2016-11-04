@@ -703,7 +703,7 @@ def roomContents():
     else:
         treasure = "No Treasure!"
 
-    return "[Room Contents] " + contents + " " + treasure
+    return "[Room Contents] " + contents + ". " + treasure
 
 
 def howFarIsIt(subtype='same room'):
