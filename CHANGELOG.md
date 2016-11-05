@@ -4,10 +4,11 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version WIP
+Version 1.2.0 (WIP)
 
-* added some dungeon dressing generators to the world & dungeon panel
-* updated Help.md thoroughly for all recent changes
+* removed the last of the town size generators -- [donjon](https://donjon.bin.sh/fantasy/demographics/) does it better
+* added some dungeon dressing generators to the world panel
+* updated help.md thoroughly for all recent changes
 * added a Mythic panel and tied it in to the config & main buttons (see help.md for instructions on reverting to FU if you'd prefer that)
 * added a rudimentary room contents (based on B/X) generator to world panel
 * added option to use dice qualities as discussed in this article on [The Alexandrian](http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny)

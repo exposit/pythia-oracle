@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 ##-----------------------------------------------------------------------------------------------------------------------------
+#
 # Mythic Panel
 #
 # Content from the Mythic Game Master Emulator (http://www.mythic.wordpr.com/page14/page9/page9.html) is used with the
@@ -16,7 +17,8 @@
 #
 # Then remove everything between the 'mythic' comments in the general section of config.py.
 #
-# The python code is still under MIT though, wherever it doesn't conflict with the above.
+# The python code is still under MIT wherever it doesn't conflict with the above.
+#
 #
 ##-----------------------------------------------------------------------------------------------------------------------------
 
