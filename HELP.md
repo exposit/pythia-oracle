@@ -35,7 +35,7 @@ Table of Contents
         * [Diagram Map](#diagram-map)
         * [Images](#images)
 
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
+######Created with [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go).
 
 ##Configuration
 
