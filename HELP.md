@@ -106,23 +106,23 @@ Note that the seed function in the general section only takes the four options l
 
 To revert to FU oracle as the default for new games, set the following in the config.py:
 
-`oracle = 'fu'
+`oracle = 'fu'`
 
- oracle_func = 'fu'
- `
- And in the general section:
+`oracle_func = 'fu'`
+
+And in the general section:
 
 `seed_func = 'useTwoPartSeed'`
 
- To use Mythic as default:
+To use Mythic as default:
 
- `oracle = 'mythic'
+`oracle = 'mythic'`
 
-  oracle_func = 'mythic'`
+`oracle_func = 'mythic'`
 
-  And in the general section (if you wish to use the Mythic seed tables):
+And in the general section (if you wish to use the Mythic seed tables):
 
- `seed_func = 'useMythicComplex'`
+`seed_func = 'useMythicComplex'`
 
 ##Title Screen
 
@@ -367,11 +367,11 @@ You can generate either a complete backstory (between 0 and 7 items, weighted to
 
 You can set many of the parameters for Mythic in the config.py file, as well as disabling it. To revert to FU as default, set the following in the config.py (you can use the cycle button in each individual game):
 
-`oracle = 'fu'
+`oracle = 'fu'`
 
- oracle_func = 'fu'
+`oracle_func = 'fu'`
 
- seed_func = 'useTwoPartSeed'`
+`seed_func = 'useTwoPartSeed'`
 
 #### Seeds & Complex Answers
 
