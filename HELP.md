@@ -335,7 +335,6 @@ The first two elements are dropdown menus.
 
 "Get Scene" will get a Mythic-style scene.
 
-> [RESULT] 39<br>
 > [CONTEXT] PCs (Start)<br>
 > [FOCUS] Ambiguous event<br>
 > [MEANING] Judge Messages
@@ -360,7 +359,7 @@ __*Backstory*__
 
 You can generate either a complete backstory (between 0 and 7 items, weighted towards the middle), or generate a single backstory event at a time.
 
-> FOCUS] PC Negative "Judge Military"
+> [FOCUS] PC Negative "Judge Military"
 
 *Obviously our hero was court martialed at some point.*
 
