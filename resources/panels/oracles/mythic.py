@@ -8,14 +8,15 @@
 #
 # It is thus NOT released under the MIT license.
 #
-# If you wish to use only strictly MIT licensed content, delete this file and change the entries in the general dictionary and
+# If you don't want to use Mythic at all, delete this file and change the entries in the general dictionary and
 # in config.py as follows:
 #
 # oracle = 'fu'
 # oracle_func = 'fu'
 # seed_func = 'useTwoPartSeed'
 #
-# Then remove everything between the 'mythic' comments in the general section of config.py.
+# Then remove everything between the 'mythic' comments in the general section of config.py. Note that FU content is
+# available under Creative Commons.
 #
 # The python code is still under MIT wherever it doesn't conflict with the above.
 #
