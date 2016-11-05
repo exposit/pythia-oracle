@@ -304,16 +304,34 @@ def getMonster(button, *args):
 
     result = ""
 
-    traits = random.sample(["rapacious", "violent", "depraved", "perverse", "hungry", "miserable", "insane", "degenerate", "incestuous/inbred", "obsessive", "magical", "superior", "chimeric", "mutated", "greedy", "generous", "hateful", "loving", "out of element", "fearful", "brave", "kind", "cruel", "vengeful"], 2)
+    traits = random.sample(["rapacious", "violent", "depraved", "perverse", "hungry", "miserable", "insane", "degenerate", "inbred", "obsessive", "magical", "superior", "chimeric", "mutated", "greedy", "generous", "hateful", "loving", "out of element", "fearful", "brave", "kind", "cruel", "vengeful", "desperate", "trapped", "cannibal", "barbaric", "advanced"], 2)
 
     subtype =  random.sample(["vermin", "humanoid", "demihuman", "automaton or elemental", "magical beast", "plant", "mindless undead", "sentient undead", "insect", "demon ", "abomination", "beast"], 3)
 
-    intelligence = random.choice(["low ", "high ", ""]) + random.choice(["none", "animal", "animal", "intelligent", "intelligent"])
+    intelligence = random.choice(["low ", "high ", "", "", ""]) + random.choice(["none", "animal", "animal", "animal", "intelligent", "intelligent"])
 
     special_abilities = random.sample(["hits really hard", "has multiple attacks", "armored", "regenerates", "damage reduction", "spell-like ability resembling 1st level spell", "spell-like ability resembling 2nd level spell", "spell-like ability resembling 3rd level spell", "petrification attack", "poison attack", "ability to become insubstantial or incorporeal", "extremely stealthy", "breath attack", "immunity", "stunning attack", "paralyzing attack", "death attack", "draining attack", "telepathic"], 2)
 
     hd = random.randint(1,12)
-    num = random.randint(1,12)
+
+    num = []
+    num.append(1)
+    num.append(random.randint(1,4))
+    num.append(random.randint(1,6))
+    num.append(random.randint(1,8))
+    num.append(random.randint(1,20))
+    num.append(random.randint(1,6) + random.randint(1,6))
+    num.append(random.randint(1,8) + random.randint(1,8))
+    num.append(random.randint(1,6) + random.randint(1,6) + random.randint(1,6))
+    num.append(random.randint(1,12) + random.randint(1,12))
+    numList = [2, 3, 20, 30, 40]
+    for n in numList:
+        x = 0
+        for i in range(n):
+            x = x + random.randint(1,10)
+        num.append(x)
+
+    num = random.choice(num)
 
     # now parse stuff
     if "superior" in traits:
@@ -334,9 +352,12 @@ def getMonster(button, *args):
         special_abilities = special_abilities[0]
 
     if "mindless" in basetype:
-        intelligence = "None"
+        intelligence = "none"
 
-    result = basetype + " (" + str(num) + ") Int: " + intelligence + " HD: " + str(hd) + " Traits: " + ", ".join(traits) + " SA: " + special_abilities
+    if "none" in intelligence:
+        intelligence = "none"
+
+    result = basetype + " (#" + str(num) + ") " + str(hd) + "HD, Int: " + intelligence + " Traits: " + ", ".join(traits) + " SA: " + special_abilities
 
     field.text = result
 

@@ -567,7 +567,7 @@ __Monsters__
 
 Press the "new" button next to each field to generate a new monster in that field. Monsters are fairly abstract so they can be used with any system -- things like AC and attacks are left up to the GM's discretion. Press "new" again to replace the monster with a new one. You can edit your monsters directly in the fields, and they are persistent across sessions, but if you want to save a monster long term you should transfer it to a tracker slot or to an actor slot.
 
-The number in parenthesis is how many are around, either in this encounter or total in the area. If the HD seems high, you can choose to divide it among the members of the group. Alternately, you can ignore the HD and count and use a different method to generate them.
+The number in parenthesis is how many are around, either in this encounter or total in the area. If the HD seems high, you can choose to divide it among the members of the group. Alternately, you can ignore the HD and count and use a different method to generate those.
 
 > automaton or elemental (10) Int: none HD: 11 Traits: greedy, perverse SA: None
 
@@ -676,11 +676,13 @@ __Miscellaneous Questions__
 
 "How Difficult is It?" returns a statement on how hard the task or feat is, along with a suggested modifier to the DC.
 
-"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.). It's pretty rudimentary right now and will be expanded eventually. Note that the result is just what you see at first glance; a deeper inquiry might reveal more!
+"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D. It's pretty rudimentary right now and takes the mystery out of things!
+
+My preference is to instead use "What is the Room Like?" combined with "What's So Special?" and let the oracle determine which of the room contents are "special" and which are just set dressing -- and if there's a monster in the room!
 
 __"What's So Special?"__
 
-I tried to stay away from "gonzo" but results may still need to be interpreted for your surroundings.
+I tried to stay away from "gonzo" but results will still need to be interpreted for your surroundings. If something doesn't fit, discard it. Or maybe it's a toy version!
 
 "First Impression" rolls up a random number of special features that represent the things you can immediately see on first glance.
 
