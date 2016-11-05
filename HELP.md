@@ -1,5 +1,42 @@
 #Documentation -- Pythia 1.1.0
 
+Table of Contents
+=================
+
+  * [Configuration](#configuration)
+    * [Output Log Files &amp; Templates](#output-log-files--templates)
+    * [Configuring Panels](#configuring-panels)
+  * [Title Screen](#title-screen)
+  * [Main Screen](#main-screen)
+    * [Center Panel](#center-panel)
+      * [Top Status Bar](#top-status-bar)
+      * [Threads](#threads)
+      * [Main Text Display](#main-text-display)
+        * [Main Control Panel](#main-control-panel)
+        * [Primary Text Input](#primary-text-input)
+        * [Side Controls](#side-controls)
+      * [Footer Controls](#footer-controls)
+    * [Right Stack](#right-stack)
+      * [Notes panel](#notes-panel)
+      * [Actors Panel](#actors-panel)
+      * [Character Sheets](#character-sheets)
+    * [Left Stack](#left-stack)
+      * [Oracle Stack](#oracle-stack)
+        * [FU &amp; How's It Going](#fu--hows-it-going)
+        * [Mythic Oracle](#mythic-oracle)
+        * [Seeds &amp; Complex Answers](#seeds--complex-answers)
+        * [Secrets &amp; Triggers](#secrets--triggers)
+      * [Generators Stack](#generators-stack)
+        * [Actors &amp; Motives](#actors--motives)
+        * [Plot &amp; Monsters](#plot--monsters)
+        * [World &amp; Dungeon](#world--dungeon)
+      * [Map Stack](#map-stack)
+        * [Grid Map](#grid-map)
+        * [Diagram Map](#diagram-map)
+        * [Images](#images)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
+
 ##Configuration
 
 __*Basics*__
@@ -67,7 +104,7 @@ The key variables in config.py are "oracle", which should be the name of the fil
 
 Note that the seed function in the general section only takes the four options listed -- it handles Mythic as a special exception case.
 
-To revert to FU oracle (or another non-Mythic oracle) as default, set the following in the config.py (and replace or edit any game specific config.txt files as needed):
+To revert to FU oracle (or another non-Mythic oracle) as default for new games, set the following in the config.py (and replace or edit any game specific config.txt files as needed):
 
 `oracle = 'fu'
  oracle_func = 'fu'
@@ -149,13 +186,15 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 "Roll Dice" takes an input from the main text input in the format "[count]d[sides]", ie, 1d10 would roll one 10-sided die, or 3d20 would roll three 20-sided dice, showing individual rolls and the sum. Adding "x[reps]" to the end repeats the action [i]reps[/i] number of times. So 3d20x5 would roll three 20-sided dice, displaying each roll and the sum, three full times.
 
-"Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
+"Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" (or "Complex") returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
+
+"Save" immediately runs the save routine, saving the game and the configuration file.
 
 ####Footer Controls
 
-__*System*__
+__*Flags*__
 
-"Save" immediately runs the save routine, saving the game and the configuration file.
+The first button cycles the main control panel between mythic oracle and fu oracle.
 
 "Merge" is a toggle; if set (dark), blocks will be merged down if the prior block has the same formatting as the new one. This will persist when you reopen the game. Note that "Merge" mode is really only useful if you have a very, very long file with lots of blocks and are running into lag. It's usually better to just start a new save at that point!
 

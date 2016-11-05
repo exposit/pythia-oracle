@@ -198,10 +198,9 @@ class MainScreen(Screen):
 
         self.footerBox = BoxLayout(orientation="horizontal")
 
-        # system buttons, ie, save & merge
-        self.saveButton = Button(text="Save")
-        self.saveButton.bind(on_press=self.pressGenericButton)
-        self.saveButton.bind(on_release=self.releaseSave)
+        # flags & toggles
+        self.oracleButton = Button(text=config.oracle)
+        self.oracleButton.bind(on_release=self.cycleOracle)
 
         self.mergeButton = ToggleButton(text="Merge")
         self.mergeButton.bind(on_release=self.toggleMerge)
@@ -282,10 +281,10 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.releaseORERoll)
         diceAltButtonsList.append(self.button)
 
-        self.systemBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
-        self.systemBox.add_widget(self.saveButton)
-        self.systemBox.add_widget(self.mergeButton)
-        self.systemBox.add_widget(self.qualitiesButton)
+        self.flagsBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
+        self.flagsBox.add_widget(self.oracleButton)
+        self.flagsBox.add_widget(self.mergeButton)
+        self.flagsBox.add_widget(self.qualitiesButton)
 
         self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.threadBox.add_widget(self.threadSubmitButton)
@@ -311,7 +310,7 @@ class MainScreen(Screen):
         for alt in diceAltButtonsList:
             self.diceAltBox.add_widget(alt)
 
-        self.footerBox.add_widget(self.systemBox)
+        self.footerBox.add_widget(self.flagsBox)
         self.footerBox.add_widget(self.threadBox)
         self.footerBox.add_widget(self.weightedBox)
         self.footerBox.add_widget(self.dicePresetsBox)
@@ -361,6 +360,11 @@ class MainScreen(Screen):
         self.seedButtonsBox.add_widget(self.seedAlternateButton)
 
         self.submitButtonsBox.add_widget(self.seedButtonsBox)
+
+        self.saveButton = Button(text="Save")
+        self.saveButton.bind(on_press=self.pressGenericButton)
+        self.saveButton.bind(on_release=self.releaseSave)
+        self.submitButtonsBox.add_widget(self.saveButton)
 
         # scenario buttons go here, if a scenario is loaded
         self.scenarioButtonList = []
@@ -983,6 +987,32 @@ class MainScreen(Screen):
 # center footer bar
 #---------------------------------------------------------------------------------------
 
+    def cycleOracle(self, button):
+
+        if button.text == "mythic":
+            button.text = "fu"
+            config.oracle = "fu"
+            config.oracle_func = "fu"
+            config.general['seed_func'] = 'useTwoPartSeed'
+            config.general['seed_alt_func'] = ''
+            config.general['seed_subtype_pretty'] = 'Seed'
+            config.general['use_main_tracker_for_mythic'] = False
+        else:
+            button.text = "mythic"
+            config.oracle = "mythic"
+            config.oracle_func = "mythic"
+            config.general['seed_func'] = 'useMythicComplex'
+            config.general['seed_alt_func'] = ''
+            config.general['seed_subtype_pretty'] = 'Complex'
+            config.general['use_main_tracker_for_mythic'] = True
+
+        try:
+            self.seedButtonsBox.remove_widget(self.seedAlternateButton)
+            self.seedButtonsBox.size_hint_y=1
+            self.seedButton.text = config.general['seed_subtype_pretty'].capitalize()
+        except:
+            pass
+
     def toggleMerge(self, button):
         if button.state == "down":
             button.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
@@ -1120,6 +1150,11 @@ class MainScreen(Screen):
                 self.qualitiesButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
             else:
                 self.qualitiesButton.background_color = neutral
+        except:
+            pass
+
+        try:
+            self.oracleButton.text = config.oracle
         except:
             pass
 

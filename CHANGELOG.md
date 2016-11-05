@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.2.0 (WIP)
 
+* moved save to the main column and added an oracle toggle to swap between mythic and fu 
 * removed the last of the town size generators -- [donjon](https://donjon.bin.sh/fantasy/demographics/) does it better
 * added some dungeon dressing generators to the world panel
 * updated help.md thoroughly for all recent changes
