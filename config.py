@@ -29,13 +29,16 @@ backup_limit = 7
 
 general = dict(
     version = '1.1.0',
+    # this doesn't work right and I hate it
     pretitle = '------------------------------------------',
     posttitle = '------------------------------------------',
+    # settings for the top bar
     enter_behavior = "plain",
     edit_behavior = "read",
     bookmarks = [-9,-9,-9,-9,-9,-9],
     tracker = 0,
-    seed_func = 'useTwoPartSeed',         # useTwoPartSeed, useThreePartSeed, useAllSeed
+    # settings for the seed button; shouldn't need to change directly unless swapping between seeds and mythic
+    seed_func = 'useMythicComplex',       # useTwoPartSeed, useThreePartSeed, useAllSeed, useMythicComplex
     seed_type = 'medieval romance',       # see seed panel for options
     seed_subtype = 'adjective',
     seed_subtype_pretty = 'Desc',
@@ -43,20 +46,40 @@ general = dict(
     seed_alt_type = 'medieval romance',
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
+    # actor panel
     actor_index_state = 0,
+    # character sheet panel
     max_character_sheets = 6,
     total_pcs_to_show = 2,
-    half_size_rows = 23,
+    half_size_rows = 23,                 # this is best at 23 or 7
+    # find and jump
     findList = [],
     findIndex = 0,
+    # toggles for merging and dice qualities; these can be set in program
     merge = False,
     use_dice_qualities = False,
+    # secrets and triggers
     secrets = [],
+    # random chance stuff for oracles -- used by fu and mythic
     random_chance_list = [0,1,3,5,10,15,20,25,50,75,99,100],
     random_event_chance = 5,
-    monsters=["","","","","","",],
-    current_sequence="Status Quo",
-    resolve=0,
+    # monsters
+    monsters = ["","","","","","",],
+    # script plots
+    current_sequence = "Status Quo",
+    resolve = 0,
+    # mythic stuff
+    use_main_tracker_for_mythic = True,
+    mythic_use_random_event_rolls = True,
+    mythic_genre = 'Standard',
+    mythic_context = "Start",
+    mythic_context_list = ['Start', 'The Adventure So Far', 'The Mystery Is...?', 'Social', 'Personal', 'PCs'],
+    mythic_genre_list = ['Standard', 'Horror', 'Action-Adventure', 'Mystery', 'Social', 'Personal', 'Epic'],
+    mythic_chaos_factor = 5,
+    mythic_current_acting = 'average',
+    mythic_current_likeliness = 'fifty-fifty',
+    mythic_current_difficulty = 'average',
+    # end mythic stuff
 )
 
 formats = dict(
@@ -92,8 +115,6 @@ scenario = dict(
     use_oracle = True,
     name = "",
     block = "Start",
-    oracle = "fu",
-    oracle_func = "fu",
 )
 
 user = dict(
@@ -121,6 +142,10 @@ yaml = dict(
     monofont = "Ubuntu Mono",
     fontsize = "10pt",
 )
+
+# which oracle will the ??? button call?
+oracle = "mythic"          # change to 'fu' to use fu as the default
+oracle_func = "mythic"     # change to 'fu' to use fu as the default
 
 # dice presets; first should be 10 items, the second 2
 dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]

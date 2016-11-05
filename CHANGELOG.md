@@ -6,9 +6,12 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version WIP
 
-* added a room contents (based on B/X) generator to world panel
-* option to use dice qualities as discussed in this article on [The Alexandrian](http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny)
-* new plot panel for generating story premises, plot moves
+* added some dungeon dressing generators to the world & dungeon panel
+* updated Help.md thoroughly for all recent changes
+* added a Mythic panel and tied it in to the config & main buttons (see help.md for instructions on reverting to FU if you'd prefer that)
+* added a rudimentary room contents (based on B/X) generator to world panel
+* added option to use dice qualities as discussed in this article on [The Alexandrian](http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny)
+* new plot panel for generating story premises, plots, moved the plot move generator to it
 * bugfixes, as always
 
 Version 1.1.0

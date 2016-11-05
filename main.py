@@ -803,11 +803,11 @@ class MainScreen(Screen):
 
         index = 99
         for i in range(len(oracle_module)):
-            if oracle_module[i].__name__ == config.scenario['oracle']:
+            if oracle_module[i].__name__ == config.oracle:
                 index = i
 
         if index < 99:
-            methodToCall = getattr( oracle_module[index], config.scenario['oracle_func'] )
+            methodToCall = getattr( oracle_module[index], config.oracle_func )
             answer = methodToCall()
         else:
             answer = "No oracle found."
@@ -822,9 +822,12 @@ class MainScreen(Screen):
             updateCenterDisplay(self, self.textInput.text, 'query')
 
         index=-9
+        match = 'seeds'
+        if config.general['seed_func'] == 'useMythicComplex':
+            match = 'mythic'
         for i in range(len(oracle_module)):
             #print(oracle_module[i].__name__)
-            if oracle_module[i].__name__ == 'seeds':
+            if oracle_module[i].__name__ == match:
                 index = i
 
         try:
@@ -912,11 +915,27 @@ class MainScreen(Screen):
     def releaseTrackerUp(self, *args):
         args[0].background_color = neutral
         config.general['tracker'] = config.general['tracker'] + 1
+        if config.general['use_main_tracker_for_mythic'] == True:
+            for i in range(len(oracle_module)):
+                if oracle_module[i].__name__ == 'mythic':
+                    methodToCall = getattr( oracle_module[i], 'setChaosFactor' )
+                    result = methodToCall("up")
+                    config.general['tracker'] = config.general['mythic_chaos_factor']
+                    updateCenterDisplay(self, result, 'result')
+
         self.trackLabel.text = str(config.general['tracker'])
 
     def releaseTrackerDown(self, *args):
         args[0].background_color = neutral
         config.general['tracker'] = config.general['tracker'] - 1
+        if config.general['use_main_tracker_for_mythic'] == True:
+            for i in range(len(oracle_module)):
+                if oracle_module[i].__name__ == 'mythic':
+                    methodToCall = getattr( oracle_module[i], 'setChaosFactor' )
+                    result = methodToCall("down")
+                    config.general['tracker'] = config.general['mythic_chaos_factor']
+                    updateCenterDisplay(self, result, 'result')
+
         self.trackLabel.text = str(config.general['tracker'])
 
     def toggleEnterBehavior(self, spinner, text):
@@ -1062,6 +1081,10 @@ class MainScreen(Screen):
             self.enterSpinner.text = str(config.general["enter_behavior"])
             self.editSpinner.text = str(config.general["edit_behavior"])
 
+        except:
+            pass
+
+        try:
             l = ToggleButtonBehavior.get_widgets('bookmarks')
             for i in range(len(l)):
                 if config.general['bookmarks'][i] >= 0:
@@ -1070,22 +1093,35 @@ class MainScreen(Screen):
                 else:
                     l[i].text = '-'
             del l
+        except:
+            pass
 
+        try:
+            if config.general['use_main_tracker_for_mythic'] == True:
+                config.general['tracker'] = config.general['mythic_chaos_factor']
+        except:
+            pass
+
+        try:
             self.trackLabel.text = str(config.general['tracker'])
+        except:
+            pass
 
+        try:
             if config.general['merge'] == True:
                 self.mergeButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
             else:
                 self.mergeButton.background_color = neutral
+        except:
+            pass
 
+        try:
             if config.general['use_dice_qualities'] == True:
                 self.qualitiesButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
             else:
                 self.qualitiesButton.background_color = neutral
-
         except:
-            if config.debug == True:
-                print("[Main on enter general] Unexpected error:", sys.exc_info())
+            pass
 
         # pc panel
         del self.pcPanelsList[config.general['total_pcs_to_show']:]

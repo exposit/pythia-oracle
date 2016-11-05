@@ -45,7 +45,7 @@ def initPanel(self):
         button.bind(on_release=getKingdomPowerStructure)
         hexMainBox.add_widget(button)
 
-        kingdomBox = GridLayout(cols=2, size_hint=(1,.30))
+        kingdomBox = GridLayout(cols=2, size_hint=(1,.20))
 
         button = Button(text="Known Quirk", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
@@ -57,20 +57,6 @@ def initPanel(self):
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getKingdomSecretQuirk)
-        kingdomBox.add_widget(button)
-
-        button = Button(text="Village Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathVillagePop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
-        kingdomBox.add_widget(button)
-
-        button = Button(text="Town Size", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.function = "mathTownPop"
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=miscChartRoll)
         kingdomBox.add_widget(button)
 
         hexMainBox.add_widget(kingdomBox)
@@ -155,10 +141,30 @@ def initPanel(self):
 
         button = Button(text="What's In This Room?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
-        button.function = 'roomContents'
+        button.function = 'getRoomContents'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         hexMainBox.add_widget(button)
+
+        hexMainBox.add_widget(Label(text='What\'s So Special?', size_hint=(1,.1), font_size=config.basefont90))
+
+        hexSpecialBox = GridLayout(cols=2, size_hint=(1,.20))
+
+        button = Button(text="First Impression", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.qty = 99
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getSpecialFeature)
+        hexSpecialBox.add_widget(button)
+
+        button = Button(text="Single Item", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.qty = 1
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getSpecialFeature)
+        hexSpecialBox.add_widget(button)
+
+        hexMainBox.add_widget(hexSpecialBox)
 
         hexMainBox.add_widget(Label(text='How Far Is It?', size_hint=(1,.10), font_size=config.basefont90))
 
@@ -373,48 +379,6 @@ def getKingdomSecretQuirk(button):
     result = "[Secret Quirk] " + random.choice(general)
 
     updateCenterDisplay(self, result)
-
-#---------------------------------------------------------------------------------------------------
-# --> Math based town sizes
-# inspired by http://www222.pair.com/sjohn/blueroom/demog.htm
-# all dumb math errors, wildly inaccurate extrapolations, and lazy fudges are my fault
-#---------------------------------------------------------------------------------------------------
-
-def mathBigCityPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(12,100)
-    else:
-        roll = random.randint(50,80)
-
-    return "[Big City Pop.] " + str(roll * 1000)
-
-def mathCityPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(8,12)
-    else:
-        roll = 10
-
-    return "[City Pop.] " + str(roll * 1000)
-
-def mathTownPop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(1,8)
-    else:
-        roll = 2.5
-
-    return "[Town Pop.] " + str(roll * 1000)
-
-def mathVillagePop():
-    roll = random.randint(1,100)
-    if roll < 75:
-        roll = random.randint(2,100)
-    else:
-        roll = random.randint(5, 30)
-
-    return "[Village Pop.] " + str(roll * 10)
 
 # pointcrawl terrain generator
 # inspired by these posts on the subject
@@ -686,7 +650,7 @@ def passageLike():
     result = "[Passage] " + veer + " [Special] " + extras
     return result
 
-def roomContents():
+def getRoomContents():
 
     troll = random.randint(1,6)
 
@@ -705,6 +669,22 @@ def roomContents():
 
     return "[Room Contents] " + contents + ". " + treasure
 
+def getSpecialFeature(button, *args):
+
+    button.background_color = neutral
+    qty = button.qty
+    self = button.self
+
+    if qty > 1:
+        qty = random.randint(1,3)
+
+    chart = ["strange glyphs", "blacksmith tools and forge", "an old wagon", "grates in the wall along the floor", "grates up high near the ceiling", "an adventurer's discarded pack", "broken furniture", "an adventuring party", "phosphorescent lichen", "a sprung trap", "some hot springs or a fountain", "a river or stream", "a trickle of water", "a lake or pool", "a draft from somewhere", "wine casks", "barrels", "smoke", "murals on the walls", "a dire warning", "cages", "a statue", "an unconscious person", "a person in stasis", "a petrified statue", "an altar", "glowing mushrooms", "a weapon rack", "an armor rack", "a pile of refuse", "a pile of rubble", "a fallen pillar", "a vat of liquid", "round smooth crystals embedded in the floor", "a lichen. mold, and fungi farm", "a fountain", "a pile of books", "webs", "an imprisoned demon", "footprints in the dust", "faded banners and pennants", "a throne", "a body with crude challenge on it", "scavengers feeding on a corpse", "a balcony or ledge", "a coffin", "a shattered brick arch with stone behind it", "one of the floor slabs is loose", "a faded mosaic on the floor", "a smashed mirror", "a skull", "a pedestal", "misspelled graffiti", "a fissure a foot wide", "an iron brazier", "a row of manacles", "a weathered journal", "an iron cage suspended from the ceiling", "a grate in the floor", "shadowy alcoves", "a dark niche", "a shrine", "several shrines", "a painting face down on the floor", "a dozen extremely well-wrought statues", "a wounded creature", "broken statues", "a pristine square of floor", "a number of piles of dirty hay and refuse", "a chest", "an ornate wardrobe", "an ornate desk", "signs of an animal", "a sign", "a tiled floor", "a makeshift camp", "a stockpile"]
+
+    special = random.sample(chart, qty)
+
+    result = "[You See] " + ", ".join(special)
+
+    updateCenterDisplay(self, result)
 
 def howFarIsIt(subtype='same room'):
 

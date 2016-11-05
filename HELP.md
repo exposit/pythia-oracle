@@ -59,6 +59,32 @@ By default, all Pythia core panels (in "resources/panels") are enabled. To disab
 
 For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
 
+__*Setting Up Oracle Defaults*__
+
+Mapping an oracle to the main panel buttons is a little more complicated than just setting exclude() to True, unless you just want to use the buttons on the panel.
+
+The key variables in config.py are "oracle", which should be the name of the file containing the oracle, and "oracle_func", which should contain the name of the oracle function in that file.
+
+Note that the seed function in the general section only takes the four options listed -- it handles Mythic as a special exception case.
+
+To revert to FU oracle (or another non-Mythic oracle) as default, set the following in the config.py (and replace or edit any game specific config.txt files as needed):
+
+`oracle = 'fu'
+ oracle_func = 'fu'
+ `
+ And in the general section:
+
+`seed_func = 'useTwoPartSeed'`
+
+ To use Mythic as default:
+
+ `oracle = 'mythic'
+  oracle_func = 'mythic'`
+
+  And in the general section (if you wish to use the Mythic seed tables):
+
+ `seed_func = 'useMythicComplex'`
+
 ##Title Screen
 
 When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
@@ -243,7 +269,7 @@ You can set your own hit locations list in the config file.
 
 __*But/And Clarifier*__
 
-From [Abulafia](http://www.random-generator.com/index.php?title=But_Cards). Having trouble thinking of a suitable 'and' or 'but'? Click on the appropriate button for inspiration.
+From [Abulafia](http://www.random-generator.com/index.php?title=But_Cards) under [CC-BY 2.5](https://creativecommons.org/licenses/by/2.5/). Having trouble thinking of a suitable 'and' or 'but'? Click on the appropriate button for inspiration.
 
 >[likely: 6 2 5 ] Yes, and...<br>
 >And you learn something about your enemies in the process.
@@ -258,11 +284,60 @@ Results state the context, the effect, and if it's good or bad (and how good or 
 
 > *[Random Event] Context: Plot! New thread. This is good.*
 
+#####Mythic Oracle
+
+*Content from the [Mythic Game Master Emulator](http://www.mythic.wordpr.com/page14/page9/page9.html) is used with the permission of the author under the condition that it not be used commercially. This content is not MIT licensed. Please see the mythic.py file for more information. If you want to use the oracle properly -- and for an excellent RPG -- buy the book!*
+
+The first two elements are dropdown menus.
+
+"Context" is reflected in the scene results but doesn't do much else. You should keep the context in mind whenever you have to interpret a result.
+
+"Genre" is used by the scene generator and the random event generator. It also has an effect on how the chaos factor tracker works; for full range of movement with the tracker, change genre to "Standard".
+
+"Get Scene" will get a Mythic-style scene.
+
+> [RESULT] 39<br>
+> [CONTEXT] PCs (Start)<br>
+> [FOCUS] Ambiguous event<br>
+> [MEANING] Judge Messages
+
+"Get Complex Answer" will get a Mythic-style two part answer, similar to a Seed.
+
+> [Mythic Complex] Carelessness / Misfortune
+
+__*Oracle*__
+
+Choose an appropriate likelihood of the answer being 'Yes'. If you have set your oracle to mythic, you can then click the question button, or you can use the "Ask Oracle" button.
+
+> [unlikely, 37>=35] NO
+
+__*Opposed Checks*__
+
+Choose the acting rank of your actor and the target difficulty (or opposing actor's rank). Use "Make Opposed Check" to see the outcome.
+
+> [exceptional vs average, 92>=85] NO
+
+__*Backstory*__
+
+You can generate either a complete backstory (between 0 and 7 items, weighted towards the middle), or generate a single backstory event at a time.
+
+> FOCUS] PC Negative "Judge Military"
+
+*Obviously our hero was court martialed at some point.*
+
+You can set many of the parameters for Mythic in the config.py file, as well as disabling it. To revert to FU, set the following in the config.py (and replace or edit any game specific config.txt files):
+
+`oracle = 'fu'
+ oracle_func = 'fu'
+ seed_func = 'useTwoPartSeed'`
+
 #### Seeds & Complex Answers
 
 This panel holds links to all the different seed types and patterns available in the "seeds" directory.
 
 If you need to answer a question like "what does it look like" or "what is it" or "what's this random event about" or just need inspiration, choose a pattern ("verb noun", "description", "action", and so on) and press the button for the appropriate genre. The default is "medieval romance". You can select the default for the current game by clicking in the column to the left of the option you'd like to set as default.
+
+Note: if you are using Mythic as your seed generator and set a new default through the Seed panel, the only way to go back to Mythic is to change "seed_func" in your game's config.txt back to "useMythicComplex".
 
 > __*I search the room. What do I find? (What Is It, Detective)*__<br>
 > *[Seed] oblique clues*<br>
@@ -492,7 +567,7 @@ __Monsters__
 
 Press the "new" button next to each field to generate a new monster in that field. Monsters are fairly abstract so they can be used with any system -- things like AC and attacks are left up to the GM's discretion. Press "new" again to replace the monster with a new one. You can edit your monsters directly in the fields, and they are persistent across sessions, but if you want to save a monster long term you should transfer it to a tracker slot or to an actor slot.
 
-The number in parenthesis is how many are around, either in this encounter or total. If the HD seems high, you can choose to divide it among the members of the group.
+The number in parenthesis is how many are around, either in this encounter or total in the area. If the HD seems high, you can choose to divide it among the members of the group. Alternately, you can ignore the HD and count and use a different method to generate them.
 
 > automaton or elemental (10) Int: none HD: 11 Traits: greedy, perverse SA: None
 
@@ -601,7 +676,15 @@ __Miscellaneous Questions__
 
 "How Difficult is It?" returns a statement on how hard the task or feat is, along with a suggested modifier to the DC.
 
-"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.) directly from old school D&D. It's pretty rudimentary right now and will be expanded eventually.
+"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.). It's pretty rudimentary right now and will be expanded eventually. Note that the result is just what you see at first glance; a deeper inquiry might reveal more!
+
+__"What's So Special?"__
+
+I tried to stay away from "gonzo" but results may still need to be interpreted for your surroundings.
+
+"First Impression" rolls up a random number of special features that represent the things you can immediately see on first glance.
+
+"Single Item" returns a single item, suitable for discovering behind, under, or beneath other items, or noticing after a fight finishes, or if you want some bit of dressing to make a fight more interesting.
 
 __Diagram Mapping__
 
