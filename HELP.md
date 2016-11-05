@@ -112,7 +112,7 @@ To revert to FU oracle as the default for new games, set the following in the co
 
 And in the general section:
 
-`seed_func = 'useTwoPartSeed'`
+`general['seed_func']= 'useTwoPartSeed'`
 
 To use Mythic as default:
 
@@ -122,7 +122,7 @@ To use Mythic as default:
 
 And in the general section (if you wish to use the Mythic seed tables):
 
-`seed_func = 'useMythicComplex'`
+`general['seed_func'] = 'useMythicComplex'`
 
 ##Title Screen
 
@@ -371,7 +371,7 @@ You can set many of the parameters for Mythic in the config.py file, as well as 
 
 `oracle_func = 'fu'`
 
-`seed_func = 'useTwoPartSeed'`
+`general['seed_func'] = 'useTwoPartSeed'`
 
 #### Seeds & Complex Answers
 
