@@ -104,9 +104,10 @@ The key variables in config.py are "oracle", which should be the name of the fil
 
 Note that the seed function in the general section only takes the four options listed -- it handles Mythic as a special exception case.
 
-To revert to FU oracle (or another non-Mythic oracle) as default for new games, set the following in the config.py (and replace or edit any game specific config.txt files as needed):
+To revert to FU oracle as the default for new games, set the following in the config.py:
 
 `oracle = 'fu'
+
  oracle_func = 'fu'
  `
  And in the general section:
@@ -116,6 +117,7 @@ To revert to FU oracle (or another non-Mythic oracle) as default for new games, 
  To use Mythic as default:
 
  `oracle = 'mythic'
+
   oracle_func = 'mythic'`
 
   And in the general section (if you wish to use the Mythic seed tables):
@@ -363,10 +365,12 @@ You can generate either a complete backstory (between 0 and 7 items, weighted to
 
 *Obviously our hero was court martialed at some point.*
 
-You can set many of the parameters for Mythic in the config.py file, as well as disabling it. To revert to FU, set the following in the config.py (and replace or edit any game specific config.txt files):
+You can set many of the parameters for Mythic in the config.py file, as well as disabling it. To revert to FU as default, set the following in the config.py (you can use the cycle button in each individual game):
 
 `oracle = 'fu'
+
  oracle_func = 'fu'
+
  seed_func = 'useTwoPartSeed'`
 
 #### Seeds & Complex Answers
