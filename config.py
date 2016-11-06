@@ -60,7 +60,7 @@ general = dict(
     use_dice_qualities = False,
     # secrets and triggers
     secrets = [],
-    # random chance stuff for oracles -- used by fu and mythic
+    # random chance stuff for oracles -- used by fu only atm
     random_chance_list = [0,1,3,5,10,15,20,25,50,75,99,100],
     random_event_chance = 5,
     # monsters
