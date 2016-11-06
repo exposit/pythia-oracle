@@ -1,4 +1,4 @@
-#Documentation -- Pythia 1.1.0
+#Documentation -- Pythia 1.2.0
 
 Table of Contents
 =================

@@ -4,16 +4,16 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-Version 1.2.0 (WIP)
+Version 1.2.0
 
 * added a Mythic panel and tied it in to the config & main buttons (see help.md for instructions on reverting to FU as default)
 * moved save to the main column and added an oracle toggle to swap between mythic and fu
 * removed the last of the town size generators -- [donjon](https://donjon.bin.sh/fantasy/demographics/) does it better
 * added some dungeon dressing generators to the world panel
 * updated help.md thoroughly for all recent changes
-* added a rudimentary room contents (based on B/X) generator to world panel
+* added a rudimentary room contents (based on Gygaxian 1d20) generator to world panel
 * added option to use dice qualities as discussed in this article on [The Alexandrian](http://thealexandrian.net/wordpress/2781/roleplaying-games/dice-of-destiny)
-* new plot panel for generating story premises, plots, moved the plot move generator to it
+* new plot panel for generating story premises and monsters, moved the plot move generator to it
 * bugfixes, as always
 
 Version 1.1.0

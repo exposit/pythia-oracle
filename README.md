@@ -1,9 +1,23 @@
 ### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
 ### MAPPING is still a work in progress. Expect issues.
 
-### Pythia-Oracle 1.1.0
+### Pythia-Oracle 1.2.0
 
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A basic guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
+
+Table of Contents
+=================
+
+* [What is it?](#what-is-it)
+* [Solo RPG Gaming\! How does that even work?](#solo-rpg-gaming-how-does-that-even-work)
+* [How do I install this?](#how-do-i-install-this)
+* [Upgrading from 0\.9\.0 &amp; earlier](#upgrading-from-090--earlier)
+* [Upgrading from 0\.7\.0 &amp; earlier](#upgrading-from-070--earlier)
+* [Upgrading from an older version](#upgrading-from-an-older-version)
+* [Customization/Setup](#customizationsetup)
+* [Wait, I want more tables\!](#wait-i-want-more-tables)
+
+######Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 
 #### What is it?
 
