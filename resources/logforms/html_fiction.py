@@ -44,4 +44,4 @@ def makeLogFile(self):
     result = result +  "\n</body>\n</html>"
 
     with open(logfile, "w") as log_file:
-        log_file.write(result)
+        log_file.write(result.encode('utf-8'))

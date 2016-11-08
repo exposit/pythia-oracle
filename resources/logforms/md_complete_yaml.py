@@ -47,4 +47,4 @@ def makeLogFile(self):
     result = addYAML() + parseMarkup(result)
 
     with open(logfile, "w") as log_file:
-        log_file.write(result)
+        log_file.write(result.encode('utf-8'))
