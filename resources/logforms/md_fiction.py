@@ -2,7 +2,8 @@
 #-*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------
 #
-#  Markdown -- fiction blocks only
+#  Markdown
+#     fiction: includes only fiction blocks
 #
 ##---------------------------------------------------------------------------------------
 
@@ -26,7 +27,6 @@ def makeLogFile(self):
         ti = textArray.index(item)
         item = item.rstrip()
         if textStatusArray[ti] in fictionStatusList:
-            result = result + "\n"
             if textStatusArray[ti] == "italic":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"
@@ -45,7 +45,7 @@ def makeLogFile(self):
             else:
                 result = result + "\n" + item
 
-    result = parseMarkup(result)
+    result = parseMarkup(result).lstrip()
 
     with open(logfile, "w") as log_file:
         log_file.write(result.encode('utf-8'))

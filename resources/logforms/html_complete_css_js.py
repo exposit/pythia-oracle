@@ -14,7 +14,7 @@ from imports import *
 import config
 
 def exclude():
-    return False
+    return True
 
 def makeLogFile(self):
 

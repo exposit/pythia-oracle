@@ -2,7 +2,8 @@
 #-*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------
 #
-#  Markdown -- includes all mechanics except ephemeral
+#  Markdown
+#     complete: includes all blocks except ephemeral
 #
 ##---------------------------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ from imports import *
 import config
 
 def exclude():
-    return False
+    return True
 
 def makeLogFile(self):
 
@@ -24,7 +25,6 @@ def makeLogFile(self):
         ti = textArray.index(item)
         item = item.strip()
         if textStatusArray[ti] != "ephemeral":
-            result = result + "\n"
             if textStatusArray[ti] == "italic" or textStatusArray[ti] == "result" or textStatusArray[ti] == "aside":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"
@@ -45,6 +45,7 @@ def makeLogFile(self):
 
     # now any in block tags
     result = parseMarkup(result)
+    result = result.lstrip()
 
     with open(logfile, "w") as log_file:
         log_file.write(result.encode('utf-8'))

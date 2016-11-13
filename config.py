@@ -132,8 +132,15 @@ user = dict(
 # do you want spinners or cycling buttons? Don't set this True unless you bought your computer yesterday
 use_spinner_status = False
 
-# this will be copied in as a YAML into log templates calling for it
-yaml = '''
+# these will be copied in as a YAML into log templates calling for it
+yaml_for_markdown = '''
+---
+layout: post
+title: Jekyll Blog Update
+---
+'''
+
+yaml_for_pdf = '''
 ---
 fontsize: 10pt
 sansfont: Ubuntu Mono

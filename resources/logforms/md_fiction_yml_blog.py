@@ -2,7 +2,10 @@
 #-*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------
 #
-#  Markdown -- includes all mechanics except ephemeral and a full YAML header from config.py
+#  Markdown
+#     fiction: includes only fiction blocks
+#     yml: uses a yaml Front Matter from config.txt
+#     blog: ready for jekyll or similar
 #
 ##---------------------------------------------------------------------------------------
 
@@ -15,36 +18,39 @@ def exclude():
 
 def makeLogFile(self):
 
-    logfile = config.curr_game_dir + "logs" + os.sep + "complete_yaml.md"
+    logfile = config.curr_game_dir + "logs" + os.sep + "fiction_yml_blog.md"
 
     textArray, textStatusArray = getSourceMaterial()
 
-    result = "\n"
+    YAML = config.yaml_for_markdown
+
+    fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+
+    result = ""
     for item in textArray:
         ti = textArray.index(item)
-        item = item.strip()
-        if textStatusArray[ti] != "ephemeral":
-            result = result + "\n"
-            if textStatusArray[ti] == "italic" or textStatusArray[ti] == "result" or textStatusArray[ti] == "aside":
+        item = item.rstrip()
+        if textStatusArray[ti] in fictionStatusList:
+            if textStatusArray[ti] == "italic":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"
-            elif textStatusArray[ti] == "bold" or textStatusArray[ti] == "query":
+            elif textStatusArray[ti] == "bold":
                 item = item.replace('\n', '**\n\n**')
                 result = result + "\n**" + item + "**"
-            elif textStatusArray[ti] == "bold_italic" or textStatusArray[ti] == "oracle":
+            elif textStatusArray[ti] == "bold_italic":
                 item = item.replace('\n', '_**\n\n**_')
                 result = result + "\n**_" + item + "_**"
-            elif textStatusArray[ti] == "color1" or textStatusArray[ti] == "mechanic1":
+            elif textStatusArray[ti] == "color1":
                 item = item.replace('\n', '`\n\n`')
                 result = result + "\n`" + item + "`"
-            elif textStatusArray[ti] == "color2" or textStatusArray[ti] == "mechanic2":
+            elif textStatusArray[ti] == "color2":
                 item = item.replace('\n', '`\n\n`')
                 result = result + "\n`" + item + "`"
             else:
                 result = result + "\n" + item
 
-    # now any in block tags
-    result = addYAML() + parseMarkup(result)
+    result = YAML + parseMarkup(result)
+    result = result.lstrip()
 
     with open(logfile, "w") as log_file:
         log_file.write(result.encode('utf-8'))

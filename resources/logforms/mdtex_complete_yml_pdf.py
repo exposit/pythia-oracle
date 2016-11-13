@@ -2,7 +2,10 @@
 #-*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------
 #
-#  Markdown -- includes all mechanics except ephemeral and a full YAML header from this file
+#  Markdown-LaTex
+#     complete: includes all blocks except ephemeral
+#     yml: uses a yaml Front Matter from config.txt
+#     pdf: is ready to convert to pdf (or latex) via pandoc
 #
 ##---------------------------------------------------------------------------------------
 
@@ -15,18 +18,17 @@ def exclude():
 
 def makeLogFile(self):
 
-    logfile = config.curr_game_dir + "logs" + os.sep + "complete_yaml_pdf.md"
+    logfile = config.curr_game_dir + "logs" + os.sep + "complete_yml_pdf.md"
 
     textArray, textStatusArray = getSourceMaterial()
 
-    YAML = config.yaml
+    YAML = config.yaml_for_pdf
 
-    result = "\n"
+    result = ""
     for item in textArray:
         ti = textArray.index(item)
         item = item.strip()
         if textStatusArray[ti] != "ephemeral":
-            result = result + "\n"
             if textStatusArray[ti] == "italic" or textStatusArray[ti] == "result" or textStatusArray[ti] == "aside":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"
@@ -43,22 +45,20 @@ def makeLogFile(self):
                 item = item.replace('\n', '`\n\n`')
                 result = result + "\n`" + item + "`"
             else:
-                # this needs to be parsed properly
                 prefix_escapes = [ ['[i][b]', '\\textit{\\textbf{' ], ['[b][i]', '\\textbf{\\textit{'], ['[i]', '\\textit{'], ['[b]', '\\textbf{'] ]
                 suffix_escapes = [ ['[/i][/b]', '}}'], ['[/b][/i]', '}}'], ['[/i]', '}'], ['[/b]',  '}'] ]
-                #print(item)
+
                 for esc in prefix_escapes:
                     if esc[0] in item:
                         item = item.replace(esc[0], esc[1] + "\plain{" )
                 for esc in suffix_escapes:
                     if esc[0] in item:
                         item = item.replace(esc[0], "}" + esc[1] )
-                #print(item)
 
                 result = result + "\n" + item
 
-    # now any in block tags
     result = YAML + parseMarkup(result)
+    result = result.lstrip()
 
     with open(logfile, "w") as log_file:
         log_file.write(result.encode('utf-8'))
