@@ -46,6 +46,9 @@ general = dict(
     seed_alt_type = 'medieval romance',
     seed_alt_subtype = 'verb',
     seed_alt_subtype_pretty = 'Action',
+    # exclude maps from loading; try setting these True in savegame/config.txt if your game is slow
+    exclude_ddmap = False,
+    exclude_gridmap = False,
     # actor panel
     actor_index_state = 0,
     # character sheet panel

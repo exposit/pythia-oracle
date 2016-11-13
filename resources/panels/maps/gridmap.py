@@ -14,10 +14,18 @@ def exclude():
     return False
 
 def onEnter(self):
-    tempVals = []
-    for i in config.gmapArray:
-        tempVals.append(i)
-    self.gmapSpinner.values = tempVals
+    # this is a potentially removable map
+    try:
+        if config.general['exclude_gridmap'] == True:
+            self.gmapAItem.parent.remove_widget(self.gmapAItem)
+    except:
+        config.general['exclude_gridmap'] = False
+
+    if config.general['exclude_gridmap'] == False:
+        tempVals = []
+        for i in config.gmapArray:
+            tempVals.append(i)
+        self.gmapSpinner.values = tempVals
 
 # add your widgets in here; see the gui for examples
 def initPanel(self):

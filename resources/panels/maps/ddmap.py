@@ -14,10 +14,18 @@ def exclude():
     return False
 
 def onEnter(self):
-    tempVals = []
-    for i in config.mapArray:
-        tempVals.append(i)
-    self.mapSpinner.values = tempVals
+    # this is a potentially removable map
+    try:
+        if config.general['exclude_ddmap'] == True:
+            self.mapAItem.parent.remove_widget(self.mapAItem)
+    except:
+        config.general['exclude_ddmap'] = False
+
+    if config.general['exclude_ddmap'] == False:
+        tempVals = []
+        for i in config.mapArray:
+            tempVals.append(i)
+        self.mapSpinner.values = tempVals
 
 # add your widgets in here; see the gui for examples
 def initPanel(self):

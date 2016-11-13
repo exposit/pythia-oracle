@@ -6,6 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
+* new per game config for excluding each map panel; if your game gets slow, try this
+* added a logform for prepping a markdown file for conversion to pdf with pandoc
 * added new logforms that are blog-ready and should just "drop in" (tested on Jekyll)
 * cleaned up html escaping for logforms & added a function to generate a simple stylesheet
 * rewrote logforms entirely (again) and changed the naming pattern (again)

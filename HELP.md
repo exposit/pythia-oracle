@@ -4,6 +4,7 @@ Table of Contents
 =================
 
   * [Configuration](#configuration)
+    * [Basics](#basics)
     * [Output Log Files &amp; Templates](#output-log-files--templates)
     * [Configuring Panels](#configuring-panels)
   * [Title Screen](#title-screen)
@@ -39,7 +40,7 @@ Table of Contents
 
 ##Configuration
 
-__*Basics*__
+### Basics
 
 Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
 
@@ -95,6 +96,8 @@ To make a new template, duplicate an existing one and change the "makeLogFile" r
 By default, all Pythia core panels (in "resources/panels") are enabled. To disable a panel, change "False" under "exclude()" to "True". You may experience odd results if you disable a panel other widgets rely on, so proceed with caution.
 
 For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
+
+You can choose to exclude each map panel by setting the "exclude_\<mapname.py\>" variables in config.general to True. 
 
 __*Setting Up Oracle Defaults*__
 
