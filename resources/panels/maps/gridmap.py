@@ -3,6 +3,8 @@
 #
 #  Grid Map Panel
 #
+#  Warning, this kills the fps hard
+#
 ##---------------------------------------------------------------------------------------------------
 
 import imports
@@ -11,7 +13,7 @@ import config
 
 # set this to False to enable this panel
 def exclude():
-    return False
+    return True
 
 def onEnter(self):
     # this is a potentially removable map

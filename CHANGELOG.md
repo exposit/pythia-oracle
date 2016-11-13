@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
+* The grid map panel was killing FPS. It's now excluded; reactivate it if you want.
 * new per game config for excluding each map panel; if your game gets slow, try this
 * added a logform for prepping a markdown file for conversion to pdf with pandoc
 * added new logforms that are blog-ready and should just "drop in" (tested on Jekyll)
