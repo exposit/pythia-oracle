@@ -473,8 +473,6 @@ class PythiaOracleApp(App):
         if self.screenmanager.current == 'mainscn':
             # save things
             quicksave(self, config.curr_game_dir)
-            if config.use_autotitle_in_logs == True:
-                config.yaml['title'] = config.curr_game_dir.split(os.sep)[-2]
             # make logs
             for i in imports.log_template:
                 methodToCall = getattr( i, 'makeLogFile' )

@@ -129,9 +129,6 @@ user = dict(
 # do you want spinners or cycling text buttons?
 use_spinner_status = True
 
-# if this is true the game name will be used for the title in logs
-use_autotitle_in_logs = True
-
 # this will be copied in as a YAML into log templates calling for it
 yaml = '''
     mainfont: Lora
