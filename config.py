@@ -131,17 +131,16 @@ use_spinner_status = True
 
 # this will be copied in as a YAML into log templates calling for it
 yaml = '''
-    mainfont: Lora
-    monofont: Ubuntu Mono
-    fontsize: 10pt
-    sansfont: Ubuntu Mono
-    title: your title
-    header-includes:
-       - \usepackage[utf8]{inputenc}
-       - \usepackage[english]{babel}
-       - \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-    output:
-        pdf_document
+fontsize: 10pt
+sansfont: Ubuntu Mono
+mainfont: Lora
+title: your title
+header-includes:
+   - \usepackage{xcolor}
+   - \usepackage{fontspec}
+   - \definecolor{light-gray}{gray}{0.60}
+   - \setmonofont[UprightFeatures = {Color=light-gray}] {Ubuntu Mono}
+   - \setmainfont[UprightFeatures = {Color=black}, ItalicFeatures = {Color=light-gray}, BoldFeatures = {Color=light-gray}, BoldItalicFeatures = {Color=light-gray} ] {Lora}
 '''
 
 # should ephemeral tagged blocks be shown in logs?
