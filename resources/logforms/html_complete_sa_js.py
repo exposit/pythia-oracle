@@ -52,7 +52,7 @@ def makeLogFile(self):
             tempStatusArray.append(textStatusArray[ti])
 
     count = 0
-    bracket = "\n<html>\n<head>\n<title>" + config.yaml['title'] + "</title>\n"
+    bracket = "\n<html>\n<head>\n<title>" + "title" + "</title>\n"
     script = '<script>'
     script = script + '\nfunction toggle2(showHideDiv, switchTextDiv) {'
     script = script + '\n	 var ele = document.getElementById(showHideDiv);'

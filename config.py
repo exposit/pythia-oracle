@@ -133,15 +133,19 @@ use_spinner_status = True
 use_autotitle_in_logs = True
 
 # this will be copied in as a YAML into log templates calling for it
-# 'title' is also used for html play logs
-yaml = dict(
-    title = "Play Log",
-    author = "your name",
-    mainfont = "Lora",
-    sansfont = "Ubuntu Mono",
-    monofont = "Ubuntu Mono",
-    fontsize = "10pt",
-)
+yaml = '''
+    mainfont: Lora
+    monofont: Ubuntu Mono
+    fontsize: 10pt
+    sansfont: Ubuntu Mono
+    title: your title
+    header-includes:
+       - \usepackage[utf8]{inputenc}
+       - \usepackage[english]{babel}
+       - \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+    output:
+        pdf_document
+'''
 
 # should ephemeral tagged blocks be shown in logs?
 show_ephemeral_in_logs = False

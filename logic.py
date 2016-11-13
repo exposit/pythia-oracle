@@ -1305,8 +1305,7 @@ def addYAML():
 
     header = "---"
 
-    for key, value in config.yaml.iteritems():
-        header = header + "\n" + key + ": " + value
+    header = header + config.yaml
 
     header = header + "\n---"
 

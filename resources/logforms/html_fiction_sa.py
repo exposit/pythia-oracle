@@ -23,7 +23,7 @@ def makeLogFile(self):
 
     fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
-    result = '\n<html>\n<head>\n<title>' + config.yaml['title'] + '</title>\n<link rel="stylesheet" type="text/css" href="style.css">\n</head>\n<body>\n<!-- actual adventure starts here -->'
+    result = '\n<html>\n<head>\n<title>' + 'title' + '</title>\n<link rel="stylesheet" type="text/css" href="style.css">\n</head>\n<body>\n<!-- actual adventure starts here -->'
     # actual adventure content starts here
     for item in textArray:
         ti = textArray.index(item)

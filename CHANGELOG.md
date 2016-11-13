@@ -6,9 +6,9 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
-* added a new css-based logform; it doesn't stand alone but is perfect for dropping into a blog.
+* added new logforms that are blog-ready and should just "drop in" (tested on Jekyll)
 * cleaned up html escaping for logforms & added a function to generate a simple stylesheet
-* rewrote logforms entirely and changed the naming pattern
+* rewrote logforms entirely (again) and changed the naming pattern (again)
 
 Version 1.2.0
 
