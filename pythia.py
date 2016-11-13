@@ -24,14 +24,19 @@ import config
 if config.debug == False:
     kivy.config.Config.set('kivy', 'log_level', 'critical' )
 
-# override config values, I'm sure there's a tidier way to do this
-kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+# override kivy config values -- graphics
 kivy.config.Config.set ( 'graphics', 'width', 1280 )
 kivy.config.Config.set ( 'graphics', 'height', 725 )
 kivy.config.Config.set ( 'graphics', 'resizable', 0)
+kivy.config.Config.set ( 'graphics', 'multisamples', 4)
 
 # uncomment the next line and comment out the previous four if you want fullscreen
 #kivy.config.Config.set ( 'graphics', 'fullscreen', 'auto')
+
+# override kivy config values -- misc
+kivy.config.Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+kivy.config.Config.set('kivy', 'exit_on_escape', '1')
+
 
 from imports import *
 from main import MainScreen
@@ -430,6 +435,7 @@ class TitleScreen(Screen):
 
     def pressGenericButton(self, *args):
         args[0].background_color = accent2
+
 
 class PythiaOracleApp(App):
 

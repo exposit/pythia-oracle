@@ -1271,6 +1271,9 @@ class MainScreen(Screen):
             if config.debug == True:
                 print("[OnEnter calls] Unexpected error:", sys.exc_info())
 
+        Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
+
+        # SCENARIO STUFF
         if config.scenario['active'] == True:
 
             if config.scenario['use_core'] == False:

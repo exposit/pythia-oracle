@@ -132,7 +132,10 @@ user = dict(
 # do you want spinners or cycling buttons? Don't set this True unless you bought your computer yesterday
 use_spinner_status = False
 
-# these will be copied in as a YAML into log templates calling for it
+# should ephemeral tagged blocks be shown in logs? Used on a logform by logform basis.
+show_ephemeral_in_logs = False
+
+# these will be copied in as YAML Front Matter into log templates calling for it
 yaml_for_markdown = '''
 ---
 layout: post
@@ -140,6 +143,8 @@ title: Jekyll Blog Update
 ---
 '''
 
+# newfont family is any formatting in a "plain block" and used to override setmainfont
+# definecolor orange isn't actually used, it's just here so you can see how to do HTML formatting
 yaml_for_pdf = '''
 ---
 fontsize: 10pt
@@ -151,16 +156,11 @@ header-includes:
    - \usepackage{fontspec}
    - \definecolor{light-gray}{gray}{0.60}
    - \definecolor{orange}{HTML}{FF7F00}
-   - \definecolor{light-light-gray}{gray}{0.90}
-   - \defaultfontfeatures{Color=orange}
-   - \\newfontfamily\plain[ItalicFeatures = {Color=red}, BoldFeatures = {Color=red}, BoldItalicFeatures = {Color=red}] {Lora}
-   - \setmonofont[UprightFeatures = {Color=light-gray}] {Ubuntu Mono}
    - \setmainfont[UprightFeatures = {Color=black}, ItalicFeatures = {Color=light-gray}, BoldFeatures = {Color=light-gray}, BoldItalicFeatures = {Color=light-gray} ] {Lora}
+   - \setmonofont[UprightFeatures = {Color=light-gray}] {Ubuntu Mono}
+   - \\newfontfamily\plain[ItalicFeatures = {Color=black}, BoldFeatures = {Color=black}, BoldItalicFeatures = {Color=black}] {Lora}
 ---
 '''
-
-# should ephemeral tagged blocks be shown in logs?
-show_ephemeral_in_logs = False
 
 # which oracle will the ??? button call?
 oracle = "mythic"          # change to 'fu' to use fu as the default

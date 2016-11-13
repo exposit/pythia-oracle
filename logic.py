@@ -69,6 +69,8 @@ def updateCenterDisplay(self, text, status='result'):
     #field = config.textFieldLabelArray[-1]
     #print(field.minimum_height)
 
+    Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
+
 def switchModes(self):
 
     self.centerDisplayGrid.clear_widgets()
@@ -771,7 +773,7 @@ def quickload(self, gamedir):
                     tempStatusArray.append(textStatusArray[i])
 
         if config.debug == True:
-            print("Total Lines In Main Text: " + str(len(tempTextArray)))
+            print("[DEBUG] Total Blocks In Main Text: " + str(len(tempTextArray)))
 
         resetCenterDisplay(self, tempTextArray, tempStatusArray)
 
