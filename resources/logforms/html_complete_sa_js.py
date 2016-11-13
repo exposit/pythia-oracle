@@ -2,7 +2,10 @@
 #-*- coding: utf-8 -*-
 ##---------------------------------------------------------------------------------------
 #
-#  HTML - includes all mechanics except ephemeral and a javascript toggle
+#  HTML
+#     complete: includes all blocks except ephemeral
+#     sa: standalone page
+#     js: javascript toggles
 #
 ##---------------------------------------------------------------------------------------
 
@@ -13,52 +16,40 @@ import config
 def exclude():
     return False
 
-# everything in the main file except ephemeral in markdown
 def makeLogFile(self):
 
-    logfile = config.curr_game_dir + "logs" + os.sep + "complete_collapsible.html"
+    logfile = config.curr_game_dir + "logs" + os.sep + "complete_sa_js.html"
 
     textArray, textStatusArray = getSourceMaterial()
 
     fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
     tempStatusArray = []
     tempArray = []
+    result = ""
 
-    for i in range(len(textStatusArray)):
-        if textStatusArray[i] != "ephemeral":
-
-            item = textArray[i]
-            if "\n" in item:
-                item = item.replace('\n', '<br>')
-
-            if textStatusArray[i] == "result":
-                result = '\n<p class="italic">' + item + "</p>\n"
-            elif textStatusArray[i] == "aside":
-                result = '\n<p class="italic">' + item + "</p>\n"
-            elif textStatusArray[i] == "query":
-                result = '\n<p class="bold">' + item + "</p>\n"
-            elif textStatusArray[i] == "oracle":
-                result = '\n<p class="italicbold">' + item + "</p>\n"
-            elif textStatusArray[i] == "mechanic1":
-                result = '\n<p class="highlightcolor">' + item + "</p>\n"
-            elif textStatusArray[i] == "mechanic2":
-                result = '\n<p class="alternatecolor">' + item + "</p>\n"
+    for ti in range(len(textStatusArray)):
+        if textStatusArray[ti] != "ephemeral" or config.show_ephemeral_in_logs == True:
+            item = textArray[ti]
+            item = escapeHTML(item.rstrip())
+            if textStatusArray[ti] == "result":
+                result = '\n<p id="mechanic" class="result">' + item + "</p>"
+            elif textStatusArray[ti] == "query":
+                result = '\n<p id="mechanic" class="query">' + item + "</p>"
+            elif textStatusArray[ti] == "aside":
+                result = '\n<p id="mechanic" class="aside">' + item + "</p>"
+            elif textStatusArray[ti] == "oracle":
+                result = '\n<p id="mechanic" class="oracle">' + item + "</p>"
+            elif textStatusArray[ti] == "mechanic1":
+                result = '\n<p id="mechanic" class="color1">' + item + "</p>"
+            elif textStatusArray[ti] == "mechanic2":
+                result = '\n<p id="mechanic" class="color2">' + item + "</p>"
+            elif textStatusArray[ti] == "ephemeral":
+                result = '\n<p id="mechanic" class="ephemeral">' + item + "</p>"
             else:
-                if textStatusArray[i] == "italic":
-                    result = '\n<p class="italic">' + item + "</p>\n"
-                elif textStatusArray[i] == "bold":
-                    result = '\n<p class="bold">' + item + "</p>\n"
-                elif textStatusArray[i] == "bold_italic":
-                    result = '\n<p class="italicbold">' + item + "</p>\n"
-                elif textStatusArray[i] == "color1":
-                    result = '\n<p class="highlightcolor">' + item + "</p>\n"
-                elif textStatusArray[i] == "color2":
-                    result = '\n<p class="alternatecolor">' + item + "</p>\n"
-                else:
-                    result = '\n<p class="normal">' + item + "</p>\n"
+                result = '\n<p id="fiction">' + item + "</p>"
 
             tempArray.append(result)
-            tempStatusArray.append(textStatusArray[i])
+            tempStatusArray.append(textStatusArray[ti])
 
     count = 0
     bracket = "\n<html>\n<head>\n<title>" + config.yaml['title'] + "</title>\n"
@@ -86,26 +77,13 @@ def makeLogFile(self):
     script = script + '\n        }'
     script = script + '\n}'
     script = script + '</script>'
-    style = '\n<style type="text/css">'
-    style = style + "\n.italic {\nfont-style: italic;\n}"
-    style = style + "\n.italicbold {\nfont-style: italic;font-weight: bold;\n}"
-    style = style + "\n.bold {\nfont-weight: bold;\n}"
-    style = style + "\n.highlightcolor {\ncolor: #" + config.formats['highlight_color'] + ";\n}"
-    style = style + "\n.alternatecolor {\ncolor: #" + config.formats['alternate_color'] + ";\n}"
-    style = style + "\n</style>\n"
+    style = '\n<link rel="stylesheet" type="text/css" href="style.css">\n'
     bracket = bracket + "</head>\n<body><!-- actual adventure starts here -->"
 
     content_string = ""
     header_string = ""
-    result = ""
     chunk = False
-    if tempStatusArray[0] not in fictionStatusList:
-        count = count + 1
-        result = result + '\n<a id="myHeader' + str(count) + '" href="javascript:toggle2(\'myContent'  + str(count) + '\',\'myHeader' + str(count) + '\');" >hide</a>'
-        result = result + "\n<div id='myContent" + str(count) + "'>"
-        content_string = content_string + "'myContent" + str(count) + "',"
-        header_string = header_string + "'myHeader" + str(count) + "',"
-        chunk = True
+    result = "<p>Press the toggle to hide or show mechanics.</p>"
 
     for ti in range(len(tempStatusArray)):
         if tempStatusArray[ti] not in fictionStatusList and chunk == False:
@@ -126,14 +104,13 @@ def makeLogFile(self):
             chunk = False
             pass
 
-    result = parseHTML(result)
-
     final = bracket + script + style
 
     final = final + '<input type="button" value="Toggle All" onClick="toggle3([' + content_string + '], [' + header_string + ']);">'
 
-    result = final + result
-    result = result +  "\n</body>\n</html>"
+    result = final + result + "\n</body>\n</html>"
 
     with open(logfile, "w") as log_file:
         log_file.write(result.encode('utf-8'))
+
+    generateCSS()

@@ -1,9 +1,4 @@
 
-<html>
-<head>
-<title>quicksave</title>
-</head>
-<body><!-- actual adventure starts here --><script>
 function toggle2(showHideDiv, switchTextDiv) {
 	 var ele = document.getElementById(showHideDiv);
 	 var text = document.getElementById(switchTextDiv);
@@ -25,27 +20,4 @@ function toggle3(contentDiv, controlDiv) {
         else {
                toggle2(contentDiv, controlDiv);
         }
-}</script>
-<style type="text/css">
-.italic {
-font-style: italic;
 }
-.italicbold {
-font-style: italic;font-weight: bold;
-}
-.bold {
-font-weight: bold;
-}
-.highlightcolor {
-color: #424144;
-}
-.alternatecolor {
-color: #ededed;
-}
-</style>
-<input type="button" value="Toggle All" onClick="toggle3([], []);">
-
-<p class="italic">The adventure begins...</p>
-
-</body>
-</html>

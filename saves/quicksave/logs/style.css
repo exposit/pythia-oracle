@@ -1,0 +1,12 @@
+/* styles for styling Pythia play logs generated with the css logforms */
+/* Mechanic has sub-classes corresponding to Pythia format tags. Fiction just has sub tags like <i> and <b> so shouldn't need special styling unless you want to. */ 
+
+#mechanic { opacity: 0.5; } 
+#mechanic.result { font-style: italic; } 
+#mechanic.query { font-weight: bold; } 
+#mechanic.aside { font-style: italic; } 
+#mechanic.oracle { font-weight: bold; font-style: italic; } 
+#mechanic.mechanic1 { color: #424144; } 
+#mechanic.mechanic2 { color: #ededed; } 
+#mechanic.ephemeral { color: #9d2e39; }
+#fiction { opacity: 1.0; }

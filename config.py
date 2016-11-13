@@ -143,6 +143,9 @@ yaml = dict(
     fontsize = "10pt",
 )
 
+# should ephemeral tagged blocks be shown in logs?
+show_ephemeral_in_logs = False
+
 # which oracle will the ??? button call?
 oracle = "mythic"          # change to 'fu' to use fu as the default
 oracle_func = "mythic"     # change to 'fu' to use fu as the default

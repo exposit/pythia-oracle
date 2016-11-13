@@ -1264,7 +1264,17 @@ def parseMarkup(result):
 
     return result
 
-def parseHTML(result):
+def escapeHTML(result):
+
+    escapes = [ ['&', '&amp;'], ['<=', ' &le; '], ['>=', ' &ge; '], ['<', ' &lt; '], ['>', ' &gt; '], ['\n', '<br>'], ['[i]', '<i>'], ['[/i]', '</i>'], ['[b]', '<b>'] , ['[/b]', '</b>'], ['[u]', '<u>'], ['[/u]', '</u>'], ['[s]', '<s>'], ['[/s]', '</s>'], ['[sub]', '<sub>'], ['[/sub]', '</sub>'], ['[sup]', '<sup>'], ['[/sup]', '</sup>'], ['<p>', '\n<p>'] ]
+
+    for pair in escapes:
+        result = result.replace(pair[0], pair[1])
+
+    return result
+
+# this was messy
+def OLDparseHTML(result):
 
     result = result.replace('[i]', '<cite>')
     result = result.replace('[/i]', '</cite>')
@@ -1282,6 +1292,15 @@ def parseHTML(result):
 
     return result
 
+def generateCSS():
+
+    css_string = "/* styles for styling Pythia play logs generated with the css logforms */\n/* Mechanic has sub-classes corresponding to Pythia format tags. Fiction just has sub tags like <i> and <b> so shouldn't need special styling unless you want to. */ \n\n#mechanic { opacity: 0.5; } \n#mechanic.result { font-style: italic; } \n#mechanic.query { font-weight: bold; } \n#mechanic.aside { font-style: italic; } \n#mechanic.oracle { font-weight: bold; font-style: italic; } \n#mechanic.mechanic1 { color: #" + config.formats['highlight_color']  + "; } \n#mechanic.mechanic2 { color: #" + config.formats['alternate_color']  + "; } \n#mechanic.ephemeral { color: #" + config.formats['transitory_color']  + "; }\n#fiction { opacity: 1.0; }"
+
+    logfile = config.curr_game_dir + "logs" + os.sep + "style.css"
+
+    with open(logfile, "w") as log_file:
+        log_file.write(css_string.encode('utf-8'))
+
 def addYAML():
 
     header = "---"
@@ -1293,7 +1312,7 @@ def addYAML():
 
     return header
 
-# here's full 100 item lists; I don't think these are tied in right now
+# here's full 100 item Mythic-Style lists; I don't think these are tied in right now
 def seed_action():
     chart = ['accelerate', 'accumulate', 'acquire', 'adjust', 'adopt', 'advance', 'align', 'alter', 'anger', 'anticipate', 'assist', 'assume', 'bestow', 'carry', 'change', 'clarify', 'command', 'commit', 'conclude', 'consider', 'construct', 'control', 'convince', 'couple', 'determine', 'discover', 'disregard', 'divert', 'divide', 'draw', 'dream', 'edgy', 'educate', 'emphasize', 'enable', 'enchain', 'encourage', 'endless', 'enjoy', 'enrage', 'enter', 'entrance', 'eviscerate', 'examine', 'exchange', 'execute', 'exhaust', 'experience', 'facilitate', 'fascinate', 'feint', 'guess', 'impassion', 'improvise', 'inflame', 'inflate', 'interest', 'involve', 'justify', 'keep', 'ken', 'locate', 'loosen', 'lose', 'love', 'mend', 'mesmerize', 'motivate', 'murder', 'negotiate', 'nurture', 'obscure', 'overcome', 'penalize', 'quarter', 'question', 'refuse', 'reject', 'renegotiate', 'revenge', 'run', 'share', 'simplify', 'spy', 'squelch', 'stoic', 'strengthen', 'substitute', 'synthesize', 'teach', 'tighten', 'track', 'transition', 'trap', 'triumph', 'tumble', 'unify', 'unveil', 'weaken', 'withdraw']
 

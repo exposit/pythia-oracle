@@ -4,6 +4,12 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+WIP
+
+* added a new css-based logform; it doesn't stand alone but is perfect for dropping into a blog.
+* cleaned up html escaping for logforms & added a function to generate a simple stylesheet
+* rewrote logforms entirely and changed the naming pattern
+
 Version 1.2.0
 
 * added a Mythic panel and tied it in to the config & main buttons (see help.md for instructions on reverting to FU as default)
