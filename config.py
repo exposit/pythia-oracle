@@ -126,11 +126,12 @@ user = dict(
 # Changes to the following are game-wide and not stored in save games
 #------------------------------------------------------------------------
 
-# do you want spinners or cycling text buttons?
-use_spinner_status = True
+# do you want spinners or cycling buttons? Don't set this True unless you bought your computer yesterday
+use_spinner_status = False
 
 # this will be copied in as a YAML into log templates calling for it
 yaml = '''
+---
 fontsize: 10pt
 sansfont: Ubuntu Mono
 mainfont: Lora
@@ -139,8 +140,13 @@ header-includes:
    - \usepackage{xcolor}
    - \usepackage{fontspec}
    - \definecolor{light-gray}{gray}{0.60}
+   - \definecolor{orange}{HTML}{FF7F00}
+   - \definecolor{light-light-gray}{gray}{0.90}
+   - \defaultfontfeatures{Color=orange}
+   - \\newfontfamily\plain[ItalicFeatures = {Color=red}, BoldFeatures = {Color=red}, BoldItalicFeatures = {Color=red}] {Lora}
    - \setmonofont[UprightFeatures = {Color=light-gray}] {Ubuntu Mono}
    - \setmainfont[UprightFeatures = {Color=black}, ItalicFeatures = {Color=light-gray}, BoldFeatures = {Color=light-gray}, BoldItalicFeatures = {Color=light-gray} ] {Lora}
+---
 '''
 
 # should ephemeral tagged blocks be shown in logs?
