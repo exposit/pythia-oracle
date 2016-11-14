@@ -31,6 +31,8 @@ def makeLogFile(self):
         ti = textArray.index(item)
         item = item.rstrip()
         if textStatusArray[ti] in fictionStatusList:
+            
+            result = result + "\n"
 
             prefix_escapes = [ ['[i][b]', '\\textit{\\textbf{' ], ['[b][i]', '\\textbf{\\textit{'], ['[i]', '\\textit{'], ['[b]', '\\textbf{'] ]
             suffix_escapes = [ ['[/i][/b]', '}}'], ['[/b][/i]', '}}'], ['[/i]', '}'], ['[/b]',  '}'] ]

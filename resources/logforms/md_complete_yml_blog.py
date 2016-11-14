@@ -29,6 +29,7 @@ def makeLogFile(self):
         ti = textArray.index(item)
         item = item.strip()
         if textStatusArray[ti] != "ephemeral":
+            result = result + "\n"
             if textStatusArray[ti] == "italic" or textStatusArray[ti] == "result" or textStatusArray[ti] == "aside":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"

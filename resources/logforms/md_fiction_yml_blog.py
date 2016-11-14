@@ -31,6 +31,7 @@ def makeLogFile(self):
         ti = textArray.index(item)
         item = item.rstrip()
         if textStatusArray[ti] in fictionStatusList:
+            result = result + "\n"
             if textStatusArray[ti] == "italic":
                 item = item.replace('\n', '*\n\n*')
                 result = result + "\n*" + item + "*"
