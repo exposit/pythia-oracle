@@ -173,7 +173,7 @@ class MainScreen(Screen):
 
         self.centerDisplay = ScrollView(size_hint=(1,1))
 
-        self.centerDisplayGrid = GridLayout(cols=1, spacing=10, size_hint_y=None, size_hint_x=1, padding=(10,10))
+        self.centerDisplayGrid = GridLayout(cols=1, size_hint_y=None, size_hint_x=1, padding=(10,10))
         self.centerDisplayGrid.bind(minimum_height = self.centerDisplayGrid.setter('height'))
 
         self.centerDisplay.add_widget(self.centerDisplayGrid)

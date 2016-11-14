@@ -143,7 +143,7 @@ title: Jekyll Blog Update
 ---
 '''
 
-# newfont family is any formatting in a "plain block" and used to override setmainfont
+# newfont family is any formatting contained in a "plain" block and is used to override setmainfont
 # definecolor orange isn't actually used, it's just here so you can see how to do HTML formatting
 yaml_for_pdf = '''
 ---
@@ -254,8 +254,7 @@ threadStatusLabelArray = []
 textArray = []
 textStatusArray = []
 textLabelArray = []
-textFieldLabelArray = []
-textStatusLabelArray = []
+textBoxArray = []
 
 trackLabelArray = []
 trackStatusLabelArray = []
@@ -270,4 +269,3 @@ tempGmapArray = []
 gmapArray = {}
 
 imgLabelArray = []
-#imgTextArray = []

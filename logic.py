@@ -22,158 +22,129 @@ class ButtonBehaviorLabel(ButtonBehavior, Label):
 class ButtonLabel(Button, Label):
     pass
 
-# is this even used anywhere anymore?
-class InputLabel(TextInput, Label):
-    pass
-
 def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.textStatusArray):
 
     for i in range(len(textArray)):
         makeItemLabels(self, textArray[i], textStatusArray[i])
-
-    switchModes(self)
+        addToCenterDisplay(self, textArray[i], textStatusArray[i])
 
 def updateCenterDisplay(self, text, status='result'):
 
     if len(config.textStatusArray) > 0:
 
-        if config.textStatusArray[-1] == status and config.general['merge'] == True:
-
-            # this label's status is the same as the last; consolidate them for brevity
-            config.textArray[-1] = config.textArray[-1] + "\n\n" + text
-            status = config.textStatusArray[-1]
-            formatted_text = parseText(config.textArray[-1], status)
-
-            config.textLabelArray[-1].text = formatted_text
-            config.textFieldLabelArray[-1].text = config.textArray[-1]
-
-            field = config.textFieldLabelArray[-1]
-
-            # if the text height has changed by more than two lines
-            #old_height = field.height
-            #new_height = max( (len(field._lines) + 1) * field.line_height, config.formats['basefontsize']*2 )
-
-            #if abs(old_height - new_height) > field.line_height*2:
-            #    field.height = new_height
-
-        else:
-
-            makeItemLabels(self, text, status)
-            addToCenterDisplay(self, text, status)
-
-    else:
-
         makeItemLabels(self, text, status)
         addToCenterDisplay(self, text, status)
 
-    #field = config.textFieldLabelArray[-1]
-    #print(field.minimum_height)
     try:
         Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
     except:
         pass
 
-def switchModes(self):
+def swapBlock(block):
 
-    self.centerDisplayGrid.clear_widgets()
-    fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+    # block is either a block or a button
+    self = block.self
+    index = block.index
+    status = config.textStatusArray[index]
+    text = config.textArray[index]
+    base_text = text
+    box = config.textBoxArray[index]
+    if len(box.children) > 1:
+        field = [x for x in box.children if x.__class__.__name__ == "TextInput"]
+        focusChangeText(field[0], False)
 
-    edit_mode = config.general['edit_behavior']
+    is_bookmark_set = storeBookmarkLabel(block)
+    if is_bookmark_set == True:
+        return
 
-    if edit_mode == "read":
-        # this mode is for reading the entire log, mechanics and all
+    box.clear_widgets()
 
-        self.centerDisplayGrid.cols = 1
+    if block == config.textLabelArray[index]:
 
-        for index in range(len(config.textArray)):
-            status = config.textStatusArray[index]
-            if status != "ephemeral":
-                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
+        box.cols = 2
 
-    elif edit_mode == "play":
-        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text; probably going to deprecate this now that switching modes is faster
+        field = TextInput(text=base_text, font_size=config.blockfont, size_hint_y=None, size_hint_x=None)
+        field.bind(focus=focusChangeText)
+        field.background_color=neutral
+        field.foreground_color=(1,1,1,1)
+        field.index = index
+        field.self = self
+        field.bind(height=box.setter('height'))
+        box.add_widget(field)
 
-        self.centerDisplayGrid.cols = 2
+        subbox = BoxLayout(orientation="vertical")
+        subbox.index = index
 
-        for index in range(len(config.textArray)):
-            status = config.textStatusArray[index]
-            if status != "ephemeral":
-                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
-                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
+        # these are for setting status
+        if config.use_spinner_status == False:
+            button = ButtonLabel(text=status, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_y=None, size_hint_x=None)
+            button.height="20dp"
+            button.width="80dp"
+            button.self = self
+            button.background_normal=''
+            button.background_color=accent1
+            button.background_down=''
+            button.background_color_down=accent2
+            button.bind(on_press=cycleText)
+            button.index = index
+            subbox.add_widget(button)
 
-    elif edit_mode == "fiction":
-        # fiction mode for reading just text; Hide mechanics or formats tags
+            field.width=self.centerDisplayGrid.width-button.width-20
 
-        self.centerDisplayGrid.cols = 1
+        # this is a much cleaner solution instead of cycling, but takes a while
+        if config.use_spinner_status == True:
+            formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2']
 
-        for index in range(len(config.textArray)):
-            status = config.textStatusArray[index]
-            if status in fictionStatusList:
-                self.centerDisplayGrid.add_widget(config.textLabelArray[index])
+            spinner = Spinner(
+                # default value shown
+                text=status,
+                # available values
+                values=formatList,
+                background_normal='',
+                background_color=accent1,
+                background_down='',
+                background_color_down=accent2,
+                font_size=config.basefont60,
+                size_hint_y=None,
+                size_hint_x=None,
+                height="20dp",
+                width="80dp",
+                )
+            spinner.index = index
+            spinner.self = self
+            spinner.bind(text=reformatText)
+            subbox.add_widget(spinner)
 
-    elif edit_mode == "fic-edit":
-        # editing mode for just text, no mechanics tags
+            field.width=self.centerDisplayGrid.width-spinner.width-20
 
-        self.centerDisplayGrid.cols = 2
+        button = Button(text="done", font_size=config.blockstatusfont, font_name='maintextfont', size_hint_y=None, size_hint_x=None)
+        button.height="20dp"
+        button.width = "80dp"
+        button.background_normal=''
+        button.background_color=accent1
+        button.background_down=''
+        button.background_color_down=accent2
+        button.bind(on_press=swapBlock)
+        button.index = index
+        button.self = self
+        subbox.add_widget(button)
 
-        for index in range(len(config.textArray)):
-            status = config.textStatusArray[index]
-            if status in fictionStatusList:
-                self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
-                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
+        box.add_widget(subbox)
 
     else:
-        # full editing mode, text, mechanics, formats
-        self.centerDisplayGrid.cols = 2
-
-        for index in range(len(config.textArray)):
-            status = config.textStatusArray[index]
-            if status != "ephemeral":
-                self.centerDisplayGrid.add_widget(config.textFieldLabelArray[index])
-                self.centerDisplayGrid.add_widget(config.textStatusLabelArray[index])
-
-    jumpToIndex(self, -1)
+        box.cols = 1
+        box.add_widget(config.textLabelArray[index])
 
 def addToCenterDisplay(self, text, status):
 
-    edit_mode = config.general['edit_behavior']
-    fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
+    self.centerDisplayGrid.add_widget(config.textBoxArray[-1])
 
-    if edit_mode == "read":
-        # this mode is for reading the entire log, mechanics and all
-        if status != "ephemeral":
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-
-    elif edit_mode == "play":
-        # this mode is used if you're prone to forgetting to change format type but don't wish to edit text
-        if status != "ephemeral":
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
-
-    elif edit_mode == "fiction":
-        # fiction mode for reading just text; don't show mechanics or formats tags
-        if status in fictionStatusList:
-            self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
-
-    elif edit_mode == "fic-edit":
-        # editing mode for just text, no mechanics or formats tags
-        if status in fictionStatusList:
-            self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
-
-    else:
-        # full editing mode, text, mechanics, formats
-        if status != "ephemeral":
-            self.centerDisplayGrid.add_widget(config.textFieldLabelArray[-1])
-            self.centerDisplayGrid.add_widget(config.textStatusLabelArray[-1])
-
-    jumpToIndex(self, -1)
+    jumpToIndex(self, len(config.textBoxArray)-1)
 
 def makeItemLabels(self, text, status='result'):
 
     if len(text) <= 0:
         return
-
-    edit_mode = config.general['edit_behavior']
 
     if text[:1] == "\n":
         text = text[1:]
@@ -184,11 +155,20 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    label = ButtonBehaviorLabel(text=text, size_hint=(.85, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    box = GridLayout(cols=1, size_hint=(1, None), padding=(20,20))
+    box.width = self.centerDisplayGrid.width
+    box.size = box.minimum_size
+    box.bind(minimum_height = box.setter('height'))
+    box.index = len(config.textArray)-1
+    config.textBoxArray.append(box)
+
+    label = ButtonBehaviorLabel(text=text, size_hint=(1, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+    label.width = self.centerDisplayGrid.width
+    label.height = label.texture_size[1]
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-    label.bind(on_release=storeBookmarkLabel)
+    label.bind(on_release=swapBlock)
     label.bind(on_ref_press=refPress)
     label.foreground_color=(1,1,1,1)
     label.markup = True
@@ -196,55 +176,9 @@ def makeItemLabels(self, text, status='result'):
     label.index = len(config.textArray)-1
     config.textLabelArray.append(label)
 
-    if config.use_spinner_status == False:
-        label = ButtonLabel(text=status, size_hint=(.15, None), font_size=config.blockstatusfont, font_name='maintextfont')
-        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
-        #label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-        label.background_normal=''
-        label.background_color=accent1
-        label.background_down=''
-        label.background_color_down=accent2
-        label.bind(on_press=cycleText)
-        config.textStatusLabelArray.append(label)
-        label.index = len(config.textArray)-1
-
-    label = TextInput(text="", size_hint=(.85, None), font_size=config.blockfont)
-    label.bind(focus=focusChangeText)
-    label.background_color=neutral
-    label.foreground_color=(1,1,1,1)
-    label.index = len(config.textArray)-1
-    label.text = base_text
-    config.textFieldLabelArray.append(label)
-    #label.width = self.centerDisplayGrid.width
-    label.height = label.minimum_height
-    label.height = ((len(label._lines)/5) + 1) * (label.line_height + label.line_spacing) + label.padding[1] + label.padding[3] + label.line_height
-
-    # this is a much cleaner solution instead of cycling, but takes an unacceptably long time
-    # trying again with fewer buttons; nope, still unacceptably slow
-    if config.use_spinner_status == True:
-        formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2']
-
-        spinner = Spinner(
-            # default value shown
-            text=status,
-            # available values
-            values=formatList,
-            background_normal='',
-            background_color=accent1,
-            background_down='',
-            background_color_down=accent2,
-            font_size=config.basefont60,
-            size_hint=(.15, None),
-            )
-        spinner.index = len(config.textArray)-1
-        spinner.bind(text=reformatText)
-        spinner.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
-        config.textStatusLabelArray.append(spinner)
+    box.add_widget(label)
 
 def parseText(text, status):
-
-    #mechanicStatusList = ["oracle", "result", "aside", "query", "mechanic1", "mechanic2"]
-    #fictionStatusList = ["plain", "italic", "bold", "bold_italic", "color1", "color2"]
 
     if status in config.formats:
         blockformat = config.formats[status]
@@ -267,10 +201,10 @@ def parseText(text, status):
 # used by the spinner option
 def reformatText(spinner, status):
 
-    config.textStatusArray[config.textStatusLabelArray.index(spinner)] = status
-    text = config.textArray[config.textStatusLabelArray.index(spinner)]
+    config.textStatusArray[spinner.index] = status
+    text = config.textArray[spinner.index]
     text = parseText(text, status)
-    config.textLabelArray[config.textStatusLabelArray.index(spinner)].text = text
+    config.textLabelArray[spinner.index].text = text
 
     return True
 
@@ -278,27 +212,27 @@ def cycleText(label, *args):
 
     status = label.text
 
-    # mechanics tags
-    #formatList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2"]
-    formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "color3", "ephemeral"]
+    tagList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "color3", "ephemeral"]
 
     try:
-        if formatList.index(status) == len(formatList)-1:
-            status = formatList[0]
+        if tagList.index(status) == len(tagList)-1:
+            status = tagList[0]
         else:
-            status = formatList[formatList.index(status)+1]
+            status = tagList[tagList.index(status)+1]
     except:
         status = "plain"
 
-    config.textStatusArray[config.textStatusLabelArray.index(label)] = status
+    config.textStatusArray[label.index] = status
     label.text = status
 
-    text = config.textArray[config.textStatusLabelArray.index(label)]
+    text = config.textArray[label.index]
     text = parseText(text, status)
 
-    config.textLabelArray[config.textStatusLabelArray.index(label)].text = text
+    config.textLabelArray[label.index].text = text
 
     return True
+
+# End of main text routines
 
 def checkForTrigger(self):
     index = []
@@ -503,19 +437,17 @@ def focusChangeThread(label, value):
     else:
         config.threadArray[config.threadLabelArray.index(label)] = label.text
 
-def focusChangeText(label, value):
+def focusChangeText(field, value):
     if value:
         pass
     else:
-        config.textArray[label.index] = label.text
-        status = config.textStatusArray[label.index]
-        index = label.index
-        formatted_text = parseText(label.text, status)
+        config.textArray[field.index] = field.text
+        status = config.textStatusArray[field.index]
+        index = field.index
+
+        formatted_text = parseText(field.text, status)
 
         config.textLabelArray[index].text = formatted_text
-        config.textFieldLabelArray[index].text = label.text
-
-        field = config.textFieldLabelArray[index]
 
         # if the text height has changed by more than two lines
         old_height = field.height
@@ -691,20 +623,20 @@ def quicksave(self, gamedir):
 
     f = open(gamedir + 'maps.txt', 'w')
     maps = {}
-    maps['ddmaps'] = config.mapArray
-    maps['gmaps'] = config.gmapArray
+    try:
+        maps['ddmaps'] = config.mapArray
+    except:
+        pass
+
+    try:
+        maps['gmaps'] = config.gmapArray
+    except:
+        pass
+
     json.dump(maps, f)
     f.close()
 
-    #if os.path.exists(gamedir + "images"):
-    #    tempArray = []
-    #    for i in range(len(config.imgLabelArray)):
-    #        tempArray.append(config.imgLabelArray[i].text)
-    #    with open(gamedir + 'imgs.txt', 'w') as filename:
-    #        json.dump(tempArray, filename)
-
-    # handle this a little differently; stick the image labels in config.user instead
-    # which means they'll be saved in the config file in the next step
+    # images are saved in the main config file
     if os.path.exists(gamedir + "images"):
         config.user['image_labels'] = []
         for i in range(len(config.imgLabelArray)):
@@ -867,15 +799,6 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Tracks] Unexpected error:", sys.exc_info())
 
-    # IMAGE LABELS - now handled in config load
-    #try:
-        #tempTable = []
-        #if os.path.exists(gamedir + "images"):
-        #    with open(gamedir + 'imgs.txt', 'r') as filename:
-        #        config.imgTextArray = json.load(filename)
-    #except:
-    #    if config.debug == True:
-    #        print("[quickload Images] Unexpected error:", sys.exc_info())
 
     # CHARACTER SHEETS
     try:
@@ -896,12 +819,20 @@ def quickload(self, gamedir):
             maps = json.load(filename)
 
         config.mapArray = maps['ddmaps']
-        config.gmapArray = maps['gmaps']
 
         tempVals = []
         for i in config.mapArray:
             tempVals.append(i)
         self.mapSpinner.values = tempVals
+
+    except:
+        pass
+
+    try:
+        with open(gamedir + 'maps.txt', 'r') as filename:
+            maps = json.load(filename)
+
+        config.gmapArray = maps['gmaps']
 
         tempVals = []
         for i in config.gmapArray:
@@ -909,8 +840,7 @@ def quickload(self, gamedir):
         self.gmapSpinner.values = tempVals
 
     except:
-        if config.debug == True:
-            print("[quickload Maps] Unexpected error:", sys.exc_info())
+        pass
 
 def makeBackup(subtype):
 
@@ -940,6 +870,8 @@ def storeBookmarkLabel(label):
         index = label.index
     except:
         index = -9
+
+    bset = False
     l = ToggleButtonBehavior.get_widgets('bookmarks')
     for button in l:
         if button.state == "down":
@@ -947,7 +879,10 @@ def storeBookmarkLabel(label):
             button.state = 'normal'
             button.text = str(index)
             config.general['bookmarks'][button.value] = index
+            bset = True
     del l
+
+    return bset
 
 def rollDice(text):
 
@@ -1160,21 +1095,10 @@ def jumpToNext(self):
 
 def jumpToIndex(self, index):
 
-    edit_mode = config.general['edit_behavior']
-    fieldList = ['edit', 'fic-edit']
-
-    # this could use some catching in case the curent label is not visible for some reason
-
-    if edit_mode in fieldList:
-        if config.textFieldLabelArray[index].parent != None:
-            self.centerDisplay.scroll_to(config.textFieldLabelArray[index])
-        elif index == -1 or index == 0:
-            self.centerDisplay.scroll_to(self.centerDisplay.children[index])
+    if index == -1 or index == 0:
+        self.centerDisplay.scroll_to(self.centerDisplay.children[index])
     else:
-        if config.textLabelArray[index].parent != None:
-            self.centerDisplay.scroll_to(config.textLabelArray[index])
-        elif index == -1 or index == 0:
-            self.centerDisplay.scroll_to(self.centerDisplay.children[index])
+        self.centerDisplay.scroll_to(config.textBoxArray[index])
 
 # weighted choosers
 def chooseWeighted(value, text, form):
