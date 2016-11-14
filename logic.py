@@ -68,8 +68,10 @@ def updateCenterDisplay(self, text, status='result'):
 
     #field = config.textFieldLabelArray[-1]
     #print(field.minimum_height)
-
-    Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
+    try:
+        Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
+    except:
+        pass
 
 def switchModes(self):
 
