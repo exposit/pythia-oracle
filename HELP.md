@@ -51,9 +51,9 @@ You can also open up the 'pythia.py' file in your favorite text editor, then com
 
 Most of the program's user data is saved in plain text files (in json format).
 
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. See also "Config Flags"; there's a manual_edit_mode that will help protect your data.
+MAKE BACKUPS BEFORE EDITING FILES. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. See also "Config Flags"; there's a manual_edit_mode that will help protect your data when editing those files directly.
 
-__I strongly suggest that you use a [json editor](https://github.com/josdejong/jsoneditor) when editing save game files. The one linked is painless to use -- just unzip the release, then open the "04_load_and_save" file in the examples directory in a modern browser.__
+__I strongly suggest that you use a [json editor](https://github.com/josdejong/jsoneditor) when editing save game files. Just unzip the release, then open the "04_load_and_save" file in the examples directory in a modern browser.__
 
 There are two types of config files, the main config.py (not json) and a config.txt per game. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games (but not existing ones).
 
@@ -63,7 +63,7 @@ To reset the quicksave, just delete the entire quicksave folder in the saves fol
 
 __*Config Flags*__
 
-If 'manual_edit_mode' is set to True, the game will no longer overwrite the main.txt with "the adventure begins" on a failed save game load. It is much better to just use a json editor.
+If 'manual_edit_mode' is set to True, the game will no longer overwrite the main.txt with "the adventure begins" on a failed save game load. It is much better to just use a json editor instead of messing with 'manual_edit_mode'.
 
 __It will also no longer save any changes made in Pythia itself until the manual_edit_mode flag is set back to False.__
 
@@ -144,7 +144,9 @@ The bookmark panel consists of five bookmark slots and a "Clear" button. If you'
 
 The enter behavior spinner allows you to choose what text is automatically tagged with when you hit "enter" while typing in the main text input. "Plain" and "Aside" modes correspond to the "Direct" and "Aside" buttons in the bottom control panel.
 
-"None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons. Note that some generators will pass the text field's text into the main log but others won't, so use caution when writing long blocks of text in "None" (or any other) mode.
+"None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons. 
+
+__Some generators will pass the text field's text into the main log but others won't, so use caution when writing long blocks of text in "None" (or any other) mode.__
 
 #### Threads
 
@@ -164,7 +166,7 @@ The "find" button takes whatever string is entered into the text input and jumps
 
 The main text blocks are displayed as labels by default. Click on a text block to make it editable; click on the "done" button to return it to a label.
 
-### #Main Control Panel
+#### Main Control Panel
 
 At the bottom of the center panel is the main control panel. It has the primary text input, the footer buttons, and the side control panel.
 
@@ -172,7 +174,11 @@ At the bottom of the center panel is the main control panel. It has the primary 
 
 The primary text input is how you get text into the program. It also supports passing information to various other buttons across the program, like the different "random [item]" buttons, the dice roller, and the "find" button.
 
-To roll dice without using the "Roll Dice" button, you need to be in a text entering mode other than "None". If you begin your string with a number or include the word "roll" anywhere in the string, Pythia will check if the string contains any dice notation segments (2d8, 2d6x3, and so on) and, if so, roll them.
+To roll dice without using the "Roll Dice" button, you need to be in a text entering mode other than "None". If you begin your string with a number or include the keyword "roll" anywhere in the string, Pythia will check if the string contains any dice notation segments (2d8, 2d6x3, and so on) and, if so, roll them.
+
+If you include the keyword "??", it will return your text as a query then call an oracle automatically after you hit enter.
+
+Finally, you can tag your blocks automatically with "-p" (plain) or "-a" for aside. This must be the first or last element in the text input and any other keywords will override it. Hit "enter" to pass the keyword to Pythia.
 
 #### Side Controls
 

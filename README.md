@@ -62,7 +62,11 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 From now on Pythia should handled changes to the base config file more gracefully; you shouldn't need to do anything special to upgrade, except back up your save and backup folders as usual.
 
-If you experience formatting issues, you will need to either retag each block in Pythia or do so in the main.txt file. If you decide to edit main.txt, be sure to set the "manual_edit_mode" flag in config.py to True first.
+If you experience formatting issues, you will need to either retag each block in Pythia or do so in the main.txt file. 
+
+__I strongly suggest that you use a [json editor](https://github.com/josdejong/jsoneditor) when editing save game files. Just unzip the release, then open the "04_load_and_save" file in the examples directory in a modern browser.__
+
+If you decide to edit main.txt directly, be sure to set the "manual_edit_mode" flag in config.py to True first.
 
 After saving, load it up in Pythia. If everything loads correctly, close Pythia down, change the "manual_edit_mode" flag back to "False", and you're ready to start playing again.
 

@@ -684,6 +684,16 @@ class MainScreen(Screen):
                     is_roll = False
                     roll_result = False
                     answer = False
+                    
+                    blocktag = config.general['enter_behavior']
+                    
+                    matchList = [ [ new_text.startswith("-a"), 'aside', new_text[2:] ], [ new_text.startswith("-p"), 'plain', new_text[2:] ], [ new_text.endswith("-a"), 'aside', new_text[:-2] ], [ new_text.endswith("-p"), 'plain', new_text[:-2] ] ]
+                                 
+                    
+                    for test in matchList:
+                        if test[0]:
+                            blocktag = test[1]
+                            new_text = test[2].strip()
 
                     try:
                         is_roll = int(new_text[0])
@@ -717,10 +727,10 @@ class MainScreen(Screen):
                         
                     if roll_result:
                         updateCenterDisplay(self, roll_result, 'result')
-                        passthrough = False
+                        passthrough = False                   
                                             
                     if passthrough == True:
-                        updateCenterDisplay(self, new_text, config.general['enter_behavior'])
+                        updateCenterDisplay(self, new_text, blocktag)
                         
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
