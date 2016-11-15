@@ -30,8 +30,8 @@ backup_limit = 7
 general = dict(
     version = '1.3.0d',
     # this doesn't work right and I hate it
-    pretitle = '------------------------------------------',
-    posttitle = '------------------------------------------',
+    pretitle = '---',
+    posttitle = '---',
     # settings for the top bar
     enter_behavior = "plain",
     edit_behavior = "read",
@@ -62,7 +62,7 @@ general = dict(
     use_dice_qualities = False,
     # secrets and triggers
     secrets = [],
-    # random chance stuff for oracles -- used by fu only atm
+    # random chance stuff for oracles -- used by fu oracle only atm
     random_chance_list = [0,1,3,5,10,15,20,25,50,75,99,100],
     random_event_chance = 5,
     # monsters

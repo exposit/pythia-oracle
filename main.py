@@ -83,6 +83,11 @@ class MainScreen(Screen):
 
         self.statusBox.add_widget(self.bookmarkBox)
 
+        self.mechanicsButton = Button(text="PROSE", font_size=config.basefont90, size_hint=(.15,1), background_color=neutral, font_name='maintextfont')
+        self.statusBox.add_widget(self.mechanicsButton)
+        self.mechanicsButton.bind(on_press=self.pressGenericButton)
+        self.mechanicsButton.bind(on_release=hideMechanicsBlocks)
+        self.mechanicsButton.self = self
 
         try:
             enterBehaviorList = config.formats['status_tags']
@@ -670,31 +675,60 @@ class MainScreen(Screen):
         if args[1] == 13 and self.textInput.focus == True:
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:
+                
                 new_text = self.textInput.text
+                
                 if config.general['enter_behavior'] != "None":
+
+                    passthrough = True
                     is_roll = False
                     roll_result = False
-                    # is the first part of the string a number?
+                    answer = False
+
                     try:
                         is_roll = int(new_text[0])
                     except:
                         is_roll = False
                         
-                    if is_roll or "roll" in new_text:
+                    if is_roll or "roll" in new_text or "Roll" in new_text:
                         roll_result = parseTextForDice(new_text)
+                        
+                    if "??" in new_text:
+                        new_text = new_text.replace('??', '?')
 
+                        index = 99
+                        for i in range(len(oracle_module)):
+                            if oracle_module[i].__name__ == config.oracle:
+                                index = i
+
+                        if index < 99:
+                            methodToCall = getattr( oracle_module[index], config.oracle_func )
+                            answer = methodToCall()
+                        else:
+                            answer = "No oracle found."
+                            
+                    if answer or (roll_result and not is_roll):
+                        updateCenterDisplay(self, new_text, 'query')
+                        passthrough = False
+                        
+                    if answer:
+                        updateCenterDisplay(self, answer, 'oracle')
+                        passthrough = False
+                        
                     if roll_result:
-                        if is_roll == False:
-                            updateCenterDisplay(self, new_text, 'query')
                         updateCenterDisplay(self, roll_result, 'result')
-                    else:
+                        passthrough = False
+                                            
+                    if passthrough == True:
                         updateCenterDisplay(self, new_text, config.general['enter_behavior'])
                         
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
                     if config.general['enter_behavior'] == 'plain':
                         checkForTrigger(self)
+                        
                     return True
+                
         elif args[1] == 96 and config.debug == True:   # really sloppy, takes a screenshot on tilde
             timestamp =  '{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
             Window.screenshot(name=config.curr_game_dir + 'screenshot_' + timestamp + '.png')

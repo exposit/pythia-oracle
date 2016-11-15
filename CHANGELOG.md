@@ -6,9 +6,10 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.3.0
 
-* added a catch for missing game config files; to update to a new version of Pythia you can now just delete your old config.txt files in whatever save game you want to run and Pythia will make a fresh, shiny, updated one.
-* hitting enter in the main text field will now roll dice if you include the keyword "roll" and one or more properly formatted roll requests (2d6, 2d8x2, and so on) in your text
-* removed edit modes entirely; Pythia now tags each block with its purpose and then assigns formatting based on that purpose. Click on a block to edit it, change the block tag, or add markup.
+* rewrote the way configs are loaded; should be significantly less likely for a missing key/update to require removing your old config
+* added a catch for missing game config files; if no config.txt is found in a save folder Pythia will make a new one
+* two new keywords for the main text input; "??" will request an oracle result and "roll" will request one or more dice rolls. See HELP for details
+* removed edit modes entirely; Pythia now tags each block with its purpose and then assigns formatting based on that purpose. Click on a block to edit it, change the block tag, or add markup. Click "PROSE" to see just fiction-tagged blocks.
 * removed merge mode entirely; it was unnecessary and hard to maintain. Blocks will still split automatically on a double carriage return.
 * The grid map panel is now excluded by default; reactivate it if you want it by going into resources/panels/maps/gridmap.py and setting exclude to False.
 * new per game config for excluding each map panel, if you still want them included but don't want them displayed for a particular game

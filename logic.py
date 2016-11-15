@@ -58,6 +58,7 @@ def swapBlock(block):
         block.parent.remove_widget(block)
 
         box = GridLayout(cols=2, size_hint=(1,None))
+        box.index = index
 
         field = TextInput(text=base_text, font_size=config.blockfont, size_hint_y=None, size_hint_x=None)
         field.bind(focus=focusChangeText)
@@ -168,8 +169,9 @@ def swapBlock(block):
         config.textLabelArray[index] = label
         label.padding_=50
         
+
     self.centerDisplayGrid.clear_widgets()
-    
+
     for item in config.textLabelArray:
         self.centerDisplayGrid.add_widget(item)
 
@@ -221,6 +223,14 @@ def insertTextFormat(button):
     field.insert_text(format_to_insert)
     
     config.textArray[index] = field.text
+    
+def hideMechanicsBlocks(button):
+    
+    self = button.self
+    button.background_color = neutral
+    for unit in config.textLabelArray:
+        if config.textStatusArray[unit.index] != "plain":
+            self.centerDisplayGrid.remove_widget(unit)
 
 def parseText(text, status):
     
@@ -595,12 +605,16 @@ def saveconfig(self, gamedir):
 def loadconfig(self, gamedir):
     
     try:
+    
         with open(gamedir + 'config.txt', 'r') as config_file:
             tempDict = json.load(config_file)
-            config.general = tempDict['general']
-            config.formats = tempDict['formats']
-            config.user = tempDict['user']
-            config.scenario = tempDict['scenario']
+            
+        sectionList = ['general', 'formats', 'user', 'scenario']
+            
+        for section in sectionList:
+            for key, value in tempDict[section].iteritems():
+                eval("config." + section)[key] = value
+        
     except:
         # no config, make a new one
         if config.debug == True:
@@ -938,7 +952,7 @@ def parseTextForDice(text):
         return False
 
     return '\n'.join(roll_results)
-    
+
 
 def rollDice(text):
 

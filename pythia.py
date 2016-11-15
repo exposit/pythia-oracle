@@ -85,23 +85,20 @@ class TitleScreen(Screen):
                 tempDict = json.load(config_file)
                 config.general['pretitle'] = tempDict['general']['pretitle']
                 config.general['posttitle'] = tempDict['general']['posttitle']
-                #for i in tempDict['general']:
-                #    config.general[i] = tempDict['general'][i]
-                #for i in tempDict['user']:
-                #    config.user[i] = tempDict['user'][i]
-                #for i in tempDict['scenario']:
-                #    config.scenario[i] = tempDict['scenario'][i]
-                #print("config loaded")
         except:
             pass
 
         self.mainBox = BoxLayout(orientation='vertical', size_hint_x=.8, size_hint_y=.6, spacing=20)
 
-        self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
+        #self.preTitleLabel = TextInput(text=config.general['pretitle'], font_size=22, font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1),  padding=(300,0))
+
+        self.preTitleLabel = Label(text=config.general['pretitle'], font_size="36dp", font_name='titlefont', halign="center")
 
         self.currentLabel = Label(text=string.capwords(config.curr_game_dir.split(os.sep)[-2]), font_size="36dp", font_name='titlefont', halign="center")
 
-        self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
+        self.postTitleLabel = Label(text=config.general['posttitle'], font_size="36dp", font_name='titlefont', halign="center")
+
+        #self.postTitleLabel = TextInput(text=config.general['posttitle'], font_size="22dp", font_name='titlefancyfont', background_color=(0,0,0,0), foreground_color=(1,1,1,1), padding=(300,0))
 
         self.startButton = Button(text="Start", font_name='titlefont', font_size="20dp")
         self.startButton.bind(on_press=self.pressGenericButton)
@@ -252,6 +249,11 @@ class TitleScreen(Screen):
 
         # aboutBox popup
         self.aboutBox = GridLayout(cols=1, padding=(10,10))
+        
+        self.AboutPopup = Popup(title='About',
+            content=self.aboutBox,
+            size_hint=(.5, .7),
+            auto_dismiss=True)
 
         text = []
         text.append("Make a new game, push buttons, enter text, push more buttons, let me know if anything crashes. Back up your save folder frequently in case of boom. Have fun!")
@@ -260,19 +262,18 @@ class TitleScreen(Screen):
         text.append("")
         text.append("The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).")
         text.append("")
+        text.append("The Mythic GM Emulator is used with permission of the author under a non-commercial clause.")
+        text.append("")
         text.append("The Conundrum and And/But Clarifier generators are from Abulafia (found at http://www.random-generator.com/) and licensed under the Creative Commons Attribution 2.5 Generic license (http://creativecommons.org/licenses/by/2.5/).")
         text.append("")
         text.append("Pythia (this program) is licensed under MIT.\nGithub (user name exposit, repo pythia-oracle) for more information.")
         for entry in text:
             label = Label(text=entry)
             label.size = label.texture_size
-            label.text_size = (500,None)
+            label.text_size = (self.aboutBox.width,None)
             self.aboutBox.add_widget(label)
-
-        self.AboutPopup = Popup(title='About',
-            content=self.aboutBox,
-            size_hint=(None, None), size=(550, 500),
-            auto_dismiss=True)
+            label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+            label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
 
     def showAbout(self, *args):
         self.aboutButton.background_color = neutral

@@ -36,24 +36,18 @@ Table of Contents
         * [Diagram Map](#diagram-map)
         * [Images](#images)
 
-######Created with [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go).
+###### Created with [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go).
 
-##Configuration
+## Configuration
 
 ### Basics
 
-Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
+Always save backup copies of your text files in a separate directory outside the main Pythia directory before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
 
-If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
-
-`python pythia.py --size 1280x725`
-
-You can also open up the 'pythia.py' file in your favorite text editor, then uncomment these lines:
+You can also open up the 'pythia.py' file in your favorite text editor, then comment out (or change the values of) these two lines:
 
 `kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
 `kivy.config.Config.set ( 'graphics', 'height', 725 )`
-
-Change the numbers (1280, 725) as you'd prefer.
 
 Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
 
@@ -139,11 +133,13 @@ If you change the theme, you'll need to restart the program for it to take effec
 
 ####Top Status Bar
 
-From left to right, there's an up/down tracker, bookmark buttons, and a spinner to control the behavior of the enter key when the text input is focused.
+From left to right, there's an up/down tracker, bookmark buttons, a button to temporarily display only prose tagged blocks, and a spinner to control the behavior of the enter key when the text input is focused.
 
 The up/down tracker is pretty self-explanatory; it was originally designed to track Chaos Factor but you can use it for whatever you please. I generally just use the "Tracker" panel for most things like that, but it's nice to have a dedicated spot for Chaos Factor since it has to be changed so frequently.
 
 The bookmark panel consists of five bookmark slots and a "Clear" button. If you're not editing a specific block, you can click on one of the slot buttons (marked with a "-"), then on that text block, and store its index for later reference. Clicking on the bookmark again will jump back to that referenced block. To clear a bookmark, click the "Clear" button and then on the bookmark slot you want cleared.
+
+"PROSE" will temporarily remove all non-fiction-tagged blocks from view. The view will reset if you edit a block or create a new one.
 
 The enter behavior spinner allows you to choose what text is automatically tagged with when you hit "enter" while typing in the main text input. "Plain" and "Aside" modes correspond to the "Direct" and "Aside" buttons in the bottom control panel.
 
