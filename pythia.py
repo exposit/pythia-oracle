@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle 1.2.0
+Pythia-Oracle 1.3.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit

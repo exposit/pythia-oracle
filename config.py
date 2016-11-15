@@ -28,7 +28,7 @@ backup_limit = 7
 #------------------------------------------------------------------------
 
 general = dict(
-    version = '1.3.0d',
+    version = '1.3.0',
     # this doesn't work right and I hate it
     pretitle = '---',
     posttitle = '---',
