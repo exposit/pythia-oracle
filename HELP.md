@@ -175,6 +175,8 @@ At the bottom of the center panel is the main control panel. It has the primary 
 
 The primary text input is how you get text into the program. It also supports passing information to various other buttons across the program, like the different "random [item]" buttons, the dice roller, and the "find" button.
 
+To roll dice without using the "Roll Dice" button, you need to be in a text entering mode other than "None". If you begin your string with a number or include the word "roll" anywhere in the string, Pythia will check if the string contains any dice notation segments (2d8, 2d6x3, and so on) and, if so, roll them.
+
 ####Side Controls
 
 The side control panel has a quick oracle button ("???") that generates an answer to a yes or no question. Which oracle is used by default can be changed in the config file; it defaults to "Fu" at even odds.
