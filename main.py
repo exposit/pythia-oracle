@@ -83,25 +83,12 @@ class MainScreen(Screen):
 
         self.statusBox.add_widget(self.bookmarkBox)
 
-        self.editSpinner = Spinner(
-            # default value shown
-            text=config.general['edit_behavior'],
-            # available values
-            values=['play', 'read', 'fiction', 'fic-edit', 'edit'],
-            background_normal='',
-            background_color=accent1,
-            background_down='',
-            background_color_down=accent2,
-            font_size=config.basefont90,
-            size_hint=(.15, 1),
-            )
 
-        self.editSpinner.bind(text=self.toggleLabelToInput)
-        self.statusBox.add_widget(self.editSpinner)
-
-        # enterBehaviorList = ["ephemeral", "result", "query", "oracle", "aside", "mechanic1", "mechanic2", "plain", "italic", "bold", "bold_italic", "color1", "color2", "multi"]
-
-        enterBehaviorList = ["aside", "plain", "mechanic1", "mechanic2", "color1", "color2", "multi"]
+        try:
+            enterBehaviorList = config.formats['status_tags']
+        except:
+            enterBehaviorList = ['plain', 'aside', 'oracle', 'result', 'query', 'mechanic1', 'mechanic2', 'ephemeral']
+        enterBehaviorList = enterBehaviorList + ["None"]
 
         self.enterSpinner = Spinner(
             # default value shown
@@ -173,7 +160,8 @@ class MainScreen(Screen):
 
         self.centerDisplay = ScrollView(size_hint=(1,1))
 
-        self.centerDisplayGrid = GridLayout(cols=1, size_hint_y=None, size_hint_x=1, padding=(10,10))
+        self.centerDisplayGrid = GridLayout(cols=1, size_hint_y=None, padding=20, spacing="20dp")
+
         self.centerDisplayGrid.bind(minimum_height = self.centerDisplayGrid.setter('height'))
 
         self.centerDisplay.add_widget(self.centerDisplayGrid)
@@ -202,11 +190,13 @@ class MainScreen(Screen):
         self.oracleButton = Button(text=config.oracle)
         self.oracleButton.bind(on_release=self.cycleOracle)
 
-        self.mergeButton = ToggleButton(text="Merge")
-        self.mergeButton.bind(on_release=self.toggleMerge)
 
         self.qualitiesButton = ToggleButton(text="DQ")
         self.qualitiesButton.bind(on_release=self.toggleResolutionMode)
+        
+        self.saveButton = Button(text="Save")
+        self.saveButton.bind(on_press=self.pressGenericButton)
+        self.saveButton.bind(on_release=self.releaseSave)
 
         #self.box for adding threads & actors
         self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
@@ -283,7 +273,7 @@ class MainScreen(Screen):
 
         self.flagsBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.flagsBox.add_widget(self.oracleButton)
-        self.flagsBox.add_widget(self.mergeButton)
+        self.flagsBox.add_widget(self.saveButton)
         self.flagsBox.add_widget(self.qualitiesButton)
 
         self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
@@ -360,11 +350,6 @@ class MainScreen(Screen):
         self.seedButtonsBox.add_widget(self.seedAlternateButton)
 
         self.submitButtonsBox.add_widget(self.seedButtonsBox)
-
-        self.saveButton = Button(text="Save")
-        self.saveButton.bind(on_press=self.pressGenericButton)
-        self.saveButton.bind(on_release=self.releaseSave)
-        self.submitButtonsBox.add_widget(self.saveButton)
 
         # scenario buttons go here, if a scenario is loaded
         self.scenarioButtonList = []
@@ -686,14 +671,31 @@ class MainScreen(Screen):
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:
                 new_text = self.textInput.text
-                if config.general['enter_behavior'] != "Multi":
-                    updateCenterDisplay(self, new_text, config.general['enter_behavior'])
+                if config.general['enter_behavior'] != "None":
+                    is_roll = False
+                    # is the first part of the string a number?
+                    try:
+                        is_roll = int(new_text[0])
+                    except:
+                        is_roll = False
+                        
+                    if is_roll or "roll" in new_text:
+                        print("rolling", new_text)
+                        roll_result = parseTextForDice(new_text)
+
+                    if roll_result:
+                        if is_roll == False:
+                            updateCenterDisplay(self, new_text, 'query')
+                        updateCenterDisplay(self, roll_result, 'result')
+                    else:
+                        updateCenterDisplay(self, new_text, config.general['enter_behavior'])
+                        
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
                     if config.general['enter_behavior'] == 'plain':
                         checkForTrigger(self)
                     return True
-        elif args[1] == 96 and config.debug == True:   # really sloppy screenshot taker
+        elif args[1] == 96 and config.debug == True:   # really sloppy, takes a screenshot on tilde
             timestamp =  '{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
             Window.screenshot(name=config.curr_game_dir + 'screenshot_' + timestamp + '.png')
 
@@ -943,9 +945,6 @@ class MainScreen(Screen):
     def toggleEnterBehavior(self, spinner, text):
         config.general['enter_behavior'] = text
 
-    def toggleLabelToInput(self, spinner, text):
-        config.general['edit_behavior'] = text
-        switchModes(self)
 
     def toggledBookmark(self, button):
         if self.clearBookmarkButton.state == 'down':
@@ -1010,14 +1009,6 @@ class MainScreen(Screen):
             self.seedButton.text = config.general['seed_subtype_pretty'].capitalize()
         except:
             pass
-
-    def toggleMerge(self, button):
-        if button.state == "down":
-            button.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
-            config.general['merge'] = True
-        else:
-            button.background_color = neutral
-            config.general['merge'] = False
 
     def toggleResolutionMode(self, button):
         if button.state == "down":
@@ -1132,14 +1123,6 @@ class MainScreen(Screen):
 
         try:
             self.trackLabel.text = str(config.general['tracker'])
-        except:
-            pass
-
-        try:
-            if config.general['merge'] == True:
-                self.mergeButton.background_color = (neutral[0]*.50, neutral[1]*.50, neutral[2]*.50,1)
-            else:
-                self.mergeButton.background_color = neutral
         except:
             pass
 

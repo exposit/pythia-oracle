@@ -139,21 +139,15 @@ If you change the theme, you'll need to restart the program for it to take effec
 
 ####Top Status Bar
 
-From left to right, there's an up/down tracker, bookmark buttons, a spinner to control the display mode, and a spinner to control the behavior of the enter key when the text input is focused.
+From left to right, there's an up/down tracker, bookmark buttons, and a spinner to control the behavior of the enter key when the text input is focused.
 
 The up/down tracker is pretty self-explanatory; it was originally designed to track Chaos Factor but you can use it for whatever you please. I generally just use the "Tracker" panel for most things like that, but it's nice to have a dedicated spot for Chaos Factor since it has to be changed so frequently.
 
-The bookmark panel consists of five bookmark slots and a "Clear" button. If you're in a non-edit mode, you can click on one of the slot buttons (marked with a "-"), then on a text block, and jump back to it whenever you want. To clear a bookmark, click the "Clear" button and then on the bookmark slot you want cleared.
+The bookmark panel consists of five bookmark slots and a "Clear" button. If you're not editing a specific block, you can click on one of the slot buttons (marked with a "-"), then on that text block, and store its index for later reference. Clicking on the bookmark again will jump back to that referenced block. To clear a bookmark, click the "Clear" button and then on the bookmark slot you want cleared.
 
-There are five display modes; Play, Read, Edit, Fic-Edit, Fiction, controlled by the display spinner.
+The enter behavior spinner allows you to choose what text is automatically tagged with when you hit "enter" while typing in the main text input. "Plain" and "Aside" modes correspond to the "Direct" and "Aside" buttons in the bottom control panel.
 
-*  "Play" displays all prose-tagged and mechanics-tagged text in non-editable blocks with status buttons for toggling formatting status.
-*  "Read" displays all prose-tagged and mechanics-tagged blocks in non-editable blocks with no status buttons.
-*  "Fiction" displays just prose-tagged blocks in non-editable mode with no status buttons.
-*  "Edit" is the most full-featured editing mode; prose-tagged and mechanics-tagged text blocks are editable and status buttons are visible.
-*  "Fic-Edit" shows just editable prose-tagged blocks with status buttons.
-
-The enter behavior spinner allows you to choose what text is automatically tagged with when you hit "enter" while typing in the main text input. "Plain" and "Aside" modes correspond to the "Direct" and "Aside" buttons in the bottom control panel. "Multi" makes the text input support multiple paragraphs -- in this mode, if you want to submit next, you need to click the Direct or Aside buttons.
+"None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons. Note that some generators will pass the text field's text into the main log but others won't, so use caution when writing long blocks of text in "None" (or any other) mode.
 
 ####Threads
 
@@ -171,9 +165,7 @@ The top/bottom jump button just goes from top to bottom.
 
 The "find" button takes whatever string is entered into the text input and jumps to the first block containing an instance of it if that block is currently displayed. Use the "next" button to jump to the next displayed block that contains the text, and so on.
 
-The main text blocks are controlled by the "mode" button at the very top of the center panel. They may be editable or display-only, and may have attached status toggle boxes or not, depending on the mode.
-
-The main text blocks might be one per entered chunk of text or merged, depending on if the "merge" flag is set in the footer.
+The main text blocks are displayed as labels by default. Click on a text block to make it editable; click on the "done" button to return it to a label.
 
 ####Main Control Panel
 
@@ -193,17 +185,15 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 "Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" (or "Complex") returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
 
-"Save" immediately runs the save routine, saving the game and the configuration file.
-
 ####Footer Controls
 
 __*Flags*__
 
 The first button cycles the main control panel between mythic oracle and fu oracle.
 
-"Merge" is a toggle; if set (dark), blocks will be merged down if the prior block has the same formatting as the new one. This will persist when you reopen the game. Note that "Merge" mode is really only useful if you have a very, very long file with lots of blocks and are running into lag. It's usually better to just start a new save at that point!
-
 "DQ" is "dice qualities". When this is toggled on, all dice rolled will have a quality attached. See the section "Resolution Clarifiers" under "Oracle Panel" for more information or read the original [article](http://thealexandrian.net/?p=2781) here.
+
+"Save" immediately runs the save routine, saving the game and the configuration file.
 
 __*Add*__
 

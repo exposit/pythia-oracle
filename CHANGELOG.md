@@ -6,7 +6,12 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
-* The grid map panel was killing FPS. It's now excluded; reactivate it if you want.
+* 
+* added a catch for missing game config files; to update to a new version you can now just delete your old configs and let Pythia remake them as needed
+* hitting enter in the main text field will now roll dice if you include the keyword "roll" and one or more properly formatted roll requests (2d6, 2d8x2, and so on)
+* removed modes; you now tag each block with its purpose and assign formatting based on purpose. Click on a block to edit it.
+* removed merge mode entirely; it was unnecessary and hard to maintain. blocks will still split automatically on a double carriage return.
+* The grid map panel was killing FPS. It's now excluded; reactivate it if you want it by going into resources/panels/maps/gridmap.py and setting exclude to return False.
 * new per game config for excluding each map panel; if your game gets slow, try this
 * added a logform for prepping a markdown file for conversion to pdf with pandoc
 * added new logforms that are blog-ready and should just "drop in" (tested on Jekyll)

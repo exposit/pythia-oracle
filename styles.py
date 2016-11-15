@@ -64,7 +64,7 @@ palette = {
     "name" : "black cat",
     "primary" : "abaaaa",           # dark gray
     "secondary" : "ededed",         # white gray
-    "accent1" : "424144",           # very dark gray
+    "accent1" : "5b5a5e",           # very dark gray
     "accent2" : "dddddd",           # light gray
     "neutral" : "252525",           # almost black gray
     "text" : "FFFFFF",
@@ -76,7 +76,7 @@ palette = {
     "name" : "sin city",
     "primary" : "abaaaa",           # dark gray
     "secondary" : "ededed",         # white gray
-    "accent1" : "424144",           # very dark gray
+    "accent1" : "5b5a5e",           # very dark gray
     "accent2" : "9d2e39",           # light gray
     "neutral" : "252525",           # almost black gray
     "text" : "FFFFFF",

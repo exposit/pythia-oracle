@@ -59,7 +59,6 @@ general = dict(
     findList = [],
     findIndex = 0,
     # toggles for merging and dice qualities; these can be set in program
-    merge = False,
     use_dice_qualities = False,
     # secrets and triggers
     secrets = [],
@@ -86,16 +85,20 @@ general = dict(
 )
 
 formats = dict(
+    # each entry on the status list should have a corresponding formatting entry
+    status_tags = ['plain', 'aside', 'oracle', 'result', 'query', 'mechanic1', 'mechanic2', 'ephemeral'],
+    # this is the base for all subsequent font sizes
     basefontsize = 14,
-    transitory_color = styles.curr_palette['accent2'],    # color3 & ephemeral, format as '9d2e39'
+    # this is where you set the colors that will be used in formatting tags/display, format as '9d2e39'
     highlight_color = styles.curr_palette['accent1'],     # color1
     alternate_color = styles.curr_palette['secondary'],   # color2
+    transitory_color = styles.curr_palette['accent2'],    # color3 & ephemeral
     # mechanics formatting; expects these keywords but can be swapped around
     oracle = "bold",
     result = "italic",
     query = "bold_italic",
     aside = "italic",
-    # don't change these directly; change transitory_color, highlight_color, etc
+    # assign colors with color1, color2, etc.
     mechanic1 = "color1",
     mechanic2 = "color2",
     ephemeral = "color3",
@@ -103,10 +106,6 @@ formats = dict(
     bold = "bold",
     italic = "italic",
     bold_italic = "bold_italic",
-    # don't change these directly; change transitory_color, highlight_color, etc
-    color1 = "color1",
-    color2 = "color2",
-    color3 = "color3",
     # scenario/in block links
     link_color = styles.curr_palette['accent2'],
     visited_link_color = styles.curr_palette['accent1'],
@@ -199,7 +198,7 @@ aiheight = baseheight
 actortagfont = str(formats['basefontsize']*.90) + "dp"
 actorfont = str(formats['basefontsize']*.90) + "dp"
 actorstatusfont = str(formats['basefontsize']*.90) + "dp"
-blockstatusfont = str(formats['basefontsize']*.90) + "dp"
+blockstatusfont = str(formats['basefontsize']*.80) + "dp"
 blockfont = str(formats['basefontsize']*.95) + "dp"
 threadstatusfont = str(formats['basefontsize']*.90) + "dp"
 threadfont = str(formats['basefontsize']*.90) + "dp"

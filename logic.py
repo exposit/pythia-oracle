@@ -22,6 +22,7 @@ class ButtonBehaviorLabel(ButtonBehavior, Label):
 class ButtonLabel(Button, Label):
     pass
 
+
 def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.textStatusArray):
 
     for i in range(len(textArray)):
@@ -42,26 +43,21 @@ def updateCenterDisplay(self, text, status='result'):
 
 def swapBlock(block):
 
-    # block is either a block or a button
     self = block.self
     index = block.index
     status = config.textStatusArray[index]
     text = config.textArray[index]
     base_text = text
-    box = config.textBoxArray[index]
-    if len(box.children) > 1:
-        field = [x for x in box.children if x.__class__.__name__ == "TextInput"]
-        focusChangeText(field[0], False)
 
     is_bookmark_set = storeBookmarkLabel(block)
     if is_bookmark_set == True:
         return
 
-    box.clear_widgets()
+    if block.__class__.__name__ == "ButtonBehaviorLabel":
+        
+        block.parent.remove_widget(block)
 
-    if block == config.textLabelArray[index]:
-
-        box.cols = 2
+        box = GridLayout(cols=2, size_hint=(1,None))
 
         field = TextInput(text=base_text, font_size=config.blockfont, size_hint_y=None, size_hint_x=None)
         field.bind(focus=focusChangeText)
@@ -71,20 +67,36 @@ def swapBlock(block):
         field.self = self
         field.bind(height=box.setter('height'))
         box.add_widget(field)
+        
+        field.height = block.height + (field.line_height * 2)
 
         subbox = BoxLayout(orientation="vertical")
         subbox.index = index
+        
+        formBox = GridLayout(cols=4)
+        insertList = [ 'i', 'b' ]
+        for f in insertList:
+            button = Button(text=f, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
+            button.width="20dp"
+            button.bind(on_press=insertTextFormat)
+            button.index = index
+            button.self = self
+            formBox.add_widget(button)
+            
+            button = Button(text="/" + f, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
+            button.width="20dp"
+            button.bind(on_press=insertTextFormat)
+            button.index = index
+            button.self = self
+            formBox.add_widget(button)
+            
+        subbox.add_widget(formBox)
 
         # these are for setting status
         if config.use_spinner_status == False:
-            button = ButtonLabel(text=status, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_y=None, size_hint_x=None)
-            button.height="20dp"
+            button = ButtonLabel(text=status, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
             button.width="80dp"
             button.self = self
-            button.background_normal=''
-            button.background_color=accent1
-            button.background_down=''
-            button.background_color_down=accent2
             button.bind(on_press=cycleText)
             button.index = index
             subbox.add_widget(button)
@@ -93,21 +105,24 @@ def swapBlock(block):
 
         # this is a much cleaner solution instead of cycling, but takes a while
         if config.use_spinner_status == True:
-            formatList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2']
+            
+            try:
+                statusList = config.formats['status_tags']
+            except:
+                statusList = ['plain', 'aside', 'oracle', 'result', 'query', 'mechanic1', 'mechanic2', 'ephemeral']
 
             spinner = Spinner(
                 # default value shown
                 text=status,
                 # available values
-                values=formatList,
-                background_normal='',
-                background_color=accent1,
-                background_down='',
+                values=statusList,
+                background_normal='', 
+                background_color=accent1, 
+                background_down='', 
                 background_color_down=accent2,
                 font_size=config.basefont60,
-                size_hint_y=None,
+                size_hint_y=1,
                 size_hint_x=None,
-                height="20dp",
                 width="80dp",
                 )
             spinner.index = index
@@ -116,30 +131,54 @@ def swapBlock(block):
             subbox.add_widget(spinner)
 
             field.width=self.centerDisplayGrid.width-spinner.width-20
-
-        button = Button(text="done", font_size=config.blockstatusfont, font_name='maintextfont', size_hint_y=None, size_hint_x=None)
-        button.height="20dp"
+        
+        button = Button(text="done", font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
         button.width = "80dp"
-        button.background_normal=''
-        button.background_color=accent1
-        button.background_down=''
-        button.background_color_down=accent2
         button.bind(on_press=swapBlock)
         button.index = index
         button.self = self
         subbox.add_widget(button)
-
         box.add_widget(subbox)
+        
+        config.textLabelArray[index] = box
 
     else:
-        box.cols = 1
-        box.add_widget(config.textLabelArray[index])
+        
+        field = [x for x in config.textLabelArray[index].children if x.__class__.__name__ == "TextInput" ]
+        
+        config.textArray[index] = field[0].text
+        
+        formatted_text = parseText(field[0].text, status)
+
+        block.parent.parent.parent.remove_widget(block.parent.parent)
+        
+        label = ButtonBehaviorLabel(text=formatted_text, size_hint=(1, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
+        
+        label.size = label.texture_size
+        label.text_size = (self.centerDisplayGrid.width, None)
+        label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
+        label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+        
+        label.bind(on_release=swapBlock)
+        label.bind(on_ref_press=refPress)
+        label.foreground_color=(1,1,1,1)
+        label.markup = True
+        label.self = self
+        label.index = index
+        config.textLabelArray[index] = label
+        label.padding_=50
+        
+    self.centerDisplayGrid.clear_widgets()
+    
+    for item in config.textLabelArray:
+        self.centerDisplayGrid.add_widget(item)
 
 def addToCenterDisplay(self, text, status):
 
-    self.centerDisplayGrid.add_widget(config.textBoxArray[-1])
+    self.centerDisplayGrid.add_widget(config.textLabelArray[-1])
 
-    jumpToIndex(self, len(config.textBoxArray)-1)
+    jumpToIndex(self, len(config.textLabelArray)-1)
+
 
 def makeItemLabels(self, text, status='result'):
 
@@ -155,19 +194,13 @@ def makeItemLabels(self, text, status='result'):
     base_text = text
     text = parseText(text, status)
 
-    box = GridLayout(cols=1, size_hint=(1, None), padding=(20,20))
-    box.width = self.centerDisplayGrid.width
-    box.size = box.minimum_size
-    box.bind(minimum_height = box.setter('height'))
-    box.index = len(config.textArray)-1
-    config.textBoxArray.append(box)
-
     label = ButtonBehaviorLabel(text=text, size_hint=(1, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
-    label.width = self.centerDisplayGrid.width
-    label.height = label.texture_size[1]
+
+    label.size = label.texture_size
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
+    
     label.bind(on_release=swapBlock)
     label.bind(on_ref_press=refPress)
     label.foreground_color=(1,1,1,1)
@@ -176,10 +209,21 @@ def makeItemLabels(self, text, status='result'):
     label.index = len(config.textArray)-1
     config.textLabelArray.append(label)
 
-    box.add_widget(label)
+def insertTextFormat(button):
+    
+    self = button.self
+    index = button.index
+    field = [x for x in config.textLabelArray[index].children if x.__class__.__name__ == "TextInput" ][0]
+    
+    format_to_insert = "[" + button.text + "]"
+        
+    # insert whatever the format box is into the field
+    field.insert_text(format_to_insert)
+    
+    config.textArray[index] = field.text
 
 def parseText(text, status):
-
+    
     if status in config.formats:
         blockformat = config.formats[status]
         if blockformat == "color1":
@@ -212,13 +256,16 @@ def cycleText(label, *args):
 
     status = label.text
 
-    tagList = ['plain', 'aside', 'mechanic1', 'mechanic2', 'color1', 'color2', "color3", "ephemeral"]
+    try:
+        statusList = config.formats['status_tags']
+    except:
+        statusList = ['plain', 'aside', 'oracle', 'result', 'query', 'mechanic1', 'mechanic2', 'ephemeral']
 
     try:
-        if tagList.index(status) == len(tagList)-1:
-            status = tagList[0]
+        if statusList.index(status) == len(statusList)-1:
+            status = statusList[0]
         else:
-            status = tagList[tagList.index(status)+1]
+            status = statusList[statusList.index(status)+1]
     except:
         status = "plain"
 
@@ -442,12 +489,6 @@ def focusChangeText(field, value):
         pass
     else:
         config.textArray[field.index] = field.text
-        status = config.textStatusArray[field.index]
-        index = field.index
-
-        formatted_text = parseText(field.text, status)
-
-        config.textLabelArray[index].text = formatted_text
 
         # if the text height has changed by more than two lines
         old_height = field.height
@@ -548,17 +589,24 @@ def saveconfig(self, gamedir):
         json.dump(tempDict, f)
         f.close()
     except:
-        if debug == True:
+        if config.debug == True:
             print("[saveconfig] Unexpected error:", sys.exc_info())
 
 def loadconfig(self, gamedir):
-
-    with open(gamedir + 'config.txt', 'r') as config_file:
-        tempDict = json.load(config_file)
-        config.general = tempDict['general']
-        config.formats = tempDict['formats']
-        config.user = tempDict['user']
-        config.scenario = tempDict['scenario']
+    
+    try:
+        with open(gamedir + 'config.txt', 'r') as config_file:
+            tempDict = json.load(config_file)
+            config.general = tempDict['general']
+            config.formats = tempDict['formats']
+            config.user = tempDict['user']
+            config.scenario = tempDict['scenario']
+    except:
+        # no config, make a new one
+        if config.debug == True:
+            print("[CONFIG] Remaking configuration file for save game: " + gamedir)
+        f = file(config.curr_game_dir + "config.txt", "w")
+        saveconfig(self, config.curr_game_dir)
 
 def quicksave(self, gamedir):
 
@@ -681,30 +729,15 @@ def quickload(self, gamedir):
         tempTextArray = []
         tempStatusArray = []
 
-        if config.general['merge'] == True:
-
-            for i in range(len(textArray)):
-                if i > 0:
-                    if textStatusArray[i] == textStatusArray[i-1]:
-                        tempTextArray[-1] = tempTextArray[-1] + "\n\n" + textArray[i]
-                    else:
-                        tempTextArray.append(textArray[i])
-                        tempStatusArray.append(textStatusArray[i])
-                else:
-                    tempTextArray.append(textArray[i])
+        for i in range(len(textArray)):
+            if "\n\n" in textArray[i]:
+                paragraphs = textArray[i].split('\n\n')
+                for block in paragraphs:
+                    tempTextArray.append(block)
                     tempStatusArray.append(textStatusArray[i])
-
-        else:
-
-            for i in range(len(textArray)):
-                if "\n\n" in textArray[i]:
-                    paragraphs = textArray[i].split('\n\n')
-                    for block in paragraphs:
-                        tempTextArray.append(block)
-                        tempStatusArray.append(textStatusArray[i])
-                else:
-                    tempTextArray.append(textArray[i])
-                    tempStatusArray.append(textStatusArray[i])
+            else:
+                tempTextArray.append(textArray[i])
+                tempStatusArray.append(textStatusArray[i])
 
         if config.debug == True:
             print("[DEBUG] Total Blocks In Main Text: " + str(len(tempTextArray)))
@@ -713,8 +746,6 @@ def quickload(self, gamedir):
 
     except:
         if config.debug == True:
-            #traceback.print_exc()
-            #print str(e)
             print("[quickload Main] Unexpected error:", sys.exc_info())
 
         if config.manual_edit_mode == False:
@@ -883,6 +914,26 @@ def storeBookmarkLabel(label):
     del l
 
     return bset
+
+        
+def parseTextForDice(text):
+
+    roll_results = []
+    
+    words = text.split(' ')
+    for word in words:
+        if any(ext in word for ext in ["1","2","3","4","5","6","7","8","9","0"]):
+            if any(ext in word for ext in ['.', '!', ',', '?', ':', ';', '-']):
+                word = word[:-1]            
+            result = rollDice(word)
+            if result != "Please use standard dice notation, ie, 1d10 or 2d6x3.":
+                roll_results.append(result)
+    
+    if len(roll_results) == 0:
+        return False
+
+    return '\n'.join(roll_results)
+    
 
 def rollDice(text):
 
@@ -1098,7 +1149,7 @@ def jumpToIndex(self, index):
     if index == -1 or index == 0:
         self.centerDisplay.scroll_to(self.centerDisplay.children[index])
     else:
-        self.centerDisplay.scroll_to(config.textBoxArray[index])
+        self.centerDisplay.scroll_to(config.textLabelArray[index])
 
 # weighted choosers
 def chooseWeighted(value, text, form):
@@ -1201,24 +1252,6 @@ def escapeHTML(result):
 
     return result
 
-# this was messy
-def OLDparseHTML(result):
-
-    result = result.replace('[i]', '<cite>')
-    result = result.replace('[/i]', '</cite>')
-    result = result.replace('[b]', '<em>')
-    result = result.replace('[/b]', '</em>')
-    result = result.replace('[u]', '<u>')
-    result = result.replace('[/u]', '</u>')
-    result = result.replace('[s]', '<s>')
-    result = result.replace('[/s]', '</s>')
-    result = result.replace('[sub]', '<sub>')
-    result = result.replace('[/sub]', '</sub>')
-    result = result.replace('[sup]', '<sup>')
-    result = result.replace('[/sup]', '</sup>')
-    result = result.replace('---', '<p>***</p>')
-
-    return result
 
 def generateCSS():
 
