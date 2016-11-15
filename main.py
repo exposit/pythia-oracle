@@ -273,8 +273,8 @@ class MainScreen(Screen):
 
         self.flagsBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.flagsBox.add_widget(self.oracleButton)
-        self.flagsBox.add_widget(self.saveButton)
         self.flagsBox.add_widget(self.qualitiesButton)
+        self.flagsBox.add_widget(self.saveButton)
 
         self.threadBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.threadBox.add_widget(self.threadSubmitButton)

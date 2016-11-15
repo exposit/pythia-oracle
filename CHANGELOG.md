@@ -4,19 +4,17 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
-WIP
+Version 1.3.0
 
-* 
-* added a catch for missing game config files; to update to a new version you can now just delete your old configs and let Pythia remake them as needed
-* hitting enter in the main text field will now roll dice if you include the keyword "roll" and one or more properly formatted roll requests (2d6, 2d8x2, and so on)
-* removed modes; you now tag each block with its purpose and assign formatting based on purpose. Click on a block to edit it.
-* removed merge mode entirely; it was unnecessary and hard to maintain. blocks will still split automatically on a double carriage return.
-* The grid map panel was killing FPS. It's now excluded; reactivate it if you want it by going into resources/panels/maps/gridmap.py and setting exclude to return False.
-* new per game config for excluding each map panel; if your game gets slow, try this
-* added a logform for prepping a markdown file for conversion to pdf with pandoc
+* added a catch for missing game config files; to update to a new version of Pythia you can now just delete your old config.txt files in whatever save game you want to run and Pythia will make a fresh, shiny, updated one.
+* hitting enter in the main text field will now roll dice if you include the keyword "roll" and one or more properly formatted roll requests (2d6, 2d8x2, and so on) in your text
+* removed edit modes entirely; Pythia now tags each block with its purpose and then assigns formatting based on that purpose. Click on a block to edit it, change the block tag, or add markup.
+* removed merge mode entirely; it was unnecessary and hard to maintain. Blocks will still split automatically on a double carriage return.
+* The grid map panel is now excluded by default; reactivate it if you want it by going into resources/panels/maps/gridmap.py and setting exclude to False.
+* new per game config for excluding each map panel, if you still want them included but don't want them displayed for a particular game
+* added a logform for prepping a markdown file for conversion to pdf with pandoc; you'll need to do some manual editing, of course
 * added new logforms that are blog-ready and should just "drop in" (tested on Jekyll)
-* cleaned up html escaping for logforms & added a function to generate a simple stylesheet
-* rewrote logforms entirely (again) and changed the naming pattern (again)
+* rewrote logforms entirely (again) and changed the naming pattern (again), cleaned up html escaping for logforms & added a function to generate a simple stylesheet
 
 Version 1.2.0
 

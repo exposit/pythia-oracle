@@ -11,6 +11,7 @@ Table of Contents
 * [What is it?](#what-is-it)
 * [Solo RPG Gaming\! How does that even work?](#solo-rpg-gaming-how-does-that-even-work)
 * [How do I install this?](#how-do-i-install-this)
+* [Upgrading from 1\.2\.0 &amp; earlier](#upgrading-from-120--earlier)
 * [Upgrading from 0\.9\.0 &amp; earlier](#upgrading-from-090--earlier)
 * [Upgrading from 0\.7\.0 &amp; earlier](#upgrading-from-070--earlier)
 * [Upgrading from an older version](#upgrading-from-an-older-version)
@@ -57,6 +58,11 @@ You have two options now. Easiest (in Windows) is to double-click on the 'pythia
 
 You should be good to go! Be sure to play around in the quicksave before you start a 'real' game, and save (and back up your save folder) frequently. Also read over the customization section in this file.
 
+### Upgrading from 1.2.0 & earlier
+
+Pythia should now automatically make a new config.txt in a save game's folder if the old one is deleted. So after copying your save games back into the saves folder, delete the config.txts before running each game. You'll need to re-set any variables on a game by game basis.
+
+
 ### Upgrading from 0.9.0 & earlier
 
 Save games will still load without issues, but you will need to replace your old config.py with a new one from a new game made with 1.0.0.
@@ -93,32 +99,13 @@ Grab a fresh download, unzip, then copy (don't move) your save folder in. Run th
 
 READ THE HELP.MD file!
 
-Always save backup copies of your text files IN A SEPARATE DIRECTORY OUTSIDE THE PYTHIA DIRECTORY before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
+You'll find your save games in the pythia folder under 'saves'. Backup zips are saved in the backups folder. The config.py file contains all the important variables.
 
-If the app window is too big or two small, you can adjust it by setting the size, either in the pythia.py file or at the command line.
-
-`python pythia.py --size 1280x725`
-
-You can also open up the 'pythia.py' file in your favorite text editor, then uncomment these lines:
-
-`kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
-`kivy.config.Config.set ( 'graphics', 'height', 725 )`
-
-Change the numbers (1280, 725) as you'd prefer.
-
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
-
-Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
-
-There are multiple config files. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games. Alternately, you can edit the config.txt file in each save game folder, but please back it up first!
-
-To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the pythia folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure. Backups are in the "backups" folder.
-
-I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons expect! To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
+I recommend playing around in the quicksave a bit until you figure out what kind of output (and input) the various buttons generate. To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
 Note: the system expects a quicksave folder to be present and it's a good idea to have one.
 
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. Read about manual edit mode in HELP.md; it's there to help protect your files.
 
 #### Wait, I want more tables!
 
