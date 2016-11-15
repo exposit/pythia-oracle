@@ -49,55 +49,54 @@ You can also open up the 'pythia.py' file in your favorite text editor, then com
 `kivy.config.Config.set ( 'graphics', 'width', 1280 )`<br>
 `kivy.config.Config.set ( 'graphics', 'height', 725 )`
 
-Most of the program's user data is saved in plain text files (in json format); make a backup and then open up some save game files and see what's in there. You can edit past entries, change configuration values, even set a custom pre and post title for your game (look for those entries in 'saves/\<game name\>/config.txt' and the '---').
+Most of the program's user data is saved in plain text files (in json format).
 
-There are multiple config files, the main config and one per game. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games (but not old ones). You can always make a new, fresh game, and copy that config into older save games to 'refresh' them on upgrades.
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. See also "Config Flags"; there's a manual_edit_mode that will help protect your data.
 
-Formatting is set in the config file and on a per game basis. If you really want to change something, you can scroll to the bottom of the config file for the app-wide derived font settings.
+__I strongly suggest that you use a [json editor](https://github.com/josdejong/jsoneditor) when editing save game files. The one linked is painless to use -- just unzip the release, then open the "04_load_and_save" file in the examples directory in a modern browser.__
 
-To shut down, click the x in the upper left of the main window or just close the terminal. You'll find your save games in the pythia folder under 'saves'. Content is saved pretty frequently but be sure to hit the 'save' button before closing down to be sure. Backups are in the "backups" folder. Pythia automatically makes a zipped backup of your current saves director and places it in backups when you start up Pythia.
+There are two types of config files, the main config.py (not json) and a config.txt per game. The main config in the pythia root directory; you can edit this as much as you'd like and all changes will propagate to any new games (but not existing ones).
+
+You'll find your save games in the pythia folder under 'saves'. Backups are in the "backups" folder. Pythia automatically makes a zipped backup of your current saves director and places it in backups when you start up Pythia.
 
 To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
-Note: the system expects a quicksave folder to be present and it's a good idea to have one.
-
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else.
-
 __*Config Flags*__
 
-If 'manual_edit_mode' is set to True, the game will no longer overwrite the main.txt with "the adventure begins" on a failed save game load.
+If 'manual_edit_mode' is set to True, the game will no longer overwrite the main.txt with "the adventure begins" on a failed save game load. It is much better to just use a json editor.
 
 __It will also no longer save any changes made in Pythia itself until the manual_edit_mode flag is set back to False.__
 
-If 'debug' is set to True, you'll get a lot more messaging than default. Some of it might even be useful if you're having an issue. Most of it is simple notifications and should be ignored.
+If 'debug' is set to True, you'll get a lot more messaging than default. Some of it might even be useful if you're having an issue. Most of it is simple notifications and should be ignored, especially when making a new game.
 
 If there are entries in the "backup_behavior" list, specifically "app_start" and/or "app_exit", Pythia will zip up your save folder when one of those events occurs. If this list is empty, no backups will be made at all.
 
 If the backup_limit is set to 0, Pythia will keep all backups. If it's set to a negative number, no backups at all will be made (regardless of backup_behavior). If it's set to a positive number, only up to that number of backups will be made, and older ones will be deleted when a new one is made.
 
+Everything in config.py should be pretty well documented in config.py's comments.
+
 ### Output Log Files & Templates
 
 Output log file templates are stored in "resources/logforms".
 
-Current templates are html with javascript, html fiction only, html complete, markdown fiction only, markdown complete, and markdown versions with YAML headers pulled from config.py.
+Current templates include html with javascript, html fiction only, html complete, markdown fiction only, markdown complete, markdown prepared for conversion via pandoc to pdf, and markdown versions with YAML headers pulled from config.py.
 
-By default, all log files are enabled. To disable a log template, change "False" under "exclude()" to "True".
+By default, only a few log files are enabled. To disable a log template, change "False" under "exclude()" to "True". To enable, set it back to False.
 
 To make a new template, duplicate an existing one and change the "makeLogFile" routine.
 
 ### Configuring Panels
 
-By default, all Pythia core panels (in "resources/panels") are enabled. To disable a panel, change "False" under "exclude()" to "True". You may experience odd results if you disable a panel other widgets rely on, so proceed with caution.
+By default, all Pythia core panels (in "resources/panels") are enabled except gridmap.py. To disable a panel, change "False" under "exclude()" to "True". Setting exclude() to return False will enable it. You may experience odd results if you disable a panel other widgets rely on, so proceed with caution.
 
 For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
 
-You can choose to exclude each map panel by setting the "exclude_\<mapname.py\>" variables in config.general to True. 
+You can choose to exclude each map panel from being shown on a game-by-game basis by setting the "exclude_\<mapname.py\>" variables in config.general to True. 
 
 __*Setting Up Oracle Defaults*__
 
-Mapping an oracle to the main panel buttons is a little more complicated than just setting exclude() to True, unless you just want to use the buttons on the panel.
 
-The key variables in config.py are "oracle", which should be the name of the file containing the oracle, and "oracle_func", which should contain the name of the oracle function in that file.
+The key variables in config.py that control which oracle is called by the "???" and Seed buttons are "oracle", which should be the name of the file containing the oracle, and "oracle_func", which should contain the name of the oracle function in that file.
 
 Note that the seed function in the general section only takes the four options listed -- it handles Mythic as a special exception case.
 
@@ -121,17 +120,19 @@ And in the general section (if you wish to use the Mythic seed tables):
 
 `general['seed_func'] = 'useMythicComplex'`
 
-##Title Screen
+## Title Screen
 
-When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template".
+By default, the last game run is re-opened when Pythia is restarted. "Load" will show a list of all potential save game folders.
+
+When creating a new game, you'll be given the option of a scenario or "blank" game. You'll generally want to choose "Blank" or "No Template" since Scenario support is rudimentary at the moment.
 
 If you change the theme, you'll need to restart the program for it to take effect.
 
-##Main Screen
+## Main Screen
 
-###Center Panel
+### Center Panel
 
-####Top Status Bar
+#### Top Status Bar
 
 From left to right, there's an up/down tracker, bookmark buttons, a button to temporarily display only prose tagged blocks, and a spinner to control the behavior of the enter key when the text input is focused.
 
@@ -145,7 +146,7 @@ The enter behavior spinner allows you to choose what text is automatically tagge
 
 "None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons. Note that some generators will pass the text field's text into the main log but others won't, so use caution when writing long blocks of text in "None" (or any other) mode.
 
-####Threads
+#### Threads
 
 The threads section has two buttons, "copy to main window" and "random thread". These are context-sensitive and pull from the specified panel.
 
@@ -163,17 +164,17 @@ The "find" button takes whatever string is entered into the text input and jumps
 
 The main text blocks are displayed as labels by default. Click on a text block to make it editable; click on the "done" button to return it to a label.
 
-####Main Control Panel
+### #Main Control Panel
 
 At the bottom of the center panel is the main control panel. It has the primary text input, the footer buttons, and the side control panel.
 
-####Primary Text Input
+#### Primary Text Input
 
 The primary text input is how you get text into the program. It also supports passing information to various other buttons across the program, like the different "random [item]" buttons, the dice roller, and the "find" button.
 
 To roll dice without using the "Roll Dice" button, you need to be in a text entering mode other than "None". If you begin your string with a number or include the word "roll" anywhere in the string, Pythia will check if the string contains any dice notation segments (2d8, 2d6x3, and so on) and, if so, roll them.
 
-####Side Controls
+#### Side Controls
 
 The side control panel has a quick oracle button ("???") that generates an answer to a yes or no question. Which oracle is used by default can be changed in the config file; it defaults to "Fu" at even odds.
 
@@ -183,7 +184,7 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 "Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" (or "Complex") returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
 
-####Footer Controls
+#### Footer Controls
 
 __*Flags*__
 
@@ -218,13 +219,13 @@ The "ORE" button is for "ORE" style result parsing -- you roll a pool of dice an
 
 There's room for one more scheme if anybody can suggest a good one!
 
-###Right Stack
+### Right Stack
 
-####Notes panel
+#### Notes panel
 
 This is used for miscellaneous notes, status conditions, and things like health tracks. Each line has a checkbox so you can note if a line is active. "Random track" defaults to returning a random choice from all active tracks.
 
-####Actors Panel
+#### Actors Panel
 
 Enter actors by typing a brief text about them into the main text input and pressing the "add actor" button. Text before the first comma is treated as the name or tag of the actor for the index.
 
@@ -234,7 +235,7 @@ Each actor has a tag/name, a text, and a status button.
 
 The Actor Index panel can be opened/closed by clicking on the title.
 
-####Character Sheets
+#### Character Sheets
 
 Displays between 1 and 10 character sheets (depending on config setting).
 
@@ -242,13 +243,13 @@ If the sheet has a Nick", "NN", or "Name" tagged field, that field will be used 
 
 "Random Major" defaults to looking at all "Name" tagged fields across all character sheets and returning one.
 
-###Left Stack
+### Left Stack
 
 The left stack contains oracles, random generators, and maps. User-created panels and scenario panels are also generally added here.
 
-####Oracle Stack
+#### Oracle Stack
 
-####FU & How's It Going
+#### FU & How's It Going
 
 *The FU oracle is based on FU: The Freeform/Universal RPG (found at http://nathanrussell.net/fu), by Nathan Russell, and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).*
 
@@ -316,7 +317,7 @@ Results state the context, the effect, and if it's good or bad (and how good or 
 
 > *[Random Event] Context: Plot! New thread. This is good.*
 
-#####Mythic Oracle
+##### Mythic Oracle
 
 *Content from the [Mythic Game Master Emulator](http://www.mythic.wordpr.com/page14/page9/page9.html) is used with the permission of the author under the condition that it not be used commercially. This content is not MIT licensed. Please see the mythic.py file for more information. If you want to use the oracle properly -- and for an excellent RPG -- buy the book!*
 
@@ -384,7 +385,7 @@ Note: if you are using Mythic as your seed generator and set a new default throu
 > *[Seed] creep soldier*<br>
 > He hates their soldiers because they raided his home during the war.
 
-####Secrets & Triggers
+#### Secrets & Triggers
 
 This panel is all about surprises.
 
@@ -418,9 +419,9 @@ When (or if) the trigger fires, it will tell you you missed something but now it
 
 If it doesn't make sense for the hidden thing to come to light at this point -- maybe you determine it's treasure you missed two rooms ago or an important fact is remembered that is no longer relevant -- just treat it as player knowledge and move on.
 
-####Generators Stack
+#### Generators Stack
 
-####Actors & Motives
+#### Actors & Motives
 
 This panel holds random generators related to creating "actors" for your stories and games. They can be used to make NPCs for your hero to interact with or to help flesh out your hero himself.
 
@@ -556,7 +557,7 @@ This tool is used to generate an emotion and degree of emotion from a negative o
 
 *The scout is relieved someone's here to assist him, and that relief drives him to be as helpful as he can be.*
 
-#####Plot & Monsters
+##### Plot & Monsters
 
 This panel is all about plots and monsters. Surprisingly?
 
@@ -614,7 +615,7 @@ The number in parenthesis is how many are around, either in this encounter or to
 
 "Clear Monsters" erases all of the fields.
 
-#####World & Dungeon
+##### World & Dungeon
 
 These generators help flesh the world out when a simple "Yes/No" question doesn't seem sufficient.
 
@@ -779,7 +780,7 @@ If a result has two or more numbers separated by commas, you should just fill in
 
 *This is a t-shaped intersection, one square wide by three squares long, and right in the center it's bisected by a perpendicular hallway eight squares long and one square wide.*
 
-####Map Stack
+#### Map Stack
 
 Both map panels share the same buttons.
 
@@ -797,16 +798,18 @@ The first thing you should do when making a new map is to enter a title in the t
 
 Finally, there are a number of tools on the World Panel in the Generators Stack for generating content for the different maps.
 
-####Grid Map
+#### Grid Map
+
+*Grid mapping is excluded (turned off) by default.*
 
 This works like a sheet of graph paper. Click once to change the background color, click again to return it to base. You can enter a single digit or letter into any square.
 
-####Diagram Map
+#### Diagram Map
 
 The black squares are "rooms" or "blocks" and can be labeled, and the areas between can be clicked to set links between two blocks or rooms. Click repeatedly to cycle through the various types of connections.
 
-####Images
+#### Images
 
-To use this panel, you need a subdirectory in your save folder named 'images'. Any images in the images folder will be displayed in the images panel, along with a couple of fields each to label or store notes about each picture.
+To use this panel, you need a subdirectory in your save folder named 'images'. Any images in the images folder will be displayed in the images panel, along with a couple of fields each to label or store notes about each picture. It's pretty basic and doesn't correlate labels with images, just saves them in order.
 
 Note that the images directory is not created by default with a new game!
