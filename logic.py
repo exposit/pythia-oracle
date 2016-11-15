@@ -31,10 +31,10 @@ def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.
 
 def updateCenterDisplay(self, text, status='result'):
 
-    if len(config.textStatusArray) > 0:
+    #if len(config.textStatusArray) > 0:
 
-        makeItemLabels(self, text, status)
-        addToCenterDisplay(self, text, status)
+    makeItemLabels(self, text, status)
+    addToCenterDisplay(self, text, status)
 
     try:
         Window.set_title("Pythia-Oracle -- " + os.path.basename(os.path.normpath(config.curr_game_dir)) + " -- " + str(len(config.textArray)) + " blocks")
@@ -724,10 +724,12 @@ def quickload(self, gamedir):
             if config.debug == True:
                 traceback.print_exc()
 
+    
+    
+    tempTextArray = []
+    tempStatusArray = []
+    
     try:
-
-        tempTextArray = []
-        tempStatusArray = []
 
         for i in range(len(textArray)):
             if "\n\n" in textArray[i]:
@@ -748,7 +750,10 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Main] Unexpected error:", sys.exc_info())
 
+    
+    if len(tempTextArray) == 0:
         if config.manual_edit_mode == False:
+            print("should be updating with tab")
             updateCenterDisplay(self, "The adventure begins...", 'italic')
 
     if config.manual_edit_mode == True:

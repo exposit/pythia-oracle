@@ -673,6 +673,7 @@ class MainScreen(Screen):
                 new_text = self.textInput.text
                 if config.general['enter_behavior'] != "None":
                     is_roll = False
+                    roll_result = False
                     # is the first part of the string a number?
                     try:
                         is_roll = int(new_text[0])
@@ -680,7 +681,6 @@ class MainScreen(Screen):
                         is_roll = False
                         
                     if is_roll or "roll" in new_text:
-                        print("rolling", new_text)
                         roll_result = parseTextForDice(new_text)
 
                     if roll_result:
