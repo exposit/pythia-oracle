@@ -18,7 +18,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-        self.worldAItem = AccordionItem(title='World & Wilderness', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+        self.worldAItem = AccordionItem(title='World & Civilization', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
         worldMainBox = BoxLayout(orientation='vertical')
 
         worldMainBox.add_widget(Label(text="Make Kingdom", size_hint=(1,.10)))

@@ -14,11 +14,13 @@ def exclude():
 
 def onEnter(self):
     #print("update my own widgets")
-    pass
+    for key in config.user['saved_dungeons']:
+        self.nextAreaButton.disabled = False
+        self.dungeonSpinner.values.append(key)
 
 def initPanel(self):
 
-        self.dungeonAItem = AccordionItem(title='Dungeon', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+        self.dungeonAItem = AccordionItem(title='Dungeon & Wilderness', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
         
         dungeonMainBox = BoxLayout(orientation='vertical')
 
@@ -87,12 +89,6 @@ def initPanel(self):
         
         dungeonMainBox.add_widget(Label(text='Node Dungeon', size_hint=(1,.10), font_size=config.basefont90))
         
-        button = Button(text="Next Area", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getFullDungeonArea)
-        dungeonMainBox.add_widget(button)
-        
         dungeonNodeBox = GridLayout(cols=3, size_hint=(1,.10))
         
         button = Button(text="New Theme", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
@@ -113,25 +109,33 @@ def initPanel(self):
         button.bind(on_release=getDungeonAreaActivityLevel)
         dungeonNodeBox.add_widget(button)
         
-        button = Button(text="Reset Visited", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=resetDungeonArea)
-        dungeonNodeBox.add_widget(button)
-        
-        button = Button(text="Export Visited", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=exportDungeonArea)
-        dungeonNodeBox.add_widget(button)
-        
-        button = Button(text="Load Visited", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-        button.self = self
-        button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=loadDungeonArea)
-        dungeonNodeBox.add_widget(button)
-        
         dungeonMainBox.add_widget(dungeonNodeBox)
+        
+        self.nextAreaButton = Button(text="Next Area", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', disabled=True)
+        self.nextAreaButton.self = self
+        self.nextAreaButton.bind(on_press=self.pressGenericButton)
+        self.nextAreaButton.bind(on_release=getFullDungeonArea)
+        dungeonMainBox.add_widget(self.nextAreaButton)
+        
+        # dungeon spinner for saving/loading
+        self.dungeonSpinner = Spinner(
+        text='None',
+        values=[],
+        background_normal='',
+        background_color=accent1,
+        background_down='',
+        background_color_down=accent2,
+        size_hint=(1,.20),
+        )
+        self.dungeonSpinner.self = self
+        self.dungeonSpinner.bind(text=changeDungeonArea)
+        dungeonMainBox.add_widget(self.dungeonSpinner)
+        
+        button = Button(text="New Dungeon", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=newDungeonArea)
+        dungeonMainBox.add_widget(button)
         
         dungeonMainBox.add_widget(Label(text='Diagram Mapping', size_hint=(1,.10), font_size=config.basefont90))
 
@@ -205,26 +209,40 @@ def moreOrLessRoll(*args):
 # --> miscellaneous
 #
 #---------------------------------------------------------------------------------------------------
+
+def newDungeonArea(button):
+    
+    self = button.self
+    button.background_color = neutral
+    
+    current_dungeon_name = self.textInput.text
+    if current_dungeon_name == "":
+        current_dungeon_name = "Dungeon " + str(len(config.user['saved_dungeons']))
+
+    self.dungeonSpinner.values = self.dungeonSpinner.values + [current_dungeon_name]
+    config.user["current_dungeon_name"] = current_dungeon_name
+    config.user['saved_dungeons'][current_dungeon_name] = []
+    self.dungeonSpinner.text = current_dungeon_name
+    
+    self.nextAreaButton.disabled = False
     
 def getFullDungeonArea(button):
     
     self = button.self
     button.background_color = neutral
     
-    current_theme = config.user['current_dungeon_theme']
-    current_type = config.user['current_dungeon_type']
-    current_activity = config.user['current_dungeon_activity_level']
+    current_dungeon_name = config.user["current_dungeon_name"]
+    past_dungeon_areas = config.user['saved_dungeons'][current_dungeon_name]
     
-    if current_theme == '':
+    if len(past_dungeon_areas) > 0:
+        current_theme = past_dungeon_areas[-1][0]
+        current_type = past_dungeon_areas[-1][1]
+        current_activity = past_dungeon_areas[-1][2]
+    
+    else:
         current_theme = random.choice(config.user['dungeon_area_themes'])
-        
-    if current_type == '':
         current_type = random.choice(config.user['dungeon_area_types'])
-        
-    if current_activity == '':
         current_activity = random.choice(config.user['dungeon_area_activity_level'])
-    
-    past_dungeon_areas = config.user['past_dungeon_areas']
     
     backtrack_chance = config.user['backtrack_chance']
     dungeon_theme_randomness = config.user['dungeon_theme_randomness']
@@ -268,21 +286,17 @@ def getFullDungeonArea(button):
         new_activity = current_activity
         
     # now, see if the new stuff takes effect or if we're going back to an existing area        
-    if backtrack_roll <= backtrack_chance and len(config.user['past_dungeon_areas']) > 1:
-        index = random.randint(0, len(past_dungeon_areas))
+    if backtrack_roll <= backtrack_chance and len(past_dungeon_areas) > 1:
+        index = random.randint(0, len(past_dungeon_areas)-1)
         new_theme = past_dungeon_areas[index][0]
         new_type = past_dungeon_areas[index][1]
         new_activity = past_dungeon_areas[index][2]
-        result = "[Area] You've found a connection to an already explored area. Type: " + new_type + " (" + new_theme + ", " + new_activity + ") [" + str(index) + "]. "
+        result = "[Area] You've found a connection to an already explored area. Type: " + new_type + " (" + new_theme + ", " + new_activity + ") [" + str(index+1) + "]. You can explore " + room_count + " more rooms in the old area or continue into a new area."
     else:
-        config.user['current_dungeon_theme'] = new_theme
-        config.user['current_dungeon_type'] = new_type
-        config.user['current_dungeon_activity_level'] = new_activity
         past_dungeon_areas.append([new_theme, new_type, new_activity])
         new_area = new_type + " (" + new_theme + ", " + new_activity + ")"
-        result = "[Area] " + new_area + " [" + str(len(past_dungeon_areas)) + "]" + "."
-        
-    result = result + " Explore " + room_count + " rooms, then roll again."
+        result = "[Area] " + new_area + " [" + str(len(past_dungeon_areas)) + "]" + "." + " Explore " + room_count + " rooms, then roll again."
+        config.user['dungeon_index'] = -1
         
     updateCenterDisplay(self, result, 'result')
     
@@ -310,38 +324,22 @@ def getDungeonAreaActivityLevel(button):
     theme = random.choice(config.user['dungeon_area_activity_level'])
     result = "[Area Activity] " + theme + "."
     updateCenterDisplay(self, result, 'result')
+    
+def changeDungeonArea(spinner, value):
+    
+    self = spinner.self
 
-def resetDungeonArea(button):
+    past_dungeon_areas = config.user['saved_dungeons'][value]
+    config.user["current_dungeon_name"] = value
     
-    self = button.self
-    button.background_color = neutral
+    new_area = "Dungeon is now ... " + config.user['current_dungeon_name'] + ". "
+    if len(past_dungeon_areas) > 0:
+        new_theme = past_dungeon_areas[-1][0]
+        new_type = past_dungeon_areas[-1][1]
+        new_activity = past_dungeon_areas[-1][2]
+        new_area = new_area + "Current area is " + new_type + " (" + new_theme + ", " + new_activity + ")" + " [" + str(len(past_dungeon_areas)) + "]" + "."
     
-    config.user['past_dungeon_areas'] = []
-    
-def loadDungeonArea(button):
-    
-    self = button.self
-    button.background_color = neutral
-    
-    if len(self.textInput.text) > 0:
-        config.user['past_dungeon_areas'] = []
-        elements = self.textInput.text.split('|')
-        for item in elements:
-            config.user['past_dungeon_areas'].append(item.split(', '))
-        self.textInput.text = ""
-        
-def exportDungeonArea(button):
-    
-    self = button.self
-    button.background_color = neutral
-    
-    temp = []
-    for item in config.user['past_dungeon_areas']:
-        temp.append(', '.join(item))
-    
-    result = '|'.join(temp)
-    
-    updateCenterDisplay(self, "[Visited Areas] " + result)
+    updateCenterDisplay(self, new_area, 'result')
 
 def getDungeonSetPiece(button):
     pass
@@ -553,7 +551,7 @@ def whatDidItDo():
     singles = [ "removes one of your possessions", "adds an item to your inventory", "denatures a magical item you are carrying", "imbues an item you are carrying with a magical effect", "makes you think you're a monster", "drives you mad with emotion (roll on \"Reaction: Negative\")", "drives you mad with emotion (roll on \"Reaction: Positive\")", "teleported you somewhere else", "dyed your skin an unusual color", "poisoned you", "made you taller", "shrank you", "filled the room with gas", "transformed you into a monster", "transformed you into an animal", "took away your memory", "took a memory that was important to you", "geased you", "bestowed a spell like ability on you", "bestowed the effects of a first level spell on you", "bestowed the effects of a second level spell on you", "bestowed the effects of a third level spell on you", "bestowed the effects of a fourth level spell on you", "bestowed the effects of a fifth level spell on you", "bestowed a nearby monster's spell-like ability on you", "swapped your mind with that of a creature nearby", "made you a werecreature", "called forth your own personal guardian spirit to haunt you", "gave you the memories of someone else in addition to your own", "showed you a vision of somewhere else", "showed you a vision of your own likely future", "taught you the True Name of someone very powerful", "implanted a powerful urge or compulsion", "endowed you with the last lingering knowledge of a lost arcane tradition", "tattooed a map on your skin", "tattooed a prophecy on your skin", "tattooed an arcane ritual on your skin", "infused you with the essence of an extraplanar creature", "has the same effects as a love potion", "puts you into a deep sleep that resembles death", "makes you irresistable to a nearby type of monster", "removes your ability to lie", "removes your ability to tell the truth", "curses you to become a monster if you engage in carnal activity", "curses you to kill the one you love", "curses you with great luck while everyone around you suffers misfortune", "blesses you with luck", "blesses you with fertility", "blesses those you touch with fertility", "blesses you with great health", "blesses those you touch with great health", "blesses you with longevity", "reduces your age by one category", "reduces your age by two categories", "reverts you physically to childhood", "grants you the ability to speak with fish", "grants you the ability to speak with animals", "grants you the ability to speak with birds", "grants you the ability to speak with reptiles", "grants you the ability to speak to plants", "grants you the ability to see and converse with the dead", "curses you to see and hear the dead, often mistaking them for the living", "grants you the ability to speak a random language", "strikes you blind", "makes you extremely drunk", "makes you mildly tipsy", "heals you", "makes you immune to disease", "removes your need to sleep", "curses you with nightmares", "made everyone you know forget you", "made you insubstantial", "gave you incredible arcane knowledge that you can't use but others will want to dig out of your head", "gave you a minor psychic quirk", "has linked you to someone else emotionally and physically; from now on you feel what they feel and vice versa", "gave you the ability to use a mage cantrip as if you were a mage", "turned you into a sentient tool that best represents your skills", "gives you the ability to see in the dark", "makes you appear to be something you're not", "made you fall in love with someone even if they're not here", "showed you a vision of your one true love", "showed you the truth of some deeply cherished belief", "showed you the truth of a painful memory", "causes hallucinations", "summons a creature to grant you a wish", "grants you a wish to the best of its ability but it is kind of dim", "grants you a wish in good faith", "bestows upon you the ability to always find a way to indulge yourself in a weakness", "bestows upon you the knowledge of the high priest of a dead god", "injects a spirit into your mind; when you sleep the spirit takes over", "merges you with a person held in stasis", "transforms half of you", "curses you to transform into a generic version of whatever living non-insect creature you first touch after sunset each night", "swaps your heart for a mystical gem that someone wants back", "grants you the ability to turn into flame at will; you will now do this involuntarily when startled or extremely excited", "implants a series of nightmares about a long-ago tragedy into your subconscious", "gives you a vision of a terrifying, world-shattering danger approaching", "rewires a bit of your mind; you gain an odd quirk and the ability to see auras", "marks you as the Chosen One; this may or may not be relevant to anything", "causes you to black out and then puppets your body to achieve some purpose (use the \"Backstory\" generator to see what happened during the black out)", "shows you a vision of a great treasure and how to find it" ]
     
     chart = singles + effects + config.user['what_did_it_do_effects']
-    if config.user['use_all_effects'] == False:
+    if config.user['what_did_it_do_effects_merge'] == "user" and len(config.user['what_did_it_do_effects_merge']) >= config.user['max_effects']:
         chart = config.user['what_did_it_do_effects']
     
     count = 1

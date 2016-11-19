@@ -123,11 +123,11 @@ scenario = dict(
 
 user = dict(
     temp = 0,
-    # point crawl dungeon stuff starts here; these must be set to *something* and have no fallbacks
+    # point crawl dungeon stuff
     # area themes
     dungeon_area_themes = ['Treasure', 'Stone', 'Lust', 'Pain', 'Ice', 'Fire', 'Stone', 'Water', 'Sorrow', 'Grief', 'Respite', 'Forsaken', 'Fury', 'Violence', 'Spite', 'Gold', 'Silver', 'Jewels', 'Fungus', 'Plants', 'Garden', 'Magic', 'Study', 'Home', 'Maze', 'Library', 'Clockwork', 'Demonic', 'Hellish', 'Chaotic' ], 
     # area types
-    dungeon_area_types = ['Dungeon', 'Dwelling', 'Lair', 'Temple', 'Caverns', 'Caves', 'Tunnels' 'Wilderness', 'Crypts', 'Catacombs', 'Lab', 'Fortress', 'Mine', 'City', 'Garden'],
+    dungeon_area_types = ['Dungeon', 'Dwelling', 'Lair', 'Temple', 'Caverns', 'Caves', 'Tunnels', 'Wilderness', 'Crypts', 'Catacombs', 'Lab', 'Fortress', 'Mine', 'City', 'Garden'],
     # level of activity
     dungeon_area_activity_level = ['Deserted', 'Infested', 'Swarming', 'Inactive', 'Active', 'Busy', 'Desolate', 'Abandoned', 'Empty', 'Haunted', 'Quiet', 'Heavily Trafficked', 'Contested', 'Contested', 'Contested'],
     # how likely the next area is to be the same as the current one; lower is more of the initial area
@@ -135,27 +135,22 @@ user = dict(
     dungeon_type_randomness = 30,
     dungeon_activity_randomness = 50,
     # these control the current theme and any past ones
-    current_dungeon_theme = '',
-    current_dungeon_type = '',
-    current_dungeon_activity_level = '',
-    current_dungeon_area = "",
-    # holders
-    past_dungeon_areas = [],
+    current_dungeon_name = "",
+    saved_dungeons = {},
     # how likely is it you'll find a connection to a previous area? Lower is less chance.
     backtrack_chance = 10,
-    # point crawl dungeon stuff ends here
-    # tests called for by triggers from the secrets panel
+    # tests called for by triggers from the secrets panel; if this list is empty it will use the default instead
     trigger_tests = ['Perception', 'Wisdom', 'Knowledge', 'Search', 'Listen', 'Intelligence', 'Awareness', 'Spot', 'Specialist'],
-    # resolution qualifiers
+    # resolution qualifiers; if this list is empty it will use the default instead
     resolution_qualifiers = ["Time Required", "Outside Influences", "Knowledge", "Skill", "Luck", "Style", "Power", "Finesse"],
-    # hit locations
+    # hit locations; if this list is empty it will use the default instead
     hit_locations = [],
-    # only these saving throws will be called for by the dungeon panel
+    # only these saving throws will be called for by the dungeon panel; if this list is empty it will use the default instead
     saving_throws = [ "Poison", "Death", "Breath", "Magic", "Dexterity", "Constitution", "Luck", "Wisdom" ],
-    # use the default "what did it do" effects?
-    use_all_effects = True,
+    # use the default "what did it do" effects? Set to "all" to use user and default or "user" to just use user; empty list for just defaults
+    what_did_it_do_effects_merge = "all",
     # user-defined special effects for the "what did it do" pool
-    what_did_it_do_effects = [ ],
+    what_did_it_do_effects = [ ],  # for this to be used it needs to have at least as many elements as "max_effects"
     # chance of multiple effects from one special item -- lower is less likely, set to 0 to only ever have one effect
     chance_of_multiple_effects = 20,
     # max number of effects that could potentially be on a special item
