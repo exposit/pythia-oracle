@@ -720,11 +720,13 @@ __General Questions__
 
 __"What Do I See?"__
 
-"Monster, Treasure, Trap" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D (or you can set it to a more Gygax-ian distribution in the config file). If it's a trap, it will return "Empty" and set the result of the "Trap" button to the truth. Explore the room, make any rolls you need to, and then hit the "Trap" button to see what was there!
+"Monster, Treasure, Trap" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D (or you can set it to a more Gygax-ian distribution in the config file). If it's a trap, it will return "Empty" and set the result of the "Trap" button to the truth. 
+
+Explore the room, make any rolls you need to, and then hit the "Trap" button to see if there was one there!
 
 __"What's So Special?"__
 
-I tried to stay away from "gonzo" but results will still need to be interpreted for your surroundings. If something doesn't fit, discard it. Or maybe it's a toy version!
+I tried to stay away from "gonzo" but results will still need to be interpreted for your surroundings. If something doesn't fit, discard it. Or maybe it's a toy version! The items in this list range from simple dungeon dressing through encounters.
 
 "First Impression" rolls up a random number of special features that represent the things you can immediately see on first glance.
 
@@ -732,21 +734,31 @@ I tried to stay away from "gonzo" but results will still need to be interpreted 
 
 "Make a Saving Throw" is for after you've investigated that special feature, if it's something unusual (or if your "Trap" roll says it's a trick or trap).
 
-__"Freeform Dungeon"__
+__"Point Crawl Dungeon"__
 
-This is a very simple freeform dungeon generator, intended to be used with the other tools on this panel.
+This is a very simple freeform, node-based dungeon generator, intended to be used with the other tools on this panel.
 
 "Next Area" will generate a theme for the area and a number of rooms to explore before rolling up a new theme. As you explore, you will occasionally locate connections to previously explored areas. Themes can be set in config.py on a game-by-game basis.
 
 "New Theme" will generate just a theme ("Ice", "Fire", "Treasure", and so on).
 
+"New Type" will generate a new type ("City", "Lair").
+
+"New Activity Level" will generate a random activity level for the area.
+
 "Clear Visited Themes" will reset the list of visited areas.
 
-"What Did It Do?" is a long list of terrible, baffling, interesting, and occasionally awesome things that can be inflicted on a hero who messes with things Man Was Not Meant To Know. Useful when exploring dungeons if you run into old altars. Also useful if you're hit with a magical spell or curse or a faerie decides you need magicking. 
+"Export Visited" will print a list of visited areas suitable for pasting back in later (should you wish to pick the dungeon back up).
 
-It's fairly OSR, but I tried to stay away from things that would shut a game down or just be embarrassing or that were boring. I'm sure I didn't succeed; use this chart only if you're okay with your hero ending up one inch tall and blue, or with zero sex appeal, or with a Dexterity of 3. You can enter your own list of effects in config.py (and opt to replace all of mine if you wish).
+"Load Visited" expects a string output from "Export Visited", minus the tag in brackets, to be in the text input box. If one is, it will be interpreted in and you should be able to continue as before.
 
-You'll note I did not put a duration on the effects. You can either use "How Much" with a base duration of twenty-four hours, do a "Pick One" for the various options ("permanent", "one month", "one week", "one day", "a few hours", "a few minutes", "one round"), or just ask your oracle.
+__"What Did It Do?"__
+
+This is a long list of terrible, baffling, interesting, and occasionally awesome things that can be inflicted on a hero who messes with things Man Was Not Meant To Know. Useful when exploring dungeons if you run into old altars, malfunctioning machines, or suspiciously serendipitous fountains. Also useful if you're hit with a magical spell or curse or a faerie decides you need magicking. Or drink a potion. Or need a wild surge effect.
+
+It's fairly OSR, but I tried to stay away from things that would shut a game down or just be embarrassing or that were boring. I'm sure I didn't succeed; use this chart only if you're okay with your hero ending up one inch tall and blue, or with zero sex appeal and blind, or with a Dexterity of 3 and a phobia of fish. You can enter your own list of effects in config.py (and opt to replace all of mine if you wish).
+
+You'll note I did not put a duration on the effects. You can either use "How Much" with a base duration of twenty-four hours, do a "Pick One" for the various options ("permanent", "one month", "one week", "one day", "a few hours", "a few minutes", "one round"), or just ask your oracle. Remember, though, you should never ask the oracle a question you don't want to hear a "Yes" answer to...
 
 __Diagram Mapping__
 
