@@ -631,7 +631,7 @@ def getResolutionClarifier(button, *args):
     button.background_color = neutral
     count = int(button.subtype)
 
-    chart = config.resolution_qualifiers
+    chart = config.user['resolution_qualifiers']
     if len(chart) == 0:
         chart = ["Time Required", "Outside Influences", "Knowledge", "Skill", "Luck", "Style", "Power", "Finesse"]
 
@@ -647,7 +647,7 @@ def getHitLocation(button, *args):
     button.background_color = neutral
     count = int(button.subtype)
 
-    chart = config.hit_locations
+    chart = config.user['hit_locations']
     if len(chart) == 0:
         bpu = ["Head", "Face", "Upper Torso", "Mid Torso", "Lower Torso", "Back"]
         bpd = ["Shoulder", "Arm", "Leg", "Hand", "Foot"]

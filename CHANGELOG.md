@@ -4,6 +4,12 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+WIP
+
+* added a bunch of generators to the new Dungeon panel, including a "point crawl" style dungeon generator
+* moved customization lists (dungeon themes, hit locations, dice qualities) to "user" so they'll save on a per game basis
+* split World & Dungeon panel into "World & Wilderness" and "Dungeon" panels
+
 Version 1.3.0
 
 * rewrote the way configs are loaded; should be significantly less likely for a missing key/update to require removing your old config

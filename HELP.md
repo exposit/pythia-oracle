@@ -409,7 +409,7 @@ Keep a few at "random" duration active any time something interesting might happ
 
 __*Custom Triggers*__
 
-If you think something might be present -- an ambush, a hidden treasure, a clue -- make an appropriate check as if a GM has called for it. You can use the 'How Difficult Is It' generator on the World panel in the Generator stack to get a DC if needed.
+If you think something might be present -- an ambush, a hidden treasure, a clue -- make an appropriate check as if a GM has called for it. You can use the 'How Difficult Is It' generator on the Dungeon panel in the Generator stack to get a DC if needed.
 
 Then create a custom trigger based on the results of your check.
 
@@ -621,7 +621,7 @@ The number in parenthesis is how many are around, either in this encounter or to
 
 "Clear Monsters" erases all of the fields.
 
-##### World & Dungeon
+##### World & Wilderness
 
 These generators help flesh the world out when a simple "Yes/No" question doesn't seem sufficient.
 
@@ -658,10 +658,6 @@ Roll this to get a fact or rumor that is only whispered about -- or perhaps nobo
 > [Secret Quirk] The ruler's advisors are fomenting rebellion.
 
 *The traditional fen-folk stubbornly cling to their old traditions and rituals of propitiation, bringing them continued good luck, while the determined friars of the new religion seem cursed at every turn. The devout whisper of divine wrath. One of the high-ranking enlisted men is secretly a loyalist looking for allies.*
-
-__*Sizes*__
-
-These just return a population count for the various types of town you might encounter.
 
 __Region Diagram Dungeon__
 
@@ -705,6 +701,12 @@ __Miscellaneous Questions__
 
 "What's the Weather Like?" is in context of yesterday's weather.
 
+##### Dungeon & Underground
+
+The dungeon panel is, unsurprisingly, for generating dungeon content. The general order of things is to use "What is the Room Like" and "First Impression" to get an idea of what the room looks like and what it contains at first glance, then use "What Do I See?" (if necessary) to determine if there's an overtly hostile or dangerous situation. 
+
+__General Questions__
+
 "More or Less Than Expected" requires a general idea of the quantity, size, or duration. If you enter text into the text input, it will replace "expected".
 
 > "Is the ogre larger than expected?"<br>
@@ -716,9 +718,9 @@ __Miscellaneous Questions__
 
 "How Difficult is It?" returns a statement on how hard the task or feat is, along with a suggested modifier to the DC.
 
-"What's In This Room?" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D. It's pretty rudimentary right now and takes the mystery out of things!
+__"What Do I See?"__
 
-My preference is to instead use "What is the Room Like?" combined with "What's So Special?" and let the oracle determine which of the room contents are "special" and which are just set dressing -- and if there's a monster in the room!
+"Monster, Treasure, Trap" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D (or you can set it to a more Gygax-ian distribution in the config file). If it's a trap, it will return "Empty" and set the result of the "Trap" button to the truth. Explore the room, make any rolls you need to, and then hit the "Trap" button to see what was there!
 
 __"What's So Special?"__
 
@@ -726,7 +728,25 @@ I tried to stay away from "gonzo" but results will still need to be interpreted 
 
 "First Impression" rolls up a random number of special features that represent the things you can immediately see on first glance.
 
-"Single Item" returns a single item, suitable for discovering behind, under, or beneath other items, or noticing after a fight finishes, or if you want some bit of dressing to make a fight more interesting.
+"Single Item" returns a single item, maybe suitable for discovering behind, under, or beneath other items, or noticing after a fight finishes, or if you want some bit of dressing to make a fight more interesting.
+
+"Make a Saving Throw" is for after you've investigated that special feature, if it's something unusual (or if your "Trap" roll says it's a trick or trap).
+
+__"Freeform Dungeon"__
+
+This is a very simple freeform dungeon generator, intended to be used with the other tools on this panel.
+
+"Next Area" will generate a theme for the area and a number of rooms to explore before rolling up a new theme. As you explore, you will occasionally locate connections to previously explored areas. Themes can be set in config.py on a game-by-game basis.
+
+"New Theme" will generate just a theme ("Ice", "Fire", "Treasure", and so on).
+
+"Clear Visited Themes" will reset the list of visited areas.
+
+"What Did It Do?" is a long list of terrible, baffling, interesting, and occasionally awesome things that can be inflicted on a hero who messes with things Man Was Not Meant To Know. Useful when exploring dungeons if you run into old altars. Also useful if you're hit with a magical spell or curse or a faerie decides you need magicking. 
+
+It's fairly OSR, but I tried to stay away from things that would shut a game down or just be embarrassing or that were boring. I'm sure I didn't succeed; use this chart only if you're okay with your hero ending up one inch tall and blue, or with zero sex appeal, or with a Dexterity of 3. You can enter your own list of effects in config.py (and opt to replace all of mine if you wish).
+
+You'll note I did not put a duration on the effects. You can either use "How Much" with a base duration of twenty-four hours, do a "Pick One" for the various options ("permanent", "one month", "one week", "one day", "a few hours", "a few minutes", "one round"), or just ask your oracle.
 
 __Diagram Mapping__
 
@@ -736,7 +756,7 @@ __Diagram Mapping__
 
 > [Room] gleaming, wood [Purpose] bodily functions [Size] expansive [Shape] square
 
-*If my hero is storming a castle, it's a lavish spa-room, all gleaming wood and white tile. If he's exploring a ruin, it's a latrine for ogres, open above to the gleaming stars and night sky.*
+*If my hero is storming a castle, it's a lavish spa room, all gleaming wood and white tile. If he's exploring a ruin, it's a latrine for ogres, open above to the gleaming stars and night sky.*
 
 "What is the Passage Like?" is rolled when you leave a room headed elsewhere.
 
@@ -750,14 +770,9 @@ __Grid Mapping__
 
 The grid map options are used in conjunction with the grid map panel or with a piece of graph paper or a similar program. Each button returns a set of coordinates you can click or fill in to make a room or passage. Obviously, sanity checks are needed; if something doesn't make sense, connect it differently or skip it.
 
-"Get Grid Room Pattern" returns a room-shaped set of coordinates. Pick a square on the map (likely an exit from another room or corridor or center-bottom if it's a new map) and count it as "1"; the rest of the room coordinates are in relation to this.
+"Get Grid Room Pattern" returns a room-shaped graphic that should be pretty easy to translate to grid paper (or the grid map panel if you're using it).
 
 > [Grid Room] <br>
-> 1: 1 to 5 <br>
-> 2: 1 to 5 <br>
-> 3: 1 to 5 <br>
-> 4: 1 to 5 <br>
-
 > \* * * * * * *  <br>
 > \* X X X X X *  <br>
 > \* X X X X X *  <br>
@@ -765,15 +780,7 @@ The grid map options are used in conjunction with the grid map panel or with a p
 > \* X X X X X *  <br>
 > \* * * * * * * <br>
 
-*You would, starting from your "1", fill in 1 to 5, then move down a row and repeat until you have four filled rows.*
-
-If a result has two or more numbers separated by commas, you should just fill in those squares.
-
 > [Grid Room] <br>
-> 1: 1 to 8 <br>
-> 2: 1, 2, 5, 6 <br>
-> 3: 1, 2, 5, 6 <br>
-
 > \* * * * * * * * * *  <br>
 > \* X X X X X X X X *  <br>
 > \* X X * * X X * * *  <br>

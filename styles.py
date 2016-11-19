@@ -16,7 +16,7 @@ palette = {
     "name" : "olivine grove",
     "primary" : "8A8C7E", 		    # gray
     "secondary" : "E3DFC2",		    # yellow
-    "accent1" : "A8C48A",			# green
+    "accent1" : "809569",			# green
     "accent2" : "70553A",			# brown
     "neutral" : "2B392A",			# black
     "text" : "FFFFFF",
@@ -108,6 +108,17 @@ palette = {
     "black" : "000000"
 },
 
+"surf_sunset" : {
+    "name" : "surf sunset",
+    "primary" : "e06040",         # orange-pink
+    "secondary" : "e06060",       # pink
+    "accent1" : "c04040",         # red-pink
+    "accent2" : "402020",         # dark brown
+    "neutral" : "202020",         # near black
+    "text" : "FFFFFF",
+    "white" : "FFFFFF",
+    "black" : "000000"
+}, 
 }
 
 def setColors(palette):

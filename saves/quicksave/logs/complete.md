@@ -1,4 +1,0 @@
-
-
-
-*The adventure begins...*

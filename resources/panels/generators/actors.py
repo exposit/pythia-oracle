@@ -649,7 +649,7 @@ def abulafiaConundrum(button, *args):
     "Is " + random.choice(anyList) + " " + better + " than " + random.choice(anyList),
     "If it’s only " + random.choice(neutralList) + ", why are you so nervous",
     "Is " + random.choice(neutralList) + " enough to keep you from " + random.choice(goodList),
-    "Is her " + random.choice(goodList) + " enough to stop " + random.choice(badList) + " from destroying you",
+    "Is " + random.choice(goodList) + " enough to stop " + random.choice(badList) + " from destroying you",
     "Is it possible to overcome " + random.choice(badList) + " and still end up " + random.choice(goodList),
     "Now it’s just a question of which will pull you down – " + random.choice(badList) + " or " + random.choice(badList),
     "Once, " + random.choice(badList) + " nearly killed you – will " + random.choice(goodList) + " finish the job",

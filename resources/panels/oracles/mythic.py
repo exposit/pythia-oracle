@@ -232,7 +232,7 @@ def toggledActing(button, *args):
 def setMythicGenre(spinner, text):
     config.general['mythic_genre'] = text
     self = spinner.self
-    updateCenterDisplay(self, "Genre is now " + text + '.', 'result')
+    #updateCenterDisplay(self, "Genre is now " + text + '.', 'result')
 
 def setMythicContext(spinner, text):
     if text == "Start":

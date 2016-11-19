@@ -990,7 +990,7 @@ def rollDice(text):
             resultstring = " "
             if int(count) and int(sides):
                 if config.general['use_dice_qualities'] == True:
-                    qualifiers = random.sample(config.resolution_qualifiers, min(int(count), len(config.resolution_qualifiers)))
+                    qualifiers = random.sample(config.user['resolution_qualifiers'], min(int(count), len(config.user['resolution_qualifiers'])))
                 for i in range(int(count)):
                     x = random.randint(1,int(sides))
                     resultArray.append(x)
@@ -1000,7 +1000,7 @@ def rollDice(text):
                         try:
                             resultstring = resultstring + " (" + qualifiers[i] + ")"
                         except:
-                            resultstring = resultstring + " (" + random.choice(config.resolution_qualifiers) + ")"
+                            resultstring = resultstring + " (" + random.choice(config.user['resolution_qualifiers']) + ")"
             results = results + "\n[" + resultstring + "  ] " + str(result)
 
     return results
