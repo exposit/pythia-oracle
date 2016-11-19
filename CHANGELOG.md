@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
+* fixed the generator to it does some rudimentary saving
 * added a bunch of generators to the new Dungeon panel, including a "point crawl" style dungeon generator
 * moved customization lists (dungeon themes, hit locations, dice qualities) to "user" so they'll save on a per game basis
 * split World & Dungeon panel into "World & Wilderness" and "Dungeon" panels

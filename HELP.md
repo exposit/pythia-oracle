@@ -736,21 +736,17 @@ I tried to stay away from "gonzo" but results will still need to be interpreted 
 
 __"Point Crawl Dungeon"__
 
-This is a very simple freeform, node-based dungeon generator, intended to be used with the other tools on this panel.
+This is a very simple freeform, node-based dungeon generator, intended to be used with the other tools on this panel. It basically creates a list, named either "Dungeon 0", "Dungeon 1", and so on, or whatever is in the main text input when you hit "New Dungeon".
 
-"Next Area" will generate a theme for the area and a number of rooms to explore before rolling up a new theme. As you explore, you will occasionally locate connections to previously explored areas. Themes can be set in config.py on a game-by-game basis.
+"Next Area" will generate a theme for the dungeon and a number of rooms to explore before rolling up a new theme. As you explore, you will occasionally locate connections to previously explored areas. Themes can be set in config.py on a game-by-game basis.
 
-"New Theme" will generate just a theme ("Ice", "Fire", "Treasure", and so on).
+"New Theme" will generate just a theme ("Ice", "Fire", "Treasure", and so on). This is not saved as part of the current dungeon.
 
-"New Type" will generate a new type ("City", "Lair").
+"New Type" will generate a new type ("City", "Lair"). This is not saved as part of the current dungeon.
 
-"New Activity Level" will generate a random activity level for the area.
+"New Activity Level" will generate a random activity level for the area. This is not saved as part of the current dungeon.
 
-"Clear Visited Themes" will reset the list of visited areas.
-
-"Export Visited" will print a list of visited areas suitable for pasting back in later (should you wish to pick the dungeon back up).
-
-"Load Visited" expects a string output from "Export Visited", minus the tag in brackets, to be in the text input box. If one is, it will be interpreted in and you should be able to continue as before.
+"New Dungeon" will take the currently entered text in the main input or the next index in the saved dungeons list and make a new empty slot for it.
 
 __"What Did It Do?"__
 

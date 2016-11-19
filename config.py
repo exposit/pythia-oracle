@@ -125,7 +125,7 @@ user = dict(
     temp = 0,
     # point crawl dungeon stuff
     # area themes
-    dungeon_area_themes = ['Treasure', 'Stone', 'Lust', 'Pain', 'Ice', 'Fire', 'Stone', 'Water', 'Sorrow', 'Grief', 'Respite', 'Forsaken', 'Fury', 'Violence', 'Spite', 'Gold', 'Silver', 'Jewels', 'Fungus', 'Plants', 'Garden', 'Magic', 'Study', 'Home', 'Maze', 'Library', 'Clockwork', 'Demonic', 'Hellish', 'Chaotic' ], 
+    dungeon_area_themes = ['Treasure', 'Stone', 'Lust', 'Pain', 'Ice', 'Fire', 'Water', 'Sorrow', 'Grief', 'Respite', 'Forsaken', 'Fury', 'Violence', 'Spite', 'Gold', 'Silver', 'Jewels', 'Fungus', 'Plants', 'Garden', 'Magic', 'Study', 'Home', 'Maze', 'Library', 'Clockwork', 'Demonic', 'Hellish', 'Chaotic', 'Malice' ], 
     # area types
     dungeon_area_types = ['Dungeon', 'Dwelling', 'Lair', 'Temple', 'Caverns', 'Caves', 'Tunnels', 'Wilderness', 'Crypts', 'Catacombs', 'Lab', 'Fortress', 'Mine', 'City', 'Garden'],
     # level of activity
