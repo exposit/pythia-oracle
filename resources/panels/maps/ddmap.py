@@ -178,7 +178,7 @@ def changeDir(button, *args):
     self = button.self
     newtext = button.text
 
-    dirList = ["X","↔","↕","←","↖","↑","↗","→","↘","↓","↙"]
+    dirList = ["X","↔","↕","←","↖","↑","↗","→","↘","↓","↙",""]
 
     try:
         index = dirList.index(newtext)
