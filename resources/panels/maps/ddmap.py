@@ -132,7 +132,8 @@ def initPanel(self):
     self.displayPopup.self = self
     self.displayPopup.bind(on_open=copyMapToDisplay)
     self.displayPopup.bind(on_dismiss=saveAsPng)
-    self.displayPopup.size=(800, 800)
+    #self.displayPopup.size=(800, 800)
+    self.displayPopup.size_hint=(.7, 1)
 
     return self.mapAItem
 
