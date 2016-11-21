@@ -198,7 +198,7 @@ class MainScreen(Screen):
 
         self.qualitiesButton = ToggleButton(text="DQ")
         self.qualitiesButton.bind(on_release=self.toggleResolutionMode)
-        
+
         self.saveButton = Button(text="Save")
         self.saveButton.bind(on_press=self.pressGenericButton)
         self.saveButton.bind(on_release=self.releaseSave)
@@ -675,21 +675,21 @@ class MainScreen(Screen):
         if args[1] == 13 and self.textInput.focus == True:
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:
-                
+
                 new_text = self.textInput.text
-                
+
                 if config.general['enter_behavior'] != "None":
 
                     passthrough = True
                     is_roll = False
                     roll_result = False
                     answer = False
-                    
+
                     blocktag = config.general['enter_behavior']
-                    
+
                     matchList = [ [ new_text.startswith("-a"), 'aside', new_text[2:] ], [ new_text.startswith("-p"), 'plain', new_text[2:] ], [ new_text.endswith("-a"), 'aside', new_text[:-2] ], [ new_text.endswith("-p"), 'plain', new_text[:-2] ] ]
-                                 
-                    
+
+
                     for test in matchList:
                         if test[0]:
                             blocktag = test[1]
@@ -699,10 +699,10 @@ class MainScreen(Screen):
                         is_roll = int(new_text[0])
                     except:
                         is_roll = False
-                        
+
                     if is_roll or "roll" in new_text or "Roll" in new_text:
                         roll_result = parseTextForDice(new_text)
-                        
+
                     if "??" in new_text:
                         new_text = new_text.replace('??', '?')
 
@@ -716,29 +716,29 @@ class MainScreen(Screen):
                             answer = methodToCall()
                         else:
                             answer = "No oracle found."
-                            
+
                     if answer or (roll_result and not is_roll):
                         updateCenterDisplay(self, new_text, 'query')
                         passthrough = False
-                        
+
                     if answer:
                         updateCenterDisplay(self, answer, 'oracle')
                         passthrough = False
-                        
+
                     if roll_result:
                         updateCenterDisplay(self, roll_result, 'result')
-                        passthrough = False                   
-                                            
+                        passthrough = False
+
                     if passthrough == True:
                         updateCenterDisplay(self, new_text, blocktag)
-                        
+
                     quicksave(self, config.curr_game_dir)
                     self.textInput.text = ""
                     if config.general['enter_behavior'] == 'plain':
                         checkForTrigger(self)
-                        
+
                     return True
-                
+
         elif args[1] == 96 and config.debug == True:   # really sloppy, takes a screenshot on tilde
             timestamp =  '{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())
             Window.screenshot(name=config.curr_game_dir + 'screenshot_' + timestamp + '.png')
@@ -1230,6 +1230,10 @@ class MainScreen(Screen):
                     if x <= limiter:
                         ml = False
                         ht = config.tallheight
+                        fs = config.basefont90
+                    elif x > limiter and x <= limiter + 2:
+                        ml = True
+                        ht = config.tripleheight
                         fs = config.basefont90
                     else:
                         ml = True
