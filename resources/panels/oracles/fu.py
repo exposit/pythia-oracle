@@ -139,7 +139,7 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(butCardBox)
 
-    self.fuMainBox.add_widget(Label(text="Resolution Clarifier", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+    self.fuMainBox.add_widget(Label(text="Resolution Clarifier/Dice Qualities", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
     resBox = GridLayout(cols=8, size_hint=(1,.07))
     for i in range(1,9):

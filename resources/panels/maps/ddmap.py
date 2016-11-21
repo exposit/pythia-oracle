@@ -191,7 +191,8 @@ def changeDir(button, *args):
         newtext = dirList[0]
 
     button.text = str(newtext)
-    #saveMap(self)
+    
+    saveMap(self)
 
 def makeNewMap(source):
 
