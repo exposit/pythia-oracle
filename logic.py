@@ -417,6 +417,7 @@ def updateActorDisplay(self, text, status):
 
     label = TextInput(text=text, size_hint_y=None, size_hint_x=1, font_size=config.actorfont, font_name='maintextfont', background_color=(0,0,0,0), foreground_color=styles.textcolor)
     label.bind(focus=focusChangeActor)
+    label.height = 200
     label.tag = tag
     label.sep = sep
     label.index = len(config.actorLabelArray)
