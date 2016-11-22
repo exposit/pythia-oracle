@@ -21,7 +21,7 @@ def onEnter(self):
 def initPanel(self):
 
         self.dungeonAItem = AccordionItem(title='Dungeon & Wilderness', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
-        
+
         dungeonMainBox = BoxLayout(orientation='vertical')
 
         dungeonMainBox.add_widget(Label(text='General Questions', size_hint=(1,.10), font_size=config.basefont90))
@@ -40,14 +40,14 @@ def initPanel(self):
         dungeonMainBox.add_widget(button)
 
         dungeonMainBox.add_widget(Label(text='What\'s Do I See?', size_hint=(1,.1), font_size=config.basefont90))
-        
+
         button = Button(text="Monster, Treasure, Trap?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'getRoomContents'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
-        
+
         button = Button(text="Trap?", background_normal='', size_hint=(1,.1), background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'getTrapStatus'
@@ -56,7 +56,7 @@ def initPanel(self):
         dungeonMainBox.add_widget(button)
 
         dungeonSpecialBox = GridLayout(cols=2, size_hint=(1,.20))
-        
+
         button = Button(text="First Impression", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.qty = 99
         button.self = self
@@ -70,27 +70,27 @@ def initPanel(self):
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getSpecialFeature)
         dungeonSpecialBox.add_widget(button)
-        
+
         dungeonMainBox.add_widget(dungeonSpecialBox)
-        
+
         button = Button(text="What Did It Do?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'whatDidItDo'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
-        
+
         button = Button(text="Make A Saving Throw", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'makeASavingThrow'
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
-        
+
         dungeonMainBox.add_widget(Label(text='Node Dungeon', size_hint=(1,.10), font_size=config.basefont90))
-        
+
         dungeonNodeBox = GridLayout(cols=3, size_hint=(1,.10))
-        
+
         button = Button(text="New Theme", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
@@ -102,21 +102,21 @@ def initPanel(self):
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getDungeonAreaType)
         dungeonNodeBox.add_widget(button)
-        
+
         button = Button(text="New Activity", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getDungeonAreaActivityLevel)
         dungeonNodeBox.add_widget(button)
-        
+
         dungeonMainBox.add_widget(dungeonNodeBox)
-        
+
         self.nextAreaButton = Button(text="Next Area", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', disabled=True)
         self.nextAreaButton.self = self
         self.nextAreaButton.bind(on_press=self.pressGenericButton)
         self.nextAreaButton.bind(on_release=getFullDungeonArea)
         dungeonMainBox.add_widget(self.nextAreaButton)
-        
+
         # dungeon spinner for saving/loading
         self.dungeonSpinner = Spinner(
         text='None',
@@ -130,13 +130,13 @@ def initPanel(self):
         self.dungeonSpinner.self = self
         self.dungeonSpinner.bind(text=changeDungeonArea)
         dungeonMainBox.add_widget(self.dungeonSpinner)
-        
+
         button = Button(text="New Dungeon", size_hint=(1,.10), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=newDungeonArea)
         dungeonMainBox.add_widget(button)
-        
+
         dungeonMainBox.add_widget(Label(text='Diagram Mapping', size_hint=(1,.10), font_size=config.basefont90))
 
         button = Button(text="What Direction?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
@@ -211,10 +211,10 @@ def moreOrLessRoll(*args):
 #---------------------------------------------------------------------------------------------------
 
 def newDungeonArea(button):
-    
+
     self = button.self
     button.background_color = neutral
-    
+
     current_dungeon_name = self.textInput.text
     if current_dungeon_name == "":
         current_dungeon_name = "Dungeon " + str(len(config.user['saved_dungeons']))
@@ -223,40 +223,40 @@ def newDungeonArea(button):
     config.user["current_dungeon_name"] = current_dungeon_name
     config.user['saved_dungeons'][current_dungeon_name] = []
     self.dungeonSpinner.text = current_dungeon_name
-    
+
     self.nextAreaButton.disabled = False
-    
+
 def getFullDungeonArea(button):
-    
+
     self = button.self
     button.background_color = neutral
-    
+
     current_dungeon_name = config.user["current_dungeon_name"]
     past_dungeon_areas = config.user['saved_dungeons'][current_dungeon_name]
-    
+
     if len(past_dungeon_areas) > 0:
         current_theme = past_dungeon_areas[-1][0]
         current_type = past_dungeon_areas[-1][1]
         current_activity = past_dungeon_areas[-1][2]
-    
+
     else:
         current_theme = random.choice(config.user['dungeon_area_themes'])
         current_type = random.choice(config.user['dungeon_area_types'])
         current_activity = random.choice(config.user['dungeon_area_activity_level'])
-    
+
     backtrack_chance = config.user['backtrack_chance']
     dungeon_theme_randomness = config.user['dungeon_theme_randomness']
     dungeon_type_randomness = config.user['dungeon_type_randomness']
     dungeon_activity_randomness = config.user['dungeon_activity_randomness']
-    
+
     room_count = str(random.randint(1, 4) * 2)
 
     backtrack_roll = random.randint(1, 100)
-    
+
     theme_change_roll = random.randint(1, 100)
     type_change_roll = random.randint(1, 100)
     activity_change_roll = random.randint(1, 100)
-    
+
     # is this area the same type as the last?
     if theme_change_roll <= dungeon_theme_randomness:
         possible_themes = random.sample(config.user['dungeon_area_themes'], 2)
@@ -266,7 +266,7 @@ def getFullDungeonArea(button):
             new_theme = possible_themes[1]
     else:
         new_theme = current_theme
-        
+
     if type_change_roll <= dungeon_type_randomness:
         possible_types = random.sample(config.user['dungeon_area_types'], 2)
         if possible_types[0] != current_type:
@@ -275,7 +275,7 @@ def getFullDungeonArea(button):
             new_type = possible_types[1]
     else:
         new_type = current_type
-        
+
     if activity_change_roll <= dungeon_activity_randomness:
         possible_activity = random.sample(config.user['dungeon_area_activity_level'], 2)
         if possible_activity[0] != current_activity:
@@ -284,8 +284,8 @@ def getFullDungeonArea(button):
             new_activity = possible_activity[1]
     else:
         new_activity = current_activity
-        
-    # now, see if the new stuff takes effect or if we're going back to an existing area        
+
+    # now, see if the new stuff takes effect or if we're going back to an existing area
     if backtrack_roll <= backtrack_chance and len(past_dungeon_areas) > 1:
         index = random.randint(0, len(past_dungeon_areas)-1)
         new_theme = past_dungeon_areas[index][0]
@@ -297,22 +297,22 @@ def getFullDungeonArea(button):
         new_area = new_type + " (" + new_theme + ", " + new_activity + ")"
         result = "[Area] " + new_area + " [" + str(len(past_dungeon_areas)) + "]" + "." + " Explore " + room_count + " rooms, then roll again."
         config.user['dungeon_index'] = -1
-        
+
     updateCenterDisplay(self, result, 'result')
-    
+
 def getDungeonAreaTheme(button):
-    
+
     self = button.self
     button.background_color = neutral
-    
+
     theme = random.choice(config.user['dungeon_area_themes'])
     result = "[Area Theme] " + theme + "."
     updateCenterDisplay(self, result, 'result')
-    
+
 def getDungeonAreaType(button):
     self = button.self
     button.background_color = neutral
-    
+
     theme = random.choice(config.user['dungeon_area_types'])
     result = "[Area Type] " + theme + "."
     updateCenterDisplay(self, result, 'result')
@@ -320,25 +320,25 @@ def getDungeonAreaType(button):
 def getDungeonAreaActivityLevel(button):
     self = button.self
     button.background_color = neutral
-    
+
     theme = random.choice(config.user['dungeon_area_activity_level'])
     result = "[Area Activity] " + theme + "."
     updateCenterDisplay(self, result, 'result')
-    
+
 def changeDungeonArea(spinner, value):
-    
+
     self = spinner.self
 
     past_dungeon_areas = config.user['saved_dungeons'][value]
     config.user["current_dungeon_name"] = value
-    
+
     new_area = "Dungeon is now ... " + config.user['current_dungeon_name'] + ". "
     if len(past_dungeon_areas) > 0:
         new_theme = past_dungeon_areas[-1][0]
         new_type = past_dungeon_areas[-1][1]
         new_activity = past_dungeon_areas[-1][2]
         new_area = new_area + "Current area is " + new_type + " (" + new_theme + ", " + new_activity + ")" + " [" + str(len(past_dungeon_areas)) + "]" + "."
-    
+
     updateCenterDisplay(self, new_area, 'result')
 
 def getDungeonSetPiece(button):
@@ -487,19 +487,19 @@ def passageLike():
 def getRoomContents():
 
     if config.general['dungeon_stocking_method'] == "Gygax":
-        
+
         chart = { "Empty": 12, "Monster Only": 2, "Monster & Treasure": 3, "Special or Stairway": 1, "Trick/Trap": 1, "Treasure": 1 }
 
         contents = random.choice([k for k in chart for dummy in range(chart[k])])
-        
+
         config.general['trap_status'] = "No."
-        
+
         if contents == "Trick/Trap":
             config.general['trap_status'] = "Yes!"
             contents = "Empty"
 
     else:
-        
+
         chart = { "Monster": 2, "Trap": 1, "Special": 1, "Empty" : 2 }
         contents = random.choice([k for k in chart for dummy in range(chart[k])])
 
@@ -519,51 +519,51 @@ def getRoomContents():
         if contents == "Trap":
             config.general['trap_status'] = "Yes!"
             contents = "Empty"
-        
+
         contents = contents + ". " + treasure
 
     return "[Room Contents] " + contents
 
 def getTrapStatus():
-    
+
     trap = config.general['trap_status']
     config.general['trap_status'] = random.choice(["Yes!", "No."])
-    
+
     return "[Is There a Trick or Trap?] " + trap
-             
+
 def makeASavingThrow():
-             
+
     saveChart = config.user['saving_throws']
     if len(saveChart) == 0:
         saveChart =  [ "Poison", "Death", "Breath", "Magic", "Dexterity", "Constitution", "Luck", "Wisdom" ]
-    
+
     return "[Roll] Saving throw vs. " + random.choice(saveChart)
-             
+
 def whatDidItDo():
-    
-    # generic effects that can be changed or removed only        
+
+    # generic effects that can be changed or removed only
     effectSub = [ "changed", "reversed", "removed", "increased", "reduced"]
     targetSub = [ "one of your stats (roll a \"Defining Attribute\")", "an aspect of your alignment or morality", "part of your personality (roll a \"Defining Characteristic\")", "your gender", "your libido", "one of your emotions regarding someone else", "one of your preferences", "one of your desires", "one of your weaknesses", "one of your strengths", "your appeal to others of your species", "your appeal to others of the opposite sex", "your judgement", "your race or species" ]
-    
+
     effects = [x + " " + y for x in effectSub for y in targetSub ]
 
     # unique effects
-    singles = [ "removes one of your possessions", "adds an item to your inventory", "denatures a magical item you are carrying", "imbues an item you are carrying with a magical effect", "makes you think you're a monster", "drives you mad with emotion (roll on \"Reaction: Negative\")", "drives you mad with emotion (roll on \"Reaction: Positive\")", "teleported you somewhere else", "dyed your skin an unusual color", "poisoned you", "made you taller", "shrank you", "filled the room with gas", "transformed you into a monster", "transformed you into an animal", "took away your memory", "took a memory that was important to you", "geased you", "bestowed a spell like ability on you", "bestowed the effects of a first level spell on you", "bestowed the effects of a second level spell on you", "bestowed the effects of a third level spell on you", "bestowed the effects of a fourth level spell on you", "bestowed the effects of a fifth level spell on you", "bestowed a nearby monster's spell-like ability on you", "swapped your mind with that of a creature nearby", "made you a werecreature", "called forth your own personal guardian spirit to haunt you", "gave you the memories of someone else in addition to your own", "showed you a vision of somewhere else", "showed you a vision of your own likely future", "taught you the True Name of someone very powerful", "implanted a powerful urge or compulsion", "endowed you with the last lingering knowledge of a lost arcane tradition", "tattooed a map on your skin", "tattooed a prophecy on your skin", "tattooed an arcane ritual on your skin", "infused you with the essence of an extraplanar creature", "has the same effects as a love potion", "puts you into a deep sleep that resembles death", "makes you irresistable to a nearby type of monster", "removes your ability to lie", "removes your ability to tell the truth", "curses you to become a monster if you engage in carnal activity", "curses you to kill the one you love", "curses you with great luck while everyone around you suffers misfortune", "blesses you with luck", "blesses you with fertility", "blesses those you touch with fertility", "blesses you with great health", "blesses those you touch with great health", "blesses you with longevity", "reduces your age by one category", "reduces your age by two categories", "reverts you physically to childhood", "grants you the ability to speak with fish", "grants you the ability to speak with animals", "grants you the ability to speak with birds", "grants you the ability to speak with reptiles", "grants you the ability to speak to plants", "grants you the ability to see and converse with the dead", "curses you to see and hear the dead, often mistaking them for the living", "grants you the ability to speak a random language", "strikes you blind", "makes you extremely drunk", "makes you mildly tipsy", "heals you", "makes you immune to disease", "removes your need to sleep", "curses you with nightmares", "made everyone you know forget you", "made you insubstantial", "gave you incredible arcane knowledge that you can't use but others will want to dig out of your head", "gave you a minor psychic quirk", "has linked you to someone else emotionally and physically; from now on you feel what they feel and vice versa", "gave you the ability to use a mage cantrip as if you were a mage", "turned you into a sentient tool that best represents your skills", "gives you the ability to see in the dark", "makes you appear to be something you're not", "made you fall in love with someone even if they're not here", "showed you a vision of your one true love", "showed you the truth of some deeply cherished belief", "showed you the truth of a painful memory", "causes hallucinations", "summons a creature to grant you a wish", "grants you a wish to the best of its ability but it is kind of dim", "grants you a wish in good faith", "bestows upon you the ability to always find a way to indulge yourself in a weakness", "bestows upon you the knowledge of the high priest of a dead god", "injects a spirit into your mind; when you sleep the spirit takes over", "merges you with a person held in stasis", "transforms half of you", "curses you to transform into a generic version of whatever living non-insect creature you first touch after sunset each night", "swaps your heart for a mystical gem that someone wants back", "grants you the ability to turn into flame at will; you will now do this involuntarily when startled or extremely excited", "implants a series of nightmares about a long-ago tragedy into your subconscious", "gives you a vision of a terrifying, world-shattering danger approaching", "rewires a bit of your mind; you gain an odd quirk and the ability to see auras", "marks you as the Chosen One; this may or may not be relevant to anything", "causes you to black out and then puppets your body to achieve some purpose (use the \"Backstory\" generator to see what happened during the black out)", "shows you a vision of a great treasure and how to find it" ]
-    
+    singles = [ "removes one of your possessions", "adds an item to your inventory", "denatures a magical item you are carrying", "imbues an item you are carrying with a magical effect", "makes you think you're a monster", "drives you mad with emotion (roll on \"Reaction: Negative\")", "drives you mad with emotion (roll on \"Reaction: Positive\")", "teleported you somewhere else", "dyed your skin an unusual color", "poisoned you", "made you taller", "shrank you", "filled the room with gas", "transformed you into a monster", "transformed you into an animal", "took away your memory", "took a memory that was important to you", "geased you", "bestowed a spell like ability on you", "bestowed the effects of a first level spell on you", "bestowed the effects of a second level spell on you", "bestowed the effects of a third level spell on you", "bestowed the effects of a fourth level spell on you", "bestowed the effects of a fifth level spell on you", "bestowed a nearby monster's spell-like ability on you", "swapped your mind with that of a creature nearby", "made you a werecreature", "called forth your own personal guardian spirit to haunt you", "gave you the memories of someone else in addition to your own", "showed you a vision of somewhere else", "showed you a vision of your own likely future", "taught you the True Name of someone very powerful", "implanted a powerful urge or compulsion", "endowed you with the last lingering knowledge of a lost arcane tradition", "tattooed a map on your skin", "tattooed a prophecy on your skin", "tattooed an arcane ritual on your skin", "infused you with the essence of an extraplanar creature", "has the same effects as a love potion", "puts you into a deep sleep that resembles death", "makes you irresistable to a nearby type of monster", "removes your ability to lie", "removes your ability to tell the truth", "curses you to become a monster if you engage in carnal activity", "curses you to kill the one you love", "curses you with great luck while everyone around you suffers misfortune", "blesses you with luck", "blesses you with fertility", "blesses those you touch with fertility", "blesses you with great health", "blesses those you touch with great health", "blesses you with longevity", "reduces your age by one category", "reduces your age by two categories", "reverts you physically to childhood", "grants you the ability to speak with fish", "grants you the ability to speak with animals", "grants you the ability to speak with birds", "grants you the ability to speak with reptiles", "grants you the ability to speak to plants", "grants you the ability to see and converse with the dead", "curses you to see and hear the dead, often mistaking them for the living", "grants you the ability to speak a random language", "strikes you blind", "makes you extremely drunk", "makes you mildly tipsy", "heals you", "makes you immune to disease", "removes your need to sleep", "curses you with nightmares", "made everyone you know forget you", "made you insubstantial", "gave you incredible arcane knowledge that you can't use but others will want to dig out of your head", "gave you a minor psychic quirk", "has linked you to someone else emotionally and physically; from now on you feel what they feel and vice versa", "gave you the ability to use a mage cantrip as if you were a mage", "turned you into a sentient tool that best represents your skills", "gives you the ability to see in the dark", "makes you appear to be something you're not", "made you fall in love with someone even if they're not here", "showed you a vision of your one true love", "showed you the truth of some deeply cherished belief", "showed you the truth of a painful memory", "causes hallucinations", "summons a creature to grant you a wish", "grants you a wish to the best of its ability but it is kind of dim", "grants you a wish in good faith", "bestows upon you the ability to always find a way to indulge yourself in a weakness", "bestows upon you the knowledge of the high priest of a dead god", "injects a spirit into your mind; when you sleep the spirit takes over", "merges you with a person held in stasis", "transforms half of you", "curses you to transform into a generic version of whatever living non-insect creature you first touch after sunset each night when there's a full moon", "swaps your heart for a mystical gem that someone wants back", "grants you the ability to turn into flame at will; you will now do this involuntarily when startled or extremely excited", "implants a series of nightmares about a long-ago tragedy into your subconscious", "gives you a vision of a terrifying, world-shattering danger approaching", "rewires a bit of your mind; you gain an odd quirk and the ability to see auras", "marks you as the Chosen One; this may or may not be relevant to anything", "causes you to black out and then puppets your body to achieve some purpose (use the \"Backstory\" generator to see what happened during the black out)", "shows you a vision of a great treasure and how to find it", "causes you to become undead whenever it is cold out", "you switch gender when you're submerged in water" ]
+
     chart = singles + effects + config.user['what_did_it_do_effects']
     if config.user['what_did_it_do_effects_merge'] == "user" and len(config.user['what_did_it_do_effects_merge']) >= config.user['max_effects']:
         chart = config.user['what_did_it_do_effects']
-    
+
     count = 1
     if random.randint(1,100) <= config.user['chance_of_multiple_effects']:
         count = random.randint(1,config.user['max_effects'])
-    
+
     result = random.sample(chart, count)
-    
+
     awareChart = [ "don't realize at first that something's happened", "don't notice anything amiss", "know immediately that something's wrong", "feel strange", "suffer a vision", "don't realize at first that something's happened", "don't notice anything amiss", "know immediately that something's wrong", "feel strange", "suffer a vision", "don't realize at first that something's happened", "don't notice anything amiss", "know immediately that something's wrong", "feel strange", "suffer a vision", "know immediately the effects", "know the effects and the ramifications", "know one of the effects immediately but not the other (if there's only one effect, push this button again and take all the results from that too)", "are protected from any consequences as long as you maintain the rules of the people who created the effect", "won't be affected until you wake up from your next sleep or see your next sunrise", "won't be affected until you next commit an act related to the effect", "won't be affected until you commit a sin", "will pass the effect to the next person you touch, curing you", "are contagious like a disease; people you touch must save or contract the effect(s) as well", "are knocked unconscious", "know that it's not all bad (use this generator until you get at least one positive effect and combine with your original one)", "are given a chance to change your fate (use this generator once more, then pick which of the results you like best)", "are caught at the epicenter of a magical vortex (get an effect for each person in the room and one more effect for yourself)", "suffer the same fate as your comrades (everyone present shares the same effect you do)", "start convulsing as multiple magical effects take effect (use this generator 1d6+1 more times and take all the results from those rolls too)" ]
 
     return "[What Did It Do?] It " + ' and it '.join(result) + ". You " + random.choice(awareChart) + "."
-             
+
 def getSpecialFeature(button, *args):
 
     button.background_color = neutral
@@ -576,7 +576,7 @@ def getSpecialFeature(button, *args):
     chart = ["strange glyphs", "blacksmith tools and forge", "an old wagon", "grates in the wall along the floor", "grates up high near the ceiling", "an adventurer's discarded pack", "broken furniture", "an adventuring party", "phosphorescent lichen", "a sprung trap", "a spring", "a river or stream", "a trickle of water", "a lake or pool", "a draft from somewhere", "wine casks", "barrels", "smoke", "murals on the walls", "a dire warning", "cages", "a statue", "an unconscious person", "a person in stasis", "a petrified statue", "an altar", "glowing mushrooms", "a weapon rack", "an armor rack", "a pile of refuse", "a pile of rubble", "a fallen pillar", "a vat of liquid", "round smooth crystals embedded in the floor", "a lichen. mold, and fungi farm", "a fountain", "a pile of books", "webs", "an imprisoned demon", "footprints in the dust", "faded banners and pennants", "a throne", "a body with crude challenge on it", "scavengers feeding on a corpse", "a balcony or ledge", "a coffin", "a shattered brick arch with stone behind it", "one of the floor slabs is loose", "a faded mosaic on the floor", "a smashed mirror", "a skull", "a pedestal", "misspelled graffiti", "articulate scrawling", "a fissure a foot wide", "an iron brazier", "a row of manacles", "a weathered journal", "an iron cage suspended from the ceiling", "a grate in the floor", "shadowy alcoves", "a dark niche", "a shrine", "several shrines", "a painting face down on the floor", "a dozen extremely well-wrought statues", "a wounded creature", "broken statues", "a pristine square of floor", "a number of piles of dirty hay and refuse", "a chest", "an ornate wardrobe", "an ornate desk", "an ornate bed", "a row of cots", "signs of an animal", "a sign", "a tiled floor", "a makeshift camp", "a stockpile", "a cauldron", "a hole in the wall", "a hole in the floor", "scratch marks on wall", "very cold", "very warm", "steps down to recessed area", "a rickety bridge", "something that gleams high up on the wall", "twisted wreckage", "a hole in the ceiling", "stairs", "a ladder", "a tree", "an immediately detectable overt magical effect", "a sudden chill in the air", "a blast of heat", "a fire", "spoor", "a discarded lunch", "a blood stain", "blood spatter", "a makeshift alchemy lab", "a pile of alchemical cast-off items", "a discarded backpack", "a torn and battered satchel", "a round sphere hovering in mid-air", "a crystal ball", "cards scattered on the floor", "clothes scattered on the floor", "a tangle of armor and weapons and bones", "bones", "armor", "weapons", "a weapon", "grass", "the sun", "a will-o-wisp", "a bowl of fruit", "a basket", "an esoteric theorum", "glowing runes", "a bucket", "the scent of soft perfume", "a posed diorama", "bones sorted by type", "artfully arranged body parts", "art pieces on display", "numerous pedestals and alcoves", "a pattern of nails in the wall", "furniture", "refuse", "a nest", "a sleeping pallet", "a camp", "a person in a trap", "a person who is stuck", "a monster who is stuck", "a monster in a trap", "a wounded monster", "someone who is occupied", "the floor is wet", "the floor is slippery", "there's a narrow ledge", "a coffin; something is banging on the inside of the lid", "a golem that appears to be half-buried in the floor", "a sack", "a box", "an iron-banded chest", "a rusty metal box", "a wooden crate with the lid nailed on", "a leather satchel", "a pile of provisions", "a suit of armor", "a destroyed camp", "a make-shift shrine", "a mosaic on the ceiling", "a gallery of paintings", "a faceless statue", "a golem made of unusual materials", "a book", "a pile of scrolls", "a stack of books", "a shattered iron cage", "a handful of brass tacks", "a waterfall", "glass stairs", "a large mirror", "a painting that takes up the entire wall", "a row of jars", "a bed", "a hammock", "a tent", "the remains of a bloody conflict", "corpses strewn about", "corpses hung on hooks", "torture devices", "a bloodstained table", "a butcher block", "a pile of rusty metal",  ]
 
     chart = chart + config.user['special_features']
-        
+
     special = random.sample(chart, qty)
 
     result = "[In the Room] " + ", ".join(special)
