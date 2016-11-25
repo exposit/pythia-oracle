@@ -6,7 +6,8 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
-* fixed the generator to it does some rudimentary saving
+* added the ability to use the "+" notation with a dice roll to add to your total ("2d8x2+10", "1d10+2")
+* fixed the map and node generators so they do some rudimentary saving
 * added a bunch of generators to the new Dungeon panel, including a "point crawl" style dungeon generator
 * moved customization lists (dungeon themes, hit locations, dice qualities) to "user" so they'll save on a per game basis
 * split World & Dungeon panel into "World & Wilderness" and "Dungeon" panels

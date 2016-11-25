@@ -54,7 +54,7 @@ def swapBlock(block):
         return
 
     if block.__class__.__name__ == "ButtonBehaviorLabel":
-        
+
         block.parent.remove_widget(block)
 
         box = GridLayout(cols=2, size_hint=(1,None))
@@ -68,12 +68,12 @@ def swapBlock(block):
         field.self = self
         field.bind(height=box.setter('height'))
         box.add_widget(field)
-        
+
         field.height = block.height + (field.line_height * 2)
 
         subbox = BoxLayout(orientation="vertical")
         subbox.index = index
-        
+
         formBox = GridLayout(cols=4)
         insertList = [ 'i', 'b' ]
         for f in insertList:
@@ -83,14 +83,14 @@ def swapBlock(block):
             button.index = index
             button.self = self
             formBox.add_widget(button)
-            
+
             button = Button(text="/" + f, font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
             button.width="20dp"
             button.bind(on_press=insertTextFormat)
             button.index = index
             button.self = self
             formBox.add_widget(button)
-            
+
         subbox.add_widget(formBox)
 
         # these are for setting status
@@ -106,7 +106,7 @@ def swapBlock(block):
 
         # this is a much cleaner solution instead of cycling, but takes a while
         if config.use_spinner_status == True:
-            
+
             try:
                 statusList = config.formats['status_tags']
             except:
@@ -117,9 +117,9 @@ def swapBlock(block):
                 text=status,
                 # available values
                 values=statusList,
-                background_normal='', 
-                background_color=accent1, 
-                background_down='', 
+                background_normal='',
+                background_color=accent1,
+                background_down='',
                 background_color_down=accent2,
                 font_size=config.basefont60,
                 size_hint_y=1,
@@ -132,7 +132,7 @@ def swapBlock(block):
             subbox.add_widget(spinner)
 
             field.width=self.centerDisplayGrid.width-spinner.width-20
-        
+
         button = Button(text="done", font_size=config.blockstatusfont, font_name='maintextfont', size_hint_x=None, size_hint_y=1, background_normal='', background_color=accent1, background_down='', background_color_down=accent2 )
         button.width = "80dp"
         button.bind(on_press=swapBlock)
@@ -140,26 +140,26 @@ def swapBlock(block):
         button.self = self
         subbox.add_widget(button)
         box.add_widget(subbox)
-        
+
         config.textLabelArray[index] = box
 
     else:
-        
+
         field = [x for x in config.textLabelArray[index].children if x.__class__.__name__ == "TextInput" ]
-        
+
         config.textArray[index] = field[0].text
-        
+
         formatted_text = parseText(field[0].text, status)
 
         block.parent.parent.parent.remove_widget(block.parent.parent)
-        
+
         label = ButtonBehaviorLabel(text=formatted_text, size_hint=(1, None), font_size=config.blockfont, font_name='maintextfont', background_normal='', background_down='', background_color=(0,0,0,0), background_color_down=accent2)
-        
+
         label.size = label.texture_size
         label.text_size = (self.centerDisplayGrid.width, None)
         label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
         label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-        
+
         label.bind(on_release=swapBlock)
         label.bind(on_ref_press=refPress)
         label.foreground_color=(1,1,1,1)
@@ -168,7 +168,7 @@ def swapBlock(block):
         label.index = index
         config.textLabelArray[index] = label
         label.padding_=50
-        
+
 
     self.centerDisplayGrid.clear_widgets()
 
@@ -202,7 +202,7 @@ def makeItemLabels(self, text, status='result'):
     label.text_size = (self.centerDisplayGrid.width, None)
     label.bind(texture_size=lambda instance, value: setattr(instance, 'height', value[1]))
     label.bind(width=lambda instance, value: setattr(instance, 'text_size', (value, None)))
-    
+
     label.bind(on_release=swapBlock)
     label.bind(on_ref_press=refPress)
     label.foreground_color=(1,1,1,1)
@@ -212,20 +212,20 @@ def makeItemLabels(self, text, status='result'):
     config.textLabelArray.append(label)
 
 def insertTextFormat(button):
-    
+
     self = button.self
     index = button.index
     field = [x for x in config.textLabelArray[index].children if x.__class__.__name__ == "TextInput" ][0]
-    
+
     format_to_insert = "[" + button.text + "]"
-        
+
     # insert whatever the format box is into the field
     field.insert_text(format_to_insert)
-    
+
     config.textArray[index] = field.text
-    
+
 def hideMechanicsBlocks(button):
-    
+
     self = button.self
     button.background_color = neutral
     for unit in config.textLabelArray:
@@ -233,7 +233,7 @@ def hideMechanicsBlocks(button):
             self.centerDisplayGrid.remove_widget(unit)
 
 def parseText(text, status):
-    
+
     if status in config.formats:
         blockformat = config.formats[status]
         if blockformat == "color1":
@@ -604,18 +604,18 @@ def saveconfig(self, gamedir):
             print("[saveconfig] Unexpected error:", sys.exc_info())
 
 def loadconfig(self, gamedir):
-    
+
     try:
-    
+
         with open(gamedir + 'config.txt', 'r') as config_file:
             tempDict = json.load(config_file)
-            
+
         sectionList = ['general', 'formats', 'user', 'scenario']
-            
+
         for section in sectionList:
             for key, value in tempDict[section].iteritems():
                 eval("config." + section)[key] = value
-        
+
     except:
         # no config, make a new one
         if config.debug == True:
@@ -739,11 +739,11 @@ def quickload(self, gamedir):
             if config.debug == True:
                 traceback.print_exc()
 
-    
-    
+
+
     tempTextArray = []
     tempStatusArray = []
-    
+
     try:
 
         for i in range(len(textArray)):
@@ -765,7 +765,7 @@ def quickload(self, gamedir):
         if config.debug == True:
             print("[quickload Main] Unexpected error:", sys.exc_info())
 
-    
+
     if len(tempTextArray) == 0:
         if config.manual_edit_mode == False:
             print("should be updating with tab")
@@ -935,20 +935,20 @@ def storeBookmarkLabel(label):
 
     return bset
 
-        
+
 def parseTextForDice(text):
 
     roll_results = []
-    
+
     words = text.split(' ')
     for word in words:
         if any(ext in word for ext in ["1","2","3","4","5","6","7","8","9","0"]):
             if any(ext in word for ext in ['.', '!', ',', '?', ':', ';', '-']):
-                word = word[:-1]            
+                word = word[:-1]
             result = rollDice(word)
             if result != "Please use standard dice notation, ie, 1d10 or 2d6x3.":
                 roll_results.append(result)
-    
+
     if len(roll_results) == 0:
         return False
 
@@ -957,10 +957,11 @@ def parseTextForDice(text):
 
 def rollDice(text):
 
-    results = "Please use standard dice notation, ie, 1d10 or 2d6x3."
+    results = "Please use standard dice notation, ie, 1d10 or 2d6x3 or 2d8+6."
     count = 1
     sides = 100
     reps = 1
+    mod = 0
 
     if len(text) > 0:
         try:
@@ -973,6 +974,17 @@ def rollDice(text):
         except:
             pass
 
+        if reps > 1:
+            try:
+                reps, mod = reps.split("+")
+            except:
+                pass
+        else:
+            try:
+                sides, mod = sides.split("+")
+            except:
+                pass
+
         try:
             sides = int(sides)
             count = int(count)
@@ -981,6 +993,11 @@ def rollDice(text):
 
         try:
             reps = int(reps)
+        except:
+            pass
+
+        try:
+            mod = int(mod)
         except:
             pass
 
@@ -1002,7 +1019,9 @@ def rollDice(text):
                             resultstring = resultstring + " (" + qualifiers[i] + ")"
                         except:
                             resultstring = resultstring + " (" + random.choice(config.user['resolution_qualifiers']) + ")"
-            results = results + "\n[" + resultstring + "  ] " + str(result)
+
+            total = " + " + str(mod) + " = " + str(result + mod)
+            results = results + "\n[" + resultstring + "  ] " + str(result) + total
 
     return results
 
