@@ -32,7 +32,6 @@ def resetCenterDisplay(self, textArray=config.textArray, textStatusArray=config.
 def updateCenterDisplay(self, text, status='result'):
 
     #if len(config.textStatusArray) > 0:
-
     makeItemLabels(self, text, status)
     addToCenterDisplay(self, text, status)
 
@@ -185,7 +184,7 @@ def addToCenterDisplay(self, text, status):
 def makeItemLabels(self, text, status='result'):
 
     if len(text) <= 0:
-        return
+        text = " "
 
     if text[:1] == "\n":
         text = text[1:]
@@ -739,8 +738,6 @@ def quickload(self, gamedir):
             if config.debug == True:
                 traceback.print_exc()
 
-
-
     tempTextArray = []
     tempStatusArray = []
 
@@ -764,7 +761,6 @@ def quickload(self, gamedir):
     except:
         if config.debug == True:
             print("[quickload Main] Unexpected error:", sys.exc_info())
-
 
     if len(tempTextArray) == 0:
         if config.manual_edit_mode == False:
