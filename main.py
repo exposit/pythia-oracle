@@ -204,11 +204,11 @@ class MainScreen(Screen):
         self.saveButton.bind(on_release=self.releaseSave)
 
         #self.box for adding threads & actors
-        self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont90)
+        self.threadSubmitButton = Button(text="Add\nThread", halign='center', size_hint=(1,1), font_size=config.basefont80)
         self.threadSubmitButton.bind(on_press=self.pressGenericButton)
         self.threadSubmitButton.bind(on_release=self.releaseThread)
 
-        self.addActorButton = Button(text="Add\nActor", halign='center', size_hint=(1,1), font_size=config.basefont90)
+        self.addActorButton = Button(text="Add\nActor", halign='center', size_hint=(1,1), font_size=config.basefont80)
         self.addActorButton.bind(on_press=self.pressGenericButton)
         self.addActorButton.bind(on_release=self.releaseAddActor)
 
@@ -306,12 +306,12 @@ class MainScreen(Screen):
             self.diceAltBox.add_widget(alt)
 
         self.footerBox.add_widget(self.flagsBox)
-        self.footerBox.add_widget(self.threadBox)
         self.footerBox.add_widget(self.weightedBox)
         self.footerBox.add_widget(self.dicePresetsBox)
         self.footerBox.add_widget(self.diceSpinnersBox)
         self.footerBox.add_widget(self.diceAltBox)
 
+        self.footerBox.add_widget(self.threadBox)
         self.textInputMainBox.add_widget(self.footerBox)
 
         self.controlBox.add_widget(self.textInputMainBox)
