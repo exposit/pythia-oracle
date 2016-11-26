@@ -1016,7 +1016,9 @@ def rollDice(text):
                         except:
                             resultstring = resultstring + " (" + random.choice(config.user['resolution_qualifiers']) + ")"
 
-            total = " + " + str(mod) + " = " + str(result + mod)
+            total = ""
+            if mod > 0:
+                total = " + " + str(mod) + " = " + str(result + mod)
             results = results + "\n[" + resultstring + "  ] " + str(result) + total
 
     return results
