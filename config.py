@@ -84,6 +84,12 @@ general = dict(
     # end mythic stuff
     dungeon_stocking_method = 'Gygax',       # Gygax or Moldovay
     trap_status = '',
+    # pythy stuff
+    use_pythy_auto_complete = False,
+    default_pythy_source = "use-all",
+    pythy_predict_box_count = 3,
+    pythy_next_word_count = 3,
+    pythy_sentence_model = "mixed",         # short, long, mixed
 )
 
 formats = dict(
@@ -125,7 +131,7 @@ user = dict(
     temp = 0,
     # point crawl dungeon stuff
     # area themes
-    dungeon_area_themes = ['Treasure', 'Stone', 'Lust', 'Pain', 'Ice', 'Fire', 'Water', 'Sorrow', 'Grief', 'Respite', 'Forsaken', 'Fury', 'Violence', 'Spite', 'Gold', 'Silver', 'Jewels', 'Fungus', 'Plants', 'Garden', 'Magic', 'Study', 'Home', 'Maze', 'Library', 'Clockwork', 'Demonic', 'Hellish', 'Chaotic', 'Malice' ], 
+    dungeon_area_themes = ['Treasure', 'Stone', 'Lust', 'Pain', 'Ice', 'Fire', 'Water', 'Sorrow', 'Grief', 'Respite', 'Forsaken', 'Fury', 'Violence', 'Spite', 'Gold', 'Silver', 'Jewels', 'Fungus', 'Plants', 'Garden', 'Magic', 'Study', 'Home', 'Maze', 'Library', 'Clockwork', 'Demonic', 'Hellish', 'Chaotic', 'Malice' ],
     # area types
     dungeon_area_types = ['Dungeon', 'Dwelling', 'Lair', 'Temple', 'Caverns', 'Caves', 'Tunnels', 'Wilderness', 'Crypts', 'Catacombs', 'Lab', 'Fortress', 'Mine', 'City', 'Garden'],
     # level of activity
@@ -157,6 +163,11 @@ user = dict(
     max_effects = 3,
     # extra effects for the special features button
     special_features = [ ],
+    # memory for gmbot
+    memory = [],
+    # word lists for pythy
+    next_word_list = [" ", " " , " "],
+    predict_word_list = [" ", " " , " "],
 )
 
 #------------------------------------------------------------------------

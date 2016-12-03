@@ -27,6 +27,7 @@ Table of Contents
         * [Mythic Oracle](#mythic-oracle)
         * [Seeds &amp; Complex Answers](#seeds--complex-answers)
         * [Secrets &amp; Triggers](#secrets--triggers)
+        * [Pythy Oracle](#pythy--oracle)
       * [Generators Stack](#generators-stack)
         * [Actors &amp; Motives](#actors--motives)
         * [Plot &amp; Monsters](#plot--monsters)
@@ -91,7 +92,7 @@ By default, all Pythia core panels (in "resources/panels") are enabled except gr
 
 For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
 
-You can choose to exclude each map panel from being shown on a game-by-game basis by setting the "exclude_\<mapname.py\>" variables in config.general to True. 
+You can choose to exclude each map panel from being shown on a game-by-game basis by setting the "exclude_\<mapname.py\>" variables in config.general to True.
 
 __*Setting Up Oracle Defaults*__
 
@@ -144,7 +145,7 @@ The bookmark panel consists of five bookmark slots and a "Clear" button. If you'
 
 The enter behavior spinner allows you to choose what text is automatically tagged with when you hit "enter" while typing in the main text input. "Plain" and "Aside" modes correspond to the "Direct" and "Aside" buttons in the bottom control panel.
 
-"None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons. 
+"None" reverts the text field's behavior to default for Kivy -- hitting enter will not send text through. In this mode, if you want to submit the text field's contents, you need to click the Direct or Aside buttons.
 
 __Some generators will pass the text field's text into the main log but others won't, so use caution when writing long blocks of text in "None" (or any other) mode.__
 
@@ -370,6 +371,20 @@ You can set many of the parameters for Mythic in the config.py file, as well as 
 `oracle_func = 'fu'`
 
 `general['seed_func'] = 'useTwoPartSeed'`
+
+#### Pythy oracle
+
+Largely based on Markov chains and Eliza. By default, it uses the current log as the source, but if you create a file named "sources" in a save directory and put text files in it, you can grab Markov chain sentences from those sources or set one of those sources as default for the auto-predict.
+
+> Sailing for London, I reembarked at once for the sensation which his offering created.
+
+"Use Auto-Predict" is a toggle between "True" and False" and controls if predict is on. If it is, when you start typing for the first time in a session you will notice a few seconds of lag.
+
+The "Predict Suggestions" section will show one or two word nouns phrases that Pythy determines are related to what you're typing. Use them as Complex Answers and Seeds or simply as inspiration.
+
+The "Next Word" section shows what the system thinks is the most likely next word; you can use it as the predict suggestions box or to cobble together a GM-esque statement.
+
+You can remove either section by setting the number for that group shown to 0 in config.py. You can turn off both by turning auto predict off entirely in config.py.
 
 #### Seeds & Complex Answers
 
@@ -703,7 +718,7 @@ __Miscellaneous Questions__
 
 ##### Dungeon & Underground
 
-The dungeon panel is, unsurprisingly, for generating dungeon content. The general order of things is to use "What is the Room Like" and "First Impression" to get an idea of what the room looks like and what it contains at first glance, then use "What Do I See?" (if necessary) to determine if there's an overtly hostile or dangerous situation. 
+The dungeon panel is, unsurprisingly, for generating dungeon content. The general order of things is to use "What is the Room Like" and "First Impression" to get an idea of what the room looks like and what it contains at first glance, then use "What Do I See?" (if necessary) to determine if there's an overtly hostile or dangerous situation.
 
 __General Questions__
 
@@ -720,7 +735,7 @@ __General Questions__
 
 __"What Do I See?"__
 
-"Monster, Treasure, Trap" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D (or you can set it to a more Gygax-ian distribution in the config file). If it's a trap, it will return "Empty" and set the result of the "Trap" button to the truth. 
+"Monster, Treasure, Trap" tells you basic room contents (monster, treasure, special, etc.) using a d6 distribution from early D&D (or you can set it to a more Gygax-ian distribution in the config file). If it's a trap, it will return "Empty" and set the result of the "Trap" button to the truth.
 
 Explore the room, make any rolls you need to, and then hit the "Trap" button to see if there was one there!
 

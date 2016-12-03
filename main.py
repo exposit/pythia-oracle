@@ -672,6 +672,15 @@ class MainScreen(Screen):
     def key_action(self, *args):
         #print "got a key event: %s" % list(args)
         #print(self.textInput.text, self.textInput.focus)
+        if self.textInput.focus == True and args[1] == 32:
+            # trap for pythy
+            if config.general['use_pythy_auto_complete'] == True:
+
+                for i in range(len(oracle_module)):
+                    if oracle_module[i].__name__ == "pythy":
+                        methodToCall = getattr( oracle_module[i], "autoPredict" )
+                        answer = methodToCall(self)
+
         if args[1] == 13 and self.textInput.focus == True:
             #print("Defocus and send text.")
             if len(self.textInput.text) > 0:

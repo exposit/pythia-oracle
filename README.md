@@ -34,6 +34,8 @@ The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a
 
 Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python 2.7 (or identifying if it's already installed) and through installing Kivy.
 
+You will also need [markovify](https://github.com/jsvine/markovify) and [TextBlob](https://textblob.readthedocs.io/en/dev/install.html) if you want to use the Pythy panel.
+
 **More Detailed:**
 
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (not 3) for your operating system. While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
@@ -41,6 +43,14 @@ Open up a terminal (command prompt) and type "python --version". If you get a "n
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again. If necessary, set the environment path and reboot again.
 
 Now go to the [kivy installation page](https://kivy.org/docs/installation/installation.html) for your OS (stable version) and either install the application from a release (download the file, double click on it, etc.) or copy-paste the given lines as directed, waiting in between each as necessary. Read any errors carefully and address them.
+
+If you want to use the Pythy panel, you'll also need to install markovify and TextBlob.
+
+`pip install markovify`
+
+`pip install -U textblob`
+
+`python -m textblob.download_corpora lite`
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder).
 
@@ -62,7 +72,7 @@ You should be good to go! Be sure to play around in the quicksave before you sta
 
 From now on Pythia should handled changes to the base config file more gracefully; you shouldn't need to do anything special to upgrade, except back up your save and backup folders as usual.
 
-If you experience formatting issues, you will need to either retag each block in Pythia or do so in the main.txt file. 
+If you experience formatting issues, you will need to either retag each block in Pythia or do so in the main.txt file.
 
 __I strongly suggest that you use a [json editor](https://github.com/josdejong/jsoneditor) when editing save game files. Just unzip the release, then open the "04_load_and_save" file in the examples directory in a modern browser.__
 
@@ -92,7 +102,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click 
 
 #### Wait, I want more tables!
 
-Please let me know if you have any suggestions! 
+Please let me know if you have any suggestions!
 
 If you need more tables *right now*, you can use the "pick one" buttons to get weighted answers from a copy-pasted, comma separated list on the fly, or you can add in whatever tables you like in the code in your own user panels. Pythia is designed to be modular and extensible. I've included a sample panel in panels/oracles as a guide, and you can look at the included core panels to see how they work.
 
