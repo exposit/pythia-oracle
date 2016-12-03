@@ -372,7 +372,7 @@ You can set many of the parameters for Mythic in the config.py file, as well as 
 
 `general['seed_func'] = 'useTwoPartSeed'`
 
-#### Pythy oracle
+#### Pythy Oracle
 
 Largely based on Markov chains and Eliza. By default, it uses the current log as the source, but if you create a file named "sources" in a save directory and put text files in it, you can grab Markov chain sentences from those sources or set one of those sources as default for the auto-predict.
 
