@@ -1226,6 +1226,7 @@ class MainScreen(Screen):
 
         # now update PC panel to the right sizes
         try:
+
             for i in range(config.general['max_character_sheets']):
 
                 self.halfgrid[i].clear_widgets()
@@ -1236,43 +1237,70 @@ class MainScreen(Screen):
 
                 for x in range(0,39):
 
-                    if x <= limiter:
-                        ml = False
-                        ht = config.tallheight
-                        fs = config.basefont90
-                    elif x > limiter and x <= limiter + 2:
-                        ml = True
-                        ht = config.tripleheight
-                        fs = config.basefont90
+                    if config.general['character_sheet_style'] == 0:
+                        if x <= limiter:
+                            ml = False
+                            ht = config.tallheight
+                            fs = config.basefont90
+                        elif x > limiter and x <= limiter + 2:
+                            ml = True
+                            ht = config.tripleheight
+                            fs = config.basefont90
+                        else:
+                            ml = True
+                            ht = config.doubleheight
+                            fs = config.basefont90
+
+                        if x >= 4 and x <= limiter:
+                            xhint = .25
+                        else:
+                            xhint = .15
+
+                        config.pcKeyLabelArray[i][x].multiline = ml
+                        config.pcKeyLabelArray[i][x].size_hint_x = xhint
+                        config.pcKeyLabelArray[i][x].height = ht
+                        config.pcKeyLabelArray[i][x].font_size = fs
+
+                        config.pcValueLabelArray[i][x].multiline = ml
+                        config.pcValueLabelArray[i][x].size_hint_x = 1.0-xhint
+                        config.pcValueLabelArray[i][x].height = ht
+                        config.pcValueLabelArray[i][x].font_size = fs
+
+                        if x >= 4 and x <= limiter:
+                            self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                            self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                        elif x <= 3:
+                            self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                            self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                        else:
+                            self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                            self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
+
                     else:
-                        ml = True
-                        ht = config.doubleheight
-                        fs = config.basefont90
 
-                    if x >= 4 and x <= limiter:
-                        xhint = .25
-                    else:
-                        xhint = .15
+                        self.topgrid[i].cols = 1
+                        #self.halfgrid[i].parent.remove_widget(self.halfgrid[i])
+                        #self.bottomgrid[i].parent.remove_widget(self.bottomgrid[i])
 
-                    config.pcKeyLabelArray[i][x].multiline = ml
-                    config.pcKeyLabelArray[i][x].size_hint_x = xhint
-                    config.pcKeyLabelArray[i][x].height = ht
-                    config.pcKeyLabelArray[i][x].font_size = fs
+                        if x == 1:                  # description block
+                            ml = True
+                            fs = config.basefont80
+                            ht = config.quintupleheight
+                        elif x == 0 or x % 2 == 0:    # one line row
+                            ml = False
+                            ht = config.tallheight
+                            fs = config.basefont90
+                        else:                       # everything else is taller
+                            ml = True
+                            fs = config.basefont80
+                            ht = config.quadrupleheight
 
-                    config.pcValueLabelArray[i][x].multiline = ml
-                    config.pcValueLabelArray[i][x].size_hint_x = 1.0-xhint
-                    config.pcValueLabelArray[i][x].height = ht
-                    config.pcValueLabelArray[i][x].font_size = fs
+                        config.pcValueLabelArray[i][x].multiline = ml
+                        config.pcValueLabelArray[i][x].height = ht
+                        config.pcValueLabelArray[i][x].font_size = fs
 
-                    if x >= 4 and x <= limiter:
-                        self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                        self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
-                    elif x <= 3:
-                        self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
                         self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
-                    else:
-                        self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                        self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
+
         except:
             pass
 

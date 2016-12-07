@@ -52,10 +52,11 @@ general = dict(
     # actor panel
     actor_index_state = 0,
     # character sheet panel
-    max_character_sheets = 6,
-    total_pcs_to_show = 2,
-    half_size_rows = 23,                 # this is best at 23 or 7
-    # find and jump
+    max_character_sheets = 6,           # set this to the max you will need, 6, 8, or 10 is probably good
+    total_pcs_to_show = 2,              # of those sheets, only this many will display
+    half_size_rows = 23,                # in mode 0 this puts four spaces per line, ie, for attributes
+    character_sheet_style = 0,          # 0 is standard d&d style, 1 is traits/tags
+    # find and jump; don't need to mess with this
     findList = [],
     findIndex = 0,
     # toggles for merging and dice qualities; these can be set in program
@@ -229,6 +230,7 @@ baseheight = str(formats['basefontsize']+10) + "dp"
 tallheight = str(formats['basefontsize']+15) + "dp"
 doubleheight = str(formats['basefontsize']*2+20) + "dp"
 tripleheight = str(formats['basefontsize']*3+20) + "dp"
+quadrupleheight = str(formats['basefontsize']*4+20) + "dp"
 quintupleheight = str(formats['basefontsize']*5+10) + "dp"
 octupleheight = str(formats['basefontsize']*8+10) + "dp"
 #maintextfont = str(formats['basefontsize']*1) + "dp"
