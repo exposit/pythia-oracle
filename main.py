@@ -1242,13 +1242,9 @@ class MainScreen(Screen):
                             ml = False
                             ht = config.tallheight
                             fs = config.basefont90
-                        elif x > limiter and x <= limiter + 2:
-                            ml = True
-                            ht = config.tripleheight
-                            fs = config.basefont90
                         else:
                             ml = True
-                            ht = config.doubleheight
+                            ht = config.quadrupleheight
                             fs = config.basefont90
 
                         if x >= 4 and x <= limiter:
@@ -1266,12 +1262,12 @@ class MainScreen(Screen):
                         config.pcValueLabelArray[i][x].height = ht
                         config.pcValueLabelArray[i][x].font_size = fs
 
-                        if x >= 4 and x <= limiter:
-                            self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
-                            self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
-                        elif x <= 3:
+                        if x <= 1:
                             self.topgrid[i].add_widget(config.pcKeyLabelArray[i][x])
                             self.topgrid[i].add_widget(config.pcValueLabelArray[i][x])
+                        elif x <= limiter:
+                            self.halfgrid[i].add_widget(config.pcKeyLabelArray[i][x])
+                            self.halfgrid[i].add_widget(config.pcValueLabelArray[i][x])
                         else:
                             self.bottomgrid[i].add_widget(config.pcKeyLabelArray[i][x])
                             self.bottomgrid[i].add_widget(config.pcValueLabelArray[i][x])
