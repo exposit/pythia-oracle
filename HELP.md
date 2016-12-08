@@ -246,11 +246,11 @@ The Actor Index panel can be opened/closed by clicking on the title.
 
 Displays between 1 and 10 character sheets (depending on config setting).
 
-If the sheet has a Nick", "NN", or "Name" tagged field, that field will be used for the title of the sheet.
+If the sheet has a "Nick", "NN", or "Name" tagged field, that field will be used for the title of the sheet.
 
 "Random Major" defaults to looking at all "Name" tagged fields across all character sheets and returning one.
 
-You can also set other parameters in the config. One is "half_size_rows", which controls how many of rows with four boxes (two key-value pairs) show, and style, which determines if it's a kind of traditional D&D style sheet (space for name, class, attributes) or a more narrative one (name, description, and a bunch of titled boxes).
+You can also set other parameters in the config. One is "half_size_rows", which controls how many of rows with four boxes (two key-value pairs for attributes like Dex, Cha, Str, and so on) show, and style, which determines if it's a kind of traditional D&D style sheet (space for name, class, attributes) or a more narrative one (name, description, and a bunch of titled boxes).
 
 ### Left Stack
 
