@@ -942,7 +942,7 @@ def parseTextForDice(text):
             if any(ext in word for ext in ['.', '!', ',', '?', ':', ';', '-']):
                 word = word[:-1]
             result = rollDice(word)
-            if result != "Please use standard dice notation, ie, 1d10 or 2d6x3.":
+            if result != "Please use standard dice notation, ie, 1d10 or 2d6x3 or 2d8+6.":
                 roll_results.append(result)
 
     if len(roll_results) == 0:
