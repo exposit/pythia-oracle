@@ -1234,9 +1234,17 @@ def chooseWeighted(value, text, form):
                 result = chart[2]
                 roll = 1
         else:
-            for element in text.split(", "):
-                result_string = result_string + element + ", "
-            result = random.choice(text.split(", "))
+            result_string = text
+            if value == 0:
+                result = random.choice(text.split(", "))
+            elif value == 4:
+                result = ', '.join(random.sample(text.split(", "), 2))
+            elif value == 5:
+                result = ', '.join(random.sample(text.split(", "), 3))
+            elif value == 6:
+                result = ', '.join(random.sample(text.split(", "), 4))
+            elif value == 7:
+                result = ', '.join(random.sample(text.split(", "), 5))
             roll = "Choice"
 
         return str(result_string), str(result), str(form), str(roll)

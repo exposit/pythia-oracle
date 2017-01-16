@@ -6,6 +6,7 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 WIP
 
+* add more "pick" buttons to pick one, two, three, four, or five options from a list.
 * a new mode for character sheets (they need attention but this is the best I can do right now) to support more narrative style characters
 * added a new panel, Pythy, that pretends to GM for you with Markov chains, auto-predict, and source material generated Seeds. Configure in config.py. Requires TextBlob and markovify.
 * added the ability to use the "+" notation with a dice roll to add to your total ("2d8x2+10", "1d10+2").

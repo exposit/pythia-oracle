@@ -212,8 +212,8 @@ class MainScreen(Screen):
         self.addActorButton.bind(on_press=self.pressGenericButton)
         self.addActorButton.bind(on_release=self.releaseAddActor)
 
-        # pick one
-        self.listButton1 = Button(text="Pick\nList", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        # pick one from a list
+        self.listButton1 = Button(text="Pick\nOne", halign="center", font_size=config.basefont75, size_hint=(1,1), )
         self.listButton1.bind(on_press=self.pressGenericButton)
         self.listButton1.bind(on_release=self.chooseFromList)
         self.listButton1.value = 0
@@ -232,6 +232,26 @@ class MainScreen(Screen):
         self.listButton4.bind(on_press=self.pressGenericButton)
         self.listButton4.bind(on_release=self.chooseFromList)
         self.listButton4.value = 3
+
+        self.listButton5 = Button(text="Pick\nTwo", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton5.bind(on_press=self.pressGenericButton)
+        self.listButton5.bind(on_release=self.chooseFromList)
+        self.listButton5.value = 4
+
+        self.listButton6 = Button(text="Pick\nThree", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton6.bind(on_press=self.pressGenericButton)
+        self.listButton6.bind(on_release=self.chooseFromList)
+        self.listButton6.value = 5
+
+        self.listButton7 = Button(text="Pick\nFour", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton7.bind(on_press=self.pressGenericButton)
+        self.listButton7.bind(on_release=self.chooseFromList)
+        self.listButton7.value = 6
+
+        self.listButton8 = Button(text="Pick\nFive", halign="center", font_size=config.basefont75, size_hint=(1,1), )
+        self.listButton8.bind(on_press=self.pressGenericButton)
+        self.listButton8.bind(on_release=self.chooseFromList)
+        self.listButton8.value = 7
 
         # dice presets
         self.diceButtonsList = []
@@ -285,13 +305,17 @@ class MainScreen(Screen):
         self.threadBox.add_widget(self.threadSubmitButton)
         self.threadBox.add_widget(self.addActorButton)
 
-        self.weightedBox = GridLayout(cols=2, size_hint=(.2,1))
+        self.weightedBox = GridLayout(cols=4, size_hint=(.3,1))
         self.weightedBox.add_widget(self.listButton1)
+        self.weightedBox.add_widget(self.listButton5)
+        self.weightedBox.add_widget(self.listButton6)
+        self.weightedBox.add_widget(self.listButton7)
+        self.weightedBox.add_widget(self.listButton8)
         self.weightedBox.add_widget(self.listButton2)
         self.weightedBox.add_widget(self.listButton3)
         self.weightedBox.add_widget(self.listButton4)
 
-        self.dicePresetsBox = GridLayout(cols=5, size_hint=(.4,1))
+        self.dicePresetsBox = GridLayout(cols=4, size_hint=(.3,1))
 
         for dice in self.diceButtonsList:
             self.dicePresetsBox.add_widget(dice)

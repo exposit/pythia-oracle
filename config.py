@@ -213,7 +213,7 @@ oracle = "mythic"          # change to 'fu' to use fu as the default
 oracle_func = "mythic"     # change to 'fu' to use fu as the default
 
 # dice presets; first should be 10 items, the second 2
-dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8", "2d10", "1d20"]
+dice_presets = ["1d4", "1d6", "1d8", "1d10", "1d100", "2d4", "2d6", "2d8"]
 dice_spinner_list = ["6", "10"]
 
 # these are used for plot generation
