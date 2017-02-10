@@ -124,7 +124,7 @@ def initPanel(self):
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getResponse)
-    self.pythyMainBox.add_widget(button)
+    #self.pythyMainBox.add_widget(button)
 
     self.predictButton = Button(text="Use Auto-Predict: " + str(config.general['use_pythy_auto_complete']), size_hint=(1,.15), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     self.predictButton.self = self
