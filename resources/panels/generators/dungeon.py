@@ -391,9 +391,10 @@ def whatDirection():
         5 : "South or Down",
         6 : "Southwest",
         7 : "West or Left",
+        8 : "Northwest",
     }
 
-    roll = random.randint(1,7)
+    roll = random.randint(1,8)
 
     result = "[Direction] " + chart[roll] + ". If this direction won't work, use up or down."
     return result
