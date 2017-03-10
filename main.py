@@ -860,8 +860,8 @@ class MainScreen(Screen):
         result = ""
         sheet = button.sheet
         for i in range(len(config.pcKeyLabelArray[sheet])):
-            if len(config.pcKeyLabelArray[sheet][i].text) > 0:
-                result = result + " | " + config.pcKeyLabelArray[sheet][i].text + ": " + config.pcValueLabelArray[sheet][i].text
+            #if len(config.pcKeyLabelArray[sheet][i].text) > 0:
+            result = result + " | " + config.pcKeyLabelArray[sheet][i].text + ": " + config.pcValueLabelArray[sheet][i].text
         result = "[PC " + str(sheet) + "] " + result
         updateCenterDisplay(self, result, "mechanic1")
 
