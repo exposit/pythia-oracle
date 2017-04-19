@@ -2,7 +2,7 @@
 
 ==============
 
-Pythia-Oracle 1.3.0
+Pythia-Oracle 1.4.0
 
 The MIT License (MIT)
 Copyright (c) 2016 exposit
@@ -249,7 +249,7 @@ class TitleScreen(Screen):
 
         # aboutBox popup
         self.aboutBox = GridLayout(cols=1, padding=(10,10))
-        
+
         self.AboutPopup = Popup(title='About',
             content=self.aboutBox,
             size_hint=(.5, .7),
