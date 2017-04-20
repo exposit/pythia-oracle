@@ -31,7 +31,8 @@ Table of Contents
       * [Generators Stack](#generators-stack)
         * [Actors &amp; Motives](#actors--motives)
         * [Plot &amp; Monsters](#plot--monsters)
-        * [World &amp; Dungeon](#world--dungeon)
+        * [Dungeon & Wilderness](#dungeon--wilderness)
+        * [World & Civilization](#world--civilization)
       * [Map Stack](#map-stack)
         * [Grid Map](#grid-map)
         * [Diagram Map](#diagram-map)
@@ -632,13 +633,13 @@ The number in parenthesis is how many are around, either in this encounter or to
 
 > insect-humanoid (2) Int: high intelligent HD: 11 Traits: rapacious, chimeric SA: spell-like ability resembling 2nd level spell
 
-*A bizarre centaur-like hybrid of mindflayer and ant, these creatures display a rapacious intelligence but seem only interested in one-upping each other in petty schemes. Fortunately, there are only two of them, but each is a fearsome foe. Notably, if one touches a victim in melee, the victim takes a d6 penalty to Intelligence, Wisdom, and Charisma (down to a minimum of 1) that lasts until their next full rest.*
+*A bizarre centaur-like hybrid of brain-eating humanoid cephalopod and ant, these creatures display a rapacious intelligence but seem only interested in one-upping each other in petty schemes. Fortunately, there are only two of them, but each is a fearsome foe. Notably, if one touches a victim in melee, the victim takes a d6 penalty to Intelligence, Wisdom, and Charisma (down to a minimum of 1) that lasts until their next full rest.*
 
 "Copy Monsters To Main" copies your monsters into your main log.
 
 "Clear Monsters" erases all of the fields.
 
-##### World & Wilderness
+##### World & Civilization
 
 These generators help flesh the world out when a simple "Yes/No" question doesn't seem sufficient.
 
@@ -718,7 +719,7 @@ __Miscellaneous Questions__
 
 "What's the Weather Like?" is in context of yesterday's weather.
 
-##### Dungeon & Underground
+##### Dungeon & Wilderness
 
 The dungeon panel is, unsurprisingly, for generating dungeon content. The general order of things is to use "What is the Room Like" and "First Impression" to get an idea of what the room looks like and what it contains at first glance, then use "What Do I See?" (if necessary) to determine if there's an overtly hostile or dangerous situation.
 
