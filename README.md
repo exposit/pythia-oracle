@@ -1,9 +1,6 @@
-### Be sure to make a separate back up of your saves folder before upgrading to a new version!!!
-### This update rewrites the core routine and changes how editing is handled significantly. ^^^
-
 ### Pythia-Oracle 1.4.0
 
-Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A basic guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
+Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
 
 Table of Contents
 =================
@@ -24,7 +21,7 @@ Pythia is a framework to run solo adventures and generate content for sandbox ca
 
 #### Solo RPG Gaming! How does that even work?
 
-The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, type in a room description. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
+The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, hit the "what do I see" button and interpret. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
 
 ... or don't. You can play however you want to! Pythia just seeks to facilitate that play.
 
@@ -34,11 +31,11 @@ The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a
 
 Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python 2.7 (or identifying if it's already installed) and through installing Kivy.
 
-You will also need [markovify](https://github.com/jsvine/markovify) and [TextBlob](https://textblob.readthedocs.io/en/dev/install.html) if you want to use the Pythy panel.
+If you want to use the Pythy panel (which is very rudimentary) you will also need [markovify](https://github.com/jsvine/markovify) and [TextBlob](https://textblob.readthedocs.io/en/dev/install.html).
 
 **More Detailed:**
 
-Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (not 3) for your operating system. While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
+Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (**not 3**) for your operating system. While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
 
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again. If necessary, set the environment path and reboot again.
 
@@ -98,7 +95,7 @@ You'll find your save games in the pythia folder under 'saves'. Backup zips are 
 
 I recommend playing around in the quicksave a bit until you figure out what kind of output the various buttons generate and what kind of input they expect. To reset the quicksave, just delete the entire quicksave folder in the saves folder, then remake it at the title screen.
 
-MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. Read about manual edit mode in HELP.md; it's there to help protect your files.
+MAKE BACKUPS BEFORE EDITING FILES MANUALLY. It takes two seconds to right click on your save folder and 'compress' or 'save as zip' then drag and drop the zip somewhere else. Pythia makes backups automatically but common sense can save you a lot of stress.
 
 #### Wait, I want more tables!
 
