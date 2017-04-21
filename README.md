@@ -6,7 +6,7 @@ Table of Contents
 =================
 
 * [What is it?](#what-is-it)
-* [Solo RPG Gaming\! How does that even work?](#solo-rpg-gaming-how-does-that-even-work)
+* [Solo Roleplaying\! How does that even work?](#solo-roleplaying-how-does-that-even-work)
 * [How do I install this?](#how-do-i-install-this)
 * [Upgrading from 1\.2\.0 &amp; earlier](#upgrading-from-120--earlier)
 * [Upgrading from an older version](#upgrading-from-an-older-version)
@@ -17,9 +17,13 @@ Table of Contents
 
 #### What is it?
 
-Pythia is a framework to run solo adventures and generate content for sandbox campaigns. It uses Python 2.7 and Kivy and will probably run on any platform they will. I wrote it with two goals in mind; first, I wanted to be able to generate content on the fly for my group sandbox campaign while keeping track of that content and second, I wanted to be able to run solo characters through adventures that would surprise me. Pythia doesn't replace systems like Mythic GM Emulator or Scarlet Heroes or your favorite random chart -- it just makes it easier to use them.
+Pythia is a tool to run solo adventures and to generate content for sandbox campaigns. It uses Python 2.7 and Kivy and will probably run on any platform they will. I wrote it with two goals in mind; first, I wanted to be able to generate content on the fly for my group sandbox campaign while keeping track of that content and second, I wanted to be able to run solo characters through adventures that would surprise me.
 
-#### Solo RPG Gaming! How does that even work?
+Pythia doesn't replace systems like Mythic GM Emulator or Scarlet Heroes or your favorite random chart -- it just makes it easier to use them.
+
+#### Solo Roleplaying! How does that even work?
+
+The easiest way to get a handle on it is to read actual plays; there are a whole bunch using lots of different systems and formats on the [Lone Wolf Roleplaying](https://plus.google.com/communities/116965157741523529510) g+ group. And you can see APs using Pythia on my blog.
 
 The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, hit the "what do I see" button and interpret. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
 
