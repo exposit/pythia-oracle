@@ -2,13 +2,13 @@
 layout: default
 ---
 
-[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a desktop-based tool to facilitate solo roleplaying and to generate random content for sandbox RPGs. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
+[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a desktop-based tool designed to facilitate solo roleplaying and to generate random content for sandbox RPGs. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
 
 If you're new to solo gaming, Pythia Oracle is all you need to get started -- it has a text logging area, oracles, random generators, plenty of space to track information, and automatic markdown and html logs if you want to show off your adventures on your blog.
 
 ## Features
 
-* robust text logging area with separate, tagged mechanic and narrative blocks
+* robust text logging area with tagged mechanic and narrative blocks
 * multiple oracles, including [FU-based](http://perilplanet.com/fu-rpg/) and [Mythic](http://www.drivethrurpg.com/product/16173/Mythic-Role-Playing?it=1)
 * flexible dice roller using standard notation, with presets & list-pickers
 * 50-ish random generators for creating instant dungeon, npc, plot, and world content
@@ -28,9 +28,9 @@ Take a look at the [help](https://github.com/exposit/pythia-oracle/blob/master/H
 
 ### Things to watch out for
 
-Pythia Oracle is a one-person project and designed for my own use and play style. It's a little quirky. Scenario support is still in there but virtually unsupported at this point. Little tiny annoying bugs are probably lurking. I have crammed in way more buttons and text than is sensible or user-friendly.
+Pythia Oracle is a one-person project and designed for my own use and play style. It's a little quirky. Scenario support is still in there but virtually unsupported at this point. Annoying bugs are probably lurking. I have crammed in way more buttons and text than is sensible or user-friendly.
 
-It's probably more than a little overwhelming at first glance.
+It's probably a bit overwhelming at first glance.
 
 Please keep an eye on your saves and verify that your logs look the way you expect them to, frequently. The saves and backup directories are located in the root directory alongside the main scripts. Automatic backups are made unless you explicitly disable them; check the config.py file for details.
 
