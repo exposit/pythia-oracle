@@ -2,25 +2,22 @@
 layout: default
 ---
 
-[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a tool to make solo RPG gaming easier and to generate content for sandbox RPGs. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
+[Pythia Oracle](https://github.com/exposit/pythia-oracle) is a desktop-based tool to facilitate solo roleplaying and to generate random content for sandbox RPGs. It's written in Python and Kivy, cross-platform, extensible, and freely available on github.
 
-If you're new to solo gaming or just want to generate some random content, Pythia Oracle is likely all you need to get started -- it has an oracle for yes and no questions, a number of how much, how many, what, why, and how's it going random generators, plenty of space to track any information you want to track, and multiple nice, clean, readable output formats if you want to show off your adventures on your blog.
-
-It also plays well with just about any oracle or random content table; you can extend your own panels (if you know a little Python or can copy existing files) or just use the dice roller with your own pdfs.
+If you're new to solo gaming, Pythia Oracle is all you need to get started -- it has a text logging area, oracles, random generators, plenty of space to track information, and automatic markdown and html logs if you want to show off your adventures on your blog.
 
 ## Features
 
-* core oracle panel is based on FU's core dice mechanic (and/but/- structure)
-* dice roller using (basically) standard notation & lots of common dice preset buttons
-* a ton of one click random generators for actors and world content
-* 'pick one' quick buttons that let you weight options on the fly
-* generates markdown, html, json and javascript/html play logs
-* trackers for [Mythic-style](http://www.drivethrurpg.com/product/16173/Mythic-Role-Playing?it=1) threads and actors, a general key/value tracker & an active/inactive tracker
-* five different view/edit/play modes
-* user-extensible oracle, generator, and map panels
-* map panel inspired by [Scarlet Heroes'](http://www.drivethrurpg.com/product/127180/Scarlet-Heroes) diagram dungeon method (very beta)
-* supports user-created Pythia-style CYOA/Gamebook scenarios (very beta)
-* tutorial dungeon that demonstrates features (very basic) based on part of [Oracle's Decree](http://blog.trilemma.com/2015/10/the-oracles-decree.html) (which is a much better dungeon than I've implemented, ha)
+* robust text logging area with separate, tagged mechanic and narrative blocks
+* multiple oracles, including [FU-based](http://perilplanet.com/fu-rpg/) and [Mythic](http://www.drivethrurpg.com/product/16173/Mythic-Role-Playing?it=1)
+* flexible dice roller using standard notation, with presets & list-pickers
+* 50-ish random generators for creating instant dungeon, npc, plot, and world content
+* separate trackers for threads, actors, general information, and character sheets
+* markdown and html play logs are generated automatically; customize output templates supported
+* diagram and grid-based dungeon map support
+* automatic backups and everything stored in json text files
+
+Take a look at the [help](https://github.com/exposit/pythia-oracle/blob/master/HELP.md) for a comprehensive overview of everything Pythia can do. My [blog](https://exposit.github.io/katamoiran/) has some actual play logs, all generated with Pythia. And the [readme](https://github.com/exposit/pythia-oracle/blob/master/README.md) will walk you through the installation process.
 
 ### Screenshots
 
@@ -31,8 +28,10 @@ It also plays well with just about any oracle or random content table; you can e
 
 ### Things to watch out for
 
-Pythia Oracle is a one-person project and designed for my own use and play style. It's a little quirky. Adding in panels isn't trivial. Scenarios are rudimentary and require imagination and flexibility. I'll likely be updating and tweaking and changing stuff frequently. I have crammed in way more buttons and text than is sensible or user-friendly and probably won't stop until I'm forced to drop the font size to 2. Maybe not even then.
+Pythia Oracle is a one-person project and designed for my own use and play style. It's a little quirky. Scenario support is still in there but virtually unsupported at this point. Little tiny annoying bugs are probably lurking. I have crammed in way more buttons and text than is sensible or user-friendly.
 
-Please back up any text you enter into it frequently. It would be a huge bummer if you put a whole campaign in and the save file ended up corrupted or somehow deleted! The save directory (./saves) is located in the root directory alongside the main scripts. (As of version 0.5.0, saves are backed up as a zip every time you run the program.)
+It's probably more than a little overwhelming at first glance.
 
-Not much else to say right now. Go check it out! If you want to contribute, let me know at github (for a somewhat speedy response) or on my extremely quiet [blog](https://exposit.github.io/katamoiran/) (for an eventual one).
+Please keep an eye on your saves and verify that your logs look the way you expect them to, frequently. The saves and backup directories are located in the root directory alongside the main scripts. Automatic backups are made unless you explicitly disable them; check the config.py file for details.
+
+Not much else to say right now. If you need me, let me know at github (for a somewhat speedy response) or on my extremely quiet [blog](https://exposit.github.io/katamoiran/) (for an eventual one).
