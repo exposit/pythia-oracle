@@ -13,7 +13,7 @@ If you're new to solo gaming, Pythia Oracle is all you need to get started -- it
 * flexible dice roller using standard notation, with presets & list-pickers
 * 50-ish random generators for creating instant dungeon, npc, plot, and world content
 * separate trackers for threads, actors, general information, and character sheets
-* markdown and html play logs are generated automatically; customize output templates supported
+* markdown and html play logs are generated automatically; custom output templates supported
 * diagram and grid-based dungeon map support
 * automatic backups and everything stored in json text files
 
