@@ -44,6 +44,8 @@ Table of Contents
 
 ### Basics
 
+__*If just you're looking for features, skip on down to "Title Screen". But read this next stuff before you start using Pythia seriously, for sure!*__
+
 Always save backup copies of your text files in a separate directory outside the main Pythia directory before trying a new version or making any changes! And check your saved work occasionally by hitting save and then opening up one of the log files to make sure things are saving as you expected them to.
 
 You can also open up the 'pythia.py' file in your favorite text editor, then comment out (or change the values of) these two lines:
@@ -158,7 +160,7 @@ The threads section has two buttons, "copy to main window" and "random thread". 
 
 The "random thread" button will pick a random thread from existing threads by keyword. The default is "All" but you can specify a tag or keyword to use by typing it into the text input.
 
-####Main Text Display
+#### Main Text Display
 
 The main text display consists of a nav bar and the main text blocks. The nav bar has a "top/bottom" jump button a "find" button, and a "next button".
 
