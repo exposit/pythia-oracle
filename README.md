@@ -39,7 +39,7 @@ If you want to use the Pythy panel (which is very rudimentary) you will also nee
 
 **More Detailed:**
 
-I strongly suggest you use the method listed above under "Basically" -- the Kivy people know what they're talking about. But here's how I do it.
+I strongly suggest you use the method listed above under "Basically" -- the Kivy people know what they're talking about. But here's what I'd tell you to try first off if you ran into trouble.
 
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (**not 3**) for your operating system. While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
 
