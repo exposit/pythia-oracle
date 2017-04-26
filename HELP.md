@@ -190,9 +190,9 @@ The side control panel has a quick oracle button ("???") that generates an answe
 
 "Direct" and "Aside" send text from the text input to the main text display with "Plain" (prose) or "Aside" (mechanics) formatting.
 
-"Roll Dice" takes an input from the main text input in the format "[count]d[sides]", ie, 1d10 would roll one 10-sided die, or 3d20 would roll three 20-sided dice, showing individual rolls and the sum. Adding "x[reps]" to the end repeats the action [i]reps[/i] number of times. So 3d20x5 would roll three 20-sided dice, displaying each roll and the sum, three full times.
+"Roll Dice" takes an input from the main text input in the format "[count]d[sides]", ie, 1d10 would roll one 10-sided die, or 3d20 would roll three 20-sided dice, showing individual rolls and the sum. Adding "x[reps]" to the end repeats the action [i]reps[/i] number of times. So 3d20x5 would roll three 20-sided dice, displaying each roll and the sum, five full times.
 
-"Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" (or "Complex") returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
+"Seed" will be either one or two buttons, depending on which Seed schema you've chosen. By default, "Seed" (sometimes labeled "Complex") returns a two part string chosen from an "verb" "noun" set of lists. If you choose a two part seed scheme, it will be "Desc" ("adjective" "noun") and "Action" ("adverb" "adjective").
 
 #### Footer Controls
 
@@ -210,12 +210,12 @@ The Add section is how you add threads and actors to those sections; pressing ei
 
 __*Pick*__
 
-The Pick section has four buttons, each of which takes a comma-separated list ("one, two, three, four") in the text input and attempts to return a random choice from it.
+The Pick section has multiple buttons, each of which takes a comma-separated list ("one, two, three, four") in the text input and attempts to return a random choice from it.
 
 * "Pick List" will choose one option at random.
-* "Pick 2d6" will roll 2d6, giving a range from 2 to 12, weighted towards 7.
-* "Pick 2d4" will roll 2d4, giving a range from 2 to 8, weighted towards 5.
-* "Pick 3:2:1" rolls a d6 and on a 1, 2, or 3 returns option 1, on 4 or 5, returns option 2, and on a 6 returns option 3.
+* "Pick 2d6" will roll 2d6, giving a range from 2 to 12, weighted towards 7. Expects 11 elements in the list.
+* "Pick 2d4" will roll 2d4, giving a range from 2 to 8, weighted towards 5. Expects 7 elements in the list.
+* "Pick 3:2:1" rolls a d6 and on a 1, 2, or 3 returns option 1, on 4 or 5, returns option 2, and on a 6 returns option 3. Expects 3 elements.
 
 __*Dice Presets*__
 
