@@ -39,6 +39,8 @@ If you want to use the Pythy panel (which is very rudimentary) you will also nee
 
 **More Detailed:**
 
+I strongly suggest you use the method listed above under "Basically" -- the Kivy people know what they're talking about. But here's how I do it.
+
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, go to [python.org](https://www.python.org/downloads/) and install the latest 2.7 version (**not 3**) for your operating system. While installing, use the default settings if you can; HOWEVER, if it asks what components you want, be sure to make sure the "set environment paths" option is enabled (you may need to scroll down to see it in the install window). Otherwise you'll need to set the paths manually and that's, while easy, annoying.
 
 Open up a terminal (command prompt) and type "python --version". If you get a "not found" response, try rebooting and check the version again. If necessary, set the environment path and reboot again.
@@ -52,6 +54,8 @@ If you want to use the Pythy panel, you'll also need to install markovify and Te
 `pip install -U textblob`
 
 `python -m textblob.download_corpora lite`
+
+**Running Pythia**
 
 Once that's all done, you'll need to clone or download this repository. If you know how to use git, you're good to go, clone away. Otherwise, click the green 'clone or download' button on the main pythia-oracle github page, and select 'download zip'. Unzip this archive somewhere easy to find (desktop, Documents folder).
 
