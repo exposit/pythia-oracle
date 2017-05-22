@@ -1190,6 +1190,8 @@ def jumpToIndex(self, index):
 
 # weighted choosers
 def chooseWeighted(value, text, form):
+
+    text = text.encode('ascii','ignore')
     result_string = ""
     result = "Please enter a comma-separated list in one line that has at least as many options as needed. Excess options will be ignored."
     try:
