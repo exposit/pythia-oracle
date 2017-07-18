@@ -198,8 +198,8 @@ sansfont: Ubuntu Mono
 mainfont: Lora
 title: your title
 header-includes:
-   - \usepackage{xcolor}
-   - \usepackage{fontspec}
+   - \\usepackage{xcolor}
+   - \\usepackage{fontspec}
    - \definecolor{light-gray}{gray}{0.60}
    - \definecolor{orange}{HTML}{FF7F00}
    - \setmainfont[UprightFeatures = {Color=black}, ItalicFeatures = {Color=light-gray}, BoldFeatures = {Color=light-gray}, BoldItalicFeatures = {Color=light-gray} ] {Lora}

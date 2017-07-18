@@ -91,7 +91,7 @@ def testFunctionTwo(*args):
 def testFunctionThree(*args):
     args[0].background_color = neutral
     for arg in args:
-        print arg
+        print(arg)
     args[0].self.tempLabel.text = "hello " + tertiaryFunction() + " " + str(random.randint(1,1000))
 
 # sample logic
