@@ -395,6 +395,9 @@ def setBlob(self):
     else:
         with open(config.general['default_pythy_source'], 'r') as textfile:
             source=textfile.read()
-        source = unicode(source, 'utf-8')
+        try:
+            source = unicode(source, 'utf-8')
+        except:
+            pass
 
     self.blob = TextBlob(source)
