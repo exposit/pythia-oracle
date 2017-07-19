@@ -29,10 +29,10 @@ backup_limit = 7
 
 general = dict(
     version = '1.3.0',
-    # this doesn't work right and I hate it
+    # pre and post titles do not work properly
     pretitle = '---',
     posttitle = '---',
-    # settings for the top bar
+    # settings for the top bar on game creation
     enter_behavior = "plain",
     edit_behavior = "read",
     bookmarks = [-9,-9,-9,-9,-9,-9],
