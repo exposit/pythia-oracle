@@ -4,6 +4,12 @@ Please note that this is very rough and just to give you an idea of what's been 
 
 MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
+Version WIP
+
+* FATE-based oracle using two FATE dice.
+* FATE/FUDGE support. You can use "xdF" to roll that many FATE dice, or use the button.
+* Fixed a typo in the dungeon panel.
+
 Version 1.4.0
 
 * add more "pick" buttons to pick one, two, three, four, or five options from a list.
