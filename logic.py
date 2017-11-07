@@ -981,6 +981,10 @@ def rollDice(text):
             except:
                 pass
 
+        if sides == "f" or sides == "F":
+            results = rollFateDice(count)
+            return results
+
         try:
             sides = int(sides)
             count = int(count)
@@ -1057,6 +1061,23 @@ def rollOREDice(text):
         match_string = "NONE"
 
     result_string = result_string + match_string + " Waste: %s" % (waste)
+
+    return result_string
+
+def rollFateDice(text):
+
+    try:
+        uplim = int(text)
+    except:
+        return "Please enter a number in the main text input for your dice pool."
+
+    sides = ["+", "+", "0", "0", "-", "-"]
+
+    resultList = []
+    for x in range(0, uplim):
+        resultList.append(random.choice(sides))
+
+    result_string = "[ " + ' '.join(resultList) + " ] "
 
     return result_string
 

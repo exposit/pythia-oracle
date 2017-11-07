@@ -296,6 +296,11 @@ class MainScreen(Screen):
         self.button.bind(on_release=self.releaseORERoll)
         diceAltButtonsList.append(self.button)
 
+        self.button = Button(text="FATE")
+        self.button.bind(on_press=self.pressGenericButton)
+        self.button.bind(on_release=self.releaseFateRoll)
+        diceAltButtonsList.append(self.button)
+
         self.flagsBox = BoxLayout(orientation='vertical', size_hint=(.1,1))
         self.flagsBox.add_widget(self.oracleButton)
         self.flagsBox.add_widget(self.qualitiesButton)
@@ -1157,6 +1162,14 @@ class MainScreen(Screen):
     def releaseORERoll(self, *args):
         args[0].background_color = neutral
         result = rollOREDice(self.textInput.text)
+        updateCenterDisplay(self, result, 'result')
+        quicksave(self, config.curr_game_dir)
+        if result != "Please enter a number in the main text input for your dice pool.":
+            self.textInput.text = ""
+
+    def releaseFateRoll(self, *args):
+        args[0].background_color = neutral
+        result = rollFateDice(self.textInput.text)
         updateCenterDisplay(self, result, 'result')
         quicksave(self, config.curr_game_dir)
         if result != "Please enter a number in the main text input for your dice pool.":

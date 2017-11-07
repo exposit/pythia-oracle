@@ -92,13 +92,30 @@ def initPanel(self):
     button.bind(on_release=howMuch)
     self.fuMainBox.add_widget(button)
 
+    fuMiscOraclesBox = GridLayout(cols=2, size_hint_y=.07)
+
+    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+    button.function = "getChaosOracle"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=chaosOracleRoll)
+    fuMiscOraclesBox.add_widget(button)
+
+    button = Button(text="FATE DICE Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getFateOracle)
+    fuMiscOraclesBox.add_widget(button)
+
+    self.fuMainBox.add_widget(fuMiscOraclesBox)
+
     dramaRollList = ["chaotic", "same old", "kinda good", "kinda bad", "great", "terrible"]
 
     self.fuMainBox.add_widget(Label(text="How's It Going?", size_hint_y=0.07, font_size=config.basefont90))
     self.fuDramaBox = GridLayout(cols=2, size_hint_y=.35)
 
-    self.fuDramaBox.add_widget(Label(text="Good/Bad"))
-    self.fuDramaBox.add_widget(Label(text="Yes/No"))
+    self.fuDramaBox.add_widget(Label(text="Good/Bad", font_size=config.basefont90))
+    self.fuDramaBox.add_widget(Label(text="Yes/No", font_size=config.basefont90))
 
     for i in dramaRollList:
         button = Button(text=i, background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90,)
@@ -117,13 +134,6 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(self.fuDramaBox)
 
-    button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90, size_hint=(1,.07))
-    button.function = "getChaosOracle"
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=chaosOracleRoll)
-    self.fuMainBox.add_widget(button)
-
     self.fuMainBox.add_widget(Label(text="But/And Clarifier", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
     butCardBox = GridLayout(cols=4, size_hint=(1,.07))
@@ -139,10 +149,16 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(butCardBox)
 
-    self.fuMainBox.add_widget(Label(text="Resolution Clarifier/Dice Qualities", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+    fuDQLabelBox = GridLayout(cols=2, size_hint=(1,.07))
 
-    resBox = GridLayout(cols=8, size_hint=(1,.07))
-    for i in range(1,9):
+    fuDQLabelBox.add_widget(Label(text="Why? (DQs)", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+
+    fuDQLabelBox.add_widget(Label(text="Hit Locs", halign="center", size_hint_y=0.07, font_size=config.basefont90))
+
+    self.fuMainBox.add_widget(fuDQLabelBox)
+
+    resBox = GridLayout(cols=6, size_hint=(1,.07))
+    for i in range(1,4):
         button = Button(text=str(i), background_normal='',
          background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
@@ -151,21 +167,20 @@ def initPanel(self):
         button.bind(on_release=getResolutionClarifier)
         resBox.add_widget(button)
 
-    self.fuMainBox.add_widget(resBox)
-
-    self.fuMainBox.add_widget(Label(text="Hit Locations", halign="center", size_hint_y=0.07, font_size=config.basefont90))
-
-    hitBox = GridLayout(cols=8, size_hint=(1,.07))
-    for i in range(1,9):
+    for i in range(1,4):
         button = Button(text=str(i), background_normal='',
          background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
         button.self = self
         button.subtype = i
         button.bind(on_press=self.pressGenericButton)
         button.bind(on_release=getHitLocation)
-        hitBox.add_widget(button)
+        resBox.add_widget(button)
 
-    self.fuMainBox.add_widget(hitBox)
+    self.fuMainBox.add_widget(resBox)
+
+    #hitBox = GridLayout(cols=8, size_hint=(1,.07))
+
+    #self.fuMainBox.add_widget(hitBox)
 
     self.fuMainBox.add_widget(Label(text="Random Events", halign="center", size_hint_y=0.07, font_size=config.basefont90))
 
@@ -318,27 +333,35 @@ def fu(count=0, modifier="none", text="0"):
         if len(odds) > 0:
             roll_result = min(odds)
             if odds.count(roll_result) > 1:
-                ands = " ...and " + str(odds.count(roll_result) - 1) + " extra 'ands'!"
+                andlist = ['and']*(odds.count(roll_result) - 1)
+                ands = ", " + ", ".join(andlist)
+                #ands = " ...and " + str(odds.count(roll_result) - 1) + " extra 'ands'!"
         else:
             roll_result = min(evens)
             if evens.count(roll_result) > 1:
-                ands = " ...and " + str(evens.count(roll_result) - 1) + " extra 'ands'!"
+                andlist = ['and']*(evens.count(roll_result) - 1)
+                ands = ", " + ", ".join(andlist)
+                #ands = " ...and " + str(evens.count(roll_result) - 1) + " extra 'ands'!"
     else:
         if len(evens) > 0:
             roll_result = max(evens)
             if evens.count(roll_result) > 1:
-                ands = " ...and " + str(evens.count(roll_result) - 1) + " extra 'ands'!"
+                andlist = ['and']*(evens.count(roll_result) - 1)
+                ands = ", " + ", ".join(andlist)
+                #ands = " ...and " + str(evens.count(roll_result) - 1) + " extra 'ands'!"
         else:
             roll_result = max(odds)
             if odds.count(roll_result) > 1:
-                ands = " ...and " + str(odds.count(roll_result) - 1) + " extra 'ands'!"
+                andlist = ['and']*(odds.count(roll_result) - 1)
+                ands = ", " + ", ".join(andlist)
+                #ands = " ...and " + str(odds.count(roll_result) - 1) + " extra 'ands'!"
     chart = {
-        6 : "Yes, and...",
-        4 : "Yes.",
-        2 : "Yes, but...",
-        5 : "No, but...",
-        3 : "No.",
-        1 : "No, and...",
+        6 : "Yes, and",
+        4 : "Yes",
+        2 : "Yes, but",
+        5 : "No, but",
+        3 : "No",
+        1 : "No, and",
     }
 
     random_event = ""
@@ -662,6 +685,50 @@ def getHitLocation(button, *args):
     updateCenterDisplay(self, "[Hit Locs] " + ", ".join(locations), 'result' )
 
 # end dice qualities
+
+# Inspired by
+# http://ihousenews.pbworks.com/w/file/fetch/62455318/The%20Bureau.pdf
+def getFateOracle(button, *args):
+    self = button.self
+    button.background_color = neutral
+
+    result = rollFateDice("2")
+    words = []
+
+    words = result.split()
+
+    words = words[1:-1]
+
+    if "0" in words[0]:
+        words[0] = "as expected"
+
+    if "0" in words[1]:
+        words[1] = "a neutral detail or twist"
+
+    if "+" in words[0]:
+        words[0] = "better than expected"
+
+    if "-" in words[0]:
+        words[0] = "worse than expected"
+
+    if "+" in words[1]:
+        words[1] = "good news or a positive detail"
+
+    if "-" in words[1]:
+        words[1] = "bad news or a negative detail"
+
+    if "better" in words[0] and "negative" in words[1]:
+        wordstr = " but ".join(words)
+    elif "worse" in words[0] and "positive" in words[1]:
+        wordstr = " but ".join(words)
+    else:
+        wordstr = " with ".join(words)
+
+    result = result + " " + wordstr
+
+    updateCenterDisplay(self, result, 'oracle' )
+
+# end FATE oracle
 
 def changeRandomEventChance(spinner, text):
     config.general['random_event_chance'] = int(text[:-1])
