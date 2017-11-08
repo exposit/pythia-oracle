@@ -149,6 +149,12 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(butCardBox)
 
+    button = Button(text='7-9 Complication', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80, size_hint=(1,.07))
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getComplication)
+    button.self = self
+    self.fuMainBox.add_widget(button)
+
     fuDQLabelBox = GridLayout(cols=2, size_hint=(1,.07))
 
     fuDQLabelBox.add_widget(Label(text="Why? (DQs)", halign="center", size_hint_y=0.07, font_size=config.basefont90))
@@ -285,6 +291,12 @@ def randomChartRoll(*args):
     result = randomEventRoll(args[0].text, args[0].link.text)
     updateCenterDisplay(self, result)
     self.textInput.text = ""
+
+def getComplication(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    result = complicateThings()
+    updateCenterDisplay(self, result)
 
 def howMuch(*args):
     args[0].background_color = neutral
@@ -699,6 +711,8 @@ def getFateOracle(button, *args):
 
     words = words[1:-1]
 
+    answer = ""
+
     if "0" in words[0]:
         words[0] = "as expected"
 
@@ -707,15 +721,25 @@ def getFateOracle(button, *args):
 
     if "+" in words[0]:
         words[0] = "better than expected"
+        answer = "Yes"
 
     if "-" in words[0]:
         words[0] = "worse than expected"
+        answer = "No"
 
     if "+" in words[1]:
         words[1] = "good news or a positive detail"
+        if answer == "No":
+            answer = answer + " but"
+        if answer == "Yes":
+            answer = answer + " and"
 
     if "-" in words[1]:
         words[1] = "bad news or a negative detail"
+        if answer == "No":
+            answer = answer + " and"
+        if answer == "Yes":
+            answer = answer + " but"
 
     if "better" in words[0] and "negative" in words[1]:
         wordstr = " but ".join(words)
@@ -724,11 +748,59 @@ def getFateOracle(button, *args):
     else:
         wordstr = " with ".join(words)
 
+    if answer != "":
+        wordstr = answer + " OR " + wordstr
+
     result = result + " " + wordstr
+
+    result = result.replace("[", "[FATE ")
 
     updateCenterDisplay(self, result, 'oracle' )
 
 # end FATE oracle
+
+def complicateThings():
+
+    complications = [
+    "You suffer harm.",
+    "You are slowed down.",
+    "Someone learns something you’d rather they didn’t.",
+    "One of your worst qualities hinders you.",
+    "One of your best qualities is used against you.",
+    "You are caught in the act.",
+    "You attract unwanted attention.",
+    "You are put in a bad position.",
+    "Something goes out of control.",
+    "Something malfunctions and is no longer usable.",
+    "Someone taunts you or reveals your failings.",
+    "You look foolish.",
+    "You take a physical condition.",
+    "You suffer an emotion.",
+    "You are made emotionally vulnerable.",
+    "You are made physically vulnerable.",
+    "You discover something you’d rather not.",
+    "Someone’s feelings toward you are revealed.",
+    "A trauma from your past hinders you.",
+    "Something you did in the past comes back to bite you.",
+    "One of your long-term goals is set back significantly.",
+    "One of your cherished dreams or illusions is shattered.",
+    "Someone you don’t want to will suffer harm.",
+    "Someone’s regard for you changes.",
+    "A part of you you cherish will be tarnished or lost.",
+    "Something you did yesterday comes back to bite you.",
+    "One of your weaknesses will be revealed.",
+    "One of your secrets will be revealed.",
+    "The environment changes for the worse.",
+    "You are forced to compromise your morals or ethics.",
+    "A path is closed or barred.",
+    "A short term goal is no longer achievable.",
+    "Something breaks.",
+    "You lose control.",
+    "You gain a status effect like blind or unconscious.",
+    "Roll a random event.",
+    ]
+
+    return "[Complication] " + random.choice(complications)
 
 def changeRandomEventChance(spinner, text):
     config.general['random_event_chance'] = int(text[:-1])

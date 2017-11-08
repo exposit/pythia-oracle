@@ -20,7 +20,7 @@ def onEnter(self):
 
 def initPanel(self):
 
-        self.dungeonAItem = AccordionItem(title='Dungeon & Wilderness', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+        self.dungeonAItem = AccordionItem(title='Dungeon', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
 
         dungeonMainBox = BoxLayout(orientation='vertical')
 
@@ -55,7 +55,7 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
 
-        dungeonSpecialBox = GridLayout(cols=2, size_hint=(1,.20))
+        dungeonSpecialBox = GridLayout(cols=2, size_hint=(1,.10))
 
         button = Button(text="First Impression", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.qty = 99

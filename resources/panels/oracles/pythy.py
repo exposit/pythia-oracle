@@ -25,6 +25,9 @@ def exclude():
     except:
         flag = True
 
+    # comment this line out to add in Pythy
+    flag = True
+
     return flag
 
 def onEnter(self):

@@ -35,9 +35,9 @@ def initPanel(self):
 
         plotMainBox = BoxLayout(orientation='vertical')
 
-        plotMainBox.add_widget(Label(text="General Plotting", size_hint=(1,.10), font_size=config.basefont90))
+        #plotMainBox.add_widget(Label(text="General Plotting", size_hint=(1,.10), font_size=config.basefont90))
 
-        #story seed
+        # story seed
         self.premiseList = ["Somebody wants something but can't...", "The decision to do something...", "When someone moves to...", "Can someone who just wants...", "Two rivals...", "Two separate people, two separate agendas.", "Obsession!", "Plan complete...", "The story is about..", "The hero is..."]
 
         self.premiseSpinner = Spinner(
@@ -59,12 +59,47 @@ def initPanel(self):
         button.bind(on_release=getPlotWeb)
         plotMainBox.add_widget(button)
 
-        button = Button(text="Plot Move", size_hint=(1,.15), background_normal='',
-         background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+        plotMainBox.add_widget(Label(text="Plot Move", size_hint=(1,.10), font_size=config.basefont90))
+
+        plotMoveList = ["Generic", "Calypso", "DW", "All"]
+
+        plotMoveBox = GridLayout(cols=4, size_hint=(1,.15))
+
+        for i in range(len(plotMoveList)):
+            button = Button(text=plotMoveList[i], size_hint=(1,1), background_normal='',
+             background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+            button.self = self
+            button.source = plotMoveList[i]
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=getPlotMove)
+            plotMoveBox.add_widget(button)
+
+        plotMainBox.add_widget(plotMoveBox)
+
+        # multipart scene list
+        plotMainBox.add_widget(Label(text="Keywords", size_hint=(1,.10), font_size=config.basefont90))
+
+        plotScenarioBox = BoxLayout(orientation='horizontal', size_hint=(1,.15))
+
+        button = Button(text="Action", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.bind(on_press=self.pressGenericButton)
-        button.bind(on_release=getPlotMove)
-        plotMainBox.add_widget(button)
+        button.bind(on_release=getActionKeyword)
+        plotScenarioBox.add_widget(button)
+
+        button = Button(text="Theme", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getThemeKeyword)
+        plotScenarioBox.add_widget(button)
+
+        button = Button(text="Tone", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getTone)
+        plotScenarioBox.add_widget(button)
+
+        plotMainBox.add_widget(plotScenarioBox)
 
         # scriptwriting system
         plotMainBox.add_widget(Label(text="Scriptwriting Framework", size_hint=(1,.15), font_size=config.basefont90))
@@ -111,7 +146,7 @@ def initPanel(self):
         button.bind(on_release=getPlayScene)
         plotMainBox.add_widget(button)
 
-        #multipart scene list
+        # multipart scene list
         plotMainBox.add_widget(Label(text="Scene List", size_hint=(1,.10), font_size=config.basefont90))
 
         plotSceneBox = BoxLayout(orientation='horizontal', size_hint=(1,.15))
@@ -136,7 +171,7 @@ def initPanel(self):
 
         self.monsterFields = []
 
-        for i in range(0,8):
+        for i in range(0,6):
             field = TextInput(text="", size_hint=(.90, None), font_size=config.basefont80)
             field.background_color=neutral
             field.foreground_color=(1,1,1,1)
@@ -260,28 +295,119 @@ def getPlotList(choice, plot):
 
     return plot
 
-# inspired by Apocalypse World & Simple World
+# mostly inspired by Apocalypse World & Simple World
 def getPlotMove(*args):
     self = args[0].self
-    args[0].background_color = neutral
-    chart = {
-       2 : "Deal harm.",
-       3 : "Trade harm for harm.",
-       4 : "Put someone in a high-stakes situation.",
-       5 : "Turn their move back on them.",
-       6 : "Change the world away from the expected in a subtle way.",
-       7 : "Add or remove an NPC from the current scene or area.",
-       8 : "Use one of their prized things, skills, or traits against them.",
-       9 : "Change something off-screen or in the future.",
-      10 : "Give them a difficult decision to make or present a dilemma.",
-      11 : "Manipulate, alter, rescue, or reveal someone physically, emotionally, or mentally.",
-      12 : "Place an emotional, physical, mental, or other type of barrier in the way.",
-    }
+    source = args[0].source
 
-    roll = random.randint(1,6) + random.randint(1,6)
-    result = chart[roll]
+    args[0].background_color = neutral
+
+    generic = [
+      "Deal harm",
+      "Trade harm for harm.",
+      "Put someone in a high-stakes situation.",
+      "Turn their move back on them.",
+      "Change the world away from the expected in a subtle way.",
+      "Add an NPC to the current scene or area.",
+      "Remove an NPC from the current scene or area.",
+      "Use a prized thing, skill, or trait against them.",
+      "Change something off-screen or in the future.",
+      "Give a difficult decision or present a dilemma.",
+      "Manipulate or alter someone physically, mentally, or emotionally.",
+      "Reveal someone physically, mentally, or emotionally.",
+      "Place an emotional, physical, mental, or other type of barrier in the way.",
+      "Put someone in a spot.",
+      "Separate them.",
+      "Put them together.",
+      "Announce off-screen badness.",
+      "Announce future badness.",
+      "Take away one of their things.",
+      "Demonstrate one of their things’ bad sides.",
+      "Give them a difficult decision to make.",
+      "Tell them the possible consequences and ask.",
+      "Turn their move back on them.",
+      "Give an opportunity that fits someone's abilities.",
+    ]
+
+    calypso = [
+      "Put someone in a compromising, bad, or high-stakes position.",
+      "Expose a weakness or a past mistake’s consequences.",
+      "Reveal an unexpected danger.",
+      "Promise future pain or inflict harm as promised.",
+      "Tempt or provoke a reaction.",
+      "Take something or someone away.",
+      "Use the hero’s Traits, Conditions, or Secrets against them.",
+      "Turn the hero’s move back on them.",
+      "Show off-screen badness.",
+      "Bring in someone interesting with an agenda.",
+      "Show a drawback to or new facet of the hero’s gear or abilities.",
+      "Offer a hard bargain or an ugly choice.",
+    ]
+
+    # Dungeon World Moves are based on the work of Sage LaTorra and Adam Koebel,
+    #licensed under the Creative Commons Attribution 3.0 Unported License.
+    dungeonworld = [
+      "Use a monster, danger, or location move.",
+      "Show signs of an approaching threat.",
+      "Reveal an unwelcome truth.",
+      "Use up a resource.",
+      "Turn their move back on them",
+      "Show a downside to something about the character.",
+      "Give an opportunity that fits a class’ abilities",
+      "Offer an opportunity, with or without cost.",
+      "Deal damage.",
+      "Separate them,",
+      "Show a downside to their class, race, or equipment",
+      "Put someone in a spot",
+      "Tell them the requirements or consequences and ask.",
+    ]
+    # end Dungeon World Moves
+
+    if source == "Calypso":
+        chart = calypso
+    elif source == "DW":
+        chart = dungeonworld
+    elif source == "All":
+        chart = calypso + dungeonworld + generic
+    else:
+        chart = generic
+
+    result = random.choice(chart)
 
     result = "[Plot Move] " + result
+
+    updateCenterDisplay(self, result, 'result')
+
+def getActionKeyword(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    chart = [
+    "murder ", "sex", "argument", "rivalry", "journey", "slaughter", "torture", "blackmail", "greed", "risk", "sacrifice", "punishment", "retaliation", "growth", "execution", "ritual", "trap", "theft", "kidnapping", "assault", "ambush", "betrayal", "proposition", "retrieve", "locate", "chase", "explore", "deliver", "hunt", "befriend", "persuade", "barter", "protect", "collect", "sleuth", "respite", "restore", "destroy", "prepare", "interrupt", "return", "protection", "passion", "redemption", "persuasion", "annihilation", "justice", "bribery", "accusation", "insult",
+    ]
+
+    result = "[Action Keyword] " + random.choice(chart)
+
+    updateCenterDisplay(self, result, 'result')
+
+def getThemeKeyword(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    chart = [
+      "attack", "resist", "future", "agent", "secret", "revenge", "distance", "anger", "supplies", "power", "desire", "choice", "phobia", "ice", "lust", "dirt", "machinery", "pride", "love", "betrayal", "honor", "duty", "mistake", "debt", "fire", "air", "death", "pain", "self", "history", "need", "flaw", "fear", "guilt", "purity", "vice",
+    ]
+
+    result = "[Theme Keyword] " + random.choice(chart)
+
+    updateCenterDisplay(self, result, 'result')
+
+def getTone(*args):
+    self = args[0].self
+    args[0].background_color = neutral
+    chart = [
+      "cold", "sad", "grim", "hot", "joyful", "manic", "brooding", "serious", "caustic", "aggressive", "jolly", "genuine", "cautious", "dark", "deceitful", "bold", "light", "true",
+    ]
+
+    result = "[Tone] " + random.choice(chart)
 
     updateCenterDisplay(self, result, 'result')
 
@@ -306,7 +432,7 @@ def getMonster(button, *args):
 
     traits = random.sample(["rapacious", "violent", "depraved", "perverse", "hungry", "miserable", "insane", "degenerate", "inbred", "obsessive", "magical", "superior", "chimeric", "mutated", "greedy", "generous", "hateful", "loving", "out of element", "fearful", "brave", "kind", "cruel", "vengeful", "desperate", "trapped", "cannibal", "barbaric", "advanced"], 2)
 
-    subtype =  random.sample(["vermin", "humanoid", "demihuman", "automaton or elemental", "magical beast", "plant", "mindless undead", "sentient undead", "insect", "demon ", "abomination", "beast"], 3)
+    subtype =  random.sample(["vermin", "humanoid", "demihuman", "automaton or elemental", "magical beast", "plant", "mindless undead", "sentient undead", "insect", "demon", "abomination", "beast"], 3)
 
     intelligence = random.choice(["low ", "high ", "", "", ""]) + random.choice(["none", "animal", "animal", "animal", "intelligent", "intelligent"])
 
