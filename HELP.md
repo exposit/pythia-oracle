@@ -316,6 +316,12 @@ Uses ideas and terminology from this [article](http://thealexandrian.net/?p=2781
 
 You can set your own qualifiers in the config file. You can also toggle this to happen on every dice roll automatically using the "DQ" flag in the footer.
 
+__7-9 Complications__
+
+Use this to generate complications on a partial success. Pulled from *The Calypso Compendium*.
+
+> [Complication] You are slowed down.
+
 __*Hit Locations*__
 
 Hit Locations works similarly to the Resolution Clarifier above, but returns one or more hit locations ("Head", "Left Arm", and so on). You can assign the results to each die you are about to throw or just grab one as needed. Useful for describing the outcome of a combat roll, or picking a body part if the question comes up.
