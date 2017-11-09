@@ -102,7 +102,20 @@ for panel in userpanels:
 #except:
 #    pass
 
-# extra panels -- oracles
+# extra panels -- skeletons
+#try:
+userpanels = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "custom" + os.sep + "*.py")
+custom_module = []
+for panel in userpanels:
+    filename = panel.split(os.sep)[-1]
+    pyfile = filename.split('.')[0]
+    potential = imp.load_source( pyfile, panel )
+    if potential.exclude() == False:
+        custom_module.append(potential)
+#except:
+#    pass
+
+# extra panels -- maps
 #try:
 userpanels = glob.glob("." + os.sep + "resources" + os.sep + "panels" + os.sep + "maps" + os.sep + "*.py")
 map_module = []

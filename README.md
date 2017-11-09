@@ -1,4 +1,4 @@
-### Pythia-Oracle 1.4.0
+### Pythia-Oracle 1.5.0
 
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
 

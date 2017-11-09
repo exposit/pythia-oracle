@@ -621,6 +621,23 @@ class MainScreen(Screen):
         self.rightAccordion.add_widget(self.tracksAItem)
 
 ##---------------------------------------------------------------------------------------
+#  holder panel for custom
+##---------------------------------------------------------------------------------------
+
+        self.customAccordionItem = AccordionItem(title='Custom', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
+
+        self.customStackAccordion = Accordion(orientation='vertical', size_hint=(1,1), min_space = config.aiheight)
+
+        self.customAccordionItem.add_widget(self.customStackAccordion)
+
+        try:
+            if config.use_custom_panel == True:
+                self.leftAccordion.add_widget(self.customAccordionItem)
+        except:
+            config.use_custom_panel = True
+            self.leftAccordion.add_widget(self.customAccordionItem)
+
+##---------------------------------------------------------------------------------------
 #  holder panel for maps
 ##---------------------------------------------------------------------------------------
 
@@ -630,7 +647,12 @@ class MainScreen(Screen):
 
         self.mapAccordionItem.add_widget(self.mapStackAccordion)
 
-        self.leftAccordion.add_widget(self.mapAccordionItem)
+        try:
+            if config.use_map_panel == True:
+                self.leftAccordion.add_widget(self.mapAccordionItem)
+        except:
+            config.use_map_panel = True
+            self.leftAccordion.add_widget(self.mapAccordionItem)
 
 ##---------------------------------------------------------------------------------------
 #  holder panel for generators
@@ -657,16 +679,6 @@ class MainScreen(Screen):
         self.leftAccordion.add_widget(self.oracleAccordionItem)
 
 ##---------------------------------------------------------------------------------------
-#  custom generator panels
-##---------------------------------------------------------------------------------------
-
-        #self.panelsBox = BoxLayout(orientation="vertical")
-        for i in gen_module:
-            methodToCall = getattr( i, 'initPanel' )
-            self.generatorStackAccordion.add_widget(methodToCall(self), 1)
-
-
-##---------------------------------------------------------------------------------------
 #  custom oracle panels
 ##---------------------------------------------------------------------------------------
 
@@ -676,6 +688,15 @@ class MainScreen(Screen):
             self.oracleStackAccordion.add_widget(methodToCall(self), 1)
 
 ##---------------------------------------------------------------------------------------
+#  custom custom panels
+##---------------------------------------------------------------------------------------
+
+        #self.panelsBox = BoxLayout(orientation="vertical")
+        for i in custom_module:
+            methodToCall = getattr( i, 'initPanel' )
+            self.customStackAccordion.add_widget(methodToCall(self), 1)
+
+##---------------------------------------------------------------------------------------
 #  custom maps panels
 ##---------------------------------------------------------------------------------------
 
@@ -683,6 +704,15 @@ class MainScreen(Screen):
         for i in map_module:
             methodToCall = getattr( i, 'initPanel' )
             self.mapStackAccordion.add_widget(methodToCall(self))
+
+##---------------------------------------------------------------------------------------
+#  custom generator panels
+##---------------------------------------------------------------------------------------
+
+        #self.panelsBox = BoxLayout(orientation="vertical")
+        for i in gen_module:
+            methodToCall = getattr( i, 'initPanel' )
+            self.generatorStackAccordion.add_widget(methodToCall(self), 1)
 
 #-----------------------------------------
 ### Functions

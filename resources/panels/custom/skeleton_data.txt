@@ -1,0 +1,34 @@
+# lines starting with one hash are ignored as comments
+# lines starting with two hashes will be read as a new button
+# anything between two labels will be read as part of a list of options to choose from
+# when the button is pushed
+## button label A
+tall
+short
+ugly
+pretty
+happy
+sad
+
+## button label B
+eat fruit
+eat faces
+terrify
+chase
+find a treasure
+
+## button label C
+play violin
+play piano
+eat violins
+eat a piano
+chasing cars
+on our own
+
+## random number
+1
+2
+3
+4
+5
+6

@@ -28,7 +28,7 @@ backup_limit = 7
 #------------------------------------------------------------------------
 
 general = dict(
-    version = '1.4.0',
+    version = '1.5.0',
     # pre and post titles do not work properly
     pretitle = '---',
     posttitle = '---',
@@ -219,6 +219,10 @@ dice_spinner_list = ["6", "10"]
 # these are used for plot generation
 max_plot_subjects = 3
 max_plot_elements = 3
+
+# show either or both or neither of the two less-used panels
+use_custom_panel = True
+use_map_panel = True
 
 # font sizes -- some of these may be deprecated
 basefont = str(formats['basefontsize']*.90) + "dp"
