@@ -746,7 +746,7 @@ def getFateOracle(button, *args):
 
     words = words[1:-1]
 
-    answer = ""
+    #answer = ""
 
     if "0" in words[0]:
         words[0] = "as expected"
@@ -756,25 +756,25 @@ def getFateOracle(button, *args):
 
     if "+" in words[0]:
         words[0] = "better than expected"
-        answer = "Yes"
+        #answer = "Yes"
 
     if "-" in words[0]:
         words[0] = "worse than expected"
-        answer = "No"
+        #answer = "No"
 
     if "+" in words[1]:
         words[1] = "good news or a positive detail"
-        if answer == "No":
-            answer = answer + " but"
-        if answer == "Yes":
-            answer = answer + " and"
+        #if answer == "No":
+        #    answer = answer + " but"
+        #if answer == "Yes":
+        #    answer = answer + " and"
 
     if "-" in words[1]:
         words[1] = "bad news or a negative detail"
-        if answer == "No":
-            answer = answer + " and"
-        if answer == "Yes":
-            answer = answer + " but"
+        #if answer == "No":
+        #    answer = answer + " and"
+        #if answer == "Yes":
+        #    answer = answer + " but"
 
     if "better" in words[0] and "negative" in words[1]:
         wordstr = " but ".join(words)
@@ -783,8 +783,11 @@ def getFateOracle(button, *args):
     else:
         wordstr = " with ".join(words)
 
-    if answer != "":
-        wordstr = answer + " OR " + wordstr
+    if wordstr == "as expected with a neutral detail or twist":
+        wordstr = "as expected"
+
+    #if answer != "":
+    #    wordstr = answer + " OR " + wordstr
 
     result = result + " " + wordstr
 
