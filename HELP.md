@@ -31,12 +31,14 @@ Table of Contents
       * [Generators Stack](#generators-stack)
         * [Actors &amp; Motives](#actors--motives)
         * [Plot &amp; Monsters](#plot--monsters)
-        * [Dungeon & Wilderness](#dungeon--wilderness)
+        * [Dungeon](#dungeon)
         * [World & Civilization](#world--civilization)
       * [Map Stack](#map-stack)
         * [Grid Map](#grid-map)
         * [Diagram Map](#diagram-map)
         * [Images](#images)
+      * [Custom Stack](#custom-stack)
+        * [Making Your Own](#making-your-own)
 
 ###### Created with [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go).
 
@@ -96,6 +98,8 @@ By default, all Pythia core panels (in "resources/panels") are enabled except gr
 For Seeds, simply delete or rename any files in the "resources/panels/seeds" folder you don't wish to have show up in your Seeds panel. Be sure to delete (or add) all four subtypes when changing seed source files.
 
 You can choose to exclude each map panel from being shown on a game-by-game basis by setting the "exclude_\<mapname.py\>" variables in config.general to True.
+
+If you want to exclude the entire Custom or Maps Stack, set "use_custom_panel" or "use_map_panel" to False in config.py. This is a program-wide change.
 
 __*Setting Up Oracle Defaults*__
 
@@ -294,6 +298,12 @@ The "Chaos Oracle" returns a response weighted heavily towards random events and
 > *[Chaos 11] Yes, and, but*<br>
 >__*Yes, and*__ *blind-folded,* __*but*__ *not gagged.*
 
+The "FATE Dice Oracle" returns two FATE dice (+, blank, or -) and an interpretation of them. Suitable for more general questions like "how does he react?" or "do I have a good position?".
+
+> __*is my hero tied up?*__<br>
+> *[FATE  - + ] Worse than expected but good news or a positive detail*<br>
+> __*Yes, and blind-folded, but not gagged.__
+
 __*Resolution Clarifier*__
 
 Press the number corresponding to the dice you're about to throw, then roll as normal. Each qualifier result corresponds to one of the thrown dice, in order, left to right. If the roll succeeds, the higher of the two dice indicates why; if the roll fails, the lower of the two dice indicates why.
@@ -473,6 +483,14 @@ The "Non-Visible Quirk" is used for behavior that isn't immediately apparent, li
 > [Visible Quirk] very pale<br>
 > [Non-Visible Quirk] lacks self-confidence<br>
 
+"Hair" and "Eyes" return suitable eye colors for normal (albeit somewhat dramatic) people, weighted slightly towards browns.
+
+__Tags & Conditions__
+
+These are one word keywords ("easy-going", "brave") suitable for using as Tags, Ingrained Conditions, or personality descriptions.
+
+"Personal", "Profession", and "Family" are from *Heirs of Sea and Shadow*, while "General", "Pulp", "Ingenue", and "Hero" are from *Calypso*. "All" pulls all the Calypso options into one big pool.
+
 __Motivations__
 
 These are different ways of getting character motivations, goals, and outlook. You generally won't roll all or even most of these per character. I almost always do "Wheel" and "Immediate Goals".
@@ -585,7 +603,7 @@ This tool is used to generate an emotion and degree of emotion from a negative o
 
 ##### Plot & Monsters
 
-This panel is all about plots and monsters. Surprisingly?
+This panel is all about plots and monsters.
 
 __General Plotting__
 
@@ -603,6 +621,12 @@ __General Plotting__
 "Plot Move" chooses a potential GM-style move. Use to emulate a GM's actions or plot movement.
 
 >*[Plot Move] Add or remove an NPC from the current scene or area.*
+
+There are four "styles"; "Generic" is Apocalypse World/Simple World derived, "Calypso" uses the Moves from *The Calypso Compendium*, "DW" uses *Dungeon World's* Moves, and "All" grabs one from any of the above.
+
+"Keywords" return a single keyword, suitable for setting scenes, providing themes, and generally describing stuff.
+
+"Tone" is just that; a tone, like "brooding", or "manic", or "sad".
 
 __Script Framework__
 
@@ -721,7 +745,13 @@ __Miscellaneous Questions__
 
 "What's the Weather Like?" is in context of yesterday's weather.
 
-##### Dungeon & Wilderness
+__Encounters__
+
+Wilderness and urban encounters; fairly short so they can be dropped into as many settings as possible.
+
+"Profession" returns a keyword and role ("History Wizard") suitable for defining bystanders, people named in encounters, and people met on the road.
+
+##### Dungeon
 
 The dungeon panel is, unsurprisingly, for generating dungeon content. The general order of things is to use "What is the Room Like" and "First Impression" to get an idea of what the room looks like and what it contains at first glance, then use "What Do I See?" (if necessary) to determine if there's an overtly hostile or dangerous situation.
 
@@ -744,6 +774,10 @@ __"What Do I See?"__
 
 Explore the room, make any rolls you need to, and then hit the "Trap" button to see if there was one there!
 
+__"Encounter"__
+
+This provides a simple encounter, like "Pitiful monster assisting bold monster".
+
 __"What's So Special?"__
 
 I tried to stay away from "gonzo" but results will still need to be interpreted for your surroundings. If something doesn't fit, discard it. Or maybe it's a toy version! The items in this list range from simple dungeon dressing through encounters.
@@ -752,7 +786,7 @@ I tried to stay away from "gonzo" but results will still need to be interpreted 
 
 "Single Item" returns a single item, maybe suitable for discovering behind, under, or beneath other items, or noticing after a fight finishes, or if you want some bit of dressing to make a fight more interesting.
 
-"Make a Saving Throw" is for after you've investigated that special feature, if it's something unusual (or if your "Trap" roll says it's a trick or trap).
+"What Kind of Saving Throw?" is for after you've investigated that special feature, if it's something unusual (or if your "Trap" roll says it's a trick or trap).
 
 __"Point Crawl Dungeon"__
 
@@ -821,7 +855,7 @@ The grid map options are used in conjunction with the grid map panel or with a p
 
 *This is a t-shaped intersection, one square wide by three squares long, and right in the center it's bisected by a perpendicular hallway eight squares long and one square wide.*
 
-#### Map Stack
+##### Map Stack
 
 Both map panels share the same buttons.
 
@@ -854,3 +888,28 @@ The black squares are "rooms" or "blocks" and can be labeled, and the areas betw
 To use this panel, you need a subdirectory in your save folder named 'images'. Any images in the images folder will be displayed in the images panel, along with a couple of fields each to label or store notes about each picture. It's pretty basic and doesn't correlate labels with images, just saves them in order.
 
 Note that the images directory is not created by default with a new game!
+
+##### Custom Stack
+
+The Custom Stack is a place for you to create your own panels. Each panel requires two files, a base ("skeleton.py" is the example) and a data file ("skeleton_data.py").
+
+To make your own, first copy or rename "skeleton.py" to the name of your new generator ("monsters.py" or "catacombs of doom.py", for example). Then do the same with "skeleton_data.py" ("monsters_data.py" or "catacombs of doom_data.py").
+
+Open up the data file in a text editor and fill it out.
+
+Lines beginning with "#" are considered comments and ignored.
+
+Lines beginning with "##" will trigger a new button; the content is the name of the button.
+
+Everything else is considered part of a list of elements to choose from when the button is pressed.
+
+```
+## Monster Attack
+two weapons
+claws, lots
+a squeaky chicken
+```
+
+This creates a button named "Monster Attack"; when pressed it will return one of the three choices given.
+
+You can have many custom panels with many buttons each.

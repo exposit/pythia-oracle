@@ -80,7 +80,7 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
 
-        button = Button(text="Make A Saving Throw", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button = Button(text="What Kind of Saving Throw?", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
         button.self = self
         button.function = 'makeASavingThrow'
         button.bind(on_press=self.pressGenericButton)
@@ -419,7 +419,7 @@ def getDungeonEncounter():
     objectchart = subjectchart + ["item"]
 
     result = "[Dungeon Encounter] " + random.choice(subjectchart) + " " + random.choice(verbchart) + " " + random.choice(objectchart)
-    
+
     return result
 
 def roomLike():

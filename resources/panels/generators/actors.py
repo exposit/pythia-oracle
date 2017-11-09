@@ -102,7 +102,7 @@ def initPanel(self):
 
     actorsConditionBox = GridLayout(cols=4, size_hint=(1,1))
 
-    conditionList = ['general', 'pulp', 'heroine', 'hero']
+    conditionList = ['general', 'pulp', 'ingenue', 'hero']
 
     for item in conditionList:
         button = Button(text=item.title(), size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
@@ -424,11 +424,11 @@ def getConditions(button, *args):
 
     pulp = ["experienced", "angelic", "impulsive", "decisive", "evasive", "loyal", "inventive", "educated", "reserved", "psychic", "spirited", "clever", "energetic", "courageous", "curious", "suspicious", "lucky", "striking", "methodical", "haunted", "lusty", "devilish", "arrogant", "perceptive", "deft", "two-fisted", "gutsy", "insensitive", "passionate", "sexy", "level-headed", "provocative", "strong", "hot-headed", "tough", "confident"]
 
-    heroine = ["untrusting", "ruthless", "blunt", "lonely", "needy", "proud", "lame", "scrawny", "clumsy", "weakling", "short", "doe-eyed", "workaholic", "stubborn", "reckless", "innocent", "timid", "foolhardy", "spastic", "delicious", "magnetic", "gauche", "green", "chaste", "bottled up", "vow", "perfectionist", "phobia", "naive", "angry", "over-confident", "self-conscious", "bad judge of character", "commitment shy", "fish out of water", "powers out of control"]
+    ingenue = ["untrusting", "ruthless", "blunt", "lonely", "needy", "proud", "lame", "scrawny", "clumsy", "weakling", "short", "doe-eyed", "workaholic", "stubborn", "reckless", "innocent", "timid", "foolhardy", "spastic", "delicious", "magnetic", "gauche", "green", "chaste", "bottled up", "vow", "perfectionist", "phobia", "naive", "angry", "over-confident", "self-conscious", "bad judge of character", "commitment shy", "fish out of water", "powers out of control"]
 
     hero = ["rakish", "charming", "brooding", "manipulative", "hostile", "impatient", "untrusting", "ruthless", "blunt", "lonely", "smooth", "genius", "bottled up", "polished", "protective", "controlled", "dismissive", "reckless", "wealthy", "glib", "serious", "deft", "precise", "innocent", "dedicated", "boy scout", "easy-going", "powerful", "connected", "louche", "fighting darkness", "arrogant", "formerly evil", "fighting self", "feels unworthy", "seeking vengeance"]
 
-    allList = general + pulp + heroine + hero
+    allList = general + pulp + ingenue + hero
     allList = list(set(allList))
 
     if source == "general":
@@ -437,8 +437,8 @@ def getConditions(button, *args):
     if source == "pulp":
         chart = pulp
 
-    if source == "heroine":
-        chart = heroine
+    if source == "ingenue":
+        chart = ingenue
 
     if source == "hero":
         chart = hero

@@ -85,25 +85,25 @@ def initPanel(self):
     self.oddsButton.bind(on_release=toggleOdds)
     #self.fuMainBox.add_widget(self.oddsButton)
 
-    self.fuExpectedBox = BoxLayout(orientation='horizontal', size_hint=(1,.1))
+    #self.fuExpectedBox = BoxLayout(orientation='horizontal', size_hint=(1,.1))
 
-    button = Button(text="How Much?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+    button = Button(text="How Much?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint=(1,.1))
     button.function = "howMuchWeighted"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=howMuch)
-    self.fuExpectedBox.add_widget(button)
+    self.fuMainBox.add_widget(button)
 
-    button = Button(text="As Expected?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
-    button.function = "asExpectedWeighted"
-    button.self = self
-    button.bind(on_press=self.pressGenericButton)
-    button.bind(on_release=asExpected)
-    self.fuExpectedBox.add_widget(button)
+    #button = Button(text="As Expected?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+    #button.function = "asExpectedWeighted"
+    #button.self = self
+    #button.bind(on_press=self.pressGenericButton)
+    #button.bind(on_release=asExpected)
+    #self.fuExpectedBox.add_widget(button)
 
-    self.fuMainBox.add_widget(self.fuExpectedBox)
+    #self.fuMainBox.add_widget(self.fuExpectedBox)
 
-    fuMiscOraclesBox = GridLayout(cols=2, size_hint_y=.07)
+    fuMiscOraclesBox = GridLayout(cols=2, size_hint_y=.1)
 
     button = Button(text="Chaos Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
     button.function = "getChaosOracle"
@@ -112,7 +112,7 @@ def initPanel(self):
     button.bind(on_release=chaosOracleRoll)
     fuMiscOraclesBox.add_widget(button)
 
-    button = Button(text="FATE DICE Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
+    button = Button(text="FATE Dice Oracle", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont90)
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getFateOracle)
@@ -160,7 +160,7 @@ def initPanel(self):
 
     self.fuMainBox.add_widget(butCardBox)
 
-    button = Button(text='7-9 Complication', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80, size_hint=(1,.07))
+    button = Button(text='7-9 Complication', background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', font_size=config.basefont80, size_hint=(1,.1))
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=getComplication)
     button.self = self
