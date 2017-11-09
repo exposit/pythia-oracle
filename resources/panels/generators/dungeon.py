@@ -87,6 +87,13 @@ def initPanel(self):
         button.bind(on_release=miscChartRoll)
         dungeonMainBox.add_widget(button)
 
+        button = Button(text="Encounter", size_hint=(1,.1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.function = 'getDungeonEncounter'
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=miscChartRoll)
+        dungeonMainBox.add_widget(button)
+
         dungeonMainBox.add_widget(Label(text='Node Dungeon', size_hint=(1,.10), font_size=config.basefont90))
 
         dungeonNodeBox = GridLayout(cols=3, size_hint=(1,.10))
@@ -397,6 +404,22 @@ def whatDirection():
     roll = random.randint(1,8)
 
     result = "[Direction] " + chart[roll] + ". If this direction won't work, use up or down."
+    return result
+
+def getDungeonEncounter():
+
+    subjectchart = [
+    "big monster", "small monster", "harmless monster", "pitiful monster", "bold monster", "deadly monster", "dangerous monster", "guard", "helpless victim", "lost person", "adventurer", "predator", "warrior", "thief", "scout", "cleric", "mage", "scholar", "priest"
+    ]
+
+    verbchart = [
+    "fighting", "engaging", "killing", "menacing", "administering to", "aiding", "fleeing", "chatting with", "talking up", "admiring", "eating", "devouring", "chasing", "egging on"
+    ]
+
+    objectchart = subjectchart + ["item"]
+
+    result = "[Dungeon Encounter] " + random.choice(subjectchart) + " " + random.choice(verbchart) + " " + random.choice(objectchart)
+    
     return result
 
 def roomLike():

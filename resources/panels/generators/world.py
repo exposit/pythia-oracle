@@ -139,6 +139,26 @@ def initPanel(self):
 
         worldMainBox.add_widget(worldFarBox)
 
+        worldMainBox.add_widget(Label(text='Encounters', size_hint=(1,.10), font_size=config.basefont90))
+
+        worldEncounterBox = GridLayout(cols=2, size_hint=(1,.25))
+        encounterList = ['wilderness', 'urban']
+        for item in encounterList:
+            button = Button(text=item, size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+            button.self = self
+            button.source = item
+            button.bind(on_press=self.pressGenericButton)
+            button.bind(on_release=getWorldEncounter)
+            worldEncounterBox.add_widget(button)
+
+        worldMainBox.add_widget(worldEncounterBox)
+
+        button = Button(text="Profession", size_hint=(1,.25), background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+        button.self = self
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getPerson)
+        worldMainBox.add_widget(button)
+
         self.worldAItem.add_widget(worldMainBox)
 
         return self.worldAItem
@@ -180,6 +200,76 @@ def pressHowFar(*args):
     result = howFarIsIt(args[0].text)
     updateCenterDisplay(self, result)
 
+def getWorldEncounter(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+
+    # encounter stuff
+    if args[0].source == "wilderness":
+        chart = [
+        "a man with a broken conveyance",
+        "a couple, filthy, hungry, arguing",
+        "a family, lost and destitute",
+        "a priest, injured",
+        "bandits, squabbling amongst themselves",
+        "bandits, prepared in ambush",
+        "a woman looking for a lost child",
+        "a will-o-wisp; it wants you to follow",
+        "a tree, trunk shaped like a screaming person",
+        "a monster, preparing to devour another",
+        "five signs, each pointing a different direction, all with the same legend",
+        "a badly wounded person",
+        "a group of soldiers",
+        "a group on horseback",
+        "a finely dressed person, lost",
+        "a hunting party",
+        "a lost dog",
+        "plaintive cries for help just over there",
+        "a mage, caught in his own spell",
+        "a town, not marked on your map",
+        ]
+    else:
+        chart = [
+        "a broken wagon, apparently unattended",
+        "rats, chewing on a corpse",
+        "a cry of \"stop, thief!\"",
+        "a merchant, hawking something barely legal",
+        "a dark shape watching from the rooftops",
+        "a tavern brawl spills out in the street",
+        "a tug at your hip",
+        "a pair of guards, voices raised accusingly",
+        "a surreptitious note for an assignation",
+        "five street toughs, arrayed in your path",
+        "a person bleeding in the street",
+        "a couple, arguing, as a third looks on",
+        "someone making a precipitous exit out a window",
+        "a horse barreling down the road",
+        "a person about to faint",
+        "a building on fire",
+        "an argument that's just come to blows",
+        "a duel in the street",
+        "a merchant peddling food",
+        "a light gleaming at the end of a nondescript alley",
+        ]
+
+    result = "[" + args[0].source.title() + " Encounter] " + random.choice(chart)
+    updateCenterDisplay(self, result)
+
+def getPerson(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+
+    keywords = [
+    "plague", "searching", "keeping", "stealing", "rose", "honor", "locate", "chase", "explore", "deliver", "hunt", "befriend", "persuade", "barter", "protect", "collect", "sleuth", "respite", "restore", "destroy", "prepare", "interrupt", "return", "passion", "redemption", "justice", "attack", "resist", "future", "secret", "revenge", "distance", "anger", "supply", "power", "desire", "choice", "phobia", "ice", "lust", "dirt", "machinery", "pride", "love", "betrayal", "duty", "mistake", "debt", "fire", "air", "death", "pain", "history", "need", "flaw", "fear", "guilt", "purity", "vice", "artifice", "romance", "war", "fire", "air", "water", "earth", "stealth", "madness", "mobius", "time", "distance", "travel", "oration", "mind", "seduction", "deduction", "spirit", "shadow", "fanatic", "bone",
+    ]
+
+    keywords = list(set(keywords))
+
+    roles = [ "druid", "monk", "thief", "templar", "cleric", "bard", "fighter", "warrior", "paladin", "psion", "mindblade", "adept", "mage", "wizard", "sorcerer", "spellsword", "arcane knight", "berserker", "ranger", "spy",
+    ]
+
+    result = "[Profession] " + random.choice(keywords).title() + " " + random.choice(roles).title()
+    updateCenterDisplay(self, result)
 
 #---------------------------------------------------------------------------------------------------
 # --> Kingdom

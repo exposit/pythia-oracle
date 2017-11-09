@@ -6,14 +6,16 @@ MAKE BACKUPS BEFORE EDITING FILES MANUALLY.
 
 Version 1.5.0
 
-* turned off Pythy more thoroughly; it's too experimental to be eating up real estate accidentally.
 * FATE-based oracle using two FATE dice.
 * FATE/FUDGE support. You can use "xdF" in the usual ways to roll that many FATE dice, or use the button.
-* Fixed a typo in the dungeon panel and one in the fairy tale nouns.
+* Fixed a typo in the dungeon panel and one in the fairy tale nouns seed file.
 * added in a "complications" button for generating those 7-9 complications
-* reworked the Plot & Monster panel for more plots generators, including my favorite keywords, and tone
-* revamped plot moves to give more pools to draw from, including Dungeon World
-* renamed Dungeon & Wilderness to just Dungeon; Wilderness moves to World panel.
+* added random action and theme keywords, and random tone, to the Plot & Monster panel
+* revamped plot moves to give more pools to draw from, including Dungeon World (CC-BY) and Calypso
+* renamed Dungeon & Wilderness to just Dungeon; moved Wilderness back to the World panel.
+* added in wilderness and urban encounters to the World panel; just 20 or so at the moment.
+* added in dungeon encounters (<subject> <verbs> <object>) to the Dungeon panel
+* turned off Pythy more thoroughly; it's too experimental to be eating up real estate accidentally.
 
 Version 1.4.0
 
