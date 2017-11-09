@@ -393,8 +393,10 @@ def getThemeKeyword(*args):
     self = args[0].self
     args[0].background_color = neutral
     chart = [
-      "attack", "resist", "future", "agent", "secret", "revenge", "distance", "anger", "supplies", "power", "desire", "choice", "phobia", "ice", "lust", "dirt", "machinery", "pride", "love", "betrayal", "honor", "duty", "mistake", "debt", "fire", "air", "death", "pain", "self", "history", "need", "flaw", "fear", "guilt", "purity", "vice",
+      "attack", "resist", "future", "agent", "secret", "revenge", "distance", "anger", "supplies", "power", "desire", "choice", "phobia", "ice", "lust", "dirt", "machinery", "pride", "love", "betrayal", "honor", "duty", "mistake", "debt", "fire", "air", "death", "pain", "self", "history", "need", "flaw", "fear", "guilt", "purity", "vice", "attack", "resist", "future", "agent", "secret", "revenge", "laugh", "obsess", "pride", "pain", "distance", "anger", "supplies", "power", "desire", "choice", "malice", "plot", "sword", "shield", "phobia", "ice", "lust", "dirt", "machinery", "water", "silver", "gold", "sky", "sea", "love", "betrayal", "honor", "duty", "mistake", "debt", "fear", "guilt", "purity", "vice", "fire", "air", "death", "time", "self", "history", "flaw", "want", "need", "reason",
     ]
+
+    chart = list(set(chart))
 
     result = "[Theme Keyword] " + random.choice(chart)
 

@@ -85,12 +85,23 @@ def initPanel(self):
     self.oddsButton.bind(on_release=toggleOdds)
     #self.fuMainBox.add_widget(self.oddsButton)
 
-    button = Button(text="How Much...?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont', size_hint_y=0.07)
+    self.fuExpectedBox = BoxLayout(orientation='horizontal', size_hint=(1,.1))
+
+    button = Button(text="How Much?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
     button.function = "howMuchWeighted"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=howMuch)
-    self.fuMainBox.add_widget(button)
+    self.fuExpectedBox.add_widget(button)
+
+    button = Button(text="As Expected?", background_normal='', background_color=neutral, background_down='', background_color_down=neutral, font_name='maintextfont')
+    button.function = "asExpectedWeighted"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=asExpected)
+    self.fuExpectedBox.add_widget(button)
+
+    self.fuMainBox.add_widget(self.fuExpectedBox)
 
     fuMiscOraclesBox = GridLayout(cols=2, size_hint_y=.07)
 
@@ -306,6 +317,14 @@ def howMuch(*args):
     updateCenterDisplay(self, howMuchWeighted(), 'result')
     self.textInput.text = ""
 
+def asExpected(*args):
+    args[0].background_color = neutral
+    self = args[0].self
+    if len(self.textInput.text) > 0:
+        updateCenterDisplay(self, self.textInput.text, 'query')
+    updateCenterDisplay(self, asExpectedWeighted(), 'result')
+    self.textInput.text = ""
+
 def toggleOdds(button, *args):
     self = button.self
     button.background_color = neutral
@@ -386,18 +405,34 @@ def fu(count=0, modifier="none", text="0"):
 
 def howMuchWeighted():
     chart = {
-        2 : "Almost entirely or far more than expected.",
-        3 : "A lot or a lot more than expected.",
-        4 : "More than expected.",
-        5 : "A moderate amount or as expected.",
-        6 : "Less than expected.",
-        7 : "A little or much less than expected.",
+        2 : "Almost entirely.",
+        3 : "A lot.",
+        4 : "More than half.",
+        5 : "A moderate amount.",
+        6 : "Less than half.",
+        7 : "A little.",
         8 : "Scarcely any.",
     }
 
     roll = random.randint(1,4) + random.randint(1,4)
 
     result = "[How Much?] " + chart[roll]
+    return result
+
+def asExpectedWeighted():
+    chart = {
+        2 : "Far more than expected.",
+        3 : "A lot more than expected.",
+        4 : "More than expected.",
+        5 : "As expected.",
+        6 : "Less than expected.",
+        7 : "Much less than expected.",
+        8 : "Scarcely any.",
+    }
+
+    roll = random.randint(1,4) + random.randint(1,4)
+
+    result = "[As Expected?] " + chart[roll]
     return result
 
 # based on drama roll

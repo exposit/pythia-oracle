@@ -17,6 +17,8 @@ Version 1.5.0
 * added in dungeon encounters (<subject> <verbs> <object>) to the Dungeon panel
 * added a few more generators here and there
 * turned off Pythy more thoroughly; it's too experimental to be eating up real estate accidentally.
+* Split "how much" into "how much" and "as expected"; a few minor tweaks like that.
+* Actor Tags (Heirs) and Conditions (Calypso) and hair/eye color generators
 
 Version 1.4.0
 

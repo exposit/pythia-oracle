@@ -22,9 +22,9 @@ def initPanel(self):
     self.actorsAItem = AccordionItem(title='Actors & Motives', background_normal='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', background_selected='resources' + os.sep + 'bg_bars' + os.sep + styles.curr_palette["name"].replace (" ", "_") + '_5.png', min_space = config.aiheight)
     actorsMainBox = BoxLayout(orientation='vertical')
 
-    actorsMainBox.add_widget(Label(text="Appearance", size_hint=(1,1)))
+    actorsMainBox.add_widget(Label(text="Appearance", size_hint=(1,1), font_size=config.basefont90))
 
-    actorsAgeBox = BoxLayout(orientation="horizontal")
+    actorsAgeBox = GridLayout(cols=2, size_hint=(1,3))
 
     button = Button(text="Age - Adult", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "actorAgeAdult"
@@ -40,37 +40,88 @@ def initPanel(self):
     button.bind(on_release=miscChartRoll)
     actorsAgeBox.add_widget(button)
 
-    actorsMainBox.add_widget(actorsAgeBox)
-
     button = Button(text="Gender", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "actorGender"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=miscChartRoll)
-    actorsMainBox.add_widget(button)
+    actorsAgeBox.add_widget(button)
 
     button = Button(text="Appearance Modifier", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "actorAppearanceModifier"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=miscChartRoll)
-    actorsMainBox.add_widget(button)
+    actorsAgeBox.add_widget(button)
 
     button = Button(text="Visible Quirk", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "actorVisibleQuirk"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=miscChartRoll)
-    actorsMainBox.add_widget(button)
+    actorsAgeBox.add_widget(button)
 
     button = Button(text="Non-Visible Quirk", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "actorNonvisibleQuirk"
     button.self = self
     button.bind(on_press=self.pressGenericButton)
     button.bind(on_release=miscChartRoll)
+    actorsAgeBox.add_widget(button)
+
+    button = Button(text="Hair", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button.function = "hair"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=miscChartRoll)
+    actorsAgeBox.add_widget(button)
+
+    button = Button(text="Eyes", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button.function = "eyes"
+    button.self = self
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=miscChartRoll)
+    actorsAgeBox.add_widget(button)
+
+    actorsMainBox.add_widget(actorsAgeBox)
+
+    actorsMainBox.add_widget(Label(text="Tags & Conditions", size_hint=(1,1), font_size=config.basefont90))
+
+    actorsTagBox = GridLayout(cols=3, size_hint=(1,1))
+
+    tagList = ["personal", "profession", "family"]
+
+    for item in tagList:
+        button = Button(text=item.title(), size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+        button.self = self
+        button.source = item
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getTags)
+        actorsTagBox.add_widget(button)
+
+    actorsMainBox.add_widget(actorsTagBox)
+
+    actorsConditionBox = GridLayout(cols=4, size_hint=(1,1))
+
+    conditionList = ['general', 'pulp', 'heroine', 'hero']
+
+    for item in conditionList:
+        button = Button(text=item.title(), size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+        button.self = self
+        button.source = item
+        button.bind(on_press=self.pressGenericButton)
+        button.bind(on_release=getConditions)
+        actorsConditionBox.add_widget(button)
+
+    actorsMainBox.add_widget(actorsConditionBox)
+
+    button = Button(text="All", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
+    button.self = self
+    button.source = 'all'
+    button.bind(on_press=self.pressGenericButton)
+    button.bind(on_release=getConditions)
     actorsMainBox.add_widget(button)
 
-    actorsMainBox.add_widget(Label(text="Motivations", size_hint=(1,1)))
+    actorsMainBox.add_widget(Label(text="Motivations", size_hint=(1,1), font_size=config.basefont90))
 
     button = Button(text="Wheel (General Outlook)", size_hint=(1,1), background_normal='', background_color=neutral, background_down='', background_color_down=neutral)
     button.function = "wheelMotives"
@@ -235,7 +286,7 @@ def getDualMotives(*args):
 def actorGender():
 
     genderAppearance = random.choice(["male", "female"])
-    return "[Gender Appearance] " + genderAppearance
+    return "[Gender] " + genderAppearance
 
 def actorAppearanceModifier():
 
@@ -277,6 +328,127 @@ def actorAgeAny():
 
     result = "[Age - Any] " + chart[roll]
     return result
+
+def eyes():
+
+    chart = {
+        2 : "Violet",
+        3 : "Gray",
+        4 : "Steel",
+        5 : "Blue, copper ring",
+        6 : "Ice blue",
+        7 : "Aquamarine",
+        8 : "Midnight blue",
+        9 : "Hazel",
+        10 : "Dark brown",
+        11 : "Rich brown",
+        12 : "Smoky black",
+        13 : "Chestnut brown",
+        14 : "Red-brown",
+        15 : "Dark green",
+        16 : "Pale green",
+        17 : "Green, gold ring",
+        18 : "Catseye green",
+        19 : "Topaz",
+        20 : "Amber gold",
+    }
+
+    roll = random.randint(1,10) + random.randint(1,10)
+
+    result = "[Eyes] " + chart[roll]
+
+    return result
+
+def hair():
+
+    chart = {
+    2 : "White",
+    3 : "Platinum",
+    4 : "Ash blonde",
+    5 : "Flaxen",
+    6 : "Bronze",
+    7 : "Red-gold",
+    8 : "Ginger",
+    9 : "Honey",
+    10 : "Sand brown",
+    11 : "Brown",
+    12 : "Gold brown",
+    13 : "Auburn",
+    14 : "Chestnut",
+    15 : "Copper",
+    16 : "Flaming red",
+    17 : "Orange",
+    18 : "Jet black",
+    19 : "Raven black",
+    20 : "Blue-black",
+    }
+
+    roll = random.randint(1,10) + random.randint(1,10)
+
+    result = "[Hair] " + chart[roll]
+
+    return result
+
+def getTags(button, *args):
+
+    button.background_color = neutral
+    self = button.self
+    source = button.source
+
+    personal = ["angelic", "angsty", "ardent", "arrogant", "attentive", "attractive", "awkward", "beautiful", "bitter", "brave", "calculating", "careful", "careless", "charming", "chaste", "clever", "clumsy", "competitive", "composed", "confident", "courteous", "creative", "cruel", "curious", "cynical", "decisive", "devilish", "diligent", "doomed", "durable", "dutiful", "easy", "educated", "energetic", "entitled", "evasive", "experienced", "fast", "feckless", "fiery", "fragile", "generous", "genius", "greedy", "guarded", "hasty", "haunted", "honest", "honorable", "hot-headed", "huge", "icy", "immature", "implacable", "impulsive", "innocent", "insecure", "insensitive", "inventive", "jaded", "kind", "louche", "lucky", "lustful", "maimed", "methodical", "naive", "nimble", "open", "paranoid", "passionate", "patient", "perceptive", "petite", "petulant", "polite", "practical", "prodigy", "proud", "provocative", "quick", "reckless", "ruthless", "savant", "seductive", "sensible", "sharp", "silvertongue", "slow", "strong", "stubborn", "sullen", "swift", "temper", "thick", "tough", "trouble", "trustworthy", "vengeful", "wise"]
+
+    profession = ["mage", "seer", "ranger", "lover", "noble", "merchant", "royal", "peasant", "scribe", "gardener", "explorer", "spy", "brawler", "orator", "sailor", "captain", "soldier", "laborer", "knight", "blacksmith", "hunter", "poacher", "thief", "burglar", "innkeep", "pilgrim", "wanderer", "sage", "fisher", "tailor", "exile", "dilettante", "artist", "crafter", "builder", "mason", "breeder", "farmer", "rancher", "shepherd", "serf", "debutante", "skald", "socialite", "sellsword", "outcast", "hermit", "executioner", "prisoner", "fool"]
+
+    family = ["crimes", "curse", "deformity", "demonmark", "demonspawn", "depression", "diligence", "eagle eyes", "faith", "fertility", "fits", "frailty", "genius", "heart", "hedonism", "infertility", "integrity", "laziness", "lechery", "longevity", "luck", "morale", "nocturnal", "odd eyes", "perversion", "prowess", "quickness", "short", "short lives", "size", "skill", "stamina", "strength", "stubbornness", "talent", "tall", "temper", "tongues", "trouble", "ugly", "viciousness", "violence", "visions", "voice", "wealth"]
+
+    if source == "personal":
+        chart = personal
+
+    if source == "profession":
+        chart = profession
+
+    if source == "family":
+        chart = family
+
+    result = "[" + source.title() + " Tag] " + random.choice(chart)
+
+    updateCenterDisplay(self, result)
+
+def getConditions(button, *args):
+
+    button.background_color = neutral
+    self = button.self
+    source = button.source
+
+    general = ["adrift", "green", "phobia", "clumsy", "aggressive", "impatient", "untrusting", "ruthless", "blunt", "reckless", "lonely", "sheltered", "bottled up", "alienated", "owed", "cashiered", "stubborn", "arrogant", "sickly", "glib", "wound up", "cold", "beaten", "naive", "dedicated", "impulsive", "vengeful", "anxious", "fighting self", "trusting", "betrayed", "easily tempted", "noncommittal", "protective", "self-destructive", "easy-going"]
+
+    pulp = ["experienced", "angelic", "impulsive", "decisive", "evasive", "loyal", "inventive", "educated", "reserved", "psychic", "spirited", "clever", "energetic", "courageous", "curious", "suspicious", "lucky", "striking", "methodical", "haunted", "lusty", "devilish", "arrogant", "perceptive", "deft", "two-fisted", "gutsy", "insensitive", "passionate", "sexy", "level-headed", "provocative", "strong", "hot-headed", "tough", "confident"]
+
+    heroine = ["untrusting", "ruthless", "blunt", "lonely", "needy", "proud", "lame", "scrawny", "clumsy", "weakling", "short", "doe-eyed", "workaholic", "stubborn", "reckless", "innocent", "timid", "foolhardy", "spastic", "delicious", "magnetic", "gauche", "green", "chaste", "bottled up", "vow", "perfectionist", "phobia", "naive", "angry", "over-confident", "self-conscious", "bad judge of character", "commitment shy", "fish out of water", "powers out of control"]
+
+    hero = ["rakish", "charming", "brooding", "manipulative", "hostile", "impatient", "untrusting", "ruthless", "blunt", "lonely", "smooth", "genius", "bottled up", "polished", "protective", "controlled", "dismissive", "reckless", "wealthy", "glib", "serious", "deft", "precise", "innocent", "dedicated", "boy scout", "easy-going", "powerful", "connected", "louche", "fighting darkness", "arrogant", "formerly evil", "fighting self", "feels unworthy", "seeking vengeance"]
+
+    allList = general + pulp + heroine + hero
+    allList = list(set(allList))
+
+    if source == "general":
+        chart = general
+
+    if source == "pulp":
+        chart = pulp
+
+    if source == "heroine":
+        chart = heroine
+
+    if source == "hero":
+        chart = hero
+
+    if source == "all":
+        chart = allList
+
+    result = "[" + source.title() + " Condition] " + random.choice(chart)
+
+    updateCenterDisplay(self, result)
 
 def actorVisibleQuirk():
 

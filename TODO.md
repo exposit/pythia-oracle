@@ -1,6 +1,5 @@
 TODO:
 
-
 Card panel (new)
 
   different card oracles
