@@ -15,6 +15,7 @@ Version 1.5.0
 * renamed Dungeon & Wilderness to just Dungeon; moved Wilderness back to the World panel.
 * added in wilderness and urban encounters to the World panel; just 20 or so at the moment.
 * added in dungeon encounters (<subject> <verbs> <object>) to the Dungeon panel
+* added a few more generators here and there
 * turned off Pythy more thoroughly; it's too experimental to be eating up real estate accidentally.
 
 Version 1.4.0
