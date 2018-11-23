@@ -1,5 +1,9 @@
 ### Pythia-Oracle 1.5.0
 
+### Pythia only runs under Python 2.7 with Kivy2.
+
+**If you are installing on Windows, be sure to select the "set environment paths automatically" option in the Python installer (more [here](#how-do-i-install-this)). You will need to scroll down to see it!**
+
 Project page is [here](https://exposit.github.io/pythia-oracle/). My blog is [here](https://exposit.github.io/katamoiran/). A guide is in this repository, in [help.md](https://github.com/exposit/pythia-oracle/blob/master/HELP.md).
 
 Table of Contents
