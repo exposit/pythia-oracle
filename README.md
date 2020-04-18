@@ -37,7 +37,7 @@ The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a
 
 **Basically:**
 
-Install Kivy, following the [installation instructions](https://kivy.org/docs/installation/installation.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python 2.7 (or identifying if it's already installed) and through installing Kivy.
+Install Kivy, following the [installation instructions](https://kivy.org/doc/stable/installation/installation-windows.html) for your OS and Python 2.7. The instructions are very comprehensive and cover pretty much everything you'll need, step by step. They will get you through installing Python 2.7 (or identifying if it's already installed) and through installing Kivy.
 
 If you want to use the Pythy panel (which is very rudimentary) you will also need [markovify](https://github.com/jsvine/markovify) and [TextBlob](https://textblob.readthedocs.io/en/dev/install.html).
 
