@@ -27,9 +27,7 @@ Pythia doesn't replace systems like Mythic GM Emulator or Scarlet Heroes or your
 
 #### Solo Roleplaying! How does that even work?
 
-The easiest way to get a handle on it is to read actual plays; there are a whole bunch using lots of different systems and formats on the [Lone Wolf Roleplaying](https://plus.google.com/communities/116965157741523529510) g+ group. And you can see APs using Pythia on my blog.
-
-The basic procedure I use is pick an RPG system (usually Scarlet Heroes), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, hit the "what do I see" button and interpret. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
+The basic procedure I use is pick an RPG system (usually Scarlet Heroes or Dungeon World), make a character, fire this program up, and start asking questions. Type in a question like "Am I in a cave?" and hit the "???" button. If the answer is yes, hit the "what do I see" button and interpret. If no, maybe the hero is in a castle. Or a spaceship. Or in a forest. Ask again to find out!
 
 ... or don't. You can play however you want to! Pythia just seeks to facilitate that play.
 
